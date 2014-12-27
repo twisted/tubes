@@ -103,7 +103,7 @@ This immediately raises the question: how do we tell when we have received a who
 The previous echo example didn't care because it would just emit whatever bytes were sent to it, regardless of whether it had received a whole message or not.
 (It just so happens that your terminal only sends the bytes when you hit the "enter" key.)
 We can't just split up the incoming data with ``bytes.split`` because we might receive one line, part of a line, or multiple lines in one network message.
-Luckily Twisted implements this for us, with the handy :api:`tubes.framing` module (so called because it puts "frames" around chunks of bytes, and you can distinguish one chunk from the next).
+Luckily Tubes implements this for us, with the handy :api:`tubes.framing` module (so called because it puts "frames" around chunks of bytes, and you can distinguish one chunk from the next).
 
 .. note::
 

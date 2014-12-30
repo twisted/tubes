@@ -1,3 +1,10 @@
+# -*- test-case-name: tubes.test.test_tube -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
+
+"""
+Various component utilities.
+"""
 
 from zope.interface.adapter import AdapterRegistry
 from twisted.python.components import _addHook, _removeHook
@@ -44,10 +51,11 @@ def _registryAdapting(*fromToAdapterTuples):
     @type fromToAdapterTuples: C{tuple} of 3-C{tuple}s of C{(Interface,
         Interface, callable)}
 
+    @return: an adapter registry adapting the given tuples.
     @rtype: L{AdapterRegistry}
     """
     result = AdapterRegistry()
-    for From, to, adapter in fromToAdapterTuples:
-        result.register([From], to, '', adapter)
+    for _from, to, adapter in fromToAdapterTuples:
+        result.register([_from], to, '', adapter)
     return result
 

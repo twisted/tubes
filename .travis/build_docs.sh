@@ -23,6 +23,6 @@ if [[ "TRAVIS_PULL_REQUEST" == "false" ]] && [[ "TRAVIS_BRANCH" == "master" ]]; 
     git commit -m "Built from ${REV}"
 
     git push -q "https://${GH_TOKEN}@github.com/twisted/tubes.git"
-else;
+else
     echo "skipping docs upload"
 fi;

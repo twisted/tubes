@@ -1,4 +1,11 @@
 # -*- test-case-name: tubes.test.test_undefer -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
+
+"""
+L{Deferred} support for Tubes.
+"""
+
 from .tube import receiver, series, skip
 
 from twisted.internet.defer import Deferred

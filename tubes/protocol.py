@@ -84,6 +84,9 @@ class _TransportDrain(object):
         """
         Data is flowing to this transport from the given fount.  Register that
         fount as the transport's producer.
+
+        @param fount: the fount producing data - L{ISegment}s - for this
+            transport.
         """
         beginFlowingFrom(self, fount)
         self._transport.registerProducer(_FountProducer(fount), True)
@@ -105,6 +108,8 @@ class _TransportDrain(object):
         The flow of data that should be written to the underlying transport has
         ceased.  Perform a half-close on the transport if possible so that it
         knows no further data is forthcoming.
+
+        @param reason: the reason that the flow stopped; ignored.
         """
         # TODO: this should be loseWriteConnection.
         self._transport.loseConnection()
@@ -147,6 +152,11 @@ class _TransportFount(object):
     def flowTo(self, drain):
         """
         Start delivering data from the transport to the given drain.
+
+        @param drain: the drain that will receive data from the wrapped
+            transport.
+
+        @return: the next fount in the chain.
         """
         result = beginFlowingTo(self, drain)
         if self._preReceivePause is not None:
@@ -160,6 +170,8 @@ class _TransportFount(object):
     def pauseFlow(self):
         """
         Pause flowing.
+
+        @return: a L{pause token <IPause>}.
         """
         return self._pauser.pause()
 

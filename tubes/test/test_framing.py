@@ -1,16 +1,18 @@
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
 """
 Tests for framing protocols.
 """
 
 from unittest import TestCase
 
-from ..framing import stringsToNetstrings
+from ..framing import bytesToNetstrings
 
 from ..test.util import FakeFount, FakeDrain
 from ..tube import tube, series
 
-from ..framing import (netstringsToStrings, bytesToLines, linesToBytes,
-                       packedPrefixToStrings, stringsToPackedPrefix)
+from ..framing import (netstringsToBytes, bytesToLines, linesToBytes,
+                       bytesToIntPrefixed, intPrefixedToBytes)
 
 class NetstringTests(TestCase):
     """
@@ -23,20 +25,20 @@ class NetstringTests(TestCase):
         """
         ff = FakeFount()
         fd = FakeDrain()
-        ff.flowTo(series(stringsToNetstrings())).flowTo(fd)
+        ff.flowTo(series(bytesToNetstrings())).flowTo(fd)
         ff.drain.receive("hello")
         self.assertEquals(fd.received, ["{len:d}:{data:s},".format(
             len=len("hello"), data="hello"
         )])
 
 
-    def test_stringsToNetstrings(self):
+    def test_bytesToNetstrings(self):
         """
-        L{stringsToNetstrings} works on subsequent inputs as well.
+        L{bytesToNetstrings} works on subsequent inputs as well.
         """
         ff = FakeFount()
         fd = FakeDrain()
-        ff.flowTo(series(stringsToNetstrings())).flowTo(fd)
+        ff.flowTo(series(bytesToNetstrings())).flowTo(fd)
         ff.drain.receive("hello")
         ff.drain.receive("world")
         self.assertEquals(
@@ -54,7 +56,7 @@ class NetstringTests(TestCase):
         """
         ff = FakeFount()
         fd = FakeDrain()
-        ff.flowTo(series(netstringsToStrings())).flowTo(fd)
+        ff.flowTo(series(netstringsToBytes())).flowTo(fd)
         ff.drain.receive("1:x,2:yz,3:")
         self.assertEquals(fd.received, ["x", "yz"])
 
@@ -79,7 +81,7 @@ class LineTests(TestCase):
         splitALine("\r\n")
 
 
-    def test_linesToStrings(self):
+    def test_linesToBytes(self):
         """
         Writing out lines delimits them, with the delimiter.
         """
@@ -138,7 +140,7 @@ class LineTests(TestCase):
         class Switcher(object):
             def received(self, line):
                 if 'switch' in line:
-                    lines.divert(series(netstringsToStrings(), fd2))
+                    lines.divert(series(netstringsToBytes(), fd2))
                 else:
                     yield line
 
@@ -159,7 +161,7 @@ class PackedPrefixTests(TestCase):
         """
         Parse some prefixed data.
         """
-        packed = packedPrefixToStrings(8)
+        packed = bytesToIntPrefixed(8)
         ff = FakeFount()
         fd = FakeDrain()
         ff.flowTo(series(packed)).flowTo(fd)
@@ -171,7 +173,7 @@ class PackedPrefixTests(TestCase):
         """
         Emit some prefixes.
         """
-        packed = stringsToPackedPrefix(8)
+        packed = intPrefixedToBytes(8)
         ff = FakeFount()
         fd = FakeDrain()
         ff.flowTo(series(packed, fd))

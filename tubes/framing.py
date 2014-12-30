@@ -1,4 +1,7 @@
 # -*- test-case-name: tubes.test.test_framing -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
+
 """
 Tubes that can convert streams of data into discrete chunks and back again.
 """
@@ -29,6 +32,9 @@ class _Transporter(object):
     def write(self, data):
         """
         Call the C{_dataWritten} callback.
+
+        @param data: The data to write.
+        @type data: L{bytes}
         """
         self._dataWritten(data)
 
@@ -36,6 +42,9 @@ class _Transporter(object):
     def writeSequence(self, dati):
         """
         Call the C{_dataWritten} callback for each element.
+
+        @param dati: The sequence of data to write.
+        @type dati: L{list} of L{bytes}
         """
         for data in dati:
             self._dataWritten(data)
@@ -63,20 +72,46 @@ class _FramesToSegments(object):
 
 
     def started(self):
+        """
+        Flush any greeting data that has come from the wrapped framing parser.
+
+        @return: any bytes written by makeConnection
+        """
         self._buf = []
         return self._flush()
 
 
     def received(self, data):
+        """
+        A frame was received, manipulate it and yield a segment or segments.
+
+        @param data: a frame.
+
+        @return: a sequence of segments with appropriate framing information
+            embedded to frame C{data}.
+        """
         self._received(data)
         return self._flush()
 
 
     def _unflush(self, input):
+        """
+        Put the given segments into the output buffer.
+
+        @param input: some values written to the underlying receiver's
+            transport.
+        @type input: L{bytes}
+        """
         self._buf.append(input)
 
 
     def _flush(self):
+        """
+        Clear the output buffer and return its previous contents.
+
+        @return: the current output buffer.
+        @rtype: L{list} of L{bytes}, each representing a segment.
+        """
         self._buf, x = [], self._buf
         return x
 
@@ -93,6 +128,9 @@ class _NotDisconnecting(object):
 @implementer(IDivertable)
 @tube
 class _SegmentsToFrames(object):
+    """
+    Convert segments into frames by parsing them.
+    """
 
     inputType = ISegment
     outputType = IFrame
@@ -107,6 +145,13 @@ class _SegmentsToFrames(object):
 
 
     def received(self, string):
+        """
+        Some data was received on the wire.
+
+        @param string: a segment, to be parsed into frames.
+
+        @return: an iterable of frames.
+        """
         self._stringReceiver.dataReceived(string)
         u, self._ugh = self._ugh, []
         return u
@@ -114,31 +159,59 @@ class _SegmentsToFrames(object):
 
     def reassemble(self, datas):
         """
-        convert these outputs into one of my inputs
+        Take the given sequence of frames, previously emitted by this
+        L{_SegmentsToFrames}, combine it with any un-parsed data still in the
+        input buffer, and return a list of segments.
 
-        TODO: describe better
+        @param datas: L{list} of L{bytes} representing frames.
+
+        @return: L{list} of L{bytes} representing segments.
         """
         delimiter = self._stringReceiver.delimiter
         # TODO: we don't clear the buffer here (and requiring that we do so is
         # just a bug magnet) so Diverter needs to be changed to have only one
         # input and only one output, and be able to discard the flow in
         # between.
-        return delimiter.join(list(datas) + [self._stringReceiver._buffer])
+
+        # TODO: won't work for anything that doesn't have a delimiter
+        # attribute, so... pretty much nothing but LineReceiver.
+        return [delimiter.join(list(datas) + [self._stringReceiver._buffer])]
 
 
 
-def stringsToNetstrings():
+def bytesToNetstrings():
+    """
+    Create a new tube for converting a stream of byte segments containing
+    DJB-style netstrings into bytes.
+
+    @return: a L{tube <ITube>} that splits a stream of L{segments <ISegment>}
+        containing nestrings into L{frame <IFrame>}.
+    """
     return _FramesToSegments(NetstringReceiver())
 
 
 
-def netstringsToStrings():
+def netstringsToBytes():
+    """
+    Create a new tube for encoding a sequence of discrete frames of bytes into
+    DJB-style netstrings on the wire.
+
+    @return: a L{tube <ITube>} that puts netstring length encoding around
+        L{frames <IFrame>} to produce L{segments <ISegment>}.
+    """
     return _SegmentsToFrames(NetstringReceiver())
 
 
 
 def linesToBytes():
+    """
+    Convert lines into bytes.
+
+    @return: Create a new tube for adding CRLF delimiters to a sequence of
+        lines (frames) to produce bytes (segments).
+    """
     return _FramesToSegments(LineOnlyReceiver(), "sendLine")
+
 
 
 @tube
@@ -151,6 +224,11 @@ class _CarriageReturnRemover(object):
     outputType = IFrame
 
     def received(self, value):
+        """
+        Remove a trailing linefeed, if present, from value and yield it.
+
+        @param value: a line that has already been split up on \\n.
+        """
         if value.endswith(b'\r'):
             yield value[:-1]
         else:
@@ -179,7 +257,9 @@ def bytesDelimitedBy(delimiter):
 def bytesToLines():
     """
     Create a drain that consumes a stream of bytes and produces frames
-    delimited by LF, CRLF or some combination thereof.
+    delimited by LF or CRLF.
+
+    @return: a new L{IDrain} that does the given conversion.
     """
     return series(Diverter(bytesDelimitedBy("\n")), _CarriageReturnRemover())
 
@@ -191,10 +271,28 @@ _packedPrefixProtocols = {
     32: Int32StringReceiver,
 }
 
-def packedPrefixToStrings(prefixBits):
+def bytesToIntPrefixed(prefixBits):
+    """
+    Convert a sequence of byte segments with packed network-endian int prefixes
+    of the given bit width into frames of the indicated sizes.
+
+    @param prefixBits: The number of bits to use for the length prefix: either
+        8, 16, or 32.
+
+    @return: a new L{ITube} that does the conversion.
+    """
     return _SegmentsToFrames(_packedPrefixProtocols[prefixBits]())
 
 
 
-def stringsToPackedPrefix(prefixBits):
+def intPrefixedToBytes(prefixBits):
+    """
+    Prepend packed network endian lengths to a sequence of bytes representing
+    frames.
+
+    @param prefixBits: The number of bits to use for the length prefix: either
+        8, 16, or 32.
+
+    @return: a new L{ITube} that does the conversion.
+    """
     return _FramesToSegments(_packedPrefixProtocols[prefixBits]())

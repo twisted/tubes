@@ -40,7 +40,8 @@ class DeferredIntegrationTests(SynchronousTestCase):
                 yield succeed(''.join(reversed(data)))
 
         fakeDrain = self.fd
-        self.ff.flowTo(series(SucceedingTube(), deferredToResult())).flowTo(fakeDrain)
+        self.ff.flowTo(series(SucceedingTube(),
+                              deferredToResult())).flowTo(fakeDrain)
         self.ff.drain.receive("hello")
         self.assertEquals(self.fd.received, ["olleh"])
 
@@ -59,7 +60,8 @@ class DeferredIntegrationTests(SynchronousTestCase):
                 yield d
 
         fakeDrain = self.fd
-        self.ff.flowTo(series(WaitingTube(), deferredToResult())).flowTo(fakeDrain)
+        self.ff.flowTo(series(WaitingTube(),
+                              deferredToResult())).flowTo(fakeDrain)
         self.ff.drain.receive("ignored")
         self.assertEquals(self.fd.received, [])
 
@@ -85,7 +87,8 @@ class DeferredIntegrationTests(SynchronousTestCase):
                 yield succeed("goodbye")
 
         fakeDrain = self.fd
-        self.ff.flowTo(series(MultiDeferredTube(), deferredToResult())).flowTo(fakeDrain)
+        self.ff.flowTo(series(MultiDeferredTube(),
+                              deferredToResult())).flowTo(fakeDrain)
         self.ff.drain.receive("ignored")
         self.assertEquals(self.fd.received, [])
 
@@ -108,7 +111,8 @@ class DeferredIntegrationTests(SynchronousTestCase):
                 yield d
 
         fakeDrain = self.fd
-        self.ff.flowTo(series(DeferredTube(), deferredToResult())).flowTo(fakeDrain)
+        self.ff.flowTo(series(DeferredTube(),
+                              deferredToResult())).flowTo(fakeDrain)
         self.ff.drain.receive("ignored")
 
         anPause = self.fd.fount.pauseFlow()

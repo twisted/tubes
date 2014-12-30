@@ -20,7 +20,7 @@ from .itube import IDrain, IFount, IPause
 @implementer(IDrain)
 class _InDrain(object):
     """
-    
+    The one of the drains associated with an fan.L{In}.
     """
 
     inputType = None
@@ -29,7 +29,7 @@ class _InDrain(object):
 
     def __init__(self, fanIn):
         """
-        
+        Create an L{_InDrain} with an L{In}.
         """
         self._in = fanIn
         self._pauseBecauseNoDrain = None
@@ -37,7 +37,12 @@ class _InDrain(object):
 
     def flowingFrom(self, fount):
         """
-        
+        The attached L{In} is now receiving inputs from the given fount.
+
+        @param fount: Any fount.
+
+        @return: C{None}; this is a terminal drain and not a data-processing
+            drain.
         """
         beginFlowingFrom(self, fount)
         # Except the fount is having similar thoughts about us as a drain, and
@@ -49,7 +54,9 @@ class _InDrain(object):
 
     def _checkNoDrainPause(self):
         """
-        
+        This L{_InDrain} just switched founts or may have acquired a
+        down-stream drain; make sure that any pause state for a fount no longer
+        associated with me is unpaused.
         """
         pbnd = self._pauseBecauseNoDrain
         self._pauseBecauseNoDrain = None
@@ -65,14 +72,24 @@ class _InDrain(object):
 
     def receive(self, item):
         """
-        
+        Pass along any received item to the drain that the L{In}'s fount is
+        flowing to.
+
+        @param item: any object
+
+        @return: passed through from the active drain.
         """
         return self._in.fount.drain.receive(item)
 
 
     def flowStopped(self, reason):
         """
-        
+        Pass along any stop notification to the drain that the L{In}'s fount is
+        flowing to.
+
+        @param reason: the reason the flow stopped.
+
+        @return: passed through from the active drain.
         """
         return self._in.fount.drain.flowStopped(reason)
 
@@ -81,7 +98,7 @@ class _InDrain(object):
 @implementer(IFount)
 class _InFount(object):
     """
-    
+    An L{_InFount} is the single fount associated with an L{In}.
     """
 
     outputType = None
@@ -90,14 +107,19 @@ class _InFount(object):
 
     def __init__(self, fanIn):
         """
-        
+        Create an L{_InFount} with an L{In}.
         """
         self._in = fanIn
 
 
     def flowTo(self, drain):
         """
-        
+        Start flowing to the given C{drain}.
+
+        @param drain: the drain to deliver all inputs from all founts attached
+            to the underlying L{In}.
+
+        @return: the fount downstream of C{drain}.
         """
         result = beginFlowingTo(self, drain)
         for drain in self._in._drains:
@@ -107,7 +129,9 @@ class _InFount(object):
 
     def pauseFlow(self):
         """
-        
+        Pause the flow of all founts flowing into L{_InDrain}s for this L{In}.
+
+        @return: A pause which pauses all upstream founts.
         """
         subPauses = []
         for drain in self._in._drains:
@@ -118,7 +142,7 @@ class _InFount(object):
 
     def stopFlow(self):
         """
-        
+        Stop the flow of all founts flowing into L{_InDrain}s for this L{In}.
         """
         for drain in self._in._drains:
             drain.fount.stopFlow()
@@ -128,20 +152,23 @@ class _InFount(object):
 @implementer(IPause)
 class _AggregatePause(object):
     """
-    
+    A pause which aggregates several other pauses.
     """
 
     def __init__(self, subPauses):
         """
-        
+        Createe an L{_AggregatePause} for other pauses.
         """
         self._subPauses = subPauses
 
 
     def unpause(self):
         """
-        
+        Un-pause all pauses composed within this L{_AggregatePause}.
         """
+        # XXX FIXME: I should remember whether this pause has been unpaused so
+        # I can report exceptions independently of any sub-pauses (there should
+        # be 0 sub-pauses).
         for subPause in self._subPauses:
             subPause.unpause()
 
@@ -229,6 +256,9 @@ class _OutFount(object):
     def pauseFlow(self):
         """
         Pause the flow.
+
+        @return: a pause
+        @rtype: L{IPause}
         """
         return self._pauser.pause()
 
@@ -260,14 +290,18 @@ class _OutFount(object):
 @implementer(IDrain)
 class _OutDrain(object):
     """
-    
+    An L{_OutDrain} is the single L{IDrain} associated with an L{Out}.
     """
 
     fount = None
 
-    def __init__(self, founts, inputType, outputType):
+    def __init__(self, founts):
         """
-        
+        Construct an L{_OutDrain} with a collection of founts, an input type
+        and an output type.
+
+        @param founts: the founts whose drains we should flow to.
+        @type founts: L{list} of L{IFount}
         """
         self._pause = None
         self._paused = False
@@ -290,13 +324,28 @@ class _OutDrain(object):
 
         self._pauser = Pauser(_actuallyPause, _actuallyResume)
 
-        self.inputType = inputType
-        self.outputType = outputType
+
+    @property
+    def inputType(self):
+        """
+        Implement the C{inputType} property by relaying it to the input type of
+        the drains.
+        """
+        # TODO: prevent drains from different inputTypes from being added
+        for fount in self._founts:
+            if fount.drain is not None:
+                return fount.drain.inputType
 
 
     def flowingFrom(self, fount):
         """
-        
+        The L{Out} associated with this L{_OutDrain} is now receiving inputs
+        from the given fount.
+
+        @param fount: the new source of input for all drains attached to this
+            L{Out}.
+
+        @return: L{None}, as this is a terminal drain.
         """
         if self._paused:
             p = self._pause
@@ -311,7 +360,10 @@ class _OutDrain(object):
 
     def receive(self, item):
         """
-        
+        Deliver an item to each L{IDrain} attached to the L{Out} via
+        C{Out().newFount().flowTo(...)}.
+
+        @param item: any object
         """
         for fount in self._founts[:]:
             fount._deliverOne(item)
@@ -319,7 +371,10 @@ class _OutDrain(object):
 
     def flowStopped(self, reason):
         """
-        
+        Deliver an item to each L{IDrain} attached to the L{Out} via
+        C{Out().newFount().flowTo(...)}.
+
+        @param reason: the reason that the flow stopped.
         """
         for fount in self._founts[:]:
             if fount.drain is not None:
@@ -342,18 +397,21 @@ class Out(object):
     @type drain: L{IDrain}
     """
 
-    def __init__(self, inputType=None, outputType=None):
+    def __init__(self):
         """
-        
+        Create an L{Out}.
         """
         self._founts = []
-        self.drain = _OutDrain(self._founts, inputType=inputType,
-                               outputType=outputType)
+        self.drain = _OutDrain(self._founts)
 
 
     def newFount(self):
         """
-        
+        Create a new L{IFount} whose drain will receive inputs from this
+        L{Out}.
+
+        @return: a fount associated with this fan-L{Out}.
+        @rtype: L{IFount}.
         """
         f = _OutFount(self.drain._pauser, self._founts.remove)
         self._founts.append(f)
@@ -422,7 +480,11 @@ class Thru(proxyForInterface(IDrain, "_outDrain")):
         Accept input from C{fount} and produce output filtered by all of the
         C{drain}s given to this L{Thru}'s constructor.
 
-        @param fount:
+        @param fount: a fount whose outputs should flow through our series of
+            transformations.
+
+        @return: an output fount which aggregates all the values produced by
+            the drains given to this L{Thru}'s constructor.
         """
         super(Thru, self).flowingFrom(fount)
         for idx, appDrain, outFount, inDrain in zip(

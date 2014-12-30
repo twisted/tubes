@@ -1,37 +1,64 @@
+# -*- test-case-name: tubes.test.test_memory -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
+
+"""
+Tests for L{tubes.memory}.
+"""
 
 from twisted.trial.unittest import SynchronousTestCase
 
 from zope.interface.verify import verifyObject
 
-from ..memory import IteratorFount
+from ..memory import iteratorFount
 
 from ..itube import IFount, StopFlowCalled
 
 from .util import FakeDrain, FakeFount
 
 class DrainThatStops(FakeDrain):
+    """
+    Drain that stops its fount upon receive.
+    """
     # TODO: possibly promote to util
     def receive(self, item):
+        """
+        Receive one item and stop.
+
+        @param item: any object.
+        """
         super(DrainThatStops, self).receive(item)
         self.fount.stopFlow()
 
+
+
 class DrainThatPauses(FakeDrain):
+    """
+    Drain that pauses its fount upon receive.
+    """
     # TODO: possibly promote to util
     def receive(self, item):
+        """
+        Receive one item and pause.
+
+        @param item: any object.
+        """
         super(DrainThatPauses, self).receive(item)
         self.pause = self.fount.pauseFlow()
 
+
+
 class IteratorFountTests(SynchronousTestCase):
     """
-    Tests for L{tubes.memory.IteratorFount}.
+    Tests for L{tubes.memory.iteratorFount}.
     """
 
     def test_flowTo(self):
         """
-        L{IteratorFount.flowTo} sets its drain and calls C{flowingFrom} on its
+        L{iteratorFount.flowTo} sets its drain and calls C{flowingFrom} on its
         argument, returning that value.
         """
-        f = IteratorFount([])
+        f = iteratorFount([])
         ff = FakeFount()
         class FakeDrainThatContinues(FakeDrain):
             def flowingFrom(self, fount):
@@ -47,10 +74,10 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_flowToDeliversValues(self):
         """
-        L{IteratorFount.flowTo} will deliver all of its values to the given
+        L{iteratorFount.flowTo} will deliver all of its values to the given
         drain.
         """
-        f = IteratorFount([1, 2, 3])
+        f = iteratorFount([1, 2, 3])
         fd = FakeDrain()
         f.flowTo(fd)
         self.assertEqual(fd.received, [1, 2, 3])
@@ -58,9 +85,9 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_pauseFlow(self):
         """
-        L{IteratorFount.pauseFlow} will pause the delivery of items.
+        L{iteratorFount.pauseFlow} will pause the delivery of items.
         """
-        f = IteratorFount([1, 2, 3])
+        f = iteratorFount([1, 2, 3])
         fd = DrainThatPauses()
         f.flowTo(fd)
         self.assertEqual(fd.received, [1])
@@ -68,10 +95,10 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_unpauseFlow(self):
         """
-        When all pauses returned by L{IteratorFount.pauseFlow} have been
+        When all pauses returned by L{iteratorFount.pauseFlow} have been
         unpaused, the flow resumes.
         """
-        f = IteratorFount([1, 2, 3])
+        f = iteratorFount([1, 2, 3])
         fd = FakeDrain()
         pauses = [f.pauseFlow(), f.pauseFlow()]
         f.flowTo(fd)
@@ -84,10 +111,10 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_stopFlow(self):
         """
-        L{IteratorFount.stopFlow} stops the flow, propagating a C{flowStopped}
+        L{iteratorFount.stopFlow} stops the flow, propagating a C{flowStopped}
         call to its drain and ceasing delivery immediately.
         """
-        f = IteratorFount([1, 2, 3])
+        f = iteratorFount([1, 2, 3])
 
         fd = DrainThatStops()
         f.flowTo(fd)
@@ -97,11 +124,11 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_stopIterationStopsIteration(self):
         """
-        When the iterator passed to L{IteratorFount} is exhausted
+        When the iterator passed to L{iteratorFount} is exhausted
         L{IDrain.flowStopped} is called with L{StopIteration} as it's
         reason.
         """
-        f = IteratorFount([1, 2, 3])
+        f = iteratorFount([1, 2, 3])
         fd = FakeDrain()
         f.flowTo(fd)
         self.assertEqual(fd.received, [1, 2, 3])
@@ -110,11 +137,11 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_stopFlowCalledAfterFlowStopped(self):
         """
-        L{IteratorFount} will only call its C{drain}'s L{flowStopped} once when
+        L{iteratorFount} will only call its C{drain}'s L{flowStopped} once when
         C{stopFlow} is called after the flow has stopped due to iterator
         exhaustion.
         """
-        f = IteratorFount([1])
+        f = iteratorFount([1])
         fd = FakeDrain()
         f.flowTo(fd)
         self.assertEqual(fd.received, [1])
@@ -126,10 +153,10 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_stopPausedFlow(self):
         """
-        When L{IteratorFount} is stopped after being paused, the drain will
+        When L{iteratorFount} is stopped after being paused, the drain will
         receive a C{flowStopped} when it is resumed.
         """
-        f = IteratorFount([1, 2])
+        f = iteratorFount([1, 2])
         fd = DrainThatPauses()
         f.flowTo(fd)
         f.stopFlow()
@@ -142,10 +169,10 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_flowUnpausedAfterPausedFlowIsStopped(self):
         """
-        When L{IteratorFount} is stopped after being paused, and subsequently
+        When L{iteratorFount} is stopped after being paused, and subsequently
         unpaused it should not start flowing again.
         """
-        f = IteratorFount([1, 2])
+        f = iteratorFount([1, 2])
         fd = DrainThatPauses()
         f.flowTo(fd)
         f.stopFlow()
@@ -155,6 +182,6 @@ class IteratorFountTests(SynchronousTestCase):
 
     def test_provides(self):
         """
-        An L{IteratorFount} provides L{IFount}.
+        An L{iteratorFount} provides L{IFount}.
         """
-        verifyObject(IFount, IteratorFount([]))
+        verifyObject(IFount, iteratorFount([]))

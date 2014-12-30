@@ -120,11 +120,15 @@ def tube(cls):
 @implementer(ITube)
 class _Tubule(object):
     """
-    
+    A tube created for the C{@tube} decorator.
     """
     def __init__(self, inputType, outputType, received):
         """
-        
+        @param inputType: An interface for the input type.
+
+        @param outputType: an interface for the output type.
+
+        @param received: a callable to implement C{received}.
         """
         self.inputType = inputType
         self.outputType = outputType
@@ -133,14 +137,20 @@ class _Tubule(object):
 
     def started(self):
         """
-        
+        Tubules cannot produce a greeting.
+
+        @return: an empty iterable.
         """
         return ()
 
 
     def stopped(self, reason):
         """
-        
+        Tubules cannot produce a farewell.
+
+        @param reason: the reason the flow stopped.
+
+        @return: an empty iterable.
         """
         return ()
 
@@ -150,11 +160,19 @@ def receiver(inputType=None, outputType=None):
     """
     Decorator for a stateless function which receives inputs.
 
-    For example, to add 1 to each in a stream of numbers:
+    For example, to add 1 to each in a stream of numbers::
 
-    @receiver(inputType=int, outputType=int)
-    def addOne(item):
-        yield item + 1
+        @receiver(inputType=int, outputType=int)
+        def addOne(item):
+            yield item + 1
+
+    @param inputType: The C{inputType} attribute of the resulting L{ITube}.
+
+    @param outputType: The C{outputType} attribute of the resulting L{ITube}.
+
+    @return: a stateless tube with the decorated method as its C{received}
+        method.
+    @rtype: L{ITube}
     """
     def decorator(decoratee):
         return _Tubule(inputType, outputType, decoratee)

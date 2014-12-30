@@ -64,7 +64,14 @@ class TubeTest(TestCase):
 
 @tube
 class Starter(object):
+    """
+    A tube that yields a greeting.
+    """
+
     def started(self):
+        """
+        Yield a greeting.
+        """
         yield "greeting"
 
 
@@ -95,7 +102,8 @@ class SeriesTest(TestCase):
 
     def test_startedFlowingToAnother(self):
         """
-        
+        The greeting is relayed to the ultimate drain when a tube in the middle
+        of a series adds a greeting via C{started}.
         """
         self.ff.flowTo(
             series(PassthruTube(), Starter(), PassthruTube())
@@ -634,13 +642,13 @@ class SeriesTest(TestCase):
         An L{IDrain} may call its argument's L{_SiphonFount.flowTo} method in
         L{IDrain.flowingFrom} and said fount will be flowing to the new drain.
         """
-        test_fd = self.fd
+        testFD = self.fd
 
         class ReflowingDrain(FakeDrain):
             def flowingFrom(self, fount):
                 self.fount = fount
                 if fount is not None:
-                    self.fount.flowTo(test_fd)
+                    self.fount.flowTo(testFD)
 
         nf = self.ff.flowTo(series(PassthruTube()))
         nf.flowTo(ReflowingDrain())
@@ -868,7 +876,11 @@ class SeriesTest(TestCase):
 
 
 
-class Reminders(TestCase):
+class ErrorBehaviors(TestCase):
+    """
+    Test cases for when unexpected exceptions are raised.
+    """
+
     def test_startedRaises(self):
         """
         If L{ITube.started} raises an exception, the exception will be logged,
@@ -911,6 +923,11 @@ class Reminders(TestCase):
 
 
 class Todo(TestCase):
+    """
+    Todo'd tests that should all be fixed and deleted soon, mostly for error
+    handling.
+    """
+
     todo = "not just yet"
 
     def test_receivedRaises(self):

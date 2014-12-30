@@ -222,7 +222,7 @@ class _OutFount(object):
             flowing into our L{Out}.
 
         @param stopper: A 0-argument callback to execute on
-            L{IFount.flowStopped}
+            L{IFount.stopFlow}
         """
         self._receivedWhilePaused = []
         self._myPause = None
@@ -458,7 +458,7 @@ class Thru(proxyForInterface(IDrain, "_outDrain")):
         Create a L{Thru} with an iterable of L{IDrain}.
 
         All of the drains in C{drains} should be drains that produce a new
-        L{IFount} from L{flowingFrom <IFount.flowingFrom>}, which means they
+        L{IFount} from L{flowingFrom <IDrain.flowingFrom>}, which means they
         should be a L{series <tubes.tube.series>} of L{tubes
         <tubes.itube.ITube>}, or drains that behave like that, such as L{Thru}
         itself.

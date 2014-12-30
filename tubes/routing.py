@@ -44,12 +44,15 @@ might reentrantly pause you.
 from .tube import tube, receiver
 from .fan import Out
 
+if 0:
+    from zope.interface.interfaces import IInterface
+    IInterface
 
 class Routed(object):
     """
     A L{Routed} is an interface describing another interface that has been
     wrapped in a C{to}.  As such, it is an incomplete implementation of
-    L{zope.interface.interfaces.IInterface}.
+    L{IInterface}.
     """
 
     def __init__(self, interface=None):
@@ -58,7 +61,7 @@ class Routed(object):
 
         @param interface: the interface that will be provided by the C{what}
             attribute of providers of this interface.
-        @type interface: L{zope.interface.interfaces.IInterface}
+        @type interface: L{IInterface}
         """
         self.interface = interface
 
@@ -68,7 +71,7 @@ class Routed(object):
         Is this L{Routed} substitutable for the given specification?
 
         @param other: Another L{Routed} or interface.
-        @type other: L{zope.interface.interfaces.IInterface}
+        @type other: L{IInterface}
 
         @return: L{True} if so, L{False} if not.
         """

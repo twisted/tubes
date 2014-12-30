@@ -6,6 +6,7 @@ env:
   - TOX_ENV=py27
   - TOX_ENV=pypy
   - TOX_ENV=docs
+  - TOX_ENV=apidocs
   - TOX_ENV=docs-spellcheck
   - TOX_ENV=docs-linkcheck
 

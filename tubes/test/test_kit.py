@@ -3,7 +3,7 @@
 # See LICENSE for details.
 
 """
-Tests for L{tubes.pauser}.
+Tests for L{tubes.kit}.
 """
 
 from zope.interface.verify import verifyObject

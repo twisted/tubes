@@ -19,9 +19,31 @@ from twisted.python.failure import Failure
 from twisted.python import log
 
 whatever = object()
-suspended = object()
-finished = object()
-skip = object()
+
+
+
+def suspended():
+    """
+    A token value meaning that L{SiphonPendingValues} was suspended.
+    """
+
+
+
+def finished():
+    """
+    A token value meaning that L{SiphonPendingValues} has no more values in its
+    queue.
+    """
+
+
+
+def skip():
+    """
+    A token value yielded by a tube meaning that its L{_Siphon} should not
+    deliver this value on, so that tubes may engage in flow control.
+    """
+
+
 
 class SiphonPendingValues(object):
     """
@@ -327,9 +349,9 @@ class _Siphon(object):
     lots of conveniences to make it easy to implement something that does fancy
     flow control with just a few methods.
 
-    @ivar _tube: the L{Tube} which will receive values from this siphon and
+    @ivar _tube: the L{ITube} which will receive values from this siphon and
         call C{deliver} to deliver output to it.  (When set, this will
-        automatically set the C{siphon} attribute of said L{Tube} as well, as
+        automatically set the C{siphon} attribute of said L{ITube} as well, as
         well as un-setting the C{siphon} attribute of the old tube.)
 
     @ivar _currentlyPaused: is this L{_Siphon} currently paused?  Boolean:
@@ -345,13 +367,13 @@ class _Siphon(object):
         downstream drain and we are unpaused.
 
     @ivar _everStarted: Has this L{_Siphon} ever called C{started} on its
-        L{Tube}?
+        L{ITube}?
     @type _everStarted: L{bool}
     """
 
     def __init__(self, tube):
         """
-        Initialize this L{_Siphon} with the given L{Tube} to control its
+        Initialize this L{_Siphon} with the given L{ITube} to control its
         behavior.
         """
         self._canStillProcessInput = True

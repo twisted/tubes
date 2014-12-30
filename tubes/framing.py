@@ -15,11 +15,20 @@ from twisted.protocols.basic import (
     Int16StringReceiver, Int32StringReceiver
 )
 
+if 0:
+    # Workaround for inability of pydoctor to resolve references.
+    from twisted.internet.interfaces import ITransport
+    ITransport
+    from twisted.protocols import basic
+    basic
+
+
+
 class _Transporter(object):
     """
-    Just enough of a mock of L{ITransport} to work with the protocols in
-    L{twisted.protocols.basic}, as a wrapper around a callable taking some
-    data.
+    Just enough of a mock of L{ITransport} to work
+    with the protocols in L{basic}, as a wrapper around a
+    callable taking some data.
 
     @ivar _dataWritten: 1-argument callable taking L{bytes}, a chunk of data
         from a stream.

@@ -8,6 +8,13 @@ Interfaces related to data flows.
 
 from zope.interface import Interface, Attribute
 
+if 0:
+    from zope.interface.interfaces import IInterface
+    IInterface
+    from twisted.python.failure import Failure
+    Failure
+
+
 
 class AlreadyUnpaused(Exception):
     """
@@ -142,7 +149,7 @@ class IDrain(Interface):
         """
         An item was received from the fount.
 
-        @param item: an instance of L{IDrain.receiveType}
+        @param item: an instance of L{IDrain.inputType}
 
         @return: a floating point number between 0.0 and 1.0, indicating the
             how full any buffers on the way to processing the data are
@@ -153,16 +160,15 @@ class IDrain(Interface):
 
     def flowStopped(reason):
         """
-        The flow has stopped.  The given L{Failure
-        <twisted.internet.failure.Failure>} object indicates why.  After a
-        L{IFount} invokes this method, it must stop invoking all other methods
-        on this L{IDrain}; similarly, this L{IDrain} must stop invoking all
-        methods on its L{IFount}.
+        The flow has stopped.  The given L{Failure} object indicates why.
+        After a L{IFount} invokes this method, it must stop invoking all other
+        methods on this L{IDrain}; similarly, this L{IDrain} must stop invoking
+        all methods on its L{IFount}.
 
         @param reason: The reason why the flow has terminated.  This may
             contain any exception type, depending on the L{IFount} delivering
             data to this L{IDrain}.
-        @type reason: L{Failure <twisted.internet.failure.Failure>}
+        @type reason: L{Failure}
         """
 
 
@@ -218,10 +224,10 @@ class ITube(Interface):
     def received(item):
         """
         An item was received from 'upstream', i.e. the framework, or the
-        lower-level data source that this L{Tube} is interacting with.
+        lower-level data source that this L{ITube} is interacting with.
 
         @return: An iterable of values to propagate to the downstream drain
-            attached to this L{ITube}.  Something something L{Deferred}.
+            attached to this L{ITube}.
         @rtype: iterable of L{ITube.outputType}
         """
 

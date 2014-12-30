@@ -223,7 +223,7 @@ class JustProvidesSwitchable(TesterTube):
 @implementer(IDivertable)
 class ReprTube(object):
     """
-    A L{tube} with a deterministic C{repr} for testing.
+    A L{tubes.tube.tube} with a deterministic C{repr} for testing.
     """
     def __repr__(self):
         return '<Tube for Testing>'
@@ -234,7 +234,7 @@ class ReprTube(object):
 @tube
 class PassthruTube(object):
     """
-    A L{tube} which yields all of its input.
+    A L{tubes.tube.tube} which yields all of its input.
     """
     def received(self, data):
         """

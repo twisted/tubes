@@ -3,8 +3,7 @@
 # See LICENSE for details.
 
 """
-Objects to connect L{real data <twisted.internet.protocol.Protocol>} to
-L{Tube}s.
+Objects to connect L{real data <_Protocol>} to L{tubes}.
 
 @see: L{factoryFromFlow}
 """
@@ -21,6 +20,15 @@ from .itube import IDrain, IFount, ISegment
 from twisted.internet.interfaces import IPushProducer
 from twisted.internet.protocol import Protocol as _Protocol
 
+if 0:
+    # Workaround for inability of pydoctor to resolve references.
+    from twisted.internet.interfaces import (
+        IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer)
+    IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer
+    from twisted.python.failure import Failure
+    Failure
+
+
 
 @implementer(IPushProducer)
 class _FountProducer(object):
@@ -31,7 +39,7 @@ class _FountProducer(object):
     @type _fount: L{IFount}.
 
     @ivar _pause: A pause if the fount has been paused by C{pauseProducing}
-    @type _pause: L{IPause} or L{NoneType}
+    @type _pause: L{IPause} or L{types.NoneType}
     """
     def __init__(self, fount):
         self._fount = fount
@@ -131,11 +139,11 @@ class _TransportFount(object):
 
     @ivar _preReceivePause: If data is received from the protocol when no drain
         is connected, this will be an L{IPause}.
-    @type _preReceivePause: L{IPause} or L{NoneType}
+    @type _preReceivePause: L{IPause} or L{types.NoneType}
 
     @ivar _preReceiveBuffer: If data is received from the protocol when no
         drain is connected, then this will be the bytes.
-    @type _preReceiveBuffer: L{bytes} or L{NoneType}
+    @type _preReceiveBuffer: L{bytes} or L{types.NoneType}
     """
 
     drain = None

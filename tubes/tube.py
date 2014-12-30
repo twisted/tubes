@@ -3,7 +3,7 @@
 # See LICENSE for details.
 
 """
-See L{Tube}.
+See L{tube}.
 """
 
 from __future__ import print_function

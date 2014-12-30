@@ -180,7 +180,7 @@ Let's look at `LinesToNumbersOrOperators`.
 A tube's input is the output of the tube preceding it in the series.
 In this case, `LinesToNumbersOrOperators` receives the output of `bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
 Given the specification for the RPN calculator's input above, those lines may contain ASCII integers (like ``b"123"``) or ASCII characters representing arithmetic operations (``b"+"`` or ``b"*"``).
-`LinesToNumbersOrOperators` output falls into two categories: each line containing decimal numbers results in an integer output, and each operator character is represented by a python funtion object that can perform that operation.
+`LinesToNumbersOrOperators` output falls into two categories: each line containing decimal numbers results in an integer output, and each operator character is represented by a python function object that can perform that operation.
 
 Now that you've parsed those inputs into meaningful values, you can send them on to the ``Calculator`` for processing.
 

@@ -388,7 +388,7 @@ class SeriesTest(TestCase):
         @tube
         class Switchee(object):
             def received(self, data):
-                yield "switched({})".format(data)
+                yield "switched({0})".format(data)
 
         fakeDrain = self.fd
         destinationTube = PassthruTube()

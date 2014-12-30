@@ -35,7 +35,7 @@ Such a function is called a "flow", because it establishes a flow of data from o
 Most often, the arguments to such a function are the input from and the output to the same network connection.
 The fount represents data coming in over the connection, and the drain represents data going back out over that same connection.
 
-To *use* ``echoFlow`` as a server, you have to attach it to a listening :doc:`endpoint <endpoints>`.
+To *use* ``echoFlow`` as a server, you have to attach it to a listening `endpoint <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_.
 
 :download:`echoflow.py <listings/echoflow.py>`
 
@@ -174,7 +174,7 @@ Let's look at `LinesToNumbersOrOperators`.
 
 .. literalinclude:: listings/rpn.py
    :prepend: @tube
-   :pyobject: LinesToNumbersOrOperators
+   :pyobject: linesToNumbersOrOperators
 
 `ITube.received` takes an input and produces an iterable of outputs.
 A tube's input is the output of the tube preceding it in the series.
@@ -203,7 +203,7 @@ To do this, we use the very simple `NumbersToLines` which takes integer inputs a
 
 .. literalinclude:: listings/rpn.py
    :prepend: @tube
-   :pyobject: NumbersToLines
+   :pyobject: numbersToLines
 
 Like `LinesToNumbersOrOperators`, `NumbersToLines` is stateless, and produces one output for every input.
 
@@ -216,7 +216,7 @@ Tubes Versus Protocols
 ======================
 
 If you've used Twisted before, you may notice that half of the line-splitting above is exactly what :api:`twisted.protocols.basic.LineReceiver <LineReceiver>` does, and that there are lots of related classes that can do similar things for other message types.
-The other half is handled by :doc:`producers and consumers <producers>`.
+The other half is handled by `producers and consumers <https://twistedmatrix.com/documents/current/core/howto/producers.html>`_.
 ``tubes`` is a *newer*  interface than those things, and you will find it somewhat improved.
 If you're writing new code, you should generally prefer to use ``tubes``.
 

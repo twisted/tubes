@@ -15,6 +15,7 @@ setup(
     install_requires=[
         "characteristic",
         "six",
+        "Twisted",
     ],
     include_package_data=True,
     license="MIT",

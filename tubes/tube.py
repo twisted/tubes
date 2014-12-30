@@ -239,7 +239,7 @@ class _DrainingTube(object):
         """
         Display the remaining items to be drained.
         """
-        return ("<Draining Tube {}>".format(repr(self._items)))
+        return ("<Draining Tube {0}>".format(repr(self._items)))
 
 
     def started(self):
@@ -320,7 +320,7 @@ class Diverter(proxyForInterface(IDrain, "_drain")):
         Nice string representation for this Diverter which mentions what it is
         diverting.
         """
-        return "<Diverter for {}>".format(self._divertable)
+        return "<Diverter for {0}>".format(self._divertable)
 
 
     def divert(self, drain):

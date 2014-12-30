@@ -9,6 +9,7 @@ env:
   - TOX_ENV=apidocs
   - TOX_ENV=docs-spellcheck
   - TOX_ENV=docs-linkcheck
+  - PUSH_DOCS=true
 
 matrix:
   allow_failures:
@@ -17,10 +18,14 @@ matrix:
 install:
   - ./.travis/install.sh
 
-script: tox -e $TOX_ENV
+script:
+  - if [[ -z ${TOX_ENV+x} ]]; then tox -e $TOX_ENV; fi
+  - if [[ "$PUSH_DOCS" == "true" ]]; then ./.travis/build_docs.sh; fi
+
+secure: "CvFj8Df5OiDRrW7EsTGhkltdmNlYerx9hH/tSKxiNFVDBUUFaTN7rUr7kWcOKchzerGwk7zjZ4SRXyoSCs+Srht6GZxWHkNROwKpp5Xvf5clbLXbp7GO1X/L5rLgrXpGwtkhgNuHx0X2IUCDHUQAUSumPgZcNFu3emgVxEqabN0="
 
 after_success:
-    - if [[ "${TOX_ENV:0:2}" == 'py' ]]; then coveralls; fi
+  - if [[ "${TOX_ENV:0:2}" == 'py' ]]; then coveralls; fi
 
 notifications:
   irc:

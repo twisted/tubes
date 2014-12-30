@@ -1,4 +1,6 @@
 # -*- test-case-name: tubes.test.test_kit -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
 
 """
 Toolkit to alleviate some of the duplication in constructing your own IFount
@@ -12,12 +14,24 @@ from .itube import AlreadyUnpaused, IPause
 
 @implementer(IPause)
 class _Pause(object):
+    """
+    Implementation of L{IPause} for L{Pauser}.
+    """
     def __init__(self, pauser):
+        """
+        Construct a L{_Pause} from a L{Pauser}.
+
+        @param pauser: the L{Pauser} that created this L{_Pause}.
+        """
         self._friendPauser = pauser
         self._alive = True
 
 
     def unpause(self):
+        """
+        Unpause this L{_Pause}, potentially invoking the C{actuallyResume}
+        callback from its L{Pauser}.
+        """
         if self._alive:
             self._friendPauser._pauses -= 1
             if self._friendPauser._pauses == 0:
@@ -58,6 +72,8 @@ class Pauser(object):
         Pause something, getting an L{IPause} provider which can be used to
         unpause it.
 
+        @return: a pause which will invoke the C{actuallyResume} callback if
+            it's the last one to be unpaused.
         @rtype: L{IPause}
         """
         if not self._pauses:
@@ -69,8 +85,14 @@ class Pauser(object):
 
 def beginFlowingTo(fount, drain):
     """
-    to correctly implement fount.flowTo you need to do certain things; do those
-    things here
+    To correctly implement fount.flowTo you need to do certain things; do those
+    things here.
+
+    @param fount: The fount implementing flowTo.
+
+    @param drain: The drain flowTo was called with.
+
+    @return: the next fount in the chain.
     """
     oldDrain = fount.drain
     fount.drain = drain
@@ -85,8 +107,14 @@ def beginFlowingTo(fount, drain):
 
 def beginFlowingFrom(drain, fount):
     """
-    to correctly implement drain.flowingFrom you need to do certian things; do
-    those things here
+    To correctly implement drain.flowingFrom you need to do certian things; do
+    those things here.
+
+    @param drain: The drain implementing flowingFrom.
+
+    @param fount: The fount flowingFrom was called with.
+
+    @return: L{None}
     """
     if fount is not None:
         outType = fount.outputType

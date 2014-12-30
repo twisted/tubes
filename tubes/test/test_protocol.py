@@ -30,10 +30,21 @@ class RememberingTube(object):
 
 
     def received(self, item):
+        """
+        Remember the given item in C{items} and and yield nothing.
+
+        @param item: The item to remember.
+        """
         self.items.append(item)
 
 
     def stopped(self, reason):
+        """
+        Remember that the flow was stopped in the C{wasStopped} attribute and
+        the reason for it in the C{reason} attribute, respectively.
+
+        @param reason: the reason the flow stopped.
+        """
         self.wasStopped = True
         self.reason = reason
 
@@ -85,9 +96,9 @@ class FlowingAdapterTests(TestCase):
         Calling L{receive} on a L{_ProtocolDrain} will send the data to the
         wrapped transport.
         """
-        HELLO = b"hello world!"
-        self.adaptedDrain.receive(HELLO)
-        self.assertEqual(self.endpoint.transports[0].io.getvalue(), HELLO)
+        hello = b"hello world!"
+        self.adaptedDrain.receive(hello)
+        self.assertEqual(self.endpoint.transports[0].io.getvalue(), hello)
 
 
     def test_stopFlowStopsConnection(self):
@@ -124,7 +135,7 @@ class FlowingAdapterTests(TestCase):
         """
         self.adaptedFount.flowTo(self.drain)
         class MyFunException(Exception):
-            "An exception."
+            pass
         f = Failure(MyFunException())
         self.adaptedProtocol.connectionLost(f)
         self.assertEqual(self.tube.wasStopped, True)
@@ -235,21 +246,21 @@ class FlowingAdapterTests(TestCase):
         """
         fd = FakeDrain()
         # StringTransport is an OK API.  But it is not the _best_ API.
-        PRODUCING = 'producing'
-        PAUSED = 'paused'
+        producing = 'producing'
+        paused = 'paused'
         # Sanity check.
         self.assertEqual(self.adaptedProtocol.transport.producerState,
-                         PRODUCING)
+                         producing)
         self.adaptedFount.flowTo(fd)
         # Steady as she goes.
         self.assertEqual(self.adaptedProtocol.transport.producerState,
-                         PRODUCING)
+                         producing)
         anPause = fd.fount.pauseFlow()
         self.assertEqual(self.adaptedProtocol.transport.producerState,
-                         PAUSED)
+                         paused)
         anPause.unpause()
         self.assertEqual(self.adaptedProtocol.transport.producerState,
-                         PRODUCING)
+                         producing)
 
 
     def test_stopProducing(self):

@@ -1,4 +1,4 @@
-# -*- test-case-name: tubes.test.test_tube.SeriesTest -*-
+# -*- test-case-name: tubes.test.test_tube -*-
 # Copyright (c) Twisted Matrix Laboratories.
 # See LICENSE for details.
 
@@ -19,14 +19,18 @@ from twisted.python.failure import Failure
 from twisted.python import log
 
 whatever = object()
-paused = object()
+suspended = object()
 finished = object()
 skip = object()
 
 class SiphonPendingValues(object):
     """
-    An iterable that iterates iterables by destructively traversing a mutable
-    deque.
+    A queue of pending values which can be suspended and resumed, for
+    representing values pending delivery for a L{_Siphon}.
+
+    @ivar _deque: a deque containing iterators containing queued values.
+
+    @ivar _suspended: Is this L{SiphonPendingValues} currently suspended?
     """
 
     def __init__(self):
@@ -36,50 +40,63 @@ class SiphonPendingValues(object):
 
     def suspend(self):
         """
-        Pretend to be empty until resume() is called.
+        L{SiphonPendingValues.popPendingValue} should return L{suspended}.
         """
         self._suspended = True
 
 
     def resume(self):
         """
-        
+        L{SiphonPendingValues.popPendingValue}
         """
         self._suspended = False
 
 
     def prepend(self, iterator):
         """
-        
+        Add the given iterator to the beginning of the queue.
+
+        @param iterator: an iterator of values to deliver via popPendingValue.
         """
         self._deque.appendleft(iterator)
 
 
     def append(self, iterator):
         """
-        
+        Add the given iterator to the end of the queue.
+
+        @param iterator: an iterator of values to deliver via popPendingValue.
         """
         self._deque.append(iterator)
 
 
     def clear(self):
         """
-        
+        Clear the entire queue.
         """
         self._deque.clear()
 
 
-    def popPendingValue(self, regardless=False):
+    def popPendingValue(self, evenIfSuspended=False):
         """
         Get the next value in the leftmost iterator in the deque.
+
+        @param evenIfSuspended: return the next pending value regardless of
+            whether this L{SiphonPendingValues} is suspended or not.
+        @type evenIfSuspended: L{bool}
+
+        @return: The next value yielded by the first iterator in the queue,
+            L{suspended} if this L{SiphonPendingValues} is suspended and
+            C{evenIfSuspended} was not passed, or L{finished} if the queue is
+            empty.
         """
-        if self._suspended and not regardless:
-            return paused
+        if self._suspended and not evenIfSuspended:
+            return suspended
         while self._deque:
             result = next(self._deque[0], whatever)
-            if self._suspended and not regardless:
+            if self._suspended and not evenIfSuspended:
                 self.prepend(iter([result]))
-                return paused
+                return suspended
             if result is whatever:
                 self._deque.popleft()
             else:
@@ -412,7 +429,7 @@ class _Siphon(object):
 
         while True:
             value = self._pending.popPendingValue()
-            if value is paused:
+            if value is suspended:
                 break
             elif value is skip:
                 continue
@@ -430,6 +447,8 @@ class _Siphon(object):
         """
         We've reached the end of the line.  Immediately stop delivering all
         buffers and notify our downstream drain why the flow has stopped.
+
+        @param flowStoppingReason: the reason that the flow was stopped.
         """
         self._noMore(input=True, output=True)
         self._flowStoppingReason = None
@@ -447,19 +466,11 @@ class _Siphon(object):
         @return: a L{list} of all buffered output values.
         """
         result = []
-        # self._suspended = False
         while True:
-            value = self._pending.popPendingValue(regardless=True)
-            assert value is not paused, """
-                                        TODO: if _pending is suspended here we
-                                        will get an infinite sequence of the
-                                        'paused' object, we should probably be
-                                        sure to safely extract it.
-                                        """
+            value = self._pending.popPendingValue(evenIfSuspended=True)
             if value is finished:
                 return result
             result.append(value)
-
 
 
 

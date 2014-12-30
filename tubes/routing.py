@@ -41,7 +41,7 @@ that by calling the C{receive} method directly since any one of those methods
 might reentrantly pause you.
 """
 
-from .tube import tube
+from .tube import tube, receiver
 from .fan import Out
 
 
@@ -69,6 +69,8 @@ class Routed(object):
 
         @param other: Another L{Routed} or interface.
         @type other: L{zope.interface.interfaces.IInterface}
+
+        @return: L{True} if so, L{False} if not.
         """
         if not isinstance(other, Routed):
             return False
@@ -98,23 +100,15 @@ class Routed(object):
 class _To(object):
     """
     An object destined for a specific destination.
-
-    @ivar _where: Where is this object addressed to?  This is an opaque token.
-    @type _where: L{object}
-
-    @ivar _what:
-    @type _what:
     """
 
     def __init__(self, where, what):
         """
-        
+        Create a L{_To} to a particular route with a given value.
 
-        @param _where: 
-        @type _where: 
+        @param _where: see L{to}
 
-        @param _what: 
-        @type _what: 
+        @param _what: see L{to}
         """
         self._where = where
         self._what = what
@@ -131,7 +125,9 @@ def to(where, what):
         I{exactly} the return value of L{Router.newRoute}, as it is compared by
         object identity and not by any feature of L{IFount}.
 
-    @return: a Routed object.
+    @param what: the value to deliver.
+
+    @return: a L{Routed} object.
     """
     return _To(where, what)
 
@@ -151,22 +147,29 @@ class Router(object):
     """
 
     def __init__(self, outputType=None):
-        self._out = Out(inputType=Routed(outputType), outputType=outputType)
+        self._out = Out()
+        self._outputType = outputType
         self.drain = self._out.drain
 
 
     def newRoute(self):
         """
+        Create a new route.
+
+        A route has two uses; first, it is an L{IFount} that you can flow to a
+        drain.
+
+        Second, it is the "where" parameter passed to L{to}.  Each value sent
+        to L{Router.drain} should be a L{to} constructed with a value returned
+        from this method as the "where" parameter.
+
         @return: L{IFount}
         """
-        @tube
-        class AddressedTo(object):
-            if self.drain is not None:
-                inputType = self.drain.inputType
-                outputType = self.drain.inputType.interface
-            def received(self, item):
-                if isinstance(item, to):
-                    if item._where is fount:
-                        yield item._what
-        fount = self._out.newFount().flowTo(AddressedTo())
+        @receiver(inputType=Routed(self._outputType),
+                  outputType=self._outputType)
+        def received(item):
+            if isinstance(item, to):
+                if item._where is fount:
+                    yield item._what
+        fount = self._out.newFount().flowTo(received)
         return fount

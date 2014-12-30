@@ -178,10 +178,10 @@ class FanOutTests(SynchronousTestCase):
         self.assertEqual(fd.received, ["something"])
 
 
-
     def test_oneFountStops(self):
         """
-        
+        When one fount created by L{Out.newFount} is stopped, only the drain
+        for that fount is affected; others continue receiving values.
         """
         ff = FakeFount()
         out = Out()
@@ -204,7 +204,9 @@ class FanOutTests(SynchronousTestCase):
 
     def test_oneFountStopsInReceive(self):
         """
-        
+        When one fount created by L{Out.newFount} is stopped in its drain's
+        C{receive} method, only the drain for that fount is affected; others
+        continue receiving values.
         """
         ff = FakeFount()
         out = Out()
@@ -228,9 +230,3 @@ class FanOutTests(SynchronousTestCase):
         self.assertEqual(fakeDrain.received, ["something", "something else"])
 
         self.assertFalse(ff.flowIsStopped)
-
-
-    def test_outFountStartsDrains(self):
-        """
-        
-        """

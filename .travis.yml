@@ -24,7 +24,7 @@ after_success:
 
 notifications:
   irc:
-    channels: "chat.freenode.net##twisted-dev"
+    channels: "chat.freenode.net#twisted-dev"
     template:
       - "%{repository}@%{branch} - %{author}: %{message} (%{build_url})"
     use_notice: true

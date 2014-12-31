@@ -2,3 +2,7 @@
 .tox
 /dist
 /build
+twisted.system
+zope.interface.system
+apidocs/
+*.egg-info

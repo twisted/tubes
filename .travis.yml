@@ -19,7 +19,7 @@ install:
   - ./.travis/install.sh
 
 script:
-  - if ! [[ ${TOX_ENV} = "" ]]; then tox -e $TOX_ENV; fi
+  - if [[ -n "${TOX_ENV}" ]]; then tox -e $TOX_ENV; fi
   - if [[ "$PUSH_DOCS" == "true" ]]; then ./.travis/build_docs.sh; fi
 
 secure: "CvFj8Df5OiDRrW7EsTGhkltdmNlYerx9hH/tSKxiNFVDBUUFaTN7rUr7kWcOKchzerGwk7zjZ4SRXyoSCs+Srht6GZxWHkNROwKpp5Xvf5clbLXbp7GO1X/L5rLgrXpGwtkhgNuHx0X2IUCDHUQAUSumPgZcNFu3emgVxEqabN0="

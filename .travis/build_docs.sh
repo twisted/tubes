@@ -17,7 +17,9 @@ if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]
 
     cd /tmp/tmp-docs
 
-    # set the username and email
+    # set the username and email. The secure line in travis.yml that sets
+    # these is created by:
+    # travis encrypt 'GIT_NAME="HawkOwl (Automatic)" GIT_EMAIL=hawkowl@atleastfornow.net GH_TOKEN=<token>'
     git config user.name "${GIT_USER}"
     git config user.email "${GIT_EMAIL}"
 
@@ -25,7 +27,7 @@ if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]
     git commit -m "Built from ${REV}"
 
     # Push it up
-    git push -q "https://${GH_TOKEN}@github.com/twisted/tubes.git"
+    git push -q "https://${GH_TOKEN}@github.com/twisted/tubes.git" gh-pages
 else
     echo "skipping docs upload"
 fi;

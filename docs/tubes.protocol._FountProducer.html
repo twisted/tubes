@@ -1,0 +1,181 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.protocol._FountProducer : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="class private">t.p._FountProducer(<span title="object">object</span>) : class documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.protocol.html">protocol</a></span>
+      
+      <a href="classIndex.html#tubes.protocol._FountProducer">View In Hierarchy</a>
+    </p>
+    <div>
+      <p>Implements interfaces: twisted.internet.interfaces.IPushProducer</p>
+    </div>
+    <div>A <a 
+href="tubes.protocol._FountProducer.html"><code>_FountProducer</code></a> 
+is an adapter to <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>
+for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.<table class="fieldTable"></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id13" class="children sortable">
+  
+  
+<tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountProducer.html#__init__">__init__</a></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountProducer.html#pauseProducing">pauseProducing</a></td>
+    <td><span>The producer has been paused.  Ensure that the fount is paused.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountProducer.html#resumeProducing">resumeProducing</a></td>
+    <td><span>The producer has been resumed.  Ensure that the fount is unpaused.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountProducer.html#stopProducing">stopProducing</a></td>
+    <td><span>Stop producing data.</span></td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes.protocol._FountProducer.html#_fount">_fount</a></td>
+    <td>An <a href="tubes.itube.IFount.html"><code>IFount</code></a>. (type: <a href="tubes.itube.IFount.html"><code>IFount</code></a>.)</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes.protocol._FountProducer.html#_pause">_pause</a></td>
+    <td>A pause if the fount has been paused by <code>pauseProducing</code> (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a> or <a 
+href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)</td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes.protocol._FountProducer._fount">
+    
+  </a>
+  <a name="_fount">
+    
+  </a>
+  <div class="functionHeader">
+    _fount =
+  </div>
+  <div class="functionBody">
+    An <a href="tubes.itube.IFount.html"><code>IFount</code></a>. (type: <a href="tubes.itube.IFount.html"><code>IFount</code></a>.)
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._FountProducer._pause">
+    
+  </a>
+  <a name="_pause">
+    
+  </a>
+  <div class="functionHeader">
+    _pause =
+  </div>
+  <div class="functionBody">
+    A pause if the fount has been paused by <code>pauseProducing</code> (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a> or <a 
+href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._FountProducer.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __init__(self, fount):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div class="undocumented">Undocumented</div>
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._FountProducer.pauseProducing">
+    
+  </a>
+  <a name="pauseProducing">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    pauseProducing(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>The producer has been paused.  Ensure that the fount is paused.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._FountProducer.resumeProducing">
+    
+  </a>
+  <a name="resumeProducing">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    resumeProducing(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>The producer has been resumed.  Ensure that the fount is unpaused.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._FountProducer.stopProducing">
+    
+  </a>
+  <a name="stopProducing">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    stopProducing(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Stop producing data.<table class="fieldTable"></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.protocol : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="module">t.protocol : module documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a></span>
+      
+      
+    </p>
+    <div>
+      
+    </div>
+    <div>Objects to connect <a 
+href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html"><code>real
+data</code></a> to <a href="tubes.html"><code>tubes</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2"><a 
+href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a></td></tr></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id12" class="children sortable">
+  
+  
+<tr class="function">
+    
+    
+    <td>Function</td>
+    <td><a href="tubes.protocol.html#factoryFromFlow">factoryFromFlow</a></td>
+    <td><span>Convert a flow function into an <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>.</span></td>
+  </tr><tr class="class private">
+    
+    
+    <td>Class</td>
+    <td><a href="tubes.protocol._FountProducer.html">_FountProducer</a></td>
+    <td><span>A <a 
+href="tubes.protocol._FountProducer.html"><code>_FountProducer</code></a> 
+is an adapter to <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>
+for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
+  </tr><tr class="class private">
+    
+    
+    <td>Class</td>
+    <td><a href="tubes.protocol._TransportDrain.html">_TransportDrain</a></td>
+    <td><span>A <a 
+href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>
+is an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> that wraps 
+around an object that provides <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+and <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IConsumer.html"><code>IConsumer</code></a>,
+and delivers data to that transport, and flow-control notifications from 
+the consumer.</span></td>
+  </tr><tr class="class private">
+    
+    
+    <td>Class</td>
+    <td><a href="tubes.protocol._TransportFount.html">_TransportFount</a></td>
+    <td><span>An <a href="tubes.itube.IFount.html"><code>IFount</code></a> that wraps 
+around an <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>,
+and, with the help of a <a 
+href="tubes.protocol._ProtocolPlumbing.html"><code>_ProtocolPlumbing</code></a>,
+delivers any data received by that <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+to an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</span></td>
+  </tr><tr class="class private">
+    
+    
+    <td>Class</td>
+    <td><a href="tubes.protocol._ProtocolPlumbing.html">_ProtocolPlumbing</a></td>
+    <td><span>An adapter between an <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+and <a href="tubes.itube.IFount.html"><code>IFount</code></a> / <a 
+href="tubes.itube.IDrain.html"><code>IDrain</code></a> interfaces.</span></td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes.protocol.factoryFromFlow">
+    
+  </a>
+  <a name="factoryFromFlow">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    factoryFromFlow(flow):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Convert a flow function into an <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>.</p>
+<p>A &quot;flow function&quot; is a function which takes a <a 
+href="tubes.itube.IFount.html"><code>fount</code></a> and an <a 
+href="tubes.itube.IDrain.html"><code>drain</code></a>.</p>
+<p><a 
+href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a>
+takes such a function and creates an <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>
+which, upon each new connection, provides the flow function with an <a 
+href="tubes.itube.IFount.html"><code>IFount</code></a> and an <a 
+href="tubes.itube.IDrain.html"><code>IDrain</code></a> representing the 
+read end and the write end of the incoming connection, respectively.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">flow</td><td>a 2-argument callable, taking (fount, drain). (type: <a 
+href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a protocol factory. (type: <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>)</td></tr></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

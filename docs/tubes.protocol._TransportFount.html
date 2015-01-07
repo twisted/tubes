@@ -1,0 +1,240 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.protocol._TransportFount : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="class private">t.p._TransportFount(<span title="object">object</span>) : class documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.protocol.html">protocol</a></span>
+      
+      <a href="classIndex.html#tubes.protocol._TransportFount">View In Hierarchy</a>
+    </p>
+    <div>
+      <p>Implements interfaces: <a href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
+    </div>
+    <div>An <a href="tubes.itube.IFount.html"><code>IFount</code></a> that wraps 
+around an <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>,
+and, with the help of a <a 
+href="tubes.protocol._ProtocolPlumbing.html"><code>_ProtocolPlumbing</code></a>,
+delivers any data received by that <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+to an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.<table class="fieldTable"></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id15" class="children sortable">
+  
+  
+<tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._TransportFount.html#__init__">__init__</a></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._TransportFount.html#flowTo">flowTo</a></td>
+    <td><span>Start delivering data from the transport to the given drain.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._TransportFount.html#pauseFlow">pauseFlow</a></td>
+    <td><span>Pause flowing.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._TransportFount.html#stopFlow">stopFlow</a></td>
+    <td><span>End the flow from this fount, dropping the TCP connection in the 
+process.</span></td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes.protocol._TransportFount.html#_transport">_transport</a></td>
+    <td>the transport. (type: provider of <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+and <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IProducer.html"><code>IProducer</code></a>.)</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes.protocol._TransportFount.html#_pauser">_pauser</a></td>
+    <td>a pauser that will pause and resume the transport. (type: <a href="tubes.kit.Pauser.html"><code>Pauser</code></a>)</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes.protocol._TransportFount.html#_preReceivePause">_preReceivePause</a></td>
+    <td>If data is received from the protocol when no drain is connected, this will
+be an <a href="tubes.itube.IPause.html"><code>IPause</code></a>. (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a> or <a 
+href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes.protocol._TransportFount.html#_preReceiveBuffer">_preReceiveBuffer</a></td>
+    <td>If data is received from the protocol when no drain is connected, then this
+will be the bytes. (type: <a 
+href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>
+or <a 
+href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)</td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes.protocol._TransportFount._transport">
+    
+  </a>
+  <a name="_transport">
+    
+  </a>
+  <div class="functionHeader">
+    _transport =
+  </div>
+  <div class="functionBody">
+    the transport. (type: provider of <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+and <a 
+href="https://twistedmatrix.com/twisted.internet.interfaces.IProducer.html"><code>IProducer</code></a>.)
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._TransportFount._pauser">
+    
+  </a>
+  <a name="_pauser">
+    
+  </a>
+  <div class="functionHeader">
+    _pauser =
+  </div>
+  <div class="functionBody">
+    a pauser that will pause and resume the transport. (type: <a href="tubes.kit.Pauser.html"><code>Pauser</code></a>)
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._TransportFount._preReceivePause">
+    
+  </a>
+  <a name="_preReceivePause">
+    
+  </a>
+  <div class="functionHeader">
+    _preReceivePause =
+  </div>
+  <div class="functionBody">
+    If data is received from the protocol when no drain is connected, this will
+be an <a href="tubes.itube.IPause.html"><code>IPause</code></a>. (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a> or <a 
+href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._TransportFount._preReceiveBuffer">
+    
+  </a>
+  <a name="_preReceiveBuffer">
+    
+  </a>
+  <div class="functionHeader">
+    _preReceiveBuffer =
+  </div>
+  <div class="functionBody">
+    If data is received from the protocol when no drain is connected, then this
+will be the bytes. (type: <a 
+href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>
+or <a 
+href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._TransportFount.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __init__(self, transport):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div class="undocumented">Undocumented</div>
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._TransportFount.flowTo">
+    
+  </a>
+  <a name="flowTo">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    flowTo(self, drain):
+    
+  </div>
+  <div class="functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
+    <div>Start delivering data from the transport to the given drain.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>the drain that will receive data from the wrapped transport.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the next fount in the chain.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._TransportFount.pauseFlow">
+    
+  </a>
+  <a name="pauseFlow">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    pauseFlow(self):
+    
+  </div>
+  <div class="functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
+    <div>Pause flowing.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.itube.IPause.html"><code>pause token</code></a>.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.protocol._TransportFount.stopFlow">
+    
+  </a>
+  <a name="stopFlow">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    stopFlow(self):
+    
+  </div>
+  <div class="functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
+    <div>End the flow from this fount, dropping the TCP connection in the 
+process.<table class="fieldTable"></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes._siphon.SiphonPendingValues : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="class">t._.SiphonPendingValues(<span title="object">object</span>) : class documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes._siphon.html">_siphon</a></span>
+      
+      <a href="classIndex.html#tubes._siphon.SiphonPendingValues">View In Hierarchy</a>
+    </p>
+    <div>
+      
+    </div>
+    <div>A queue of pending values which can be suspended and resumed, for 
+representing values pending delivery for a <a 
+href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.<table class="fieldTable"></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id48" class="children sortable">
+  
+  
+<tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#__init__">__init__</a></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#suspend">suspend</a></td>
+    <td><span><a 
+href="tubes._siphon.SiphonPendingValues.html#popPendingValue"><code>SiphonPendingValues.popPendingValue</code></a>
+should return <a 
+href="tubes._siphon.html#suspended"><code>suspended</code></a>.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#resume">resume</a></td>
+    <td><span><a 
+href="tubes._siphon.SiphonPendingValues.html#popPendingValue"><code>SiphonPendingValues.popPendingValue</code></a></span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#prepend">prepend</a></td>
+    <td><span>Add the given iterator to the beginning of the queue.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#append">append</a></td>
+    <td><span>Add the given iterator to the end of the queue.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#clear">clear</a></td>
+    <td><span>Clear the entire queue.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#popPendingValue">popPendingValue</a></td>
+    <td><span>Get the next value in the leftmost iterator in the deque.</span></td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#_deque">_deque</a></td>
+    <td>a deque containing iterators containing queued values.</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes._siphon.SiphonPendingValues.html#_suspended">_suspended</a></td>
+    <td>Is this <a 
+href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+currently suspended?</td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes._siphon.SiphonPendingValues._deque">
+    
+  </a>
+  <a name="_deque">
+    
+  </a>
+  <div class="functionHeader">
+    _deque =
+  </div>
+  <div class="functionBody">
+    a deque containing iterators containing queued values.
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues._suspended">
+    
+  </a>
+  <a name="_suspended">
+    
+  </a>
+  <div class="functionHeader">
+    _suspended =
+  </div>
+  <div class="functionBody">
+    Is this <a 
+href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+currently suspended?
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __init__(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div class="undocumented">Undocumented</div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues.suspend">
+    
+  </a>
+  <a name="suspend">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    suspend(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div><a 
+href="tubes._siphon.SiphonPendingValues.html#popPendingValue"><code>SiphonPendingValues.popPendingValue</code></a>
+should return <a 
+href="tubes._siphon.html#suspended"><code>suspended</code></a>.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues.resume">
+    
+  </a>
+  <a name="resume">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    resume(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div><a 
+href="tubes._siphon.SiphonPendingValues.html#popPendingValue"><code>SiphonPendingValues.popPendingValue</code></a><table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues.prepend">
+    
+  </a>
+  <a name="prepend">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    prepend(self, iterator):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Add the given iterator to the beginning of the queue.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">iterator</td><td>an iterator of values to deliver via popPendingValue.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues.append">
+    
+  </a>
+  <a name="append">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    append(self, iterator):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Add the given iterator to the end of the queue.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">iterator</td><td>an iterator of values to deliver via popPendingValue.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues.clear">
+    
+  </a>
+  <a name="clear">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    clear(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Clear the entire queue.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon.SiphonPendingValues.popPendingValue">
+    
+  </a>
+  <a name="popPendingValue">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    popPendingValue(self, evenIfSuspended=False):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Get the next value in the leftmost iterator in the deque.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">evenIfSuspended</td><td>return the next pending value regardless of whether this <a 
+href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+is suspended or not. (type: <a 
+href="http://docs.python.org/library/functions.html#bool"><code>bool</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">The next value yielded by the first iterator in the queue, <a 
+href="tubes._siphon.html#suspended"><code>suspended</code></a> if this <a 
+href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+is suspended and <code>evenIfSuspended</code> was not passed, or <a 
+href="tubes._siphon.html#finished"><code>finished</code></a> if the queue 
+is empty.</td></tr></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

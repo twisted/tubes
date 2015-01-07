@@ -1,0 +1,174 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.fan._InDrain : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="class private">t.f._InDrain(<span title="object">object</span>) : class documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.fan.html">fan</a></span>
+      
+      <a href="classIndex.html#tubes.fan._InDrain">View In Hierarchy</a>
+    </p>
+    <div>
+      <p>Implements interfaces: <a href="tubes.itube.IDrain.html">tubes.itube.IDrain</a></p>
+    </div>
+    <div>The one of the drains associated with an fan.<a 
+href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable"></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id39" class="children sortable">
+  
+  
+<tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.fan._InDrain.html#__init__">__init__</a></td>
+    <td><span>Create an <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a> 
+with an <a href="tubes.fan.In.html"><code>In</code></a>.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.fan._InDrain.html#flowingFrom">flowingFrom</a></td>
+    <td><span>The attached <a href="tubes.fan.In.html"><code>In</code></a> is now 
+receiving inputs from the given fount.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.fan._InDrain.html#receive">receive</a></td>
+    <td><span>Pass along any received item to the drain that the <a 
+href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.fan._InDrain.html#flowStopped">flowStopped</a></td>
+    <td><span>Pass along any stop notification to the drain that the <a 
+href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.</span></td>
+  </tr><tr class="method private">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.fan._InDrain.html#_checkNoDrainPause">_checkNoDrainPause</a></td>
+    <td><span>This <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a> just 
+switched founts or may have acquired a down-stream drain; make sure that 
+any pause state for a fount no longer associated with me is unpaused.</span></td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes.fan._InDrain.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __init__(self, fanIn):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Create an <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a> 
+with an <a href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.fan._InDrain.flowingFrom">
+    
+  </a>
+  <a name="flowingFrom">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    flowingFrom(self, fount):
+    
+  </div>
+  <div class="functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowingFrom">tubes.itube.IDrain</a></div>
+    <div>The attached <a href="tubes.fan.In.html"><code>In</code></a> is now 
+receiving inputs from the given fount.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>Any fount.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><code>None</code>; this is a terminal drain and not a data-processing 
+drain.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.fan._InDrain._checkNoDrainPause">
+    
+  </a>
+  <a name="_checkNoDrainPause">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    _checkNoDrainPause(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>This <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a> just 
+switched founts or may have acquired a down-stream drain; make sure that 
+any pause state for a fount no longer associated with me is unpaused.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.fan._InDrain.receive">
+    
+  </a>
+  <a name="receive">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    receive(self, item):
+    
+  </div>
+  <div class="functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#receive">tubes.itube.IDrain</a></div>
+    <div>Pass along any received item to the drain that the <a 
+href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>any object</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">passed through from the active drain.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.fan._InDrain.flowStopped">
+    
+  </a>
+  <a name="flowStopped">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    flowStopped(self, reason):
+    
+  </div>
+  <div class="functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowStopped">tubes.itube.IDrain</a></div>
+    <div>Pass along any stop notification to the drain that the <a 
+href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason the flow stopped.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">passed through from the active drain.</td></tr></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

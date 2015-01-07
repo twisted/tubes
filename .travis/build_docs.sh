@@ -17,14 +17,14 @@ if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]
 
     cd /tmp/tmp-docs
 
-    # set the username and email. The secure line in travis.yml that sets
-    # these is created by:
-    # travis encrypt 'GIT_NAME="HawkOwl (Automatic)" GIT_EMAIL=hawkowl@atleastfornow.net GH_TOKEN=<token>'
-    git config user.name "${GIT_USER}"
-    git config user.email "${GIT_EMAIL}"
-
     git add -A
-    git commit -m "Built from ${REV}"
+
+    # set the username and email. The secure line in travis.yml that sets
+    # these environment variables is created by:
+
+    # travis encrypt 'GIT_NAME="HawkOwl (Automatic)" GIT_EMAIL=hawkowl@atleastfornow.net GH_TOKEN=<token>'
+    env GIT_AUTHOR_NAME="${GIT_NAME}" GIT_AUTHOR_EMAIL="${GIT_EMAIL}" \
+        git commit -m "Built from ${REV}"
 
     # Push it up
     git push -q "https://${GH_TOKEN}@github.com/twisted/tubes.git" gh-pages

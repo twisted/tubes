@@ -23,8 +23,21 @@ if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]
     # these environment variables is created by:
 
     # travis encrypt 'GIT_NAME="HawkOwl (Automatic)" GIT_EMAIL=hawkowl@atleastfornow.net GH_TOKEN=<token>'
-    env GIT_AUTHOR_NAME="${GIT_USER}" GIT_AUTHOR_EMAIL="${GIT_EMAIL}" \
-        git commit -m "Built from ${REV}"
+
+    export GIT_AUTHOR_NAME="${GIT_USER}";
+    export GIT_AUTHOR_EMAIL="${GIT_EMAIL}";
+
+    echo;
+    echo "vvvv VARS vvvv";
+    echo;
+
+    git var -l;
+
+    echo;
+    echo "^^^^ VARS ^^^^";
+    echo;
+
+    git commit -m "Built from ${REV}";
 
     # Push it up
     git push -q "https://${GH_TOKEN}@github.com/twisted/tubes.git" gh-pages

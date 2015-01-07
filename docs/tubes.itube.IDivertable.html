@@ -1,0 +1,138 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.itube.IDivertable : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="interface">t.i.IDivertable(<a href="tubes.itube.ITube.html">ITube</a>) : interface documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.itube.html">itube</a></span>
+      
+      <a href="classIndex.html#tubes.itube.IDivertable">View In Hierarchy</a>
+    </p>
+    <div>
+      <p>Known implementations: <a href="tubes.framing._SegmentsToFrames.html">tubes.framing._SegmentsToFrames</a></p>
+    </div>
+    <div>An <a href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> 
+is an <a href="tubes.itube.ITube.html"><code>ITube</code></a> which may 
+have its input diverted away from it.<table class="fieldTable"></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id31" class="children sortable">
+  
+  
+<tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.itube.IDivertable.html#reassemble">reassemble</a></td>
+    <td><span>Reverse the transformation done by calling <a 
+href="tubes.itube.ITube.html#received"><code>received</code></a>, so as to 
+provide any buffered output as input to the drain where this <a 
+href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> is being 
+diverted.</span></td>
+  </tr>
+  
+</table>
+      
+        <p>
+          Inherited from <a href="tubes.itube.ITube.html">ITube</a>:
+        </p>
+        <table id="id32" class="children sortable">
+  
+  
+<tr class="baseattribute">
+    
+    
+    <td>Attribute</td>
+    <td><a href="tubes.itube.ITube.html#inputType">inputType</a></td>
+    <td><span>The type expected to be received as input to received.</span></td>
+  </tr><tr class="baseattribute">
+    
+    
+    <td>Attribute</td>
+    <td><a href="tubes.itube.ITube.html#outputType">outputType</a></td>
+    <td><span>The type expected to be sent as output to <code>tube.deliver</code>.</span></td>
+  </tr><tr class="basemethod">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.itube.ITube.html#started">started</a></td>
+    <td><span>The flow of items has started.  <code>received</code> may be called at 
+any point after this.</span></td>
+  </tr><tr class="basemethod">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.itube.ITube.html#received">received</a></td>
+    <td><span>An item was received from 'upstream', i.e. the framework, or the 
+lower-level data source that this <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
+with.</span></td>
+  </tr><tr class="basemethod">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.itube.ITube.html#stopped">stopped</a></td>
+    <td><span>The flow of data from this <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
+this corresponds to <a 
+href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.</span></td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes.itube.IDivertable.reassemble">
+    
+  </a>
+  <a name="reassemble">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    reassemble(data):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Reverse the transformation done by calling <a 
+href="tubes.itube.ITube.html#received"><code>received</code></a>, so as to 
+provide any buffered output as input to the drain where this <a 
+href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> is being 
+diverted.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">data</td><td>The objects which had been returned from <a 
+href="tubes.itube.ITube.html#received"><code>ITube.received</code></a> 
+which had been buffered. (type: <a 
+href="http://docs.python.org/library/functions.html#list"><code>list</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">A list of objects such that, if <a 
+href="tubes.itube.ITube.html#received"><code>received</code></a> was called
+successively with each object in the returned list, 
+<code>tube.deliver</code> would be called successively with each object in 
+<code>data</code>.  This does not need to be exactly equal to what was 
+originally passed in as long as it achieves the same effect.  Any objects 
+which were buffered by the <a 
+href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> which did 
+not yet correspond to a <code>tube.deliver</code> call should be included 
+as well. (type: <a 
+href="http://docs.python.org/library/functions.html#list"><code>list</code></a>)</td></tr></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

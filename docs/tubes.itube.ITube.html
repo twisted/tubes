@@ -1,0 +1,206 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.itube.ITube : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="interface">t.i.ITube(<span title="zope.interface.Interface">Interface</span>) : interface documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.itube.html">itube</a></span>
+      
+      <a href="classIndex.html#tubes.itube.ITube">View In Hierarchy</a>
+    </p>
+    <div>
+      <p>Known subclasses: <a href="tubes.itube.IDivertable.html">tubes.itube.IDivertable</a></p><p>Known implementations: <a href="tubes.tube._Tubule.html">tubes.tube._Tubule</a></p>
+    </div>
+    <div>A tube translates input to output.</p>
+<p>Look at this awesome ASCII art:</p>
+<pre class="literalblock">
+                    a fount
+                 +----+--------+               +-----  a
+                / +---+------+ | | data flow  / +----  fount
+    a tube ---&gt;/ /           | | v           / /
+              / /            | |            / /
+             / /             | |  a drain  / /
+   a     ---+ /              | +----+-----+ /&lt;--- a tube
+   drain ----+               +------+------+
+
+         =========&gt; direction of flow =========&gt;
+</pre>
+<p>(Image credit Nam Nguyen)<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2"><a href="tubes.itube.ITube.html"><code>ITube</code></a> providers 
+participate in <i>data processing</i> not in <i>flow control</i>.  That is 
+to say, an <a href="tubes.itube.ITube.html"><code>ITube</code></a> provider
+can translate its input to output, but cannot impact the rate at which that
+output is delivered.  If you want to implement flow-control modifications, 
+implement <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> 
+directly.  <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> 
+providers may be easily connected up to <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a> providers with <a 
+href="tubes.tube.html#series"><code>series</code></a>, so you may implement
+flow-control in an <a 
+href="tubes.itube.IDrain.html"><code>IDrain</code></a> that passes on its 
+input unmodified and data-processing in an <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a> and hook them 
+together.</td></tr></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id30" class="children sortable">
+  
+  
+<tr class="attribute">
+    
+    
+    <td>Attribute</td>
+    <td><a href="tubes.itube.ITube.html#inputType">inputType</a></td>
+    <td><span>The type expected to be received as input to received.</span></td>
+  </tr><tr class="attribute">
+    
+    
+    <td>Attribute</td>
+    <td><a href="tubes.itube.ITube.html#outputType">outputType</a></td>
+    <td><span>The type expected to be sent as output to <code>tube.deliver</code>.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.itube.ITube.html#started">started</a></td>
+    <td><span>The flow of items has started.  <code>received</code> may be called at 
+any point after this.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.itube.ITube.html#received">received</a></td>
+    <td><span>An item was received from 'upstream', i.e. the framework, or the 
+lower-level data source that this <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
+with.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.itube.ITube.html#stopped">stopped</a></td>
+    <td><span>The flow of data from this <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
+this corresponds to <a 
+href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.</span></td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes.itube.ITube.inputType">
+    
+  </a>
+  <a name="inputType">
+    
+  </a>
+  <div class="functionHeader">
+    inputType =
+  </div>
+  <div class="functionBody">
+    <div>The type expected to be received as input to received.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.itube.ITube.outputType">
+    
+  </a>
+  <a name="outputType">
+    
+  </a>
+  <div class="functionHeader">
+    outputType =
+  </div>
+  <div class="functionBody">
+    <div>The type expected to be sent as output to <code>tube.deliver</code>.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.itube.ITube.started">
+    
+  </a>
+  <a name="started">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    started():
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>The flow of items has started.  <code>received</code> may be called at 
+any point after this.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.itube.ITube.received">
+    
+  </a>
+  <a name="received">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    received(item):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>An item was received from 'upstream', i.e. the framework, or the 
+lower-level data source that this <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
+with.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">An iterable of values to propagate to the downstream drain attached to this
+<a href="tubes.itube.ITube.html"><code>ITube</code></a>. (type: iterable of <a 
+href="tubes.itube.ITube.html#outputType"><code>ITube.outputType</code></a>)</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.itube.ITube.stopped">
+    
+  </a>
+  <a name="stopped">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    stopped(reason):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>The flow of data from this <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
+this corresponds to <a 
+href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">The same as <a 
+href="tubes.itube.ITube.html#received"><code>ITube.received</code></a>; 
+values returned (or yielded) by this method will be propagated before the 
+<a 
+href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>
+notification to the downstream drain. (type: same as <a 
+href="tubes.itube.ITube.html#received"><code>ITube.received</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2"><a href="tubes.itube.ITube.html"><code>ITube</code></a> <i>has</i> no 
+notification corresponding to <a 
+href="tubes.itube.IFount.html#stopFlow"><code>IFount.stopFlow</code></a>, 
+since it has no control over whether additional data will be synthesized / 
+processed by <i>its</i> fount, there's no useful work it can do.</td></tr></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

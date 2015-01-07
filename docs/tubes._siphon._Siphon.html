@@ -1,0 +1,355 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes._siphon._Siphon : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="class private">t._._Siphon(<span title="object">object</span>) : class documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes._siphon.html">_siphon</a></span>
+      
+      <a href="classIndex.html#tubes._siphon._Siphon">View In Hierarchy</a>
+    </p>
+    <div>
+      
+    </div>
+    <div>A <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> is an <a
+href="tubes.itube.IDrain.html"><code>IDrain</code></a> and possibly also an
+<a href="tubes.itube.IFount.html"><code>IFount</code></a>, and provides 
+lots of conveniences to make it easy to implement something that does fancy
+flow control with just a few methods.<table class="fieldTable"></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id55" class="children sortable">
+  
+  
+<tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon._Siphon.html#__init__">__init__</a></td>
+    <td><span>Initialize this <a 
+href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> with the given 
+<a href="tubes.itube.ITube.html"><code>ITube</code></a> to control its 
+behavior.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon._Siphon.html#__repr__">__repr__</a></td>
+    <td><span>Nice string representation.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon._Siphon.html#ejectPending">ejectPending</a></td>
+    <td><span>Eject the entire pending buffer into a list for reassembly by a 
+diverter.</span></td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes._siphon._Siphon.html#_tube">_tube</a></td>
+    <td>the <a href="tubes.itube.ITube.html"><code>ITube</code></a> which will 
+receive values from this siphon and call <code>deliver</code> to deliver 
+output to it.  (When set, this will automatically set the 
+<code>siphon</code> attribute of said <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a> as well, as well as 
+un-setting the <code>siphon</code> attribute of the old tube.)</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes._siphon._Siphon.html#_currentlyPaused">_currentlyPaused</a></td>
+    <td>is this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> 
+currently paused?  Boolean: <code>True</code> if paused, <code>False</code>
+if not.</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes._siphon._Siphon.html#_pauseBecausePauseCalled">_pauseBecausePauseCalled</a></td>
+    <td>an <a href="tubes.itube.IPause.html"><code>IPause</code></a> from the 
+upstream fount, present because pauseFlow has been called.</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes._siphon._Siphon.html#_flowStoppingReason">_flowStoppingReason</a></td>
+    <td>If this is not <code>None</code>, then call <code>flowStopped</code> on the
+downstream <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> at the
+next opportunity, where &quot;the next opportunity&quot; is when all 
+buffered input (values yielded from <code>started</code>, 
+<code>received</code>, and <code>stopped</code>) has been written to the 
+downstream drain and we are unpaused.</td>
+  </tr><tr class="instancevariable private">
+    
+    
+    <td>Instance Variable</td>
+    <td><a href="tubes._siphon._Siphon.html#_everStarted">_everStarted</a></td>
+    <td>Has this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> ever
+called <code>started</code> on its <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a>? (type: <a 
+href="http://docs.python.org/library/functions.html#bool"><code>bool</code></a>)</td>
+  </tr><tr class="method private">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon._Siphon.html#_noMore">_noMore</a></td>
+    <td><span>I am now unable to produce further input, or output, or both.</span></td>
+  </tr><tr class="method private">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon._Siphon.html#_deliverFrom">_deliverFrom</a></td>
+    <td><span>Deliver some items from a callable that will produce an iterator.</span></td>
+  </tr><tr class="method private">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon._Siphon.html#_unbufferIterator">_unbufferIterator</a></td>
+    <td><span>Un-buffer some items buffered in <code>self._pending</code> and actually
+deliver them, as long as we're not paused.</span></td>
+  </tr><tr class="method private">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes._siphon._Siphon.html#_endOfLine">_endOfLine</a></td>
+    <td><span>We've reached the end of the line.  Immediately stop delivering all 
+buffers and notify our downstream drain why the flow has stopped.</span></td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes._siphon._Siphon._tube">
+    
+  </a>
+  <a name="_tube">
+    
+  </a>
+  <div class="functionHeader">
+    _tube =
+  </div>
+  <div class="functionBody">
+    the <a href="tubes.itube.ITube.html"><code>ITube</code></a> which will 
+receive values from this siphon and call <code>deliver</code> to deliver 
+output to it.  (When set, this will automatically set the 
+<code>siphon</code> attribute of said <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a> as well, as well as 
+un-setting the <code>siphon</code> attribute of the old tube.)
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._currentlyPaused">
+    
+  </a>
+  <a name="_currentlyPaused">
+    
+  </a>
+  <div class="functionHeader">
+    _currentlyPaused =
+  </div>
+  <div class="functionBody">
+    is this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> 
+currently paused?  Boolean: <code>True</code> if paused, <code>False</code>
+if not.
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._pauseBecausePauseCalled">
+    
+  </a>
+  <a name="_pauseBecausePauseCalled">
+    
+  </a>
+  <div class="functionHeader">
+    _pauseBecausePauseCalled =
+  </div>
+  <div class="functionBody">
+    an <a href="tubes.itube.IPause.html"><code>IPause</code></a> from the 
+upstream fount, present because pauseFlow has been called.
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._flowStoppingReason">
+    
+  </a>
+  <a name="_flowStoppingReason">
+    
+  </a>
+  <div class="functionHeader">
+    _flowStoppingReason =
+  </div>
+  <div class="functionBody">
+    If this is not <code>None</code>, then call <code>flowStopped</code> on the
+downstream <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> at the
+next opportunity, where &quot;the next opportunity&quot; is when all 
+buffered input (values yielded from <code>started</code>, 
+<code>received</code>, and <code>stopped</code>) has been written to the 
+downstream drain and we are unpaused.
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._everStarted">
+    
+  </a>
+  <a name="_everStarted">
+    
+  </a>
+  <div class="functionHeader">
+    _everStarted =
+  </div>
+  <div class="functionBody">
+    Has this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> ever
+called <code>started</code> on its <a 
+href="tubes.itube.ITube.html"><code>ITube</code></a>? (type: <a 
+href="http://docs.python.org/library/functions.html#bool"><code>bool</code></a>)
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __init__(self, tube):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Initialize this <a 
+href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> with the given 
+<a href="tubes.itube.ITube.html"><code>ITube</code></a> to control its 
+behavior.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._noMore">
+    
+  </a>
+  <a name="_noMore">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    _noMore(self, input, output):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>I am now unable to produce further input, or output, or both.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">input</td><td><a 
+href="http://docs.python.org/library/functions.html#True"><code>True</code></a>
+if I can no longer produce input.</td></tr><tr><td></td><td class="fieldArg">output</td><td><a 
+href="http://docs.python.org/library/functions.html#True"><code>True</code></a>
+if I can no longer produce output.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon.__repr__">
+    
+  </a>
+  <a name="__repr__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __repr__(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Nice string representation.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._deliverFrom">
+    
+  </a>
+  <a name="_deliverFrom">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    _deliverFrom(self, deliverySource):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Deliver some items from a callable that will produce an iterator.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">deliverySource</td><td>a 0-argument callable that will return an iterable.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._unbufferIterator">
+    
+  </a>
+  <a name="_unbufferIterator">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    _unbufferIterator(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Un-buffer some items buffered in <code>self._pending</code> and actually
+deliver them, as long as we're not paused.<table class="fieldTable"></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon._endOfLine">
+    
+  </a>
+  <a name="_endOfLine">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    _endOfLine(self, flowStoppingReason):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>We've reached the end of the line.  Immediately stop delivering all 
+buffers and notify our downstream drain why the flow has stopped.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">flowStoppingReason</td><td>the reason that the flow was stopped.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes._siphon._Siphon.ejectPending">
+    
+  </a>
+  <a name="ejectPending">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    ejectPending(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Eject the entire pending buffer into a list for reassembly by a 
+diverter.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a 
+href="http://docs.python.org/library/functions.html#list"><code>list</code></a>
+of all buffered output values.</td></tr></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

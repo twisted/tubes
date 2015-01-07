@@ -1,0 +1,174 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.framing._FramesToSegments : API documentation</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    
+    
+  </head>
+  <body>
+    <h1 class="class private">t.f._FramesToSegments(<span title="object">object</span>) : class documentation</h1>
+    <p>
+      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.framing.html">framing</a></span>
+      
+      <a href="classIndex.html#tubes.framing._FramesToSegments">View In Hierarchy</a>
+    </p>
+    <div>
+      
+    </div>
+    <div>A tube which could convert &quot;<a 
+href="tubes.itube.IFrame.html"><code>frames</code></a>&quot; - discrete 
+chunks of data - into &quot;<a 
+href="tubes.itube.ISegment.html"><code>segments</code></a>&quot; - parts of
+a raw data stream, with framing headers or delimiters attached.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">_received</td><td>the <code>sendString</code> method, a 1-argument callable taking <a 
+href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>. (type: <a 
+href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)</td></tr></table></div>
+
+    
+    
+    <div id="splitTables">
+      <table id="id35" class="children sortable">
+  
+  
+<tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.framing._FramesToSegments.html#__init__">__init__</a></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.framing._FramesToSegments.html#started">started</a></td>
+    <td><span>Flush any greeting data that has come from the wrapped framing 
+parser.</span></td>
+  </tr><tr class="method">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.framing._FramesToSegments.html#received">received</a></td>
+    <td><span>A frame was received, manipulate it and yield a segment or segments.</span></td>
+  </tr><tr class="method private">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.framing._FramesToSegments.html#_unflush">_unflush</a></td>
+    <td><span>Put the given segments into the output buffer.</span></td>
+  </tr><tr class="method private">
+    
+    
+    <td>Method</td>
+    <td><a href="tubes.framing._FramesToSegments.html#_flush">_flush</a></td>
+    <td><span>Clear the output buffer and return its previous contents.</span></td>
+  </tr>
+  
+</table>
+      
+      
+    </div>
+    
+    
+    
+
+    <div class="function">
+  <a name="tubes.framing._FramesToSegments.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __init__(self, stringReceiver, sendMethodName='sendString'):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div class="undocumented">Undocumented</div>
+  </div>
+</div><div class="function">
+  <a name="tubes.framing._FramesToSegments.started">
+    
+  </a>
+  <a name="started">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    started(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Flush any greeting data that has come from the wrapped framing 
+parser.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">any bytes written by makeConnection</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.framing._FramesToSegments.received">
+    
+  </a>
+  <a name="received">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    received(self, data):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>A frame was received, manipulate it and yield a segment or segments.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">data</td><td>a frame.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a sequence of segments with appropriate framing information embedded to 
+frame <code>data</code>.</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.framing._FramesToSegments._unflush">
+    
+  </a>
+  <a name="_unflush">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    _unflush(self, input):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Put the given segments into the output buffer.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">input</td><td>some values written to the underlying receiver's transport. (type: <a 
+href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>)</td></tr></table></div>
+  </div>
+</div><div class="function">
+  <a name="tubes.framing._FramesToSegments._flush">
+    
+  </a>
+  <a name="_flush">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    _flush(self):
+    
+  </div>
+  <div class="functionBody">
+    
+    <div>Clear the output buffer and return its previous contents.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the current output buffer. (type: <a 
+href="http://docs.python.org/library/functions.html#list"><code>list</code></a>
+of <a 
+href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>,
+each representing a segment.)</td></tr></table></div>
+  </div>
+</div>
+    <address>
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+    </address>
+  </body>
+</html>

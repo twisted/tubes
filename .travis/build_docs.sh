@@ -24,7 +24,7 @@ if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]
 
     # travis encrypt 'GIT_NAME="HawkOwl (Automatic)" GIT_EMAIL=hawkowl@atleastfornow.net GH_TOKEN=<token>'
 
-    export GIT_AUTHOR_NAME="${GIT_USER}";
+    export GIT_AUTHOR_NAME="${GIT_NAME}";
     export GIT_AUTHOR_EMAIL="${GIT_EMAIL}";
 
     echo;

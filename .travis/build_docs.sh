@@ -27,16 +27,6 @@ if [[ ${TRAVIS_PULL_REQUEST} == "false" ]] && [[ ${TRAVIS_BRANCH} == "master" ]]
     export GIT_AUTHOR_NAME="${GIT_NAME}";
     export GIT_AUTHOR_EMAIL="${GIT_EMAIL}";
 
-    echo;
-    echo "vvvv VARS vvvv";
-    echo;
-
-    git var -l;
-
-    echo;
-    echo "^^^^ VARS ^^^^";
-    echo;
-
     git commit -m "Built from ${REV}";
 
     # Push it up

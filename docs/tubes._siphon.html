@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes._siphon : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,32 +19,28 @@
     <div>
       
     </div>
-    <div>Adapters for converting <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> to <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> and <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>Adapters for converting <a href="tubes.itube.ITube.html"><code>ITube</code></a> to <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id47" class="children sortable">
+      <table class="children sortable" id="id47">
   
   
-<tr class="function">
+  <tr class="function">
     
     
     <td>Function</td>
     <td><a href="tubes._siphon.html#suspended">suspended</a></td>
-    <td><span>A token value meaning that <a 
-href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+    <td><span>A token value meaning that <a href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
 was suspended.</span></td>
   </tr><tr class="function">
     
     
     <td>Function</td>
     <td><a href="tubes._siphon.html#finished">finished</a></td>
-    <td><span>A token value meaning that <a 
-href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+    <td><span>A token value meaning that <a href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
 has no more values in its queue.</span></td>
   </tr><tr class="class">
     
@@ -52,24 +48,19 @@ has no more values in its queue.</span></td>
     <td>Class</td>
     <td><a href="tubes._siphon.SiphonPendingValues.html">SiphonPendingValues</a></td>
     <td><span>A queue of pending values which can be suspended and resumed, for 
-representing values pending delivery for a <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
+representing values pending delivery for a <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr><tr class="class private">
     
     
     <td>Class</td>
     <td><a href="tubes._siphon._SiphonPiece.html">_SiphonPiece</a></td>
-    <td><span>Shared functionality between <a 
-href="tubes._siphon._SiphonFount.html"><code>_SiphonFount</code></a> and <a
-href="tubes._siphon._SiphonDrain.html"><code>_SiphonDrain</code></a></span></td>
+    <td><span>Shared functionality between <a href="tubes._siphon._SiphonFount.html"><code>_SiphonFount</code></a> and <a href="tubes._siphon._SiphonDrain.html"><code>_SiphonDrain</code></a></span></td>
   </tr><tr class="class private">
     
     
     <td>Class</td>
     <td><a href="tubes._siphon._SiphonFount.html">_SiphonFount</a></td>
-    <td><span>Implementation of <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> for <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
+    <td><span>Implementation of <a href="tubes.itube.IFount.html"><code>IFount</code></a> for <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr><tr class="class private">
     
     
@@ -82,16 +73,13 @@ does nothing.</span></td>
     
     <td>Class</td>
     <td><a href="tubes._siphon._SiphonDrain.html">_SiphonDrain</a></td>
-    <td><span>Implementation of <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> for <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
+    <td><span>Implementation of <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> for <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr><tr class="class private">
     
     
     <td>Class</td>
     <td><a href="tubes._siphon._Siphon.html">_Siphon</a></td>
-    <td><span>A <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> is an <a
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> and possibly also an
+    <td><span>A <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> is an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and possibly also an
 <a href="tubes.itube.IFount.html"><code>IFount</code></a>, and provides 
 lots of conveniences to make it easy to implement something that does fancy
 flow control with just a few methods.</span></td>
@@ -100,17 +88,12 @@ flow control with just a few methods.</span></td>
     
     <td>Function</td>
     <td><a href="tubes._siphon.html#_tube2drain">_tube2drain</a></td>
-    <td><span>An adapter that can convert an <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> to an <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> by wrapping it in a 
+    <td><span>An adapter that can convert an <a href="tubes.itube.ITube.html"><code>ITube</code></a> to an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> by wrapping it in a 
 <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -127,11 +110,10 @@ href="tubes.itube.IDrain.html"><code>IDrain</code></a> by wrapping it in a
     suspended():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>A token value meaning that <a 
-href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
-was suspended.<table class="fieldTable"></table></div>
+    <div><p>A token value meaning that <a href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+was suspended.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes._siphon.finished">
@@ -146,11 +128,10 @@ was suspended.<table class="fieldTable"></table></div>
     finished():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>A token value meaning that <a 
-href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
-has no more values in its queue.<table class="fieldTable"></table></div>
+    <div><p>A token value meaning that <a href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
+has no more values in its queue.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes._siphon._tube2drain">
@@ -165,16 +146,14 @@ has no more values in its queue.<table class="fieldTable"></table></div>
     _tube2drain(tube):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>An adapter that can convert an <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> to an <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> by wrapping it in a 
-<a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">tube</td><td><a href="tubes.itube.ITube.html"><code>ITube</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="tubes.itube.IDrain.html"><code>IDrain</code></a></td></tr></table></div>
+    <div><p>An adapter that can convert an <a href="tubes.itube.ITube.html"><code>ITube</code></a> to an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> by wrapping it in a 
+<a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">tube</td><td><a href="tubes.itube.ITube.html"><code>ITube</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="tubes.itube.IDrain.html"><code>IDrain</code></a></td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

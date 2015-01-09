@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.fan._InFount : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,17 +19,17 @@
     <div>
       <p>Implements interfaces: <a href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
     </div>
-    <div>An <a href="tubes.fan._InFount.html"><code>_InFount</code></a> is the 
-single fount associated with an <a 
-href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>An <a href="tubes.fan._InFount.html"><code>_InFount</code></a> is the 
+single fount associated with an <a href="tubes.fan.In.html"><code>In</code></a>.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id40" class="children sortable">
+      <table class="children sortable" id="id40">
   
   
-<tr class="method">
+  <tr class="method">
     
     
     <td>Method</td>
@@ -47,24 +47,17 @@ with an <a href="tubes.fan.In.html"><code>In</code></a>.</span></td>
     
     <td>Method</td>
     <td><a href="tubes.fan._InFount.html#pauseFlow">pauseFlow</a></td>
-    <td><span>Pause the flow of all founts flowing into <a 
-href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a 
-href="tubes.fan.In.html"><code>In</code></a>.</span></td>
+    <td><span>Pause the flow of all founts flowing into <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a href="tubes.fan.In.html"><code>In</code></a>.</span></td>
   </tr><tr class="method">
     
     
     <td>Method</td>
     <td><a href="tubes.fan._InFount.html#stopFlow">stopFlow</a></td>
-    <td><span>Stop the flow of all founts flowing into <a 
-href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a 
-href="tubes.fan.In.html"><code>In</code></a>.</span></td>
+    <td><span>Stop the flow of all founts flowing into <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a href="tubes.fan.In.html"><code>In</code></a>.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -81,10 +74,10 @@ href="tubes.fan.In.html"><code>In</code></a>.</span></td>
     __init__(self, fanIn):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Create an <a href="tubes.fan._InFount.html"><code>_InFount</code></a> 
-with an <a href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable"></table></div>
+    <div><p>Create an <a href="tubes.fan._InFount.html"><code>_InFount</code></a> 
+with an <a href="tubes.fan.In.html"><code>In</code></a>.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._InFount.flowTo">
@@ -99,9 +92,9 @@ with an <a href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable
     flowTo(self, drain):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
-    <div>Start flowing to the given <code>drain</code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>the drain to deliver all inputs from all founts attached to the underlying 
+    <div><p>Start flowing to the given <code>drain</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>the drain to deliver all inputs from all founts attached to the underlying 
 <a href="tubes.fan.In.html"><code>In</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the fount downstream of <code>drain</code>.</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -117,11 +110,9 @@ with an <a href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable
     pauseFlow(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
-    <div>Pause the flow of all founts flowing into <a 
-href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a 
-href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">A pause which pauses all upstream founts.</td></tr></table></div>
+    <div><p>Pause the flow of all founts flowing into <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a href="tubes.fan.In.html"><code>In</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">A pause which pauses all upstream founts.</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._InFount.stopFlow">
@@ -136,15 +127,13 @@ href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable"><tr class
     stopFlow(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
-    <div>Stop the flow of all founts flowing into <a 
-href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a 
-href="tubes.fan.In.html"><code>In</code></a>.<table class="fieldTable"></table></div>
+    <div><p>Stop the flow of all founts flowing into <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a>s for this <a href="tubes.fan.In.html"><code>In</code></a>.</p><table class="fieldTable"></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

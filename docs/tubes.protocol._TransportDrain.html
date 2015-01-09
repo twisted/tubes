@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.protocol._TransportDrain : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,23 +19,21 @@
     <div>
       <p>Implements interfaces: <a href="tubes.itube.IDrain.html">tubes.itube.IDrain</a></p>
     </div>
-    <div>A <a 
-href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>
+    <div class="docstring">
+      <div><p>A <a href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>
 is an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> that wraps 
-around an object that provides <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
-and <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.IConsumer.html"><code>IConsumer</code></a>,
+around an object that provides <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+and <a href="https://twistedmatrix.com/twisted.internet.interfaces.IConsumer.html"><code>IConsumer</code></a>,
 and delivers data to that transport, and flow-control notifications from 
-the consumer.<table class="fieldTable"></table></div>
+the consumer.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id14" class="children sortable">
+      <table class="children sortable" id="id14">
   
   
-<tr class="method">
+  <tr class="method">
     
     
     <td>Method</td>
@@ -68,18 +66,13 @@ no further data is forthcoming.</span></td>
     
     <td>Instance Variable</td>
     <td><a href="tubes.protocol._TransportDrain.html#_transport">_transport</a></td>
-    <td>The transport. (type: <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.IConsumer.html"><code>IConsumer</code></a>
-/ <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+    <td>The transport. (type: <a href="https://twistedmatrix.com/twisted.internet.interfaces.IConsumer.html"><code>IConsumer</code></a>
+/ <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
 provider.)</td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -94,10 +87,8 @@ provider.)</td>
     _transport =
   </div>
   <div class="functionBody">
-    The transport. (type: <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.IConsumer.html"><code>IConsumer</code></a>
-/ <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+    The transport. (type: <a href="https://twistedmatrix.com/twisted.internet.interfaces.IConsumer.html"><code>IConsumer</code></a>
+/ <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
 provider.)
   </div>
 </div><div class="function">
@@ -113,7 +104,7 @@ provider.)
     __init__(self, transport):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     <div class="undocumented">Undocumented</div>
   </div>
@@ -130,11 +121,10 @@ provider.)
     flowingFrom(self, fount):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowingFrom">tubes.itube.IDrain</a></div>
-    <div>Data is flowing to this transport from the given fount.  Register that 
-fount as the transport's producer.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>the fount producing data - <a 
-href="tubes.itube.ISegment.html"><code>ISegment</code></a>s - for this 
+    <div><p>Data is flowing to this transport from the given fount.  Register that 
+fount as the transport's producer.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>the fount producing data - <a href="tubes.itube.ISegment.html"><code>ISegment</code></a>s - for this 
 transport.</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -150,11 +140,10 @@ transport.</td></tr></table></div>
     receive(self, item):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#receive">tubes.itube.IDrain</a></div>
-    <div>Receive an item of data, some bytes, from the fount.  Pass it along to 
-the transport.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>a fragment of a stream of bytes. (type: <a 
-href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>)</td></tr></table></div>
+    <div><p>Receive an item of data, some bytes, from the fount.  Pass it along to 
+the transport.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>a fragment of a stream of bytes. (type: <a href="http://docs.python.org/library/stdtypes.html#bytes"><code>bytes</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.protocol._TransportDrain.flowStopped">
@@ -169,15 +158,15 @@ href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a
     flowStopped(self, reason):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowStopped">tubes.itube.IDrain</a></div>
-    <div>The flow of data that should be written to the underlying transport has 
+    <div><p>The flow of data that should be written to the underlying transport has 
 ceased.  Perform a half-close on the transport if possible so that it knows
-no further data is forthcoming.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason that the flow stopped; ignored.</td></tr></table></div>
+no further data is forthcoming.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason that the flow stopped; ignored.</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

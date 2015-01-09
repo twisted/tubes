@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.fan._OutDrain : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,23 +19,23 @@
     <div>
       <p>Implements interfaces: <a href="tubes.itube.IDrain.html">tubes.itube.IDrain</a></p>
     </div>
-    <div>An <a href="tubes.fan._OutDrain.html"><code>_OutDrain</code></a> is the 
+    <div class="docstring">
+      <div><p>An <a href="tubes.fan._OutDrain.html"><code>_OutDrain</code></a> is the 
 single <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> associated
-with an <a href="tubes.fan.Out.html"><code>Out</code></a>.<table class="fieldTable"></table></div>
+with an <a href="tubes.fan.Out.html"><code>Out</code></a>.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id44" class="children sortable">
+      <table class="children sortable" id="id44">
   
   
-<tr class="method">
+  <tr class="method">
     
     
     <td>Method</td>
     <td><a href="tubes.fan._OutDrain.html#__init__">__init__</a></td>
-    <td><span>Construct an <a 
-href="tubes.fan._OutDrain.html"><code>_OutDrain</code></a> with a 
+    <td><span>Construct an <a href="tubes.fan._OutDrain.html"><code>_OutDrain</code></a> with a 
 collection of founts, an input type and an output type.</span></td>
   </tr><tr class="method">
     
@@ -57,26 +57,19 @@ receiving inputs from the given fount.</span></td>
     
     <td>Method</td>
     <td><a href="tubes.fan._OutDrain.html#receive">receive</a></td>
-    <td><span>Deliver an item to each <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a 
-href="tubes.fan.Out.html"><code>Out</code></a> via 
+    <td><span>Deliver an item to each <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a href="tubes.fan.Out.html"><code>Out</code></a> via 
 <code>Out().newFount().flowTo(...)</code>.</span></td>
   </tr><tr class="method">
     
     
     <td>Method</td>
     <td><a href="tubes.fan._OutDrain.html#flowStopped">flowStopped</a></td>
-    <td><span>Deliver an item to each <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a 
-href="tubes.fan.Out.html"><code>Out</code></a> via 
+    <td><span>Deliver an item to each <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a href="tubes.fan.Out.html"><code>Out</code></a> via 
 <code>Out().newFount().flowTo(...)</code>.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -93,12 +86,10 @@ href="tubes.fan.Out.html"><code>Out</code></a> via
     __init__(self, founts):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Construct an <a 
-href="tubes.fan._OutDrain.html"><code>_OutDrain</code></a> with a 
-collection of founts, an input type and an output type.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">founts</td><td>the founts whose drains we should flow to. (type: <a 
-href="http://docs.python.org/library/functions.html#list"><code>list</code></a>
+    <div><p>Construct an <a href="tubes.fan._OutDrain.html"><code>_OutDrain</code></a> with a 
+collection of founts, an input type and an output type.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">founts</td><td>the founts whose drains we should flow to. (type: <a href="http://docs.python.org/library/stdtypes.html#list"><code>list</code></a>
 of <a href="tubes.itube.IFount.html"><code>IFount</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -114,10 +105,10 @@ of <a href="tubes.itube.IFount.html"><code>IFount</code></a>)</td></tr></table><
     inputType(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#inputType">tubes.itube.IDrain</a></div>
-    <div>Implement the <code>inputType</code> property by relaying it to the 
-input type of the drains.<table class="fieldTable"></table></div>
+    <div><p>Implement the <code>inputType</code> property by relaying it to the 
+input type of the drains.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._OutDrain.flowingFrom">
@@ -132,13 +123,11 @@ input type of the drains.<table class="fieldTable"></table></div>
     flowingFrom(self, fount):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowingFrom">tubes.itube.IDrain</a></div>
-    <div>The <a href="tubes.fan.Out.html"><code>Out</code></a> associated with 
+    <div><p>The <a href="tubes.fan.Out.html"><code>Out</code></a> associated with 
 this <a href="tubes.fan._OutDrain.html"><code>_OutDrain</code></a> is now 
-receiving inputs from the given fount.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>the new source of input for all drains attached to this <a 
-href="tubes.fan.Out.html"><code>Out</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a 
-href="http://docs.python.org/library/functions.html#None"><code>None</code></a>,
+receiving inputs from the given fount.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>the new source of input for all drains attached to this <a href="tubes.fan.Out.html"><code>Out</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="http://docs.python.org/library/constants.html#None"><code>None</code></a>,
 as this is a terminal drain.</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -154,12 +143,10 @@ as this is a terminal drain.</td></tr></table></div>
     receive(self, item):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#receive">tubes.itube.IDrain</a></div>
-    <div>Deliver an item to each <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a 
-href="tubes.fan.Out.html"><code>Out</code></a> via 
-<code>Out().newFount().flowTo(...)</code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>any object</td></tr></table></div>
+    <div><p>Deliver an item to each <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a href="tubes.fan.Out.html"><code>Out</code></a> via 
+<code>Out().newFount().flowTo(...)</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>any object</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._OutDrain.flowStopped">
@@ -174,16 +161,14 @@ href="tubes.fan.Out.html"><code>Out</code></a> via
     flowStopped(self, reason):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowStopped">tubes.itube.IDrain</a></div>
-    <div>Deliver an item to each <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a 
-href="tubes.fan.Out.html"><code>Out</code></a> via 
-<code>Out().newFount().flowTo(...)</code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason that the flow stopped.</td></tr></table></div>
+    <div><p>Deliver an item to each <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> attached to the <a href="tubes.fan.Out.html"><code>Out</code></a> via 
+<code>Out().newFount().flowTo(...)</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason that the flow stopped.</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

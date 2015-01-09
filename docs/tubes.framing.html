@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.framing : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,16 +19,17 @@
     <div>
       
     </div>
-    <div>Tubes that can convert streams of data into discrete chunks and back 
-again.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>Tubes that can convert streams of data into discrete chunks and back 
+again.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id33" class="children sortable">
+      <table class="children sortable" id="id33">
   
   
-<tr class="function">
+  <tr class="function">
     
     
     <td>Function</td>
@@ -81,20 +82,16 @@ representing frames.</span></td>
     
     <td>Class</td>
     <td><a href="tubes.framing._Transporter.html">_Transporter</a></td>
-    <td><span>Just enough of a mock of <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
-to work with the protocols in <a 
-href="https://twistedmatrix.com/twisted.protocols.basic.html"><code>basic</code></a>,
+    <td><span>Just enough of a mock of <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+to work with the protocols in <a href="https://twistedmatrix.com/twisted.protocols.basic.html"><code>basic</code></a>,
 as a wrapper around a callable taking some data.</span></td>
   </tr><tr class="class private">
     
     
     <td>Class</td>
     <td><a href="tubes.framing._FramesToSegments.html">_FramesToSegments</a></td>
-    <td><span>A tube which could convert &quot;<a 
-href="tubes.itube.IFrame.html"><code>frames</code></a>&quot; - discrete 
-chunks of data - into &quot;<a 
-href="tubes.itube.ISegment.html"><code>segments</code></a>&quot; - parts of
+    <td><span>A tube which could convert "<a href="tubes.itube.IFrame.html"><code>frames</code></a>" - discrete 
+chunks of data - into "<a href="tubes.itube.ISegment.html"><code>segments</code></a>" - parts of
 a raw data stream, with framing headers or delimiters attached.</span></td>
   </tr><tr class="class private">
     
@@ -115,12 +112,9 @@ a raw data stream, with framing headers or delimiters attached.</span></td>
     <td><a href="tubes.framing._CarriageReturnRemover.html">_CarriageReturnRemover</a></td>
     <td><span>Automatically fix newlines, because hacker news.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -137,13 +131,12 @@ a raw data stream, with framing headers or delimiters attached.</span></td>
     bytesToNetstrings():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Create a new tube for converting a stream of byte segments containing 
-DJB-style netstrings into bytes.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.itube.ITube.html"><code>tube</code></a> that splits a 
+    <div><p>Create a new tube for converting a stream of byte segments containing 
+DJB-style netstrings into bytes.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.itube.ITube.html"><code>tube</code></a> that splits a 
 stream of <a href="tubes.itube.ISegment.html"><code>segments</code></a> 
-containing nestrings into <a 
-href="tubes.itube.IFrame.html"><code>frame</code></a>.</td></tr></table></div>
+containing nestrings into <a href="tubes.itube.IFrame.html"><code>frame</code></a>.</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.framing.netstringsToBytes">
@@ -158,13 +151,11 @@ href="tubes.itube.IFrame.html"><code>frame</code></a>.</td></tr></table></div>
     netstringsToBytes():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Create a new tube for encoding a sequence of discrete frames of bytes 
-into DJB-style netstrings on the wire.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.itube.ITube.html"><code>tube</code></a> that puts 
-netstring length encoding around <a 
-href="tubes.itube.IFrame.html"><code>frames</code></a> to produce <a 
-href="tubes.itube.ISegment.html"><code>segments</code></a>.</td></tr></table></div>
+    <div><p>Create a new tube for encoding a sequence of discrete frames of bytes 
+into DJB-style netstrings on the wire.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.itube.ITube.html"><code>tube</code></a> that puts 
+netstring length encoding around <a href="tubes.itube.IFrame.html"><code>frames</code></a> to produce <a href="tubes.itube.ISegment.html"><code>segments</code></a>.</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.framing.linesToBytes">
@@ -179,9 +170,9 @@ href="tubes.itube.ISegment.html"><code>segments</code></a>.</td></tr></table></d
     linesToBytes():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Convert lines into bytes.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">Create a new tube for adding CRLF delimiters to a sequence of lines 
+    <div><p>Convert lines into bytes.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">Create a new tube for adding CRLF delimiters to a sequence of lines 
 (frames) to produce bytes (segments).</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -197,11 +188,10 @@ href="tubes.itube.ISegment.html"><code>segments</code></a>.</td></tr></table></d
     bytesDelimitedBy(delimiter):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Consumes a stream of bytes and produces frames delimited by the given 
-delimiter.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">delimiter</td><td>an octet sequence that separates frames in the incoming stream of bytes. (type: <a 
-href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a tube that converts a stream of bytes into a sequence of frames. (type: <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></tr></table></div>
+    <div><p>Consumes a stream of bytes and produces frames delimited by the given 
+delimiter.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">delimiter</td><td>an octet sequence that separates frames in the incoming stream of bytes. (type: <a href="http://docs.python.org/library/stdtypes.html#bytes"><code>bytes</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a tube that converts a stream of bytes into a sequence of frames. (type: <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.framing.bytesToLines">
@@ -216,10 +206,10 @@ href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a
     bytesToLines():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Create a drain that consumes a stream of bytes and produces frames 
-delimited by LF or CRLF.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a new <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> that does 
+    <div><p>Create a drain that consumes a stream of bytes and produces frames 
+delimited by LF or CRLF.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a new <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> that does 
 the given conversion.</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -235,10 +225,10 @@ the given conversion.</td></tr></table></div>
     bytesToIntPrefixed(prefixBits):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Convert a sequence of byte segments with packed network-endian int 
-prefixes of the given bit width into frames of the indicated sizes.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">prefixBits</td><td>The number of bits to use for the length prefix: either 8, 16, or 32.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a new <a href="tubes.itube.ITube.html"><code>ITube</code></a> that does the
+    <div><p>Convert a sequence of byte segments with packed network-endian int 
+prefixes of the given bit width into frames of the indicated sizes.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">prefixBits</td><td>The number of bits to use for the length prefix: either 8, 16, or 32.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a new <a href="tubes.itube.ITube.html"><code>ITube</code></a> that does the
 conversion.</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -254,15 +244,15 @@ conversion.</td></tr></table></div>
     intPrefixedToBytes(prefixBits):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Prepend packed network endian lengths to a sequence of bytes 
-representing frames.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">prefixBits</td><td>The number of bits to use for the length prefix: either 8, 16, or 32.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a new <a href="tubes.itube.ITube.html"><code>ITube</code></a> that does the
+    <div><p>Prepend packed network endian lengths to a sequence of bytes 
+representing frames.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">prefixBits</td><td>The number of bits to use for the length prefix: either 8, 16, or 32.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a new <a href="tubes.itube.ITube.html"><code>ITube</code></a> that does the
 conversion.</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

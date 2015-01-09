@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.itube.IFount : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,15 +19,16 @@
     <div>
       <p>Known implementations: <a href="tubes._siphon._SiphonFount.html">tubes._siphon._SiphonFount</a>, <a href="tubes.fan._InFount.html">tubes.fan._InFount</a>, <a href="tubes.fan._OutFount.html">tubes.fan._OutFount</a>, <a href="tubes.protocol._TransportFount.html">tubes.protocol._TransportFount</a>, <a href="tubes.tube._NullFount.html">tubes.tube._NullFount</a></p>
     </div>
-    <div>A fount produces objects for a drain to consume.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>A fount produces objects for a drain to consume.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id28" class="children sortable">
+      <table class="children sortable" id="id28">
   
   
-<tr class="attribute">
+  <tr class="attribute">
     
     
     <td>Attribute</td>
@@ -39,10 +40,8 @@
     <td>Attribute</td>
     <td><a href="tubes.itube.IFount.html#drain">drain</a></td>
     <td><span>The <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> currently 
-accepting input from this <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>. (Read-only; should 
-raise <a 
-href="http://docs.python.org/library/exceptions.html#exceptions.AttributeError"><code>AttributeError</code></a>
+accepting input from this <a href="tubes.itube.IFount.html"><code>IFount</code></a>. (Read-only; should 
+raise <a href="http://docs.python.org/library/exceptions.html#exceptions.AttributeError"><code>AttributeError</code></a>
 if set.)</span></td>
   </tr><tr class="method">
     
@@ -55,8 +54,7 @@ if set.)</span></td>
     
     <td>Method</td>
     <td><a href="tubes.itube.IFount.html#pauseFlow">pauseFlow</a></td>
-    <td><span>Temporarily refrain from delivery of items to this <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>'s <code>drain</code>
+    <td><span>Temporarily refrain from delivery of items to this <a href="tubes.itube.IFount.html"><code>IFount</code></a>'s <code>drain</code>
 attribute.</span></td>
   </tr><tr class="method">
     
@@ -65,12 +63,9 @@ attribute.</span></td>
     <td><a href="tubes.itube.IFount.html#stopFlow">stopFlow</a></td>
     <td><span class="undocumented">No summary</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -85,10 +80,9 @@ attribute.</span></td>
     outputType =
   </div>
   <div class="functionBody">
-    <div>The type of output produced by this Fount.</p>
-<p>This may be an <a 
-href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>
-provider.<table class="fieldTable"></table></div>
+    <div><p>The type of output produced by this Fount.</p>
+<p>This may be an <a href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>
+provider.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.IFount.drain">
@@ -101,12 +95,10 @@ provider.<table class="fieldTable"></table></div>
     drain =
   </div>
   <div class="functionBody">
-    <div>The <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> currently 
-accepting input from this <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>. (Read-only; should 
-raise <a 
-href="http://docs.python.org/library/exceptions.html#exceptions.AttributeError"><code>AttributeError</code></a>
-if set.)<table class="fieldTable"></table></div>
+    <div><p>The <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> currently 
+accepting input from this <a href="tubes.itube.IFount.html"><code>IFount</code></a>. (Read-only; should 
+raise <a href="http://docs.python.org/library/exceptions.html#exceptions.AttributeError"><code>AttributeError</code></a>
+if set.)</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.IFount.flowTo">
@@ -121,27 +113,20 @@ if set.)<table class="fieldTable"></table></div>
     flowTo(drain):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Add a drain to this fount to consume its output.</p>
-<p>This will <i>synchronously</i> call <a 
-href="tubes.itube.IDrain.html#flowingFrom"><code>flowingFrom(fount)</code></a>
-on <code>drain</code> to indicate to <code>drain</code> which <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> its future input 
-will come from - <i>unless</i> this <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> is exhausted and 
+    <div><p>Add a drain to this fount to consume its output.</p>
+<p>This will <i>synchronously</i> call <a href="tubes.itube.IDrain.html#flowingFrom"><code>flowingFrom(fount)</code></a>
+on <code>drain</code> to indicate to <code>drain</code> which <a href="tubes.itube.IFount.html"><code>IFount</code></a> its future input 
+will come from - <i>unless</i> this <a href="tubes.itube.IFount.html"><code>IFount</code></a> is exhausted and 
 will never produce more output.  In this case, <code>flowTo</code> must 
-<i>not</i> call <code>flowingFrom</code>, and must return <a 
-href="http://docs.python.org/library/functions.html#None"><code>None</code></a>.</p>
-<p>Typically, this will return the result of <a 
-href="tubes.itube.IDrain.html#flowingFrom"><code>drain.flowingFrom(fount)</code></a>
+<i>not</i> call <code>flowingFrom</code>, and must return <a href="http://docs.python.org/library/constants.html#None"><code>None</code></a>.</p>
+<p>Typically, this will return the result of <a href="tubes.itube.IDrain.html#flowingFrom"><code>drain.flowingFrom(fount)</code></a>
 to allow construction of pipelines with the 
 <code>x.flowTo(...).flowTo(...).flowTo(...)</code> idiom; however, 
-implementations of <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> are at liberty to 
-return <a 
-href="http://docs.python.org/library/functions.html#None"><code>None</code></a>
-or any valid <a href="tubes.itube.IFount.html"><code>IFount</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">another <a href="tubes.itube.IFount.html"><code>IFount</code></a> provider,
+implementations of <a href="tubes.itube.IFount.html"><code>IFount</code></a> are at liberty to 
+return <a href="http://docs.python.org/library/constants.html#None"><code>None</code></a>
+or any valid <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">another <a href="tubes.itube.IFount.html"><code>IFount</code></a> provider,
 or <code>None</code>.  By convention, this will return the value of 
 <code>flowingFrom</code> and allow the drain to transform the 
 <code>outputType</code> (however, other transformations are allowed).</td></tr><tr class="fieldStart"><td class="fieldName">Raises</td><td class="fieldArg">AlreadyDraining</td><td>if there is already a drain (i.e.  <code>flowTo</code> has already been 
@@ -160,13 +145,11 @@ called on this <a href="tubes.itube.IFount.html"><code>IFount</code></a>.)</td><
     pauseFlow():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Temporarily refrain from delivery of items to this <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>'s <code>drain</code>
-attribute.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.itube.IPause.html"><code>pause token</code></a> which may 
-be used to remove the impediment to this <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>'s flow established 
+    <div><p>Temporarily refrain from delivery of items to this <a href="tubes.itube.IFount.html"><code>IFount</code></a>'s <code>drain</code>
+attribute.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.itube.IPause.html"><code>pause token</code></a> which may 
+be used to remove the impediment to this <a href="tubes.itube.IFount.html"><code>IFount</code></a>'s flow established 
 by this call to <code>pauseFlow</code>.  Multiple calls will result in 
 multiple tokens, all of which must be unpaused for the flow to resume. (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a>)</td></tr></table></div>
   </div>
@@ -183,20 +166,18 @@ multiple tokens, all of which must be unpaused for the flow to resume. (type: <a
     stopFlow():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>End the flow from this <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>; after this 
+    <div><p>End the flow from this <a href="tubes.itube.IFount.html"><code>IFount</code></a>; after this 
 invocation, this <a href="tubes.itube.IFount.html"><code>IFount</code></a> 
-should never call any methods on its <code>drain</code> other than <a 
-href="tubes.itube.IDrain.html#flowStopped"><code>self.drain.flowStopped()</code></a>.
+should never call any methods on its <code>drain</code> other than <a href="tubes.itube.IDrain.html#flowStopped"><code>self.drain.flowStopped()</code></a>.
 It will invoke <code>flowStopped</code> once, when the resources associated
 with this <a href="tubes.itube.IFount.html"><code>IFount</code></a> flowing
-have been released.<table class="fieldTable"></table></div>
+have been released.</p><table class="fieldTable"></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

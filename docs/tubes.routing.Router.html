@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.routing.Router : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,23 +19,22 @@
     <div>
       
     </div>
-    <div>A drain with multiple founts that consumes <a 
-href="tubes.routing.Routed.html"><code>Routed</code></a><code>(IX)</code> 
-from its input and produces <code>IX</code> to its outputs.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>A drain with multiple founts that consumes <a href="tubes.routing.Routed.html"><code>Routed</code></a><code>(IX)</code> 
+from its input and produces <code>IX</code> to its outputs.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id11" class="children sortable">
+      <table class="children sortable" id="id11">
   
   
-<tr class="instancevariable">
+  <tr class="instancevariable">
     
     
     <td>Instance Variable</td>
     <td><a href="tubes.routing.Router.html#drain">drain</a></td>
-    <td>The input to this <a 
-href="tubes.routing.Router.html"><code>Router</code></a>. (type: <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>)</td>
+    <td>The input to this <a href="tubes.routing.Router.html"><code>Router</code></a>. (type: <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>)</td>
   </tr><tr class="method">
     
     
@@ -53,16 +52,12 @@ href="tubes.routing.Router.html"><code>Router</code></a>. (type: <a href="tubes.
     
     <td>Instance Variable</td>
     <td><a href="tubes.routing.Router.html#_out">_out</a></td>
-    <td>A fan-out that consumes <a 
-href="tubes.routing.Routed.html"><code>Routed</code></a><code>(X)</code> 
+    <td>A fan-out that consumes <a href="tubes.routing.Routed.html"><code>Routed</code></a><code>(X)</code> 
 and produces <code>X</code>. (type: <a href="tubes.fan.Out.html"><code>Out</code></a>)</td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -77,8 +72,7 @@ and produces <code>X</code>. (type: <a href="tubes.fan.Out.html"><code>Out</code
     _out =
   </div>
   <div class="functionBody">
-    A fan-out that consumes <a 
-href="tubes.routing.Routed.html"><code>Routed</code></a><code>(X)</code> 
+    A fan-out that consumes <a href="tubes.routing.Routed.html"><code>Routed</code></a><code>(X)</code> 
 and produces <code>X</code>. (type: <a href="tubes.fan.Out.html"><code>Out</code></a>)
   </div>
 </div><div class="function">
@@ -92,8 +86,7 @@ and produces <code>X</code>. (type: <a href="tubes.fan.Out.html"><code>Out</code
     drain =
   </div>
   <div class="functionBody">
-    The input to this <a 
-href="tubes.routing.Router.html"><code>Router</code></a>. (type: <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>)
+    The input to this <a href="tubes.routing.Router.html"><code>Router</code></a>. (type: <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>)
   </div>
 </div><div class="function">
   <a name="tubes.routing.Router.__init__">
@@ -108,7 +101,7 @@ href="tubes.routing.Router.html"><code>Router</code></a>. (type: <a href="tubes.
     __init__(self, outputType=None):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     <div class="undocumented">Undocumented</div>
   </div>
@@ -125,21 +118,18 @@ href="tubes.routing.Router.html"><code>Router</code></a>. (type: <a href="tubes.
     newRoute(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Create a new route.</p>
-<p>A route has two uses; first, it is an <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> that you can flow to
+    <div><p>Create a new route.</p>
+<p>A route has two uses; first, it is an <a href="tubes.itube.IFount.html"><code>IFount</code></a> that you can flow to
 a drain.</p>
-<p>Second, it is the &quot;where&quot; parameter passed to <a 
-href="tubes.routing.html#to"><code>to</code></a>.  Each value sent to <a 
-href="tubes.routing.Router.html#drain"><code>Router.drain</code></a> should
+<p>Second, it is the "where" parameter passed to <a href="tubes.routing.html#to"><code>to</code></a>.  Each value sent to <a href="tubes.routing.Router.html#drain"><code>Router.drain</code></a> should
 be a <a href="tubes.routing.html#to"><code>to</code></a> constructed with a
-value returned from this method as the &quot;where&quot; parameter.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="tubes.itube.IFount.html"><code>IFount</code></a></td></tr></table></div>
+value returned from this method as the "where" parameter.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="tubes.itube.IFount.html"><code>IFount</code></a></td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

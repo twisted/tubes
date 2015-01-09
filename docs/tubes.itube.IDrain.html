@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.itube.IDrain : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,35 +19,33 @@
     <div>
       <p>Known implementations: <a href="tubes._siphon._SiphonDrain.html">tubes._siphon._SiphonDrain</a>, <a href="tubes.fan._InDrain.html">tubes.fan._InDrain</a>, <a href="tubes.fan._OutDrain.html">tubes.fan._OutDrain</a>, <a href="tubes.protocol._TransportDrain.html">tubes.protocol._TransportDrain</a></p>
     </div>
-    <div>A drain consumes objects from a fount.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>A drain consumes objects from a fount.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id29" class="children sortable">
+      <table class="children sortable" id="id29">
   
   
-<tr class="attribute">
+  <tr class="attribute">
     
     
     <td>Attribute</td>
     <td><a href="tubes.itube.IDrain.html#inputType">inputType</a></td>
-    <td><span>Similar to <a 
-href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a>.</span></td>
+    <td><span>Similar to <a href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a>.</span></td>
   </tr><tr class="attribute">
     
     
     <td>Attribute</td>
     <td><a href="tubes.itube.IDrain.html#fount">fount</a></td>
-    <td><span>The fount that is delivering data to this <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</span></td>
+    <td><span>The fount that is delivering data to this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</span></td>
   </tr><tr class="method">
     
     
     <td>Method</td>
     <td><a href="tubes.itube.IDrain.html#flowingFrom">flowingFrom</a></td>
-    <td><span>This drain is now accepting a flow from the given <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
+    <td><span>This drain is now accepting a flow from the given <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
   </tr><tr class="method">
     
     
@@ -61,12 +59,9 @@ href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
     <td><a href="tubes.itube.IDrain.html#flowStopped">flowStopped</a></td>
     <td><span class="undocumented">No summary</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -81,8 +76,7 @@ href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
     inputType =
   </div>
   <div class="functionBody">
-    <div>Similar to <a 
-href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a>.<table class="fieldTable"></table></div>
+    <div><p>Similar to <a href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a>.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.IDrain.fount">
@@ -95,8 +89,7 @@ href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a>.<ta
     fount =
   </div>
   <div class="functionBody">
-    <div>The fount that is delivering data to this <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a>.<table class="fieldTable"></table></div>
+    <div><p>The fount that is delivering data to this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.IDrain.flowingFrom">
@@ -111,13 +104,10 @@ href="tubes.itube.IDrain.html"><code>IDrain</code></a>.<table class="fieldTable"
     flowingFrom(fount):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>This drain is now accepting a flow from the given <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>A fount, or <a 
-href="http://docs.python.org/library/functions.html#None"><code>None</code></a>
-if no further input will be received. (type: <a href="tubes.itube.IFount.html"><code>IFount</code></a> or <a 
-href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">another <a href="tubes.itube.IFount.html"><code>IFount</code></a>, if this 
+    <div><p>This drain is now accepting a flow from the given <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>A fount, or <a href="http://docs.python.org/library/constants.html#None"><code>None</code></a>
+if no further input will be received. (type: <a href="tubes.itube.IFount.html"><code>IFount</code></a> or <a href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">another <a href="tubes.itube.IFount.html"><code>IFount</code></a>, if this 
 <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> will produce more
 data, or <code>None</code>.</td></tr></table></div>
   </div>
@@ -134,10 +124,9 @@ data, or <code>None</code>.</td></tr></table></div>
     receive(item):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>An item was received from the fount.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>an instance of <a 
-href="tubes.itube.IDrain.html#inputType"><code>IDrain.inputType</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a floating point number between 0.0 and 1.0, indicating the how full any 
+    <div><p>An item was received from the fount.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>an instance of <a href="tubes.itube.IDrain.html#inputType"><code>IDrain.inputType</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a floating point number between 0.0 and 1.0, indicating the how full any 
 buffers on the way to processing the data are (0-100%).  Note that this may
 be greater than 100%, in which case you should probably stop sending for a 
 while and give it a chance to recover.</td></tr></table></div>
@@ -155,25 +144,18 @@ while and give it a chance to recover.</td></tr></table></div>
     flowStopped(reason):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>The flow has stopped.  The given <a 
-href="https://twistedmatrix.com/twisted.python.failure.Failure.html"><code>Failure</code></a>
-object indicates why. After a <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> invokes this method,
-it must stop invoking all other methods on this <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a>; similarly, this <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> must stop invoking 
-all methods on its <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>The reason why the flow has terminated.  This may contain any exception 
-type, depending on the <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> delivering data to 
-this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>. (type: <a 
-href="https://twistedmatrix.com/twisted.python.failure.Failure.html"><code>Failure</code></a>)</td></tr></table></div>
+    <div><p>The flow has stopped.  The given <a href="https://twistedmatrix.com/twisted.python.failure.Failure.html"><code>Failure</code></a>
+object indicates why. After a <a href="tubes.itube.IFount.html"><code>IFount</code></a> invokes this method,
+it must stop invoking all other methods on this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>; similarly, this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> must stop invoking 
+all methods on its <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>The reason why the flow has terminated.  This may contain any exception 
+type, depending on the <a href="tubes.itube.IFount.html"><code>IFount</code></a> delivering data to 
+this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>. (type: <a href="https://twistedmatrix.com/twisted.python.failure.Failure.html"><code>Failure</code></a>)</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

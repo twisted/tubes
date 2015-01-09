@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.routing : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,7 +19,8 @@
     <div>
       
     </div>
-    <div>A <a href="tubes.routing.Router.html"><code>Router</code></a> receives 
+    <div class="docstring">
+      <div><p>A <a href="tubes.routing.Router.html"><code>Router</code></a> receives 
 items with addressing information and dispatches them to an appropriate 
 output, stripping the addressing information off.</p>
 <p>Use like so:</p>
@@ -43,48 +44,45 @@ output, stripping the addressing information off.</p>
    numbers.flowTo(aRouter)
 </pre>
 <p>This creates a fount in evenFount and oddFount, which each have an 
-outputType of &quot;int&quot;.</p>
+outputType of "int".</p>
 <p>Why do this rather than just having <code>EvenOdd</code> just call 
 methods directly based on whether a number is even or odd?</p>
 <p>By using a <a href="tubes.routing.Router.html"><code>Router</code></a>, 
 flow control relationships are automatically preserved by the same 
 mechanism that tubes usually use.  The distinct drains of evenFount and 
 oddFount can both be independently paused, and the pause state will be 
-propagated to the &quot;numbers&quot; fount.  If you want to send on 
+propagated to the "numbers" fount.  If you want to send on 
 outputs to multiple drains which may have complex flow-control 
 interrelationships, you can't do that by calling the <code>receive</code> 
 method directly since any one of those methods might reentrantly pause 
-you.<table class="fieldTable"></table></div>
+you.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id8" class="children sortable">
+      <table class="children sortable" id="id8">
   
   
-<tr class="class">
+  <tr class="class">
     
     
     <td>Class</td>
     <td><a href="tubes.routing.Routed.html">Routed</a></td>
     <td><span>A <a href="tubes.routing.Routed.html"><code>Routed</code></a> is an 
 interface describing another interface that has been wrapped in a 
-<code>to</code>.  As such, it is an incomplete implementation of <a 
-href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>.</span></td>
+<code>to</code>.  As such, it is an incomplete implementation of <a href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>.</span></td>
   </tr><tr class="function">
     
     
     <td>Function</td>
     <td><a href="tubes.routing.html#to">to</a></td>
-    <td><span>Construct a provider of <a 
-href="tubes.routing.Routed.html"><code>Routed</code></a><code>(providedBy(where))</code>.</span></td>
+    <td><span>Construct a provider of <a href="tubes.routing.Routed.html"><code>Routed</code></a><code>(providedBy(where))</code>.</span></td>
   </tr><tr class="class">
     
     
     <td>Class</td>
     <td><a href="tubes.routing.Router.html">Router</a></td>
-    <td><span>A drain with multiple founts that consumes <a 
-href="tubes.routing.Routed.html"><code>Routed</code></a><code>(IX)</code> 
+    <td><span>A drain with multiple founts that consumes <a href="tubes.routing.Routed.html"><code>Routed</code></a><code>(IX)</code> 
 from its input and produces <code>IX</code> to its outputs.</span></td>
   </tr><tr class="class private">
     
@@ -93,12 +91,9 @@ from its input and produces <code>IX</code> to its outputs.</span></td>
     <td><a href="tubes.routing._To.html">_To</a></td>
     <td><span>An object destined for a specific destination.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -115,19 +110,15 @@ from its input and produces <code>IX</code> to its outputs.</span></td>
     to(where, what):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Construct a provider of <a 
-href="tubes.routing.Routed.html"><code>Routed</code></a><code>(providedBy(where))</code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">where</td><td>A fount returned from <a 
-href="tubes.routing.Router.html#newRoute"><code>Router.newRoute</code></a>.
-This must be <i>exactly</i> the return value of <a 
-href="tubes.routing.Router.html#newRoute"><code>Router.newRoute</code></a>,
-as it is compared by object identity and not by any feature of <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a>.</td></tr><tr><td></td><td class="fieldArg">what</td><td>the value to deliver.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.routing.Routed.html"><code>Routed</code></a> object.</td></tr><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2"><a href="tubes.routing.html"><code>tubes.routing</code></a></td></tr></table></div>
+    <div><p>Construct a provider of <a href="tubes.routing.Routed.html"><code>Routed</code></a><code>(providedBy(where))</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">where</td><td>A fount returned from <a href="tubes.routing.Router.html#newRoute"><code>Router.newRoute</code></a>.
+This must be <i>exactly</i> the return value of <a href="tubes.routing.Router.html#newRoute"><code>Router.newRoute</code></a>,
+as it is compared by object identity and not by any feature of <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</td></tr><tr><td></td><td class="fieldArg">what</td><td>the value to deliver.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="tubes.routing.Routed.html"><code>Routed</code></a> object.</td></tr><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2"><a href="tubes.routing.html"><code>tubes.routing</code></a></td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

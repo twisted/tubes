@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.fan._OutFount : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,16 +19,16 @@
     <div>
       <p>Implements interfaces: <a href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
     </div>
-    <div>The concrete fount type returned by <a 
-href="tubes.fan.Out.html#newFount"><code>Out.newFount</code></a>.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>The concrete fount type returned by <a href="tubes.fan.Out.html#newFount"><code>Out.newFount</code></a>.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id43" class="children sortable">
+      <table class="children sortable" id="id43">
   
   
-<tr class="method">
+  <tr class="method">
     
     
     <td>Method</td>
@@ -60,12 +60,9 @@ drain attribute and return the appropriate value.</span></td>
     <td><a href="tubes.fan._OutFount.html#_deliverOne">_deliverOne</a></td>
     <td><span>Deliver one item to this fount's drain.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -82,12 +79,10 @@ drain attribute and return the appropriate value.</span></td>
     __init__(self, upstreamPauser, stopper):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">upstreamPauser</td><td>A <a href="tubes.kit.Pauser.html"><code>Pauser</code></a> which will pause 
-the upstream fount flowing into our <a 
-href="tubes.fan.Out.html"><code>Out</code></a>.</td></tr><tr><td></td><td class="fieldArg">stopper</td><td>A 0-argument callback to execute on <a 
-href="tubes.itube.IFount.html#stopFlow"><code>IFount.stopFlow</code></a></td></tr></table></div>
+the upstream fount flowing into our <a href="tubes.fan.Out.html"><code>Out</code></a>.</td></tr><tr><td></td><td class="fieldArg">stopper</td><td>A 0-argument callback to execute on <a href="tubes.itube.IFount.html#stopFlow"><code>IFount.stopFlow</code></a></td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._OutFount.flowTo">
@@ -102,10 +97,10 @@ href="tubes.itube.IFount.html#stopFlow"><code>IFount.stopFlow</code></a></td></t
     flowTo(self, drain):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
-    <div>Flow to the given drain.  Don't do anything special; just set up the 
-drain attribute and return the appropriate value.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>A drain to fan out values to.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the result of <code>drain.flowingFrom</code></td></tr></table></div>
+    <div><p>Flow to the given drain.  Don't do anything special; just set up the 
+drain attribute and return the appropriate value.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>A drain to fan out values to.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the result of <code>drain.flowingFrom</code></td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._OutFount.pauseFlow">
@@ -120,9 +115,9 @@ drain attribute and return the appropriate value.<table class="fieldTable"><tr c
     pauseFlow(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
-    <div>Pause the flow.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a pause (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a>)</td></tr></table></div>
+    <div><p>Pause the flow.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a pause (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._OutFount.stopFlow">
@@ -137,9 +132,9 @@ drain attribute and return the appropriate value.<table class="fieldTable"><tr c
     stopFlow(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
-    <div>Invoke the callback supplied to <code>__init__</code> for stopping.<table class="fieldTable"></table></div>
+    <div><p>Invoke the callback supplied to <code>__init__</code> for stopping.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan._OutFount._deliverOne">
@@ -154,14 +149,14 @@ drain attribute and return the appropriate value.<table class="fieldTable"><tr c
     _deliverOne(self, item):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Deliver one item to this fount's drain.</p>
-<p>This is only invoked when the upstream is unpaused.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>An item that the upstream would like to pass on.</td></tr></table></div>
+    <div><p>Deliver one item to this fount's drain.</p>
+<p>This is only invoked when the upstream is unpaused.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>An item that the upstream would like to pass on.</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

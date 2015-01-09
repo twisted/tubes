@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.protocol._ProtocolPlumbing : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,24 +19,20 @@
     <div>
       
     </div>
-    <div>An adapter between an <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
-and <a href="tubes.itube.IFount.html"><code>IFount</code></a> / <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> interfaces.</p>
-<p>A <a 
-href="tubes.protocol._ProtocolPlumbing.html"><code>_ProtocolPlumbing</code></a>
-implements <a 
-href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocol.html"><code>IProtocol</code></a>
-to deliver all incoming data to the drain associated with its <a 
-href="tubes.itube.IFount.html"><code>fount</code></a>.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>An adapter between an <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
+and <a href="tubes.itube.IFount.html"><code>IFount</code></a> / <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> interfaces.</p>
+<p>A <a href="tubes.protocol._ProtocolPlumbing.html"><code>_ProtocolPlumbing</code></a>
+implements <a href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocol.html"><code>IProtocol</code></a>
+to deliver all incoming data to the drain associated with its <a href="tubes.itube.IFount.html"><code>fount</code></a>.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id16" class="children sortable">
+      <table class="children sortable" id="id16">
   
   
-<tr class="method">
+  <tr class="method">
     
     
     <td>Method</td>
@@ -47,17 +43,14 @@ href="tubes.itube.IFount.html"><code>fount</code></a>.<table class="fieldTable">
     
     <td>Method</td>
     <td><a href="tubes.protocol._ProtocolPlumbing.html#connectionMade">connectionMade</a></td>
-    <td><span>The connection was established.  Create an <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> and an <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> and give them to the
+    <td><span>The connection was established.  Create an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and an <a href="tubes.itube.IFount.html"><code>IFount</code></a> and give them to the
 flow function.</span></td>
   </tr><tr class="method">
     
     
     <td>Method</td>
     <td><a href="tubes.protocol._ProtocolPlumbing.html#dataReceived">dataReceived</a></td>
-    <td><span>Some data was received.  Deliver it to the fount created in <a 
-href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>connectionMade</code></a>.</span></td>
+    <td><span>Some data was received.  Deliver it to the fount created in <a href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>connectionMade</code></a>.</span></td>
   </tr><tr class="method">
     
     
@@ -69,67 +62,55 @@ href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>connectionMade
     
     <td>Instance Variable</td>
     <td><a href="tubes.protocol._ProtocolPlumbing.html#_flow">_flow</a></td>
-    <td>A flow function, as described in <a 
-href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a>. (type: <a 
-href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)</td>
+    <td>A flow function, as described in <a href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a>. (type: <a href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)</td>
   </tr><tr class="instancevariable private">
     
     
     <td>Instance Variable</td>
     <td><a href="tubes.protocol._ProtocolPlumbing.html#_drain">_drain</a></td>
     <td>The drain that is passed on to the application, created after the 
-connection is established in <a 
-href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a 
-href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>)</td>
+connection is established in <a href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>)</td>
   </tr><tr class="instancevariable private">
     
     
     <td>Instance Variable</td>
     <td><a href="tubes.protocol._ProtocolPlumbing.html#_fount">_fount</a></td>
     <td>The fount that is passed on to the application, created after the 
-connection is established in <a 
-href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a 
-href="tubes.protocol._TransportFount.html"><code>_TransportFount</code></a>)</td>
+connection is established in <a href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a href="tubes.protocol._TransportFount.html"><code>_TransportFount</code></a>)</td>
   </tr>
-  
 </table>
-      
-        <p>
-          Inherited from <a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html">Protocol</a>:
-        </p>
-        <table id="id17" class="children sortable">
-  
-  
-<tr class="basemethod">
-    
-    
-    <td>Method</td>
-    <td><a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html#logPrefix">logPrefix</a></td>
-    <td><span>Return a prefix matching the class name, to identify log messages 
-related to this protocol instance.</span></td>
-  </tr>
-  
-</table>
-      
+      <invisible>
         <p>
           Inherited from <a href="https://twistedmatrix.com/twisted.internet.protocol.BaseProtocol.html">BaseProtocol</a> (via <a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html">Protocol</a>):
         </p>
-        <table id="id18" class="children sortable">
+        <table class="children sortable" id="id18">
   
   
-<tr class="basemethod">
+  <tr class="basemethod">
     
     
     <td>Method</td>
     <td><a href="https://twistedmatrix.com/twisted.internet.protocol.BaseProtocol.html#makeConnection">makeConnection</a></td>
     <td><span>Make a connection to a transport and a server.</span></td>
   </tr>
-  
 </table>
-      
-      
-    </div>
+      </invisible><invisible>
+        <p>
+          Inherited from <a href="https://twistedmatrix.com/twisted.internet.protocol.BaseProtocol.html">BaseProtocol</a> (via <a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html">Protocol</a>):
+        </p>
+        <table class="children sortable" id="id18">
+  
+  
+  <tr class="basemethod">
     
+    
+    <td>Method</td>
+    <td><a href="https://twistedmatrix.com/twisted.internet.protocol.BaseProtocol.html#makeConnection">makeConnection</a></td>
+    <td><span>Make a connection to a transport and a server.</span></td>
+  </tr>
+</table>
+      </invisible>
+    </div>
     
     
 
@@ -144,9 +125,7 @@ related to this protocol instance.</span></td>
     _flow =
   </div>
   <div class="functionBody">
-    A flow function, as described in <a 
-href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a>. (type: <a 
-href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)
+    A flow function, as described in <a href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a>. (type: <a href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)
   </div>
 </div><div class="function">
   <a name="tubes.protocol._ProtocolPlumbing._drain">
@@ -160,9 +139,7 @@ href="http://docs.python.org/library/functions.html#callable"><code>callable</co
   </div>
   <div class="functionBody">
     The drain that is passed on to the application, created after the 
-connection is established in <a 
-href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a 
-href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>)
+connection is established in <a href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>)
   </div>
 </div><div class="function">
   <a name="tubes.protocol._ProtocolPlumbing._fount">
@@ -176,9 +153,7 @@ href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>)
   </div>
   <div class="functionBody">
     The fount that is passed on to the application, created after the 
-connection is established in <a 
-href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a 
-href="tubes.protocol._TransportFount.html"><code>_TransportFount</code></a>)
+connection is established in <a href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>_ProtocolPlumbing.connectionMade</code></a>. (type: <a href="tubes.protocol._TransportFount.html"><code>_TransportFount</code></a>)
   </div>
 </div><div class="function">
   <a name="tubes.protocol._ProtocolPlumbing.__init__">
@@ -193,7 +168,7 @@ href="tubes.protocol._TransportFount.html"><code>_TransportFount</code></a>)
     __init__(self, flow):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     <div class="undocumented">Undocumented</div>
   </div>
@@ -210,12 +185,10 @@ href="tubes.protocol._TransportFount.html"><code>_TransportFount</code></a>)
     connectionMade(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">overrides <a href="https://twistedmatrix.com/twisted.internet.protocol.BaseProtocol.html#connectionMade">twisted.internet.protocol.BaseProtocol.connectionMade</a></div>
-    <div>The connection was established.  Create an <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> and an <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> and give them to the
-flow function.<table class="fieldTable"></table></div>
+    <div><p>The connection was established.  Create an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and an <a href="tubes.itube.IFount.html"><code>IFount</code></a> and give them to the
+flow function.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.protocol._ProtocolPlumbing.dataReceived">
@@ -230,11 +203,9 @@ flow function.<table class="fieldTable"></table></div>
     dataReceived(self, data):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">overrides <a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html#dataReceived">twisted.internet.protocol.Protocol.dataReceived</a></div>
-    <div>Some data was received.  Deliver it to the fount created in <a 
-href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>connectionMade</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">data</td><td>The bytes that were received. (type: <a 
-href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a>)</td></tr></table></div>
+    <div><p>Some data was received.  Deliver it to the fount created in <a href="tubes.protocol._ProtocolPlumbing.html#connectionMade"><code>connectionMade</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">data</td><td>The bytes that were received. (type: <a href="http://docs.python.org/library/stdtypes.html#bytes"><code>bytes</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.protocol._ProtocolPlumbing.connectionLost">
@@ -249,18 +220,17 @@ href="http://docs.python.org/library/functions.html#bytes"><code>bytes</code></a
     connectionLost(self, reason):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">overrides <a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html#connectionLost">twisted.internet.protocol.Protocol.connectionLost</a></div>
-    <div>The connection was lost.</p>
+    <div><p>The connection was lost.</p>
 <p>If our fount is flowing to a drain, alert that drain that the flow was 
 stopped.</p>
 <p>If our drain is flowing from a fount, alert that fount that it should 
-stop flowing.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>The reason that the connection was terminated. (type: <a 
-href="https://twistedmatrix.com/twisted.python.failure.Failure.html"><code>Failure</code></a>)</td></tr></table></div>
+stop flowing.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>The reason that the connection was terminated. (type: <a href="https://twistedmatrix.com/twisted.python.failure.Failure.html"><code>Failure</code></a>)</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

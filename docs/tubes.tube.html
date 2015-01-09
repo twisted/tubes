@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.tube : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,21 +19,21 @@
     <div>
       
     </div>
-    <div>See <a href="tubes.tube.html#tube"><code>tube</code></a>.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>See <a href="tubes.tube.html#tube"><code>tube</code></a>.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id3" class="children sortable">
+      <table class="children sortable" id="id3">
   
   
-<tr class="function">
+  <tr class="function">
     
     
     <td>Function</td>
     <td><a href="tubes.tube.html#skip">skip</a></td>
-    <td><span>A token value yielded by a tube meaning that its <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> should not 
+    <td><span>A token value yielded by a tube meaning that its <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> should not 
 deliver this value on, so that tubes may engage in flow control.</span></td>
   </tr><tr class="function">
     
@@ -58,10 +58,8 @@ deliver this value on, so that tubes may engage in flow control.</span></td>
     
     <td>Class</td>
     <td><a href="tubes.tube.Diverter.html">Diverter</a></td>
-    <td><span>A <a href="tubes.tube.Diverter.html"><code>Diverter</code></a> is a <a 
-href="tubes.itube.IDrain.html"><code>drain</code></a> which maintains a 
-buffer of items not yet received by its <a 
-href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> 
+    <td><span>A <a href="tubes.tube.Diverter.html"><code>Diverter</code></a> is a <a href="tubes.itube.IDrain.html"><code>drain</code></a> which maintains a 
+buffer of items not yet received by its <a href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> 
 down-stream drain.</span></td>
   </tr><tr class="class private">
     
@@ -86,12 +84,9 @@ unbuffers a list of items.  It is an implementation detail of the way that
     <td><span>An <i>almost</i> no-op implementation of fount which does nothing but 
 update its <code>drain</code> to point at itself.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -108,11 +103,10 @@ update its <code>drain</code> to point at itself.</span></td>
     skip():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>A token value yielded by a tube meaning that its <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> should not 
-deliver this value on, so that tubes may engage in flow control.<table class="fieldTable"></table></div>
+    <div><p>A token value yielded by a tube meaning that its <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> should not 
+deliver this value on, so that tubes may engage in flow control.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.tube.tube">
@@ -127,17 +121,13 @@ deliver this value on, so that tubes may engage in flow control.<table class="fi
     tube(cls):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div><a href="tubes.tube.html#tube"><code>tube</code></a> is a class 
-decorator which declares a given class to be an implementer of <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> and fills out any 
+    <div><p><a href="tubes.tube.html#tube"><code>tube</code></a> is a class 
+decorator which declares a given class to be an implementer of <a href="tubes.itube.ITube.html"><code>ITube</code></a> and fills out any 
 methods or attributes which are not present on the decorated type with 
 null-implementation methods (those which return None) and None 
-attributes.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">cls</td><td>A class with some or all of the attributes or methods described by <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a>. (type: <a 
-href="http://docs.python.org/library/functions.html#type"><code>type</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><code>cls</code> (type: <a 
-href="http://docs.python.org/library/functions.html#type"><code>type</code></a>
+attributes.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">cls</td><td>A class with some or all of the attributes or methods described by <a href="tubes.itube.ITube.html"><code>ITube</code></a>. (type: <a href="http://docs.python.org/library/stdtypes.html#type"><code>type</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><code>cls</code> (type: <a href="http://docs.python.org/library/stdtypes.html#type"><code>type</code></a>
 which implements <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -153,7 +143,7 @@ which implements <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></
     receiver(inputType=None, outputType=None):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     <div><p>Decorator for a stateless function which receives inputs.</p>
 <p>For example, to add 1 to each in a stream of numbers:</p>
@@ -161,9 +151,7 @@ which implements <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></
    @receiver(inputType=int, outputType=int)
    def addOne(item):
        yield item + 1
-</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">inputType</td><td>The <code>inputType</code> attribute of the resulting <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a>.</td></tr><tr><td></td><td class="fieldArg">outputType</td><td>The <code>outputType</code> attribute of the resulting <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a stateless tube with the decorated method as its <code>received</code> 
+</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">inputType</td><td>The <code>inputType</code> attribute of the resulting <a href="tubes.itube.ITube.html"><code>ITube</code></a>.</td></tr><tr><td></td><td class="fieldArg">outputType</td><td>The <code>outputType</code> attribute of the resulting <a href="tubes.itube.ITube.html"><code>ITube</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a stateless tube with the decorated method as its <code>received</code> 
 method. (type: <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -179,16 +167,12 @@ method. (type: <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></tr
     series(start, *tubes):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Connect up a series of objects capable of transforming inputs to 
-outputs; convert a sequence of <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> objects into a 
-sequence of connected <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> and <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> objects.  This is 
-necessary to be able to <code>flowTo</code> an object implementing <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a>.</p>
+    <div><p>Connect up a series of objects capable of transforming inputs to 
+outputs; convert a sequence of <a href="tubes.itube.ITube.html"><code>ITube</code></a> objects into a 
+sequence of connected <a href="tubes.itube.IFount.html"><code>IFount</code></a> and <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> objects.  This is 
+necessary to be able to <code>flowTo</code> an object implementing <a href="tubes.itube.ITube.html"><code>ITube</code></a>.</p>
 <p>This function can best be understood by understanding that:</p>
 <pre class="literalblock">
    x = a
@@ -199,23 +183,20 @@ href="tubes.itube.ITube.html"><code>ITube</code></a>.</p>
    x = series(a, b, c)
 </pre>
 <p>with the additional feature that <code>series</code> will convert 
-<code>a</code>, <code>b</code>, and <code>c</code> to the requisite <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> objects first.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">start</td><td>The initial element in the chain; the object that will consume inputs 
+<code>a</code>, <code>b</code>, and <code>c</code> to the requisite <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> objects first.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">start</td><td>The initial element in the chain; the object that will consume inputs 
 passed to the result of this call to <code>series</code>. (type: an <a href="tubes.itube.ITube.html"><code>ITube</code></a>, or anything 
-adaptable to <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.)</td></tr><tr><td></td><td class="fieldArg">tubes</td><td>Each element of <code>plumbing</code>. (type: a <a 
-href="http://docs.python.org/library/functions.html#tuple"><code>tuple</code></a>
+adaptable to <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.)</td></tr><tr><td></td><td class="fieldArg">tubes</td><td>Each element of <code>plumbing</code>. (type: a <a href="http://docs.python.org/library/stdtypes.html#tuple"><code>tuple</code></a>
 of <a href="tubes.itube.ITube.html"><code>ITube</code></a>s or objects 
 adaptable to <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">An <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> that can 
 consume inputs of <code>start</code>'s <code>inputType</code>, and whose 
-<code>flowingFrom</code> will return an <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> that will produce 
+<code>flowingFrom</code> will return an <a href="tubes.itube.IFount.html"><code>IFount</code></a> that will produce 
 outputs of <code>plumbing[-1]</code> (or <code>start</code>, if plumbing is
 empty). (type: <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Raises</td><td class="fieldArg">TypeError</td><td>if <code>start</code>, or any element of <code>plumbing</code> is not 
 adaptable to <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

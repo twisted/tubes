@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.tube._DrainingTube : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,26 +19,25 @@
     <div>
       
     </div>
-    <div>A <a href="tubes.tube._DrainingTube.html"><code>_DrainingTube</code></a>
+    <div class="docstring">
+      <div><p>A <a href="tubes.tube._DrainingTube.html"><code>_DrainingTube</code></a>
 is an <a href="tubes.itube.ITube.html"><code>ITube</code></a> that 
 unbuffers a list of items.  It is an implementation detail of the way that 
-<a href="tubes.tube.Diverter.html"><code>Diverter</code></a> works.<table class="fieldTable"></table></div>
+<a href="tubes.tube.Diverter.html"><code>Diverter</code></a> works.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id5" class="children sortable">
+      <table class="children sortable" id="id5">
   
   
-<tr class="method">
+  <tr class="method">
     
     
     <td>Method</td>
     <td><a href="tubes.tube._DrainingTube.html#__init__">__init__</a></td>
-    <td><span>Create a <a 
-href="tubes.tube._DrainingTube.html"><code>_DrainingTube</code></a> with 
-some <code>items</code> to drain, a <a 
-href="tubes.itube.IDrain.html"><code>drain</code></a> to drain them to, and
+    <td><span>Create a <a href="tubes.tube._DrainingTube.html"><code>_DrainingTube</code></a> with 
+some <code>items</code> to drain, a <a href="tubes.itube.IDrain.html"><code>drain</code></a> to drain them to, and
 a <a href="tubes.itube.IFount.html"><code>fount</code></a> to flow to that 
 <code>drain</code> once the items are flowed.</span></td>
   </tr><tr class="method">
@@ -55,12 +54,9 @@ a <a href="tubes.itube.IFount.html"><code>fount</code></a> to flow to that
     <td><span>Yield each item from the <code>items</code> passed to the constructor, 
 then switch flow to <code>_eventualUpstream</code>.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -77,14 +73,12 @@ then switch flow to <code>_eventualUpstream</code>.</span></td>
     __init__(self, items, eventualUpstream, eventualDownstream):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Create a <a 
-href="tubes.tube._DrainingTube.html"><code>_DrainingTube</code></a> with 
-some <code>items</code> to drain, a <a 
-href="tubes.itube.IDrain.html"><code>drain</code></a> to drain them to, and
+    <div><p>Create a <a href="tubes.tube._DrainingTube.html"><code>_DrainingTube</code></a> with 
+some <code>items</code> to drain, a <a href="tubes.itube.IDrain.html"><code>drain</code></a> to drain them to, and
 a <a href="tubes.itube.IFount.html"><code>fount</code></a> to flow to that 
-<code>drain</code> once the items are flowed.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">items</td><td>An iterable of items to drain. (type: iterable)</td></tr><tr><td></td><td class="fieldArg">eventualUpstream</td><td>a <a href="tubes.itube.IFount.html"><code>fount</code></a> which should 
+<code>drain</code> once the items are flowed.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">items</td><td>An iterable of items to drain. (type: iterable)</td></tr><tr><td></td><td class="fieldArg">eventualUpstream</td><td>a <a href="tubes.itube.IFount.html"><code>fount</code></a> which should 
 flow to <code>eventualDownstream</code> once the last item in 
 <code>items</code> has been passed on.</td></tr><tr><td></td><td class="fieldArg">eventualDownstream</td><td>a <a href="tubes.itube.IDrain.html"><code>drain</code></a> which should 
 receive each item in <code>items</code> and then accept the flow from 
@@ -103,9 +97,9 @@ receive each item in <code>items</code> and then accept the flow from
     __repr__(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Display the remaining items to be drained.<table class="fieldTable"></table></div>
+    <div><p>Display the remaining items to be drained.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.tube._DrainingTube.started">
@@ -120,14 +114,14 @@ receive each item in <code>items</code> and then accept the flow from
     started(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Yield each item from the <code>items</code> passed to the constructor, 
-then switch flow to <code>_eventualUpstream</code>.<table class="fieldTable"></table></div>
+    <div><p>Yield each item from the <code>items</code> passed to the constructor, 
+then switch flow to <code>_eventualUpstream</code>.</p><table class="fieldTable"></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

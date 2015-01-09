@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.fan.Thru : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,12 +19,12 @@
     <div>
       
     </div>
-    <div><p>A fan.<a href="tubes.fan.Thru.html"><code>Thru</code></a> takes an input
-and fans it <i>thru</i> multiple drains-which-produce-founts, such as <a 
-href="tubes.itube.ITube.html"><code>tubes</code></a>:</p>
+    <div class="docstring">
+      <div><p>A fan.<a href="tubes.fan.Thru.html"><code>Thru</code></a> takes an input
+and fans it <i>thru</i> multiple drains-which-produce-founts, such as <a href="tubes.itube.ITube.html"><code>tubes</code></a>:</p>
 <pre class="literalblock">
            Your Fount
-        (producing &quot;foo&quot;)
+        (producing "foo")
                |
                v
              Thru
@@ -51,14 +51,14 @@ href="tubes.itube.ITube.html"><code>tubes</code></a>:</p>
                           series(foo2baz()),
                           series(foo2qux())])).flowTo(yourDrain)
 </pre><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id46" class="children sortable">
+      <table class="children sortable" id="id46">
   
   
-<tr class="method">
+  <tr class="method">
     
     
     <td>Method</td>
@@ -71,15 +71,11 @@ iterable of <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</span></t
     <td>Method</td>
     <td><a href="tubes.fan.Thru.html#flowingFrom">flowingFrom</a></td>
     <td><span>Accept input from <code>fount</code> and produce output filtered by all 
-of the <code>drain</code>s given to this <a 
-href="tubes.fan.Thru.html"><code>Thru</code></a>'s constructor.</span></td>
+of the <code>drain</code>s given to this <a href="tubes.fan.Thru.html"><code>Thru</code></a>'s constructor.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -96,18 +92,15 @@ href="tubes.fan.Thru.html"><code>Thru</code></a>'s constructor.</span></td>
     __init__(self, drains):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Create a <a href="tubes.fan.Thru.html"><code>Thru</code></a> with an 
+    <div><p>Create a <a href="tubes.fan.Thru.html"><code>Thru</code></a> with an 
 iterable of <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</p>
 <p>All of the drains in <code>drains</code> should be drains that produce a
-new <a href="tubes.itube.IFount.html"><code>IFount</code></a> from <a 
-href="tubes.itube.IDrain.html#flowingFrom"><code>flowingFrom</code></a>, 
-which means they should be a <a 
-href="tubes.tube.html#series"><code>series</code></a> of <a 
-href="tubes.itube.ITube.html"><code>tubes</code></a>, or drains that behave
+new <a href="tubes.itube.IFount.html"><code>IFount</code></a> from <a href="tubes.itube.IDrain.html#flowingFrom"><code>flowingFrom</code></a>, 
+which means they should be a <a href="tubes.tube.html#series"><code>series</code></a> of <a href="tubes.itube.ITube.html"><code>tubes</code></a>, or drains that behave
 like that, such as <a href="tubes.fan.Thru.html"><code>Thru</code></a> 
-itself.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>an iterable of <a href="tubes.itube.IDrain.html"><code>IDrain</code></a></td></tr></table></div>
+itself.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>an iterable of <a href="tubes.itube.IDrain.html"><code>IDrain</code></a></td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.fan.Thru.flowingFrom">
@@ -122,17 +115,16 @@ itself.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Pa
     flowingFrom(self, fount):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Accept input from <code>fount</code> and produce output filtered by all 
-of the <code>drain</code>s given to this <a 
-href="tubes.fan.Thru.html"><code>Thru</code></a>'s constructor.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>a fount whose outputs should flow through our series of transformations.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an output fount which aggregates all the values produced by the drains 
+    <div><p>Accept input from <code>fount</code> and produce output filtered by all 
+of the <code>drain</code>s given to this <a href="tubes.fan.Thru.html"><code>Thru</code></a>'s constructor.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>a fount whose outputs should flow through our series of transformations.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an output fount which aggregates all the values produced by the drains 
 given to this <a href="tubes.fan.Thru.html"><code>Thru</code></a>'s 
 constructor.</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

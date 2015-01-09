@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes.itube.ITube : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,7 +19,8 @@
     <div>
       <p>Known subclasses: <a href="tubes.itube.IDivertable.html">tubes.itube.IDivertable</a></p><p>Known implementations: <a href="tubes.tube._Tubule.html">tubes.tube._Tubule</a></p>
     </div>
-    <div>A tube translates input to output.</p>
+    <div class="docstring">
+      <div><p>A tube translates input to output.</p>
 <p>Look at this awesome ASCII art:</p>
 <pre class="literalblock">
                     a fount
@@ -33,29 +34,25 @@
 
          =========&gt; direction of flow =========&gt;
 </pre>
-<p>(Image credit Nam Nguyen)<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2"><a href="tubes.itube.ITube.html"><code>ITube</code></a> providers 
+<p>(Image credit Nam Nguyen)</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2"><a href="tubes.itube.ITube.html"><code>ITube</code></a> providers 
 participate in <i>data processing</i> not in <i>flow control</i>.  That is 
 to say, an <a href="tubes.itube.ITube.html"><code>ITube</code></a> provider
 can translate its input to output, but cannot impact the rate at which that
 output is delivered.  If you want to implement flow-control modifications, 
 implement <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> 
 directly.  <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> 
-providers may be easily connected up to <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> providers with <a 
-href="tubes.tube.html#series"><code>series</code></a>, so you may implement
-flow-control in an <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> that passes on its 
-input unmodified and data-processing in an <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> and hook them 
+providers may be easily connected up to <a href="tubes.itube.ITube.html"><code>ITube</code></a> providers with <a href="tubes.tube.html#series"><code>series</code></a>, so you may implement
+flow-control in an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> that passes on its 
+input unmodified and data-processing in an <a href="tubes.itube.ITube.html"><code>ITube</code></a> and hook them 
 together.</td></tr></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id30" class="children sortable">
+      <table class="children sortable" id="id30">
   
   
-<tr class="attribute">
+  <tr class="attribute">
     
     
     <td>Attribute</td>
@@ -80,25 +77,19 @@ any point after this.</span></td>
     <td>Method</td>
     <td><a href="tubes.itube.ITube.html#received">received</a></td>
     <td><span>An item was received from 'upstream', i.e. the framework, or the 
-lower-level data source that this <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
+lower-level data source that this <a href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
 with.</span></td>
   </tr><tr class="method">
     
     
     <td>Method</td>
     <td><a href="tubes.itube.ITube.html#stopped">stopped</a></td>
-    <td><span>The flow of data from this <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
-this corresponds to <a 
-href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.</span></td>
+    <td><span>The flow of data from this <a href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
+this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -113,7 +104,7 @@ href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.<
     inputType =
   </div>
   <div class="functionBody">
-    <div>The type expected to be received as input to received.<table class="fieldTable"></table></div>
+    <div><p>The type expected to be received as input to received.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.ITube.outputType">
@@ -126,7 +117,7 @@ href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.<
     outputType =
   </div>
   <div class="functionBody">
-    <div>The type expected to be sent as output to <code>tube.deliver</code>.<table class="fieldTable"></table></div>
+    <div><p>The type expected to be sent as output to <code>tube.deliver</code>.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.ITube.started">
@@ -141,10 +132,10 @@ href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.<
     started():
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>The flow of items has started.  <code>received</code> may be called at 
-any point after this.<table class="fieldTable"></table></div>
+    <div><p>The flow of items has started.  <code>received</code> may be called at 
+any point after this.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.ITube.received">
@@ -159,14 +150,12 @@ any point after this.<table class="fieldTable"></table></div>
     received(item):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>An item was received from 'upstream', i.e. the framework, or the 
-lower-level data source that this <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
-with.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">An iterable of values to propagate to the downstream drain attached to this
-<a href="tubes.itube.ITube.html"><code>ITube</code></a>. (type: iterable of <a 
-href="tubes.itube.ITube.html#outputType"><code>ITube.outputType</code></a>)</td></tr></table></div>
+    <div><p>An item was received from 'upstream', i.e. the framework, or the 
+lower-level data source that this <a href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
+with.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">An iterable of values to propagate to the downstream drain attached to this
+<a href="tubes.itube.ITube.html"><code>ITube</code></a>. (type: iterable of <a href="tubes.itube.ITube.html#outputType"><code>ITube.outputType</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes.itube.ITube.stopped">
@@ -181,26 +170,20 @@ href="tubes.itube.ITube.html#outputType"><code>ITube.outputType</code></a>)</td>
     stopped(reason):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>The flow of data from this <a 
-href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
-this corresponds to <a 
-href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">The same as <a 
-href="tubes.itube.ITube.html#received"><code>ITube.received</code></a>; 
+    <div><p>The flow of data from this <a href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
+this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">The same as <a href="tubes.itube.ITube.html#received"><code>ITube.received</code></a>; 
 values returned (or yielded) by this method will be propagated before the 
-<a 
-href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>
-notification to the downstream drain. (type: same as <a 
-href="tubes.itube.ITube.html#received"><code>ITube.received</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2"><a href="tubes.itube.ITube.html"><code>ITube</code></a> <i>has</i> no 
-notification corresponding to <a 
-href="tubes.itube.IFount.html#stopFlow"><code>IFount.stopFlow</code></a>, 
+<a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>
+notification to the downstream drain. (type: same as <a href="tubes.itube.ITube.html#received"><code>ITube.received</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2"><a href="tubes.itube.ITube.html"><code>ITube</code></a> <i>has</i> no 
+notification corresponding to <a href="tubes.itube.IFount.html#stopFlow"><code>IFount.stopFlow</code></a>, 
 since it has no control over whether additional data will be synthesized / 
 processed by <i>its</i> fount, there's no useful work it can do.</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes._siphon._SiphonFount : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,38 +19,31 @@
     <div>
       <p>Implements interfaces: <a href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
     </div>
-    <div>Implementation of <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> for <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>Implementation of <a href="tubes.itube.IFount.html"><code>IFount</code></a> for <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id50" class="children sortable">
+      <table class="children sortable" id="id50">
   
   
-<tr class="instancevariable">
+  <tr class="instancevariable">
     
     
     <td>Instance Variable</td>
     <td><a href="tubes._siphon._SiphonFount.html#fount">fount</a></td>
-    <td>the implementation of the <a 
-href="tubes.itube.IDrain.html#fount"><code>IDrain.fount</code></a> 
+    <td>the implementation of the <a href="tubes.itube.IDrain.html#fount"><code>IDrain.fount</code></a> 
 attribute.  The <a href="tubes.itube.IFount.html"><code>IFount</code></a> 
-which is flowing to this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> implementation.</td>
+which is flowing to this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> implementation.</td>
   </tr><tr class="instancevariable">
     
     
     <td>Instance Variable</td>
     <td><a href="tubes._siphon._SiphonFount.html#drain">drain</a></td>
-    <td>the implementation of the <a 
-href="tubes.itube.IFount.html#drain"><code>IFount.drain</code></a> 
+    <td>the implementation of the <a href="tubes.itube.IFount.html#drain"><code>IFount.drain</code></a> 
 attribute.  The <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> 
-to which this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> implementation is 
+to which this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a href="tubes.itube.IFount.html"><code>IFount</code></a> implementation is 
 flowing.</td>
   </tr><tr class="method">
     
@@ -75,8 +68,7 @@ flowing.</td>
     
     <td>Method</td>
     <td><a href="tubes._siphon._SiphonFount.html#flowTo">flowTo</a></td>
-    <td><span>Flow data from this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> to the given 
+    <td><span>Flow data from this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> to the given 
 drain.</span></td>
   </tr><tr class="method">
     
@@ -90,20 +82,18 @@ attached, if it isn't yet.</span></td>
     
     <td>Method</td>
     <td><a href="tubes._siphon._SiphonFount.html#stopFlow">stopFlow</a></td>
-    <td><span>Stop the flow from the fount to this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>, and stop 
+    <td><span>Stop the flow from the fount to this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>, and stop 
 delivering buffered items.</span></td>
   </tr>
-  
 </table>
-      
+      <invisible>
         <p>
           Inherited from <a href="tubes._siphon._SiphonPiece.html">_SiphonPiece</a>:
         </p>
-        <table id="id51" class="children sortable">
+        <table class="children sortable" id="id51">
   
   
-<tr class="basemethod private">
+  <tr class="basemethod private">
     
     
     <td>Method</td>
@@ -111,12 +101,9 @@ delivering buffered items.</span></td>
     <td><span>Expose the siphon's <code>_tube</code> directly since many things will 
 want to manipulate it.</span></td>
   </tr>
-  
 </table>
-      
-      
+      </invisible>
     </div>
-    
     
     
 
@@ -131,12 +118,9 @@ want to manipulate it.</span></td>
     fount =
   </div>
   <div class="functionBody">
-    the implementation of the <a 
-href="tubes.itube.IDrain.html#fount"><code>IDrain.fount</code></a> 
+    the implementation of the <a href="tubes.itube.IDrain.html#fount"><code>IDrain.fount</code></a> 
 attribute.  The <a href="tubes.itube.IFount.html"><code>IFount</code></a> 
-which is flowing to this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a 
-href="tubes.itube.IDrain.html"><code>IDrain</code></a> implementation.
+which is flowing to this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> implementation.
   </div>
 </div><div class="function">
   <a name="tubes._siphon._SiphonFount.drain">
@@ -149,12 +133,9 @@ href="tubes.itube.IDrain.html"><code>IDrain</code></a> implementation.
     drain =
   </div>
   <div class="functionBody">
-    the implementation of the <a 
-href="tubes.itube.IFount.html#drain"><code>IFount.drain</code></a> 
+    the implementation of the <a href="tubes.itube.IFount.html#drain"><code>IFount.drain</code></a> 
 attribute.  The <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> 
-to which this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a 
-href="tubes.itube.IFount.html"><code>IFount</code></a> implementation is 
+to which this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>'s <a href="tubes.itube.IFount.html"><code>IFount</code></a> implementation is 
 flowing.
   </div>
 </div><div class="function">
@@ -170,7 +151,7 @@ flowing.
     __init__(self, siphon):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">overrides <a href="tubes._siphon._SiphonPiece.html#__init__">tubes._siphon._SiphonPiece.__init__</a></div>
     <div class="undocumented">Undocumented</div>
   </div>
@@ -187,9 +168,9 @@ flowing.
     __repr__(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Nice string representation.<table class="fieldTable"></table></div>
+    <div><p>Nice string representation.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
   <a name="tubes._siphon._SiphonFount.outputType">
@@ -204,10 +185,9 @@ flowing.
     outputType(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#outputType">tubes.itube.IFount</a></div>
-    <div>Relay the <code>outputType</code> declared by the tube.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">see <a 
-href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a></td></tr></table></div>
+    <div><p>Relay the <code>outputType</code> declared by the tube.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">see <a href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a></td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes._siphon._SiphonFount.flowTo">
@@ -222,11 +202,10 @@ href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a></td
     flowTo(self, drain):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
-    <div>Flow data from this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> to the given 
-drain.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>see <a href="tubes.itube.IFount.html#flowTo"><code>IFount.flowTo</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an <a href="tubes.itube.IFount.html"><code>IFount</code></a> that emits 
+    <div><p>Flow data from this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> to the given 
+drain.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>see <a href="tubes.itube.IFount.html#flowTo"><code>IFount.flowTo</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an <a href="tubes.itube.IFount.html"><code>IFount</code></a> that emits 
 items of the output-type of this siphon's tube.</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -242,10 +221,10 @@ items of the output-type of this siphon's tube.</td></tr></table></div>
     pauseFlow(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
-    <div>Pause the flow from the fount, or remember to do that when the fount is 
-attached, if it isn't yet.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="tubes.itube.IPause.html"><code>IPause</code></a></td></tr></table></div>
+    <div><p>Pause the flow from the fount, or remember to do that when the fount is 
+attached, if it isn't yet.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="tubes.itube.IPause.html"><code>IPause</code></a></td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes._siphon._SiphonFount.stopFlow">
@@ -260,15 +239,14 @@ attached, if it isn't yet.<table class="fieldTable"><tr class="fieldStart"><td c
     stopFlow(self):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
-    <div>Stop the flow from the fount to this <a 
-href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>, and stop 
-delivering buffered items.<table class="fieldTable"></table></div>
+    <div><p>Stop the flow from the fount to this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>, and stop 
+delivering buffered items.</p><table class="fieldTable"></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

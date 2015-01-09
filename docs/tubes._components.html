@@ -1,11 +1,11 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "DTD/xhtml1-strict.dtd">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
 <html>
   <head>
     <title>tubes._components : API documentation</title>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" href="apidocs.css" type="text/css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
     
     
   </head>
@@ -19,15 +19,16 @@
     <div>
       
     </div>
-    <div>Various component utilities.<table class="fieldTable"></table></div>
+    <div class="docstring">
+      <div><p>Various component utilities.</p><table class="fieldTable"></table></div>
+    </div>
 
     
-    
     <div id="splitTables">
-      <table id="id56" class="children sortable">
+      <table class="children sortable" id="id56">
   
   
-<tr class="function private">
+  <tr class="function private">
     
     
     <td>Function</td>
@@ -41,12 +42,9 @@ for the duration of the call.</span></td>
     <td><a href="tubes._components.html#_registryAdapting">_registryAdapting</a></td>
     <td><span>Construct a Zope Interface adapter registry.</span></td>
   </tr>
-  
 </table>
       
-      
     </div>
-    
     
     
 
@@ -63,7 +61,7 @@ for the duration of the call.</span></td>
     _registryActive(registry):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     <div><p>A context manager that activates and deactivates a zope adapter registry
 for the duration of the call.</p>
@@ -74,8 +72,7 @@ outside of itself:</p>
    def convertToBar(maybeFoo):
        with _registryActive(_registryAdapting((IFoo, IBar, fooToBar))):
            return IBar(maybeFoo)
-</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">registry</td><td>The registry to activate. (type: <a 
-href="https://zope.org/zope.interface.adapter.AdapterRegistry.html"><code>AdapterRegistry</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"> (type: )</td></tr><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2">This isn't thread safe, so other threads will be affected as well.</td></tr></table></div>
+</pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">registry</td><td>The registry to activate. (type: <a href="https://zope.org/zope.interface.adapter.AdapterRegistry.html"><code>AdapterRegistry</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"> (type: )</td></tr><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2">This isn't thread safe, so other threads will be affected as well.</td></tr></table></div>
   </div>
 </div><div class="function">
   <a name="tubes._components._registryAdapting">
@@ -90,24 +87,22 @@ href="https://zope.org/zope.interface.adapter.AdapterRegistry.html"><code>Adapte
     _registryAdapting(*fromToAdapterTuples):
     
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
-    <div>Construct a Zope Interface adapter registry.</p>
+    <div><p>Construct a Zope Interface adapter registry.</p>
 <p>For example, if you want to construct an adapter registry that can 
 convert <code>IFoo</code> to <code>IBar</code> with 
-<code>fooToBar</code>.<table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fromToAdapterTuples</td><td>A sequence of tuples of <code>(fromInterface, toInterface, 
+<code>fooToBar</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fromToAdapterTuples</td><td>A sequence of tuples of <code>(fromInterface, toInterface, 
 adapterCallable)</code>, where <code>fromInterface</code> and 
-<code>toInterface</code> are <a 
-href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>s,
+<code>toInterface</code> are <a href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>s,
 and <code>adapterCallable</code> is a callable that takes one argument 
 which provides <code>fromInterface</code> and returns an object providing 
 <code>toInterface</code>. (type: <code>tuple</code> of 3-<code>tuple</code>s of <code>(Interface, Interface,
-callable)</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an adapter registry adapting the given tuples. (type: <a 
-href="https://zope.org/zope.interface.adapter.AdapterRegistry.html"><code>AdapterRegistry</code></a>)</td></tr></table></div>
+callable)</code>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an adapter registry adapting the given tuples. (type: <a href="https://zope.org/zope.interface.adapter.AdapterRegistry.html"><code>AdapterRegistry</code></a>)</td></tr></table></div>
   </div>
 </div>
     <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="http://codespeak.net/~mwh/pydoctor/">pydoctor</a> at 2015-01-07 05:40:22.
+      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-01-09 07:05:48.
     </address>
   </body>
 </html>

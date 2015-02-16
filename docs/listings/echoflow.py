@@ -1,4 +1,5 @@
-from twisted.tubes.protocol import factoryFromFlow
+from tubes.protocol import factoryFromFlow
+
 from twisted.internet.endpoints import serverFromString
 from twisted.internet.defer import Deferred
 

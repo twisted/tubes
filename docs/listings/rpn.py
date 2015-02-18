@@ -1,7 +1,7 @@
 
-from twisted.tubes.protocol import factoryFromFlow
-from twisted.tubes.itube import IFrame, ISegment
-from twisted.tubes.tube import tube, receiver
+from tubes.protocol import factoryFromFlow
+from tubes.itube import IFrame, ISegment
+from tubes.tube import tube, receiver
 
 from twisted.internet.endpoints import serverFromString
 from twisted.internet.defer import Deferred

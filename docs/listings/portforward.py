@@ -1,7 +1,6 @@
-
 import os
 
-from twisted.tubes.protocol import factoryFromFlow
+from tubes.protocol import factoryFromFlow
 from twisted.internet.endpoints import serverFromString, clientFromString
 from twisted.internet.defer import Deferred
 
@@ -18,6 +17,7 @@ def main(reactor, listen="tcp:4321", connect="tcp:localhost:6543"):
     serverEndpoint.listen(factoryFromFlow(incomingTubeFactory))
     return Deferred()
 
-from twisted.internet.task import react
-from sys import argv
-react(main, argv[1:])
+if __name__ == '__main__':
+    from twisted.internet.task import react
+    from sys import argv
+    react(main, argv[1:])

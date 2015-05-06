@@ -4,115 +4,126 @@
 <html>
   <head>
     <title>tubes : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="package">tubes : package documentation</h1>
-    <p>
-      <span id="part"></span>
-      
-      
-    </p>
-    <div>
-      
-    </div>
-    <div class="docstring">
-      <div><p><a href="tubes.html"><code>tubes</code></a> offers an abstraction of 
-data flow and backpressure for event-driven applications.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2"><a href="tubes.tube.html"><code>tubes.tube</code></a></td></tr></table></div>
-    </div>
 
-    
-    <div id="splitTables">
-      <table id="id1" class="children sortable">
-  
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="package"><code>tubes</code> <small>package documentation</small></h1>
+
+        <span id="partOf">
+          
+          
+          
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p><a href="tubes.html"><code>tubes</code></a> offers an abstraction of 
+data flow and backpressure for event-driven applications.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2"><a href="tubes.tube.html"><code>tubes.tube</code></a></td></tr></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id1">
   
   <tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.fan.html">fan</a></td>
+    <td><a class="code" href="tubes.fan.html">fan</a></td>
     <td><span>Tools for turning <a href="tubes.itube.IFount.html"><code>founts</code></a> and <a href="tubes.itube.IDrain.html"><code>drains</code></a> into multiple founts
 and drains.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.framing.html">framing</a></td>
+    <td><a class="code" href="tubes.framing.html">framing</a></td>
     <td><span>Tubes that can convert streams of data into discrete chunks and back 
 again.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.itube.html">itube</a></td>
+    <td><a class="code" href="tubes.itube.html">itube</a></td>
     <td><span>Interfaces related to data flows.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.kit.html">kit</a></td>
+    <td><a class="code" href="tubes.kit.html">kit</a></td>
     <td><span>Toolkit to alleviate some of the duplication in constructing your own 
 IFount and IDrain implementations.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.memory.html">memory</a></td>
+    <td><a class="code" href="tubes.memory.html">memory</a></td>
     <td><span>Founts and drains that can produce values from static data in 
 memory.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.protocol.html">protocol</a></td>
+    <td><a class="code" href="tubes.protocol.html">protocol</a></td>
     <td><span>Objects to connect <a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html"><code>real
 data</code></a> to <a href="tubes.html"><code>tubes</code></a>.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.routing.html">routing</a></td>
+    <td><a class="code" href="tubes.routing.html">routing</a></td>
     <td><span>A <a href="tubes.routing.Router.html"><code>Router</code></a> receives 
 items with addressing information and dispatches them to an appropriate 
 output, stripping the addressing information off.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.tube.html">tube</a></td>
+    <td><a class="code" href="tubes.tube.html">tube</a></td>
     <td><span>See <a href="tubes.tube.html#tube"><code>tube</code></a>.</span></td>
   </tr><tr class="module">
     
-    
     <td>Module</td>
-    <td><a href="tubes.undefer.html">undefer</a></td>
+    <td><a class="code" href="tubes.undefer.html">undefer</a></td>
     <td><span><a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
 support for Tubes.</span></td>
   </tr><tr class="module private">
     
-    
     <td>Module</td>
-    <td><a href="tubes._components.html">_components</a></td>
+    <td><a class="code" href="tubes._components.html">_components</a></td>
     <td><span>Various component utilities.</span></td>
   </tr><tr class="module private">
     
-    
     <td>Module</td>
-    <td><a href="tubes._siphon.html">_siphon</a></td>
+    <td><a class="code" href="tubes._siphon.html">_siphon</a></td>
     <td><span>Adapters for converting <a href="tubes.itube.ITube.html"><code>ITube</code></a> to <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+          
+      </div>
+
+      <div id="childList">
+
+        
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

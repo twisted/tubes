@@ -4,59 +4,74 @@
 <html>
   <head>
     <title>tubes.tube._NullFount : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="class private">t.t._NullFount(<span title="object">object</span>) : class documentation</h1>
-    <p>
-      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.tube.html">tube</a></span>
-      
-      <a href="classIndex.html#tubes.tube._NullFount">View In Hierarchy</a>
-    </p>
-    <div>
-      <p>Known subclasses: <a href="tubes.memory._NotQuiteNull.html">tubes.memory._NotQuiteNull</a></p><p>Implements interfaces: <a href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
-    </div>
-    <div class="docstring">
-      <div><p>An <i>almost</i> no-op implementation of fount which does nothing but 
-update its <code>drain</code> to point at itself.</p><table class="fieldTable"></table></div>
-    </div>
 
-    
-    <div id="splitTables">
-      <table id="id45" class="children sortable">
-  
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class private"><code>tubes.tube._NullFount(<span title="object">object</span>)</code> <small>class documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes.tube.html">tube</a></code>
+          
+          <a href="classIndex.html#tubes.tube._NullFount">(View In Hierarchy)</a>
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        <p>Known subclasses: <a class="code" href="tubes.memory._NotQuiteNull.html">tubes.memory._NotQuiteNull</a></p><p>Implements interfaces: <a class="code" href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>An <i>almost</i> no-op implementation of fount which does nothing but 
+update its <code>drain</code> to point at itself.</p><table class="fieldTable"></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id6">
   
   <tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.tube._NullFount.html#flowTo">flowTo</a></td>
+    <td><a class="code" href="tubes.tube._NullFount.html#flowTo">flowTo</a></td>
     <td><span>Update the <code>drain</code> attribute of this <a href="tubes.tube._NullFount.html"><code>_NullFount</code></a> and call 
 <code>flowingFrom</code> on the given <code>drain</code>.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.tube._NullFount.html#pauseFlow">pauseFlow</a></td>
+    <td><a class="code" href="tubes.tube._NullFount.html#pauseFlow">pauseFlow</a></td>
     <td><span>Return an <a href="tubes.itube.IPause.html"><code>IPause</code></a> 
 which does nothing, and then does nothing when resumed.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.tube._NullFount.html#stopFlow">stopFlow</a></td>
+    <td><a class="code" href="tubes.tube._NullFount.html#stopFlow">stopFlow</a></td>
     <td><span>Do nothing.</span></td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    <div class="function">
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="function">
   <a name="tubes.tube._NullFount.flowTo">
     
   </a>
@@ -70,7 +85,7 @@ which does nothing, and then does nothing when resumed.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div><div class="interfaceinfo">overridden in <a href="tubes.memory._NotQuiteNull.html">tubes.memory._NotQuiteNull</a></div>
+    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div><div class="interfaceinfo">overridden in <a class="code" href="tubes.memory._NotQuiteNull.html">tubes.memory._NotQuiteNull</a></div>
     <div><p>Update the <code>drain</code> attribute of this <a href="tubes.tube._NullFount.html"><code>_NullFount</code></a> and call 
 <code>flowingFrom</code> on the given <code>drain</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>see <a href="tubes.itube.IFount.html"><code>IFount</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">see <a href="tubes.itube.IFount.html"><code>IFount</code></a></td></tr></table></div>
   </div>
@@ -88,7 +103,7 @@ which does nothing, and then does nothing when resumed.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
     <div><p>Return an <a href="tubes.itube.IPause.html"><code>IPause</code></a> 
 which does nothing, and then does nothing when resumed.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">see <a href="tubes.itube.IFount.html"><code>IFount</code></a></td></tr></table></div>
   </div>
@@ -106,12 +121,16 @@ which does nothing, and then does nothing when resumed.</p><table class="fieldTa
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
     <div><p>Do nothing.</p><table class="fieldTable"></table></div>
   </div>
 </div>
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

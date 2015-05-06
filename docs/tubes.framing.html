@@ -4,121 +4,127 @@
 <html>
   <head>
     <title>tubes.framing : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="module">t.framing : module documentation</h1>
-    <p>
-      <span id="part">Part of <a href="tubes.html">tubes</a></span>
-      
-      
-    </p>
-    <div>
-      
-    </div>
-    <div class="docstring">
-      <div><p>Tubes that can convert streams of data into discrete chunks and back 
-again.</p><table class="fieldTable"></table></div>
-    </div>
 
-    
-    <div id="splitTables">
-      <table id="id28" class="children sortable">
-  
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="module"><code>tubes.framing</code> <small>module documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a class="code" href="tubes.html">tubes</a></code>
+          
+          
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>Tubes that can convert streams of data into discrete chunks and back 
+again.</p><table class="fieldTable"></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id33">
   
   <tr class="function">
     
-    
     <td>Function</td>
-    <td><a href="tubes.framing.html#bytesToNetstrings">bytesToNetstrings</a></td>
+    <td><a class="code" href="tubes.framing.html#bytesToNetstrings">bytesToNetstrings</a></td>
     <td><span>Create a new tube for converting a stream of byte segments containing 
 DJB-style netstrings into bytes.</span></td>
   </tr><tr class="function">
     
-    
     <td>Function</td>
-    <td><a href="tubes.framing.html#netstringsToBytes">netstringsToBytes</a></td>
+    <td><a class="code" href="tubes.framing.html#netstringsToBytes">netstringsToBytes</a></td>
     <td><span>Create a new tube for encoding a sequence of discrete frames of bytes 
 into DJB-style netstrings on the wire.</span></td>
   </tr><tr class="function">
     
-    
     <td>Function</td>
-    <td><a href="tubes.framing.html#linesToBytes">linesToBytes</a></td>
+    <td><a class="code" href="tubes.framing.html#linesToBytes">linesToBytes</a></td>
     <td><span>Convert lines into bytes.</span></td>
   </tr><tr class="function">
     
-    
     <td>Function</td>
-    <td><a href="tubes.framing.html#bytesDelimitedBy">bytesDelimitedBy</a></td>
+    <td><a class="code" href="tubes.framing.html#bytesDelimitedBy">bytesDelimitedBy</a></td>
     <td><span>Consumes a stream of bytes and produces frames delimited by the given 
 delimiter.</span></td>
   </tr><tr class="function">
     
-    
     <td>Function</td>
-    <td><a href="tubes.framing.html#bytesToLines">bytesToLines</a></td>
+    <td><a class="code" href="tubes.framing.html#bytesToLines">bytesToLines</a></td>
     <td><span>Create a drain that consumes a stream of bytes and produces frames 
 delimited by LF or CRLF.</span></td>
   </tr><tr class="function">
     
-    
     <td>Function</td>
-    <td><a href="tubes.framing.html#bytesToIntPrefixed">bytesToIntPrefixed</a></td>
+    <td><a class="code" href="tubes.framing.html#bytesToIntPrefixed">bytesToIntPrefixed</a></td>
     <td><span>Convert a sequence of byte segments with packed network-endian int 
 prefixes of the given bit width into frames of the indicated sizes.</span></td>
   </tr><tr class="function">
     
-    
     <td>Function</td>
-    <td><a href="tubes.framing.html#intPrefixedToBytes">intPrefixedToBytes</a></td>
+    <td><a class="code" href="tubes.framing.html#intPrefixedToBytes">intPrefixedToBytes</a></td>
     <td><span>Prepend packed network endian lengths to a sequence of bytes 
 representing frames.</span></td>
   </tr><tr class="class private">
     
-    
     <td>Class</td>
-    <td><a href="tubes.framing._Transporter.html">_Transporter</a></td>
+    <td><a class="code" href="tubes.framing._Transporter.html">_Transporter</a></td>
     <td><span>Just enough of a mock of <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
 to work with the protocols in <a href="https://twistedmatrix.com/twisted.protocols.basic.html"><code>basic</code></a>,
 as a wrapper around a callable taking some data.</span></td>
   </tr><tr class="class private">
     
-    
     <td>Class</td>
-    <td><a href="tubes.framing._FramesToSegments.html">_FramesToSegments</a></td>
+    <td><a class="code" href="tubes.framing._FramesToSegments.html">_FramesToSegments</a></td>
     <td><span>A tube which could convert "<a href="tubes.itube.IFrame.html"><code>frames</code></a>" - discrete 
 chunks of data - into "<a href="tubes.itube.ISegment.html"><code>segments</code></a>" - parts of
 a raw data stream, with framing headers or delimiters attached.</span></td>
   </tr><tr class="class private">
     
-    
     <td>Class</td>
-    <td><a href="tubes.framing._NotDisconnecting.html">_NotDisconnecting</a></td>
+    <td><a class="code" href="tubes.framing._NotDisconnecting.html">_NotDisconnecting</a></td>
     <td><span>Enough of a transport to pretend to not be disconnecting.</span></td>
   </tr><tr class="class private">
     
-    
     <td>Class</td>
-    <td><a href="tubes.framing._SegmentsToFrames.html">_SegmentsToFrames</a></td>
+    <td><a class="code" href="tubes.framing._SegmentsToFrames.html">_SegmentsToFrames</a></td>
     <td><span>Convert segments into frames by parsing them.</span></td>
   </tr><tr class="class private">
     
-    
     <td>Class</td>
-    <td><a href="tubes.framing._CarriageReturnRemover.html">_CarriageReturnRemover</a></td>
+    <td><a class="code" href="tubes.framing._CarriageReturnRemover.html">_CarriageReturnRemover</a></td>
     <td><span>Automatically fix newlines, because hacker news.</span></td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    <div class="function">
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="function">
   <a name="tubes.framing.bytesToNetstrings">
     
   </a>
@@ -251,8 +257,12 @@ representing frames.</p><table class="fieldTable"><tr class="fieldStart"><td cla
 conversion.</td></tr></table></div>
   </div>
 </div>
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

@@ -4,69 +4,82 @@
 <html>
   <head>
     <title>tubes.fan._OutFount : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="class private">t.f._OutFount(<span title="object">object</span>) : class documentation</h1>
-    <p>
-      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.fan.html">fan</a></span>
-      
-      <a href="classIndex.html#tubes.fan._OutFount">View In Hierarchy</a>
-    </p>
-    <div>
-      <p>Implements interfaces: <a href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
-    </div>
-    <div class="docstring">
-      <div><p>The concrete fount type returned by <a href="tubes.fan.Out.html#newFount"><code>Out.newFount</code></a>.</p><table class="fieldTable"></table></div>
-    </div>
 
-    
-    <div id="splitTables">
-      <table id="id17" class="children sortable">
-  
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class private"><code>tubes.fan._OutFount(<span title="object">object</span>)</code> <small>class documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes.fan.html">fan</a></code>
+          
+          <a href="classIndex.html#tubes.fan._OutFount">(View In Hierarchy)</a>
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        <p>Implements interfaces: <a class="code" href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>The concrete fount type returned by <a href="tubes.fan.Out.html#newFount"><code>Out.newFount</code></a>.</p><table class="fieldTable"></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id43">
   
   <tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#__init__">__init__</a></td>
+    <td><a class="code" href="tubes.fan._OutFount.html#__init__">__init__</a></td>
     <td></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#flowTo">flowTo</a></td>
+    <td><a class="code" href="tubes.fan._OutFount.html#flowTo">flowTo</a></td>
     <td><span>Flow to the given drain.  Don't do anything special; just set up the 
 drain attribute and return the appropriate value.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#pauseFlow">pauseFlow</a></td>
+    <td><a class="code" href="tubes.fan._OutFount.html#pauseFlow">pauseFlow</a></td>
     <td><span>Pause the flow.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#stopFlow">stopFlow</a></td>
+    <td><a class="code" href="tubes.fan._OutFount.html#stopFlow">stopFlow</a></td>
     <td><span>Invoke the callback supplied to <code>__init__</code> for stopping.</span></td>
   </tr><tr class="method private">
     
-    
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#_deliverOne">_deliverOne</a></td>
+    <td><a class="code" href="tubes.fan._OutFount.html#_deliverOne">_deliverOne</a></td>
     <td><span>Deliver one item to this fount's drain.</span></td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    <div class="function">
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="function">
   <a name="tubes.fan._OutFount.__init__">
     
   </a>
@@ -98,7 +111,7 @@ the upstream fount flowing into our <a href="tubes.fan.Out.html"><code>Out</code
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
     <div><p>Flow to the given drain.  Don't do anything special; just set up the 
 drain attribute and return the appropriate value.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>A drain to fan out values to.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the result of <code>drain.flowingFrom</code></td></tr></table></div>
   </div>
@@ -116,7 +129,7 @@ drain attribute and return the appropriate value.</p><table class="fieldTable"><
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
     <div><p>Pause the flow.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a pause (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a>)</td></tr></table></div>
   </div>
 </div><div class="function">
@@ -133,7 +146,7 @@ drain attribute and return the appropriate value.</p><table class="fieldTable"><
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
     <div><p>Invoke the callback supplied to <code>__init__</code> for stopping.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="function">
@@ -155,8 +168,12 @@ drain attribute and return the appropriate value.</p><table class="fieldTable"><
 <p>This is only invoked when the upstream is unpaused.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>An item that the upstream would like to pass on.</td></tr></table></div>
   </div>
 </div>
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

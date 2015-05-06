@@ -4,68 +4,81 @@
 <html>
   <head>
     <title>tubes.itube.IDrain : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="interface">t.i.IDrain(<span title="zope.interface.Interface">Interface</span>) : interface documentation</h1>
-    <p>
-      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes.itube.html">itube</a></span>
-      
-      <a href="classIndex.html#tubes.itube.IDrain">View In Hierarchy</a>
-    </p>
-    <div>
-      <p>Known implementations: <a href="tubes._siphon._SiphonDrain.html">tubes._siphon._SiphonDrain</a>, <a href="tubes.fan._InDrain.html">tubes.fan._InDrain</a>, <a href="tubes.fan._OutDrain.html">tubes.fan._OutDrain</a>, <a href="tubes.protocol._TransportDrain.html">tubes.protocol._TransportDrain</a></p>
-    </div>
-    <div class="docstring">
-      <div><p>A drain consumes objects from a fount.</p><table class="fieldTable"></table></div>
-    </div>
 
-    
-    <div id="splitTables">
-      <table id="id24" class="children sortable">
-  
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="interface"><code>tubes.itube.IDrain(<span title="zope.interface.Interface">Interface</span>)</code> <small>interface documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes.itube.html">itube</a></code>
+          
+          <a href="classIndex.html#tubes.itube.IDrain">(View In Hierarchy)</a>
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        <p>Known implementations: <a class="code" href="tubes._siphon._SiphonDrain.html">tubes._siphon._SiphonDrain</a>, <a class="code" href="tubes.fan._InDrain.html">tubes.fan._InDrain</a>, <a class="code" href="tubes.fan._OutDrain.html">tubes.fan._OutDrain</a>, <a class="code" href="tubes.protocol._TransportDrain.html">tubes.protocol._TransportDrain</a></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>A drain consumes objects from a fount.</p><table class="fieldTable"></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id29">
   
   <tr class="attribute">
     
-    
     <td>Attribute</td>
-    <td><a href="tubes.itube.IDrain.html#inputType">inputType</a></td>
+    <td><a class="code" href="tubes.itube.IDrain.html#inputType">inputType</a></td>
     <td><span>Similar to <a href="tubes.itube.IFount.html#outputType"><code>IFount.outputType</code></a>.</span></td>
   </tr><tr class="attribute">
     
-    
     <td>Attribute</td>
-    <td><a href="tubes.itube.IDrain.html#fount">fount</a></td>
+    <td><a class="code" href="tubes.itube.IDrain.html#fount">fount</a></td>
     <td><span>The fount that is delivering data to this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.itube.IDrain.html#flowingFrom">flowingFrom</a></td>
+    <td><a class="code" href="tubes.itube.IDrain.html#flowingFrom">flowingFrom</a></td>
     <td><span>This drain is now accepting a flow from the given <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.itube.IDrain.html#receive">receive</a></td>
+    <td><a class="code" href="tubes.itube.IDrain.html#receive">receive</a></td>
     <td><span>An item was received from the fount.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes.itube.IDrain.html#flowStopped">flowStopped</a></td>
+    <td><a class="code" href="tubes.itube.IDrain.html#flowStopped">flowStopped</a></td>
     <td><span class="undocumented">No summary</span></td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    <div class="function">
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="function">
   <a name="tubes.itube.IDrain.inputType">
     
   </a>
@@ -154,8 +167,12 @@ type, depending on the <a href="tubes.itube.IFount.html"><code>IFount</code></a>
 this <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>. (type: <a href="https://twistedmatrix.com/twisted.python.failure.Failure.html"><code>Failure</code></a>)</td></tr></table></div>
   </div>
 </div>
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

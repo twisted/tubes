@@ -4,95 +4,104 @@
 <html>
   <head>
     <title>tubes._siphon.SiphonPendingValues : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="class">t._.SiphonPendingValues(<span title="object">object</span>) : class documentation</h1>
-    <p>
-      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes._siphon.html">_siphon</a></span>
-      
-      <a href="classIndex.html#tubes._siphon.SiphonPendingValues">View In Hierarchy</a>
-    </p>
-    <div>
-      
-    </div>
-    <div class="docstring">
-      <div><p>A queue of pending values which can be suspended and resumed, for 
-representing values pending delivery for a <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</p><table class="fieldTable"></table></div>
-    </div>
 
-    
-    <div id="splitTables">
-      <table id="id34" class="children sortable">
-  
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class"><code>tubes._siphon.SiphonPendingValues(<span title="object">object</span>)</code> <small>class documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes._siphon.html">_siphon</a></code>
+          
+          <a href="classIndex.html#tubes._siphon.SiphonPendingValues">(View In Hierarchy)</a>
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>A queue of pending values which can be suspended and resumed, for 
+representing values pending delivery for a <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</p><table class="fieldTable"></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id48">
   
   <tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#__init__">__init__</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#__init__">__init__</a></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#suspend">suspend</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#suspend">suspend</a></td>
     <td><span><a href="tubes._siphon.SiphonPendingValues.html#popPendingValue"><code>SiphonPendingValues.popPendingValue</code></a>
 should return <a href="tubes._siphon.html#suspended"><code>suspended</code></a>.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#resume">resume</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#resume">resume</a></td>
     <td><span><a href="tubes._siphon.SiphonPendingValues.html#popPendingValue"><code>SiphonPendingValues.popPendingValue</code></a></span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#prepend">prepend</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#prepend">prepend</a></td>
     <td><span>Add the given iterator to the beginning of the queue.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#append">append</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#append">append</a></td>
     <td><span>Add the given iterator to the end of the queue.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#clear">clear</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#clear">clear</a></td>
     <td><span>Clear the entire queue.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#popPendingValue">popPendingValue</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#popPendingValue">popPendingValue</a></td>
     <td><span>Get the next value in the leftmost iterator in the deque.</span></td>
   </tr><tr class="instancevariable private">
     
-    
     <td>Instance Variable</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#_deque">_deque</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#_deque">_deque</a></td>
     <td>a deque containing iterators containing queued values.</td>
   </tr><tr class="instancevariable private">
     
-    
     <td>Instance Variable</td>
-    <td><a href="tubes._siphon.SiphonPendingValues.html#_suspended">_suspended</a></td>
+    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html#_suspended">_suspended</a></td>
     <td>Is this <a href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
 currently suspended?</td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    <div class="function">
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="function">
   <a name="tubes._siphon.SiphonPendingValues._deque">
     
   </a>
@@ -243,8 +252,12 @@ is suspended and <code>evenIfSuspended</code> was not passed, or <a href="tubes.
 is empty.</td></tr></table></div>
   </div>
 </div>
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

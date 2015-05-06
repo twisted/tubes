@@ -4,49 +4,62 @@
 <html>
   <head>
     <title>tubes.itube : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="module">t.itube : module documentation</h1>
-    <p>
-      <span id="part">Part of <a href="tubes.html">tubes</a></span>
-      
-      
-    </p>
-    <div>
-      
-    </div>
-    <div class="docstring">
-      <div><p>Interfaces related to data flows.</p><table class="fieldTable"></table></div>
-    </div>
 
-    
-    <div id="splitTables">
-      <table id="id21" class="children sortable">
-  
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="module"><code>tubes.itube</code> <small>module documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a class="code" href="tubes.html">tubes</a></code>
+          
+          
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>Interfaces related to data flows.</p><table class="fieldTable"></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id26">
   
   <tr class="class">
     
-    
     <td>Class</td>
-    <td><a href="tubes.itube.AlreadyUnpaused.html">AlreadyUnpaused</a></td>
+    <td><a class="code" href="tubes.itube.AlreadyUnpaused.html">AlreadyUnpaused</a></td>
     <td><span>The <a href="tubes.itube.IPause.html"><code>IPause</code></a> has 
 already been unpaused.</span></td>
   </tr><tr class="class">
     
-    
     <td>Class</td>
-    <td><a href="tubes.itube.StopFlowCalled.html">StopFlowCalled</a></td>
+    <td><a class="code" href="tubes.itube.StopFlowCalled.html">StopFlowCalled</a></td>
     <td><span><a href="tubes.itube.IFount.html#stopFlow"><code>IFount.stopFlow</code></a> 
 was called, and that's why the flow was stopped.</span></td>
   </tr><tr class="interface">
     
-    
     <td>Interface</td>
-    <td><a href="tubes.itube.IPause.html">IPause</a></td>
+    <td><a class="code" href="tubes.itube.IPause.html">IPause</a></td>
     <td><span>A <a href="tubes.itube.IPause.html"><code>pause</code></a> is a reason 
 that an <a href="tubes.itube.IFount.html"><code>IFount</code></a> is not 
 delivering output to its <code>drain</code> attribute.  This reason may be 
@@ -54,56 +67,56 @@ removed by <a href="tubes.itube.IPause.html#unpause"><code>unpausing</code></a> 
 pause.</span></td>
   </tr><tr class="interface">
     
-    
     <td>Interface</td>
-    <td><a href="tubes.itube.IFount.html">IFount</a></td>
+    <td><a class="code" href="tubes.itube.IFount.html">IFount</a></td>
     <td><span>A fount produces objects for a drain to consume.</span></td>
   </tr><tr class="interface">
     
-    
     <td>Interface</td>
-    <td><a href="tubes.itube.IDrain.html">IDrain</a></td>
+    <td><a class="code" href="tubes.itube.IDrain.html">IDrain</a></td>
     <td><span>A drain consumes objects from a fount.</span></td>
   </tr><tr class="interface">
     
-    
     <td>Interface</td>
-    <td><a href="tubes.itube.ITube.html">ITube</a></td>
+    <td><a class="code" href="tubes.itube.ITube.html">ITube</a></td>
     <td><span>A tube translates input to output.</span></td>
   </tr><tr class="interface">
     
-    
     <td>Interface</td>
-    <td><a href="tubes.itube.IDivertable.html">IDivertable</a></td>
+    <td><a class="code" href="tubes.itube.IDivertable.html">IDivertable</a></td>
     <td><span>An <a href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> 
 is an <a href="tubes.itube.ITube.html"><code>ITube</code></a> which may 
 have its input diverted away from it.</span></td>
   </tr><tr class="interface">
     
-    
     <td>Interface</td>
-    <td><a href="tubes.itube.ISegment.html">ISegment</a></td>
+    <td><a class="code" href="tubes.itube.ISegment.html">ISegment</a></td>
     <td><span>This is a marker interface for a <a href="http://docs.python.org/library/stdtypes.html#bytes"><code>bytes</code></a>
 which represents the arbitrarily-sized segments of data that a 
 stream-oriented protocol may deliver; contrast with <a href="tubes.itube.IFrame.html"><code>IFrame</code></a>.</span></td>
   </tr><tr class="interface">
     
-    
     <td>Interface</td>
-    <td><a href="tubes.itube.IFrame.html">IFrame</a></td>
+    <td><a class="code" href="tubes.itube.IFrame.html">IFrame</a></td>
     <td><span>This is a marker interface for a <a href="http://docs.python.org/library/stdtypes.html#bytes"><code>bytes</code></a>
 which represents a discrete, separated sequence of bytes within a protocol;
 contrast with <a href="tubes.itube.ISegment.html"><code>ISegment</code></a>.</span></td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+          
+      </div>
+
+      <div id="childList">
+
+        
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

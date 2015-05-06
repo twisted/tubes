@@ -4,59 +4,71 @@
 <html>
   <head>
     <title>tubes._siphon._Siphon : API documentation</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
-    
-    
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
-    <h1 class="class private">t._._Siphon(<span title="object">object</span>) : class documentation</h1>
-    <p>
-      <span id="part">Part of <a href="tubes.html">tubes</a>.<a href="tubes._siphon.html">_siphon</a></span>
-      
-      <a href="classIndex.html#tubes._siphon._Siphon">View In Hierarchy</a>
-    </p>
-    <div>
-      
-    </div>
-    <div class="docstring">
-      <div><p>A <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> is an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and possibly also an
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class private"><code>tubes._siphon._Siphon(<span title="object">object</span>)</code> <small>class documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes._siphon.html">_siphon</a></code>
+          
+          <a href="classIndex.html#tubes._siphon._Siphon">(View In Hierarchy)</a>
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>A <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> is an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and possibly also an
 <a href="tubes.itube.IFount.html"><code>IFount</code></a>, and provides 
 lots of conveniences to make it easy to implement something that does fancy
 flow control with just a few methods.</p><table class="fieldTable"></table></div>
-    </div>
+      </div>
 
-    
-    <div id="splitTables">
-      <table id="id41" class="children sortable">
-  
+      <div id="splitTables">
+        <table class="children sortable" id="id55">
   
   <tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon._Siphon.html#__init__">__init__</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#__init__">__init__</a></td>
     <td><span>Initialize this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> with the given 
 <a href="tubes.itube.ITube.html"><code>ITube</code></a> to control its 
 behavior.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon._Siphon.html#__repr__">__repr__</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#__repr__">__repr__</a></td>
     <td><span>Nice string representation.</span></td>
   </tr><tr class="method">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon._Siphon.html#ejectPending">ejectPending</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#ejectPending">ejectPending</a></td>
     <td><span>Eject the entire pending buffer into a list for reassembly by a 
 diverter.</span></td>
   </tr><tr class="instancevariable private">
     
-    
     <td>Instance Variable</td>
-    <td><a href="tubes._siphon._Siphon.html#_tube">_tube</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_tube">_tube</a></td>
     <td>the <a href="tubes.itube.ITube.html"><code>ITube</code></a> which will 
 receive values from this siphon and call <code>deliver</code> to deliver 
 output to it.  (When set, this will automatically set the 
@@ -64,24 +76,21 @@ output to it.  (When set, this will automatically set the
 un-setting the <code>siphon</code> attribute of the old tube.)</td>
   </tr><tr class="instancevariable private">
     
-    
     <td>Instance Variable</td>
-    <td><a href="tubes._siphon._Siphon.html#_currentlyPaused">_currentlyPaused</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_currentlyPaused">_currentlyPaused</a></td>
     <td>is this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> 
 currently paused?  Boolean: <code>True</code> if paused, <code>False</code>
 if not.</td>
   </tr><tr class="instancevariable private">
     
-    
     <td>Instance Variable</td>
-    <td><a href="tubes._siphon._Siphon.html#_pauseBecausePauseCalled">_pauseBecausePauseCalled</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_pauseBecausePauseCalled">_pauseBecausePauseCalled</a></td>
     <td>an <a href="tubes.itube.IPause.html"><code>IPause</code></a> from the 
 upstream fount, present because pauseFlow has been called.</td>
   </tr><tr class="instancevariable private">
     
-    
     <td>Instance Variable</td>
-    <td><a href="tubes._siphon._Siphon.html#_flowStoppingReason">_flowStoppingReason</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_flowStoppingReason">_flowStoppingReason</a></td>
     <td>If this is not <code>None</code>, then call <code>flowStopped</code> on the
 downstream <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> at the
 next opportunity, where "the next opportunity" is when all 
@@ -90,45 +99,42 @@ buffered input (values yielded from <code>started</code>,
 downstream drain and we are unpaused.</td>
   </tr><tr class="instancevariable private">
     
-    
     <td>Instance Variable</td>
-    <td><a href="tubes._siphon._Siphon.html#_everStarted">_everStarted</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_everStarted">_everStarted</a></td>
     <td>Has this <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> ever
 called <code>started</code> on its <a href="tubes.itube.ITube.html"><code>ITube</code></a>? (type: <a href="http://docs.python.org/library/stdtypes.html#bool"><code>bool</code></a>)</td>
   </tr><tr class="method private">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon._Siphon.html#_noMore">_noMore</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_noMore">_noMore</a></td>
     <td><span>I am now unable to produce further input, or output, or both.</span></td>
   </tr><tr class="method private">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon._Siphon.html#_deliverFrom">_deliverFrom</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_deliverFrom">_deliverFrom</a></td>
     <td><span>Deliver some items from a callable that will produce an iterator.</span></td>
   </tr><tr class="method private">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon._Siphon.html#_unbufferIterator">_unbufferIterator</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_unbufferIterator">_unbufferIterator</a></td>
     <td><span>Un-buffer some items buffered in <code>self._pending</code> and actually
 deliver them, as long as we're not paused.</span></td>
   </tr><tr class="method private">
     
-    
     <td>Method</td>
-    <td><a href="tubes._siphon._Siphon.html#_endOfLine">_endOfLine</a></td>
+    <td><a class="code" href="tubes._siphon._Siphon.html#_endOfLine">_endOfLine</a></td>
     <td><span>We've reached the end of the line.  Immediately stop delivering all 
 buffers and notify our downstream drain why the flow has stopped.</span></td>
   </tr>
 </table>
-      
-    </div>
-    
-    
+        
 
-    <div class="function">
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="function">
   <a name="tubes._siphon._Siphon._tube">
     
   </a>
@@ -334,8 +340,12 @@ diverter.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldNa
 of all buffered output values.</td></tr></table></div>
   </div>
 </div>
-    <address>
-      <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://launchpad.net/pydoctor/">pydoctor</a> at 2015-02-18 01:00:11.
-    </address>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-05-06 17:59:08.
+      </address>
+
+    </div>
   </body>
 </html>

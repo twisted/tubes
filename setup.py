@@ -10,6 +10,9 @@ setup(
     description="""
     Flow control and backpressure for event-driven applications.
     """,
+    license="MIT",
+    url="https://github.com/twisted/tubes/",
+
     packages=find_packages(exclude=[]),
     package_dir={'tubes': 'tubes'},
     install_requires=[
@@ -18,5 +21,4 @@ setup(
         "Twisted",
     ],
     include_package_data=True,
-    license="MIT",
 )

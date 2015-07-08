@@ -11,6 +11,7 @@ def main(reactor, listenOn="stdio:"):
     endpoint.listen(factoryFromFlow(echoFlow))
     return Deferred()
 
-from twisted.internet.task import react
-from sys import argv
-react(main, argv[1:])
+if __name__ == '__main__':
+    from twisted.internet.task import react
+    from sys import argv
+    react(main, argv[1:])

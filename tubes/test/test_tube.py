@@ -30,7 +30,7 @@ from ..test.util import (TesterTube, FakeFount, FakeDrain, IFakeInput,
 
 
 
-class TubeTest(TestCase):
+class TubeTests(TestCase):
     """
     Tests for L{Tube}'s various no-ops.
     """
@@ -76,7 +76,7 @@ class Starter(object):
 
 
 
-class SeriesTest(TestCase):
+class SeriesTests(TestCase):
     """
     Tests for L{series}.
     """
@@ -876,7 +876,7 @@ class SeriesTest(TestCase):
 
 
 
-class ErrorBehaviors(TestCase):
+class ErrorBehaviorTests(TestCase):
     """
     Test cases for when unexpected exceptions are raised.
     """
@@ -922,7 +922,7 @@ class ErrorBehaviors(TestCase):
 
 
 
-class Todo(TestCase):
+class TodoTests(TestCase):
     """
     Todo'd tests that should all be fixed and deleted soon, mostly for error
     handling.

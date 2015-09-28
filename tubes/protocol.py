@@ -26,10 +26,15 @@ from twisted.internet.defer import maybeDeferred
 if 0:
     # Workaround for inability of pydoctor to resolve references.
     from twisted.internet.interfaces import (
-        IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer)
-    IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer
+        IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
+        IStreamServerEndpoint,
+    )
+    (IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
+     IStreamServerEndpoint)
     from twisted.python.failure import Failure
     Failure
+    from twisted.internet.defer import Deferred
+    Deferred
 
 
 
@@ -354,9 +359,9 @@ def flowFountFromEndpoint(endpoint):
     outputs a new L{Flow} for each connection.
 
     @param endpoint: a server endpoint.
-    @type endpoint: L{I}
+    @type endpoint: L{IStreamServerEndpoint}
 
-    @return: a L{twisted.internet.defer.Deferred} that fires with a L{Fount}
+    @return: a L{twisted.internet.defer.Deferred} that fires with a L{IFount}
         whose C{outputType} is L{Flow}.
     """
     def aFlowFunction(fount, drain):

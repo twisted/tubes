@@ -72,6 +72,8 @@ class FlowingAdapterTests(TestCase):
         """
         Find the adapted protocol by looking at what the endpoint was connected
         with.
+
+        @return: an L{IProtocol}
         """
         return self.endpoint.transports[0].protocol
 

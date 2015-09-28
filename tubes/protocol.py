@@ -295,6 +295,9 @@ def _factoryFromFlow(flow):
 
 @implementer(IFount)
 class _FountImpl(object):
+    """
+    Implementation of fount for listening port.
+    """
     inputType = None
     outputType = None
     def __init__(self, portObject):
@@ -310,26 +313,48 @@ class _FountImpl(object):
         self._pauser = Pauser(pause, unpause)
         self._preListen = []
 
+
     def flowTo(self, drain):
+        """
+        Start flowing to the given drain.
+
+        @param drain: The drain to send flows to.
+
+        @return: the next fount in the chain.
+        """
         result = beginFlowingTo(self, drain)
         for f, d in self._preListen:
             self._aFlowFunction(f, d)
         return result
 
+
     def pauseFlow(self):
+        """
+        Pause.
+
+        @return: An L{IPause}.
+        """
         return self._pauser.pause()
 
+
     def stopFlow(self):
+        """
+        Stop flow.
+        """
         self.drain = None
         maybeDeferred(self.flow.stopListening).addBoth(
             lambda whatever: self.drain.flowStopped(Failure())
         )
 
 
+
 def flowFountFromEndpoint(endpoint):
     """
     Listen on the given endpoint, and thereby create a L{fount <IFount>} which
     outputs a new L{Flow} for each connection.
+
+    @param endpoint: a server endpoint.
+    @type endpoint: L{I}
 
     @return: a L{twisted.internet.defer.Deferred} that fires with a L{Fount}
         whose C{outputType} is L{Flow}.
@@ -340,6 +365,7 @@ def flowFountFromEndpoint(endpoint):
         else:
             listening.impl._preListen.append((fount, drain))
 
+
     def listening(portObject):
         listening.impl = _FountImpl(portObject, aFlowFunction)
         return listening.impl
@@ -349,11 +375,16 @@ def flowFountFromEndpoint(endpoint):
     return endpoint.listen(aFactory).addCallback(listening)
 
 
-def flowFromEndpoint(ep):
+
+def flowFromEndpoint(endpoint):
     """
     Convert a client endpoint into a L{Deferred} that fires with a L{Flow}.
+
+    @param endpoint: a client endpoint that will be connected to, once.
+
+    @return: a L{Deferred} that fires with a L{Flow}.
     """
     def cb(fount, drain):
         cb.result = Flow(fount, drain)
-    return (ep.connect(_factoryFromFlow(cb))
+    return (endpoint.connect(_factoryFromFlow(cb))
             .addCallback(lambda whatever: cb.result))

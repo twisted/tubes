@@ -133,6 +133,7 @@ def beginFlowingFrom(drain, fount):
         oldFount.flowTo(None)
 
 
+
 @implementer(IPause)
 class NoPause(object):
     """

@@ -1,3 +1,9 @@
+# -*- test-case-name: tubes.test.test_listening -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
+"""
+Listening.
+"""
 
 from zope.interface import implementer
 
@@ -54,13 +60,18 @@ class Listener(object):
 
     def flowingFrom(self, fount):
         """
-        
+        FIXME: DOCS
+
+        @param fount: DOCS
         """
-        return beginFlowingFrom(self, fount)
+        beginFlowingFrom(self, fount)
 
 
     def receive(self, item):
         """
+        Receive the given flow, applying backpressure if too many connections
+        are active.
+
         @param item: The inbound L{Flow}.
         """
         self._currentConnections += 1
@@ -77,19 +88,40 @@ class Listener(object):
     def flowStopped(self, reason):
         """
         No more L{Flow}s are incoming; nothing to do.
+
+        @param reason: the reason the flow stopped.
         """
+
 
 
 @tube
 class _OnStop(object):
+    """
+    Call a callback when the flow stops.
+    """
     def __init__(self, callback):
+        """
+        Call the given callback.
+        """
         self.callback = callback
 
 
     def received(self, item):
+        """
+        Pass through all received items.
+
+        @param item: An item being passed through (type unknown).
+        """
         yield item
 
 
     def stopped(self, reason):
+        """
+        Call the callback on stop.
+
+        @param reason: the reason that the flow stopped; ignored.
+
+        @return: no items.
+        """
         self.callback()
         return ()

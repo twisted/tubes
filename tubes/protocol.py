@@ -10,12 +10,14 @@ Objects to connect L{real data <_Protocol>} to L{tubes}.
 
 __all__ = [
     'factoryFromFlow',
+    'flowFountFromEndpoint',
 ]
 
 from zope.interface import implementer
 
 from .kit import Pauser, beginFlowingFrom, beginFlowingTo
 from .itube import IDrain, IFount, ISegment
+from .listening import Flow
 
 from twisted.internet.interfaces import IPushProducer
 from twisted.internet.protocol import Protocol as _Protocol
@@ -287,3 +289,60 @@ def factoryFromFlow(flow):
     """
     from twisted.internet.protocol import Factory
     return Factory.forProtocol(lambda: _ProtocolPlumbing(flow))
+
+
+
+def flowFountFromEndpoint(endpoint):
+    """
+    Listen on the given endpoint, and thereby create a L{fount <IFount>} which
+    outputs a new L{Flow} for each connection.
+
+    @return: a L{twisted.internet.defer.Deferred} that fires with a L{Fount}
+        whose C{outputType} is L{Flow}.
+    """
+    from twisted.internet.defer import maybeDeferred
+
+    def listening(portObject):
+        @implementer(IFount)
+        class FountImpl(object):
+            inputType = None
+            outputType = None
+            def __init__(self):
+                # .reactor is definitely not part of the public API of
+                # IListeningPort, but most IListeningPort really *ought* to be
+                # an IProducer so that it has pauseProducing and you can tell
+                # it to back off.
+                self.drain = None
+                def pause():
+                    portObject.reactor.removeReader(portObject)
+                def unpause():
+                    portObject.reactor.addReader(portObject)
+                self._pauser = Pauser(pause, unpause)
+
+            def flowTo(self, drain):
+                result = beginFlowingTo(self, drain)
+                for f, d in preListen:
+                    aFlowFunction(f, d)
+                return result
+
+            def pauseFlow(self):
+                return self._pauser.pause()
+
+            def stopFlow(self):
+                self.drain = listening.currentDrain = None
+                maybeDeferred(self.flow.stopListening).addBoth(
+                    lambda whatever: self.drain.flowStopped(Failure())
+                )
+        listening.impl = FountImpl()
+        return listening.impl
+    listening.impl = None
+    preListen = []
+
+    def aFlowFunction(fount, drain):
+        if listening.impl is not None:
+            listening.impl.drain.receive(Flow(fount, drain))
+        else:
+            preListen.append((fount, drain))
+
+    aFactory = factoryFromFlow(aFlowFunction)
+    return endpoint.listen(aFactory).addCallback(listening)

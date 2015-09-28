@@ -175,7 +175,7 @@ class IDrain(Interface):
 
 class ITube(Interface):
     """
-    A tube translates input to output.
+    A tube transforms input into output.
 
     Look at this awesome ASCII art::
 

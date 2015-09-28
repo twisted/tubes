@@ -132,3 +132,14 @@ def beginFlowingFrom(drain, fount):
          (oldFount.drain is drain) ):
         oldFount.flowTo(None)
 
+
+@implementer(IPause)
+class NoPause(object):
+    """
+    A null implementation of L{IPause} that does nothing.
+    """
+
+    def unpause(self):
+        """
+        No-op.
+        """

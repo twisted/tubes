@@ -10,7 +10,7 @@ from twisted.trial.unittest import SynchronousTestCase as TestCase
 
 from twisted.python.failure import Failure
 
-from ..protocol import factoryFromFlow
+from ..protocol import flowFountFromEndpoint, flowFromEndpoint
 from ..tube import tube, series
 
 from ..test.util import StringEndpoint, FakeDrain, FakeFount
@@ -52,8 +52,8 @@ class RememberingTube(object):
 
 class FlowingAdapterTests(TestCase):
     """
-    Tests for L{factoryFromFlow} and the drain/fount/factory adapters it
-    constructs.
+    Tests for L{flowFountFromEndpoint} and L{flowFromEndpoint} and the
+    drain/fount/factory adapters they construct.
     """
 
     def setUp(self):
@@ -61,15 +61,19 @@ class FlowingAdapterTests(TestCase):
         Sert up these tests.
         """
         self.endpoint = StringEndpoint()
-        def flowFunction(fount, drain):
-            self.adaptedDrain = drain
-            self.adaptedFount = fount
-        self.adaptedProtocol = self.successResultOf(
-            self.endpoint.connect(factoryFromFlow(flowFunction))
-        )
-
+        flow = self.successResultOf(flowFromEndpoint(self.endpoint))
+        self.adaptedDrain = flow.drain
+        self.adaptedFount = flow.fount
         self.tube = RememberingTube()
         self.drain = series(self.tube)
+
+
+    def adaptedProtocol(self):
+        """
+        Find the adapted protocol by looking at what the endpoint was connected
+        with.
+        """
+        return self.endpoint.transports[0].protocol
 
 
     def test_flowToSetsDrain(self):
@@ -87,7 +91,7 @@ class FlowingAdapterTests(TestCase):
         L{_ProtocolFount.dataReceived} to invoke L{receive} on its drain.
         """
         self.adaptedFount.flowTo(self.drain)
-        self.adaptedProtocol.dataReceived("some data")
+        self.adaptedProtocol().dataReceived("some data")
         self.assertEqual(self.tube.items, ["some data"])
 
 
@@ -108,7 +112,7 @@ class FlowingAdapterTests(TestCase):
         """
         self.adaptedFount.flowTo(self.drain)
         self.adaptedFount.stopFlow()
-        self.assertEqual(self.adaptedProtocol.transport.disconnecting, True)
+        self.assertEqual(self.adaptedProtocol().transport.disconnecting, True)
         # The connection has not been closed yet; we *asked* the flow to stop,
         # but it may not have done.
         self.assertEqual(self.tube.wasStopped, False)
@@ -121,7 +125,7 @@ class FlowingAdapterTests(TestCase):
         """
         self.adaptedFount.flowTo(self.drain)
         self.adaptedDrain.flowStopped(Failure(ZeroDivisionError()))
-        self.assertEqual(self.adaptedProtocol.transport.disconnecting, True)
+        self.assertEqual(self.adaptedProtocol().transport.disconnecting, True)
         self.assertEqual(self.tube.wasStopped, False)
 
 
@@ -137,7 +141,7 @@ class FlowingAdapterTests(TestCase):
         class MyFunException(Exception):
             pass
         f = Failure(MyFunException())
-        self.adaptedProtocol.connectionLost(f)
+        self.adaptedProtocol().connectionLost(f)
         self.assertEqual(self.tube.wasStopped, True)
         self.assertIdentical(f, self.tube.reason)
 
@@ -150,7 +154,7 @@ class FlowingAdapterTests(TestCase):
         ff = FakeFount()
         ff.flowTo(self.adaptedDrain)
         self.assertEqual(ff.flowIsStopped, False)
-        self.adaptedProtocol.connectionLost(Failure(ZeroDivisionError))
+        self.adaptedProtocol().connectionLost(Failure(ZeroDivisionError))
         self.assertEqual(ff.flowIsStopped, True)
 
 
@@ -160,16 +164,16 @@ class FlowingAdapterTests(TestCase):
         L{_ProtocolFount} is flowing to anything, then it will pause the
         transport but only until the L{_ProtocolFount} is flowing to something.
         """
-        self.adaptedProtocol.dataReceived("hello, ")
-        self.assertEqual(self.adaptedProtocol.transport.producerState,
+        self.adaptedProtocol().dataReceived("hello, ")
+        self.assertEqual(self.adaptedProtocol().transport.producerState,
                           'paused')
         # It would be invalid to call dataReceived again in this state, so no
         # need to test that...
         fd = FakeDrain()
         self.adaptedFount.flowTo(fd)
-        self.assertEqual(self.adaptedProtocol.transport.producerState,
+        self.assertEqual(self.adaptedProtocol().transport.producerState,
                          'producing')
-        self.adaptedProtocol.dataReceived("world!")
+        self.adaptedProtocol().dataReceived("world!")
         self.assertEqual(fd.received, ["hello, ", "world!"])
 
 
@@ -181,7 +185,7 @@ class FlowingAdapterTests(TestCase):
         self.test_dataReceivedBeforeFlowing()
         fd2 = FakeDrain()
         self.adaptedFount.flowTo(fd2)
-        self.adaptedProtocol.dataReceived("hooray")
+        self.adaptedProtocol().dataReceived("hooray")
         self.assertEqual(fd2.received, ["hooray"])
 
 
@@ -201,7 +205,7 @@ class FlowingAdapterTests(TestCase):
         """
         fd = FakeDrain()
         self.adaptedFount.flowTo(fd)
-        self.adaptedProtocol.dataReceived("a")
+        self.adaptedProtocol().dataReceived("a")
         self.adaptedFount.flowTo(None)
         self.assertEqual(fd.fount, None)
         self.test_dataReceivedBeforeFlowing()
@@ -231,10 +235,10 @@ class FlowingAdapterTests(TestCase):
         self.assertEqual(ff.flowIsPaused, False)
         self.adaptedDrain.flowingFrom(ff)
         # The connection is too full!  Back off!
-        self.adaptedProtocol.transport.producer.pauseProducing()
+        self.adaptedProtocol().transport.producer.pauseProducing()
         self.assertEqual(ff.flowIsPaused, True)
         # All clear, start writing again.
-        self.adaptedProtocol.transport.producer.resumeProducing()
+        self.adaptedProtocol().transport.producer.resumeProducing()
         self.assertEqual(ff.flowIsPaused, False)
 
 
@@ -249,17 +253,17 @@ class FlowingAdapterTests(TestCase):
         producing = 'producing'
         paused = 'paused'
         # Sanity check.
-        self.assertEqual(self.adaptedProtocol.transport.producerState,
+        self.assertEqual(self.adaptedProtocol().transport.producerState,
                          producing)
         self.adaptedFount.flowTo(fd)
         # Steady as she goes.
-        self.assertEqual(self.adaptedProtocol.transport.producerState,
+        self.assertEqual(self.adaptedProtocol().transport.producerState,
                          producing)
         anPause = fd.fount.pauseFlow()
-        self.assertEqual(self.adaptedProtocol.transport.producerState,
+        self.assertEqual(self.adaptedProtocol().transport.producerState,
                          paused)
         anPause.unpause()
-        self.assertEqual(self.adaptedProtocol.transport.producerState,
+        self.assertEqual(self.adaptedProtocol().transport.producerState,
                          producing)
 
 

@@ -5,12 +5,12 @@
 """
 Objects to connect L{real data <_Protocol>} to L{tubes}.
 
-@see: L{factoryFromFlow}
+@see: L{flowFountFromEndpoint}
 """
 
 __all__ = [
-    'factoryFromFlow',
     'flowFountFromEndpoint',
+    'flowFromEndpoint',
 ]
 
 from zope.interface import implementer
@@ -207,7 +207,7 @@ class _ProtocolPlumbing(_Protocol):
     A L{_ProtocolPlumbing} implements L{IProtocol} to deliver all incoming data
     to the drain associated with its L{fount <IFount>}.
 
-    @ivar _flow: A flow function, as described in L{factoryFromFlow}.
+    @ivar _flow: A flow function, as described in L{_factoryFromFlow}.
     @type _flow: L{callable}
 
     @ivar _drain: The drain that is passed on to the application, created after
@@ -269,17 +269,17 @@ class _ProtocolPlumbing(_Protocol):
 
 
 
-def factoryFromFlow(flow):
+def _factoryFromFlow(flow):
     """
     Convert a flow function into an L{IProtocolFactory}.
 
     A "flow function" is a function which takes a L{fount <IFount>} and an
     L{drain <IDrain>}.
 
-    L{factoryFromFlow} takes such a function and creates an L{IProtocolFactory}
-    which, upon each new connection, provides the flow function with an
-    L{IFount} and an L{IDrain} representing the read end and the write end of
-    the incoming connection, respectively.
+    L{_factoryFromFlow} takes such a function and creates an
+    L{IProtocolFactory} which, upon each new connection, provides the flow
+    function with an L{IFount} and an L{IDrain} representing the read end and
+    the write end of the incoming connection, respectively.
 
     @param flow: a 2-argument callable, taking (fount, drain).
     @type flow: L{callable}
@@ -344,5 +344,15 @@ def flowFountFromEndpoint(endpoint):
         else:
             preListen.append((fount, drain))
 
-    aFactory = factoryFromFlow(aFlowFunction)
+    aFactory = _factoryFromFlow(aFlowFunction)
     return endpoint.listen(aFactory).addCallback(listening)
+
+
+def flowFromEndpoint(ep):
+    """
+    Convert a client endpoint into a L{Deferred} that fires with a L{Flow}.
+    """
+    def cb(fount, drain):
+        cb.result = Flow(fount, drain)
+    return (ep.connect(_factoryFromFlow(cb))
+            .addCallback(lambda whatever: cb.result))

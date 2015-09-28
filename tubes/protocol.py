@@ -21,6 +21,7 @@ from .listening import Flow
 
 from twisted.internet.interfaces import IPushProducer
 from twisted.internet.protocol import Protocol as _Protocol
+from twisted.internet.defer import maybeDeferred
 
 if 0:
     # Workaround for inability of pydoctor to resolve references.
@@ -292,6 +293,39 @@ def _factoryFromFlow(flow):
 
 
 
+@implementer(IFount)
+class _FountImpl(object):
+    inputType = None
+    outputType = None
+    def __init__(self, portObject):
+        # .reactor is definitely not part of the public API of
+        # IListeningPort, but most IListeningPort really *ought* to be
+        # an IProducer so that it has pauseProducing and you can tell
+        # it to back off.
+        self.drain = None
+        def pause():
+            portObject.reactor.removeReader(portObject)
+        def unpause():
+            portObject.reactor.addReader(portObject)
+        self._pauser = Pauser(pause, unpause)
+        self._preListen = []
+
+    def flowTo(self, drain):
+        result = beginFlowingTo(self, drain)
+        for f, d in self._preListen:
+            self._aFlowFunction(f, d)
+        return result
+
+    def pauseFlow(self):
+        return self._pauser.pause()
+
+    def stopFlow(self):
+        self.drain = None
+        maybeDeferred(self.flow.stopListening).addBoth(
+            lambda whatever: self.drain.flowStopped(Failure())
+        )
+
+
 def flowFountFromEndpoint(endpoint):
     """
     Listen on the given endpoint, and thereby create a L{fount <IFount>} which
@@ -300,49 +334,16 @@ def flowFountFromEndpoint(endpoint):
     @return: a L{twisted.internet.defer.Deferred} that fires with a L{Fount}
         whose C{outputType} is L{Flow}.
     """
-    from twisted.internet.defer import maybeDeferred
-
-    def listening(portObject):
-        @implementer(IFount)
-        class FountImpl(object):
-            inputType = None
-            outputType = None
-            def __init__(self):
-                # .reactor is definitely not part of the public API of
-                # IListeningPort, but most IListeningPort really *ought* to be
-                # an IProducer so that it has pauseProducing and you can tell
-                # it to back off.
-                self.drain = None
-                def pause():
-                    portObject.reactor.removeReader(portObject)
-                def unpause():
-                    portObject.reactor.addReader(portObject)
-                self._pauser = Pauser(pause, unpause)
-
-            def flowTo(self, drain):
-                result = beginFlowingTo(self, drain)
-                for f, d in preListen:
-                    aFlowFunction(f, d)
-                return result
-
-            def pauseFlow(self):
-                return self._pauser.pause()
-
-            def stopFlow(self):
-                self.drain = listening.currentDrain = None
-                maybeDeferred(self.flow.stopListening).addBoth(
-                    lambda whatever: self.drain.flowStopped(Failure())
-                )
-        listening.impl = FountImpl()
-        return listening.impl
-    listening.impl = None
-    preListen = []
-
     def aFlowFunction(fount, drain):
         if listening.impl is not None:
             listening.impl.drain.receive(Flow(fount, drain))
         else:
-            preListen.append((fount, drain))
+            listening.impl._preListen.append((fount, drain))
+
+    def listening(portObject):
+        listening.impl = _FountImpl(portObject, aFlowFunction)
+        return listening.impl
+    listening.impl = None
 
     aFactory = _factoryFromFlow(aFlowFunction)
     return endpoint.listen(aFactory).addCallback(listening)

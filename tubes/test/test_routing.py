@@ -51,11 +51,17 @@ class TestIntRouter(TestCase):
         self.evenFount.flowTo(self.evenDrain)
 
     def test_odd(self):
+        """
+        Test that the router can successfully route odd numbers.
+        """
         self.ff.flowTo(series(IntStarter(667), self.router.drain))
         self.assertEquals(self.oddDrain.received, [667])
         self.assertEquals(self.evenDrain.received, [])
 
     def test_even(self):
+        """
+        Test that the router can successfully route even numbers.
+        """
         self.ff.flowTo(series(IntStarter(668), self.router.drain))
         self.assertEquals(self.evenDrain.received, [668])
         self.assertEquals(self.oddDrain.received, [])

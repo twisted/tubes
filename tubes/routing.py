@@ -1,180 +1,200 @@
-# -*- test-case-name: tubes.test.test_fan -*-
+# -*- test-case-name: tubes.test.test_routing -*-
 # Copyright (c) Twisted Matrix Laboratories.
 # See LICENSE for details.
 
-"""
-A L{Router} receives items with addressing information and dispatches them to
-an appropriate output, stripping the addressing information off.
+from zope.interface import implementer
 
-Use like so::
+from .kit import Pauser, beginFlowingTo
+from .itube import IDrain, IFount
 
-    from tubes.routing import Router, Routed, to
 
-    aRouter = Router(int)
+@implementer(IFount)
+class _RouteFount(object):
+    """
+    The concrete fount type returned by L{Router.newRoute}.
+    """
+    drain = None
 
-    evens, evenFount = aRouter.newRoute()
-    odds, oddFount = aRouter.newRoute()
+    outputType = None
 
-    @tube
-    class EvenOdd(object):
-        outputType = Routed(int)
-        def received(self, item):
-            if (item % 2) == 0:
-                yield to(evens, item)
+    def __init__(self, upstreamPauser, stopper):
+        """
+        @param upstreamPauser: A L{Pauser} which will pause the upstream fount
+            flowing into our L{Router}.
+
+        @param stopper: A 0-argument callback to execute on
+            L{IFount.stopFlow}
+        """
+        self._receivedWhilePaused = []
+        self._myPause = None
+        self._stopper = stopper
+
+        def actuallyPause():
+            self._myPause = upstreamPauser.pause()
+
+        def actuallyUnpause():
+            aPause = self._myPause
+            self._myPause = None
+            if self._receivedWhilePaused:
+                self.drain.receive(self._receivedWhilePaused.pop(0))
+            aPause.unpause()
+
+        self._pauser = Pauser(actuallyPause, actuallyUnpause)
+
+
+    def flowTo(self, drain):
+        """
+        Flow to the given drain.  Don't do anything special; just set up the
+        drain attribute and return the appropriate value.
+
+        @param drain: A drain to fan out values to.
+
+        @return: the result of C{drain.flowingFrom}
+        """
+        return beginFlowingTo(self, drain)
+
+
+    def pauseFlow(self):
+        """
+        Pause the flow.
+
+        @return: a pause
+        @rtype: L{IPause}
+        """
+        return self._pauser.pause()
+
+
+    def stopFlow(self):
+        """
+        Invoke the callback supplied to C{__init__} for stopping.
+        """
+        self._stopper(self)
+
+
+    def _deliverOne(self, item):
+        """
+        Deliver one item to this fount's drain.
+
+        This is only invoked when the upstream is unpaused.
+
+        @param item: An item that the upstream would like to pass on.
+        """
+        if self.drain is None:
+            return
+        if self._myPause is not None:
+            self._receivedWhilePaused.append(item)
+            return
+        self.drain.receive(item)
+
+@implementer(IDrain)
+class _RouterDrain(object):
+    """
+    An L{_RouterDrain} is the single L{IDrain} associated with a L{Router}.
+    """
+
+    fount = None
+
+    def __init__(self, router):
+        """
+        Construct a L{_RouterDrain}.
+
+        @param router: the router associated with this drain
+        @type founts: L{Router}
+        """
+
+        self._router = router
+        self._pause = None
+        self._paused = False
+
+        def _actuallyPause():
+            if self._paused:
+                raise NotImplementedError()
+            self._paused = True
+            if self.fount is not None:
+                self._pause = self.fount.pauseFlow()
+
+        def _actuallyResume():
+            p = self._pause
+            self._pause = None
+            self._paused = False
+            if p is not None:
+                p.unpause()
+
+        self._pauser = Pauser(_actuallyPause, _actuallyResume)
+
+    @property
+    def inputType(self):
+        """
+        Implement the C{inputType} property by relaying it to the input type of
+        the drains.
+        """
+        # TODO: prevent drains from different inputTypes from being added
+        for fount in self._router._founts:
+            if fount.drain is not None:
+                return fount.drain.inputType
+
+
+    def flowingFrom(self, fount):
+        """
+        The L{Router} associated with this L{_RouterDrain} is now receiving inputs
+        from the given fount.
+
+        @param fount: the new source of input for all drains attached to this
+            L{Router}.
+
+        @return: L{None}, as this is a terminal drain.
+        """
+        if self._paused:
+            p = self._pause
+            if fount is not None:
+                self._pause = fount.pauseFlow()
             else:
-                yield to(odds, item)
+                self._pause = None
+            if p is not None:
+                p.unpause()
+        self.fount = fount
 
-    numbers.flowTo(aRouter)
-
-This creates a fount in evenFount and oddFount, which each have an outputType
-of "int".
-
-Why do this rather than just having C{EvenOdd} just call methods directly based
-on whether a number is even or odd?
-
-By using a L{Router}, flow control relationships are automatically preserved by
-the same mechanism that tubes usually use.  The distinct drains of evenFount
-and oddFount can both be independently paused, and the pause state will be
-propagated to the "numbers" fount.  If you want to send on outputs to multiple
-drains which may have complex flow-control interrelationships, you can't do
-that by calling the C{receive} method directly since any one of those methods
-might reentrantly pause you.
-"""
-
-from .tube import tube, receiver
-from .fan import Out
-
-if 0:
-    from zope.interface.interfaces import IInterface
-    IInterface
-
-
-
-class Routed(object):
-    """
-    A L{Routed} is an interface describing another interface that has been
-    wrapped in a C{to}.  As such, it is an incomplete implementation of
-    L{IInterface}.
-    """
-
-    def __init__(self, interface=None):
+    def receive(self, item):
         """
-        Derive a L{Routed} version of C{interface}.
+        Deliver an item to the L{IDrain} attached to the L{RouteFount} via
+        C{Router().newRoute(...).flowTo(...)}.
 
-        @param interface: the interface that will be provided by the C{what}
-            attribute of providers of this interface.
-        @type interface: L{IInterface}
+        @param item: any object
         """
-        self.interface = interface
+        destination = self._router._getItemDestination(item)
+        fount = self._router._routes[destination]
+        fount._deliverOne(item)
 
+    def flowStopped(self, reason):
+        for fount in self._router._founts[:]:
+            if fount.drain is not None:
+                fount.drain.flowStopped(reason)
 
-    def isOrExtends(self, other):
-        """
-        Is this L{Routed} substitutable for the given specification?
-
-        @param other: Another L{Routed} or interface.
-        @type other: L{IInterface}
-
-        @return: L{True} if so, L{False} if not.
-        """
-        if not isinstance(other, Routed):
-            return False
-        if self.interface is None or other.interface is None:
-            return True
-        return self.interface.isOrExtends(other.interface)
-
-
-    def providedBy(self, instance):
-        """
-        Is this L{Routed} provided by a particular value?
-
-        @param instance: an object which may or may not provide this interface.
-        @type instance: L{object}
-
-        @return: L{True} if so, L{False} if not.
-        @rtype: L{bool}
-        """
-        if not isinstance(instance, _To):
-            return False
-        if self.interface is None:
-            return True
-        return self.interface.providedBy(instance._what)
-
-
-
-class _To(object):
-    """
-    An object destined for a specific destination.
-    """
-
-    def __init__(self, where, what):
-        """
-        Create a L{_To} to a particular route with a given value.
-
-        @param _where: see L{to}
-
-        @param _what: see L{to}
-        """
-        self._where = where
-        self._what = what
-
-
-
-def to(where, what):
-    """
-    Construct a provider of L{Routed}C{(providedBy(where))}.
-
-    @see: L{tubes.routing}
-
-    @param where: A fount returned from L{Router.newRoute}.  This must be
-        I{exactly} the return value of L{Router.newRoute}, as it is compared by
-        object identity and not by any feature of L{IFount}.
-
-    @param what: the value to deliver.
-
-    @return: a L{Routed} object.
-    """
-    return _To(where, what)
-
-
-
-@tube
 class Router(object):
-    """
-    A drain with multiple founts that consumes L{Routed}C{(IX)} from its input
-    and produces C{IX} to its outputs.
 
-    @ivar _out: A fan-out that consumes L{Routed}C{(X)} and produces C{X}.
-    @type _out: L{Out}
-
-    @ivar drain: The input to this L{Router}.
-    @type drain: L{IDrain}
-    """
-
-    def __init__(self, outputType=None):
-        self._out = Out()
-        self._outputType = outputType
-        self.drain = self._out.drain
-
-
-    def newRoute(self):
+    def __init__(self, getItemDestination):
         """
-        Create a new route.
+        Create an L{Router}.
 
-        A route has two uses; first, it is an L{IFount} that you can flow to a
-        drain.
-
-        Second, it is the "where" parameter passed to L{to}.  Each value sent
-        to L{Router.drain} should be a L{to} constructed with a value returned
-        from this method as the "where" parameter.
-
-        @return: L{IFount}
+        @param getItemDestination: the function that is called for each
+        received message and decodes it's destination address.
+        @type getItemDestination: function that takes one argument
+        and returns one value
         """
-        @receiver(inputType=Routed(self._outputType),
-                  outputType=self._outputType)
-        def received(item):
-            if isinstance(item, to):
-                if item._where is fount:
-                    yield item._what
-        fount = self._out.newFount().flowTo(received)
-        return fount
+        self._getItemDestination = getItemDestination
+        self._routes = {} # destination -> fount
+        self._founts = []
+        self.drain = _RouterDrain(self)
+
+    def newRoute(self, destination):
+        """
+        Create a new L{IFount} whose drain will receive items from this
+        L{Router} if the message destination matches the one given.
+
+        @return: a fount associated with this L{Router}.
+        @rtype: L{IFount}.
+        """
+        f = _RouteFount(self.drain._pauser, self._founts.remove)
+        self._founts.append(f)
+        self._routes[destination] = f
+        return f

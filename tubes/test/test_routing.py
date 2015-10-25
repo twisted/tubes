@@ -15,17 +15,19 @@ from ..routing import Router
 
 from ..test.util import (FakeFount, FakeDrain)
 
+
 @tube
-class Starter(object):
+class IntStarter(object):
     """
     A tube that yields an integer.
     """
-
+    def __init__(self, i):
+        self.i = i
     def started(self):
         """
         Yield an integer.
         """
-        yield 667
+        yield self.i
 
 def isEven(n):
     if n % 2 == 0:
@@ -33,18 +35,27 @@ def isEven(n):
     else:
         return False
 
-class TestBasicRouter(TestCase):
+class TestIntRouter(TestCase):
     """
     Tests for L{Router}.
     """
-
     def setUp(self):
         self.ff = FakeFount()
-        self.fd = FakeDrain()
-        
-    def test_basic_int_router(self):
-        aRouter = Router(isEven)
-        oddFount = aRouter.newRoute(False)        
-        oddFount.flowTo(self.fd)
-        self.ff.flowTo(series(Starter(), aRouter.drain))
-        self.assertEquals(self.fd.received, [667])
+        self.evenDrain = FakeDrain()
+        self.oddDrain = FakeDrain()
+
+        self.router = Router(isEven)
+        self.oddFount = self.router.newRoute(False)
+        self.evenFount = self.router.newRoute(True)
+        self.oddFount.flowTo(self.oddDrain)
+        self.evenFount.flowTo(self.evenDrain)
+
+    def test_odd(self):
+        self.ff.flowTo(series(IntStarter(667), self.router.drain))
+        self.assertEquals(self.oddDrain.received, [667])
+        self.assertEquals(self.evenDrain.received, [])
+
+    def test_even(self):
+        self.ff.flowTo(series(IntStarter(668), self.router.drain))
+        self.assertEquals(self.evenDrain.received, [668])
+        self.assertEquals(self.oddDrain.received, [])

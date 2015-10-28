@@ -15,8 +15,14 @@ from ..queue import QueueFount, NotABigTruckError
 
 
 class QueueFountTests(SynchronousTestCase):
-
+    """
+    Tests for L{tubes.queue.QueueFount}
+    """
     def test_basic(self):
+        """
+        Test that L{QueueFount} queues and then sends
+        a couple of items to it's attached drain.
+        """
         testClock = task.Clock()
         qFount = QueueFount(10, testClock)
         aFakeDrain = FakeDrain()
@@ -27,6 +33,10 @@ class QueueFountTests(SynchronousTestCase):
         self.assertEquals(aFakeDrain.received, ["something", "something"])
 
     def test_push_before_drained(self):
+        """
+        Test that we can queue data before
+        attaching a drain.
+        """
         testClock = task.Clock()
         qFount = QueueFount(2, testClock)
         qFount.push("something")
@@ -36,6 +46,10 @@ class QueueFountTests(SynchronousTestCase):
         self.assertEquals(aFakeDrain.received, ["something"])
 
     def test_max_len(self):
+        """
+        Test that we throw the proper exception upon reaching
+        maximum length of our deque.
+        """
         testClock = task.Clock()
         maxlen = 2
         qFount = QueueFount(maxlen, testClock)
@@ -49,6 +63,10 @@ class QueueFountTests(SynchronousTestCase):
         self.assertEquals(aFakeDrain.received, ["something", "something"])
 
     def test_push_while_paused(self):
+        """
+        Test that we can push to the queue while it's flow
+        is paused... and then upon resume we send the item.
+        """
         testClock = task.Clock()
         maxlen = 2
         qFount = QueueFount(maxlen, testClock)
@@ -66,6 +84,10 @@ class QueueFountTests(SynchronousTestCase):
         self.assertEqual(aFakeDrain.received, ["something"])
 
     def test_stop_before_sent(self):
+        """
+        Test that if we stop before the queue
+        is drain that we empty the queue.
+        """
         testClock = task.Clock()
         qFount = QueueFount(2, testClock)
         aFakeDrain = FakeDrain()
@@ -79,6 +101,10 @@ class QueueFountTests(SynchronousTestCase):
         self.assertEqual(aFakeDrain.received, [])
 
     def test_stop_after_sent(self):
+        """
+        Test that stop works correctly
+        after draining our queue.
+        """
         testClock = task.Clock()
         qFount = QueueFount(2, testClock)
         aFakeDrain = FakeDrain()

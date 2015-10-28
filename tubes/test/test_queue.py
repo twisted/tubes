@@ -6,8 +6,6 @@ from ..itube import IFount, IDrain
 from ..test.util import FakeFount, FakeDrain
 from ..queue import QueueFount, NotABigTruckError
 
-import time
-
 class QueueFountTests(SynchronousTestCase):
 
     def test_basic(self):
@@ -20,7 +18,7 @@ class QueueFountTests(SynchronousTestCase):
         testClock.advance(0)
         self.assertEquals(aFakeDrain.received, ["meow", "meow"])
 
-    def test_pause_resume(self):
+    def test_push_before_drained(self):
         testClock = task.Clock()
         qFount = QueueFount(2, testClock)
         qFount.push("meow")
@@ -39,3 +37,16 @@ class QueueFountTests(SynchronousTestCase):
         result = qFount.flowTo(aFakeDrain)
         testClock.advance(0)
         self.assertEquals(aFakeDrain.received, ["meow", "meow"])
+
+    def test_push_while_paused(self):
+        testClock = task.Clock()
+        qFount = QueueFount(2, testClock)
+        aFakeDrain = FakeDrain()
+        result = qFount.flowTo(aFakeDrain)
+        pauser = qFount.pauseFlow()
+        qFount.push("something")
+        self.assertEqual(qFount.flowIsPaused, 1)
+        pauser.unpause()
+        self.assertEqual(qFount.flowIsPaused, 0)
+        testClock.advance(0)
+        self.assertEqual(aFakeDrain.received, ["something"])

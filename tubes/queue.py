@@ -74,6 +74,7 @@ class QueueFount(object):
         End the flow and clear the deque.
         """
         self.flowIsStopped = True
+        self._deque_len = 0
         self._deque.clear()
         self.drain.flowStopped(Failure(StopFlowCalled()))
 

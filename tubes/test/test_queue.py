@@ -28,8 +28,9 @@ class QueueFountTests(SynchronousTestCase):
         qFount.flowTo(aFakeDrain)
         qFount.push("something")
         qFount.push("something")
+        qFount.push(42)
         testClock.advance(0)
-        self.assertEquals(aFakeDrain.received, ["something", "something"])
+        self.assertEquals(aFakeDrain.received, [42, "something", "something"])
 
 
     def test_push_before_drained(self):
@@ -54,14 +55,14 @@ class QueueFountTests(SynchronousTestCase):
         testClock = task.Clock()
         maxlen = 2
         qFount = QueueFount(maxlen, testClock)
-        qFount.push("something")
-        qFount.push("something")
+        qFount.push("oldest")
+        qFount.push(2)
         self.assertEqual(maxlen, qFount._dequeLen)
-        self.assertRaises(NotABigTruckError, qFount.push, "something")
+        self.assertRaises(NotABigTruckError, qFount.push, {'3': 3})
         aFakeDrain = FakeDrain()
         qFount.flowTo(aFakeDrain)
         testClock.advance(0)
-        self.assertEquals(aFakeDrain.received, ["something", "something"])
+        self.assertEquals(aFakeDrain.received, [{'3': 3}, 2])
 
 
     def test_push_while_paused(self):

@@ -2,6 +2,10 @@
 # Copyright (c) Twisted Matrix Laboratories.
 # See LICENSE for details.
 
+"""
+The QueueFount.
+"""
+
 from collections import deque
 
 from zope.interface import implementer
@@ -14,7 +18,9 @@ from .itube import IFount
 @implementer(IFount)
 class QueueFount(object):
     """
-    The queue fount.
+    The queued fount. QueueFount can be used to apply flow backpressure.
+    QueueFount's contract is to raise an exception if too many values are
+    provided before the drain can consume them all.
     """
     drain = None
     flowIsPaused = 0
@@ -79,13 +85,17 @@ class QueueFount(object):
 
     def push(self, item):
         """
-        Enqueue an item to be sent out our fount.
+        Enqueue an item to be sent out our fount or
+        raise an exception with our queue is full.
         """
         self._deque.append(item)
         if self.flowIsStarted and self.flowIsPaused == 0:
             self._clock.callLater(0, self._turn_deque)
 
     def _turn_deque(self):
+        """Lazily process all the items in the queue
+        unless we are paused or stopped.
+        """
         if self.flowIsPaused > 0 or self.flowIsStopped:
             return
         try:

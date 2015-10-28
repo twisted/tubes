@@ -15,6 +15,12 @@ from .kit import Pauser, beginFlowingTo
 from .itube import IFount
 
 
+class NotABigTruckError(Exception):
+    """A series of tubes is not just a big truck you
+    can dump stuff onto...
+    """
+    pass
+
 @implementer(IFount)
 class QueueFount(object):
     """
@@ -34,8 +40,9 @@ class QueueFount(object):
         """
         self._maxlen = maxlen
         self._clock = clock
-        self._pauser = Pauser(self._actuallyPause, self._actuallyResume)
         self._deque = deque(maxlen=self._maxlen)
+        self._deque_len = 0
+        self._pauser = Pauser(self._actuallyPause, self._actuallyResume)
         self._turn_delay = 0
         self._lazy_tail = defer.succeed(None)
         
@@ -49,7 +56,7 @@ class QueueFount(object):
         """
         result = beginFlowingTo(self, drain)
         self.flowIsStarted = True
-        self._turn_deque()
+        self._turnDeque()
         return result
 
     def pauseFlow(self):
@@ -81,18 +88,21 @@ class QueueFount(object):
         """
         self.flowIsPaused -= 1
         if self.flowIsPaused == 0:
-            self._turn_deque()
+            self._turnDeque()
 
     def push(self, item):
         """
         Enqueue an item to be sent out our fount or
         raise an exception with our queue is full.
         """
+        self._deque_len += 1
         self._deque.append(item)
         if self.flowIsStarted and self.flowIsPaused == 0:
-            self._clock.callLater(0, self._turn_deque)
+            self._clock.callLater(0, self._turnDeque)
+        if self._deque_len > self._maxlen:
+            raise NotABigTruckError("QueueFount max queue length reached.")
 
-    def _turn_deque(self):
+    def _turnDeque(self):
         """Lazily process all the items in the queue
         unless we are paused or stopped.
         """
@@ -103,5 +113,6 @@ class QueueFount(object):
         except IndexError:
             self._lazy_tail.addCallback(lambda ign: defer.succeed(None))
         else:
+            self._deque_len -= 1
             self._lazy_tail.addCallback(lambda ign: self.drain.receive(item))
-            self._lazy_tail.addCallback(lambda ign: task.deferLater(self._clock, self._turn_delay, self._turn_deque))
+            self._lazy_tail.addCallback(lambda ign: task.deferLater(self._clock, self._turn_delay, self._turnDeque))

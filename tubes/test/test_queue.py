@@ -52,7 +52,7 @@ class QueueFountTests(SynchronousTestCase):
         testClock.advance(0)
         self.assertEqual(aFakeDrain.received, ["something"])
 
-    def test_stop_flow(self):
+    def test_stop_before_sent(self):
         testClock = task.Clock()
         qFount = QueueFount(2, testClock)
         aFakeDrain = FakeDrain()
@@ -62,3 +62,16 @@ class QueueFountTests(SynchronousTestCase):
         testClock.advance(0)
         self.assertTrue(qFount.flowIsStopped)
         self.assertEqual(len(list(qFount._deque)), 0)
+        self.assertEqual(aFakeDrain.received, [])
+
+    def test_stop_after_sent(self):
+        testClock = task.Clock()
+        qFount = QueueFount(2, testClock)
+        aFakeDrain = FakeDrain()
+        result = qFount.flowTo(aFakeDrain)
+        qFount.push("something")
+        testClock.advance(0)
+        qFount.stopFlow()
+        self.assertTrue(qFount.flowIsStopped)
+        self.assertEqual(len(list(qFount._deque)), 0)
+        self.assertEqual(aFakeDrain.received, ["something"])

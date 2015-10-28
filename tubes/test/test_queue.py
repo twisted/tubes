@@ -30,9 +30,11 @@ class QueueFountTests(SynchronousTestCase):
 
     def test_max_len(self):
         testClock = task.Clock()
-        qFount = QueueFount(2, testClock)
+        maxlen = 2
+        qFount = QueueFount(maxlen, testClock)
         qFount.push("something")
         qFount.push("something")
+        self.assertEqual(maxlen, qFount._deque_len)
         self.assertRaises(NotABigTruckError, qFount.push, "something")
         aFakeDrain = FakeDrain()
         result = qFount.flowTo(aFakeDrain)
@@ -41,12 +43,16 @@ class QueueFountTests(SynchronousTestCase):
 
     def test_push_while_paused(self):
         testClock = task.Clock()
-        qFount = QueueFount(2, testClock)
+        maxlen = 2
+        qFount = QueueFount(maxlen, testClock)
         aFakeDrain = FakeDrain()
         result = qFount.flowTo(aFakeDrain)
         pauser = qFount.pauseFlow()
         qFount.push("something")
+        self.assertEqual(1, qFount._deque_len)
         self.assertEqual(qFount.flowIsPaused, 1)
+        self.assertEqual(list(qFount._deque), ["something"])
+        self.assertEqual(qFount._deque_len, 1)
         pauser.unpause()
         self.assertEqual(qFount.flowIsPaused, 0)
         testClock.advance(0)
@@ -62,6 +68,7 @@ class QueueFountTests(SynchronousTestCase):
         testClock.advance(0)
         self.assertTrue(qFount.flowIsStopped)
         self.assertEqual(len(list(qFount._deque)), 0)
+        self.assertEqual(qFount._deque_len, 0)
         self.assertEqual(aFakeDrain.received, [])
 
     def test_stop_after_sent(self):
@@ -74,4 +81,5 @@ class QueueFountTests(SynchronousTestCase):
         qFount.stopFlow()
         self.assertTrue(qFount.flowIsStopped)
         self.assertEqual(len(list(qFount._deque)), 0)
+        self.assertEqual(qFount._deque_len, 0)
         self.assertEqual(aFakeDrain.received, ["something"])

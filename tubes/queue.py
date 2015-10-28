@@ -33,7 +33,7 @@ class QueueFount(object):
     provided before the drain can consume them all.
     """
     drain = None
-    flowIsPaused = 0
+    flowIsPaused = False
     flowIsStopped = False
     flowIsStarted = False
     outputType = None # XXX needed?
@@ -89,16 +89,15 @@ class QueueFount(object):
         """
         Pause the flow (incrementing flowIsPaused).
         """
-        self.flowIsPaused += 1
+        self.flowIsPaused = True
 
 
     def _actuallyResume(self):
         """
         Resume the flow (decrementing flowIsPaused).
         """
-        self.flowIsPaused -= 1
-        if self.flowIsPaused == 0:
-            self._turnDeque()
+        self.flowIsPaused = False
+        self._turnDeque()
 
 
     def push(self, item):
@@ -110,7 +109,7 @@ class QueueFount(object):
         """
         self._dequeLen += 1
         self._deque.append(item)
-        if self.flowIsStarted and self.flowIsPaused == 0:
+        if self.flowIsStarted and not self.flowIsPaused:
             self._clock.callLater(0, self._turnDeque)
         if self._dequeLen > self._maxlen:
             raise NotABigTruckError("QueueFount max queue length reached.")
@@ -121,7 +120,7 @@ class QueueFount(object):
         Lazily process all the items in the queue
         unless we are paused or stopped.
         """
-        if self.flowIsPaused > 0 or self.flowIsStopped:
+        if self.flowIsPaused or self.flowIsStopped:
             return
         try:
             item = self._deque.pop()

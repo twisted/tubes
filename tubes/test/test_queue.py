@@ -7,10 +7,9 @@ Tests for L{tubes.queue}.
 """
 
 from twisted.trial.unittest import SynchronousTestCase
-from twisted.internet import reactor, task, defer
+from twisted.internet import task
 
-from ..itube import IFount, IDrain, StopFlowCalled
-from ..test.util import FakeFount, FakeDrain
+from ..test.util import FakeDrain
 from ..queue import QueueFount, NotABigTruckError
 
 
@@ -31,6 +30,8 @@ class QueueFountTests(SynchronousTestCase):
         qFount.push("something")
         testClock.advance(0)
         self.assertEquals(aFakeDrain.received, ["something", "something"])
+        self.assertIdentical(result, aFakeDrain.nextStep)
+
 
     def test_push_before_drained(self):
         """
@@ -44,6 +45,8 @@ class QueueFountTests(SynchronousTestCase):
         result = qFount.flowTo(aFakeDrain)
         testClock.advance(0)
         self.assertEquals(aFakeDrain.received, ["something"])
+        self.assertIdentical(result, aFakeDrain.nextStep)
+
 
     def test_max_len(self):
         """
@@ -59,6 +62,7 @@ class QueueFountTests(SynchronousTestCase):
         self.assertRaises(NotABigTruckError, qFount.push, "something")
         aFakeDrain = FakeDrain()
         result = qFount.flowTo(aFakeDrain)
+        self.assertIdentical(result, aFakeDrain.nextStep)
         testClock.advance(0)
         self.assertEquals(aFakeDrain.received, ["something", "something"])
 
@@ -72,6 +76,7 @@ class QueueFountTests(SynchronousTestCase):
         qFount = QueueFount(maxlen, testClock)
         aFakeDrain = FakeDrain()
         result = qFount.flowTo(aFakeDrain)
+        self.assertIdentical(result, aFakeDrain.nextStep)
         pauser = qFount.pauseFlow()
         qFount.push("something")
         self.assertEqual(1, qFount._dequeLen)
@@ -92,6 +97,7 @@ class QueueFountTests(SynchronousTestCase):
         qFount = QueueFount(2, testClock)
         aFakeDrain = FakeDrain()
         result = qFount.flowTo(aFakeDrain)
+        self.assertIdentical(result, aFakeDrain.nextStep)
         qFount.push("something")
         qFount.stopFlow()
         testClock.advance(0)
@@ -109,6 +115,7 @@ class QueueFountTests(SynchronousTestCase):
         qFount = QueueFount(2, testClock)
         aFakeDrain = FakeDrain()
         result = qFount.flowTo(aFakeDrain)
+        self.assertIdentical(result, aFakeDrain.nextStep)
         qFount.push("something")
         testClock.advance(0)
         qFount.stopFlow()

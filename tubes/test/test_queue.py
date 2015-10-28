@@ -2,9 +2,10 @@
 from twisted.trial.unittest import SynchronousTestCase
 from twisted.internet import reactor, task, defer
 
-from ..itube import IFount, IDrain
+from ..itube import IFount, IDrain, StopFlowCalled
 from ..test.util import FakeFount, FakeDrain
 from ..queue import QueueFount, NotABigTruckError
+
 
 class QueueFountTests(SynchronousTestCase):
 
@@ -50,3 +51,14 @@ class QueueFountTests(SynchronousTestCase):
         self.assertEqual(qFount.flowIsPaused, 0)
         testClock.advance(0)
         self.assertEqual(aFakeDrain.received, ["something"])
+
+    def test_stop_flow(self):
+        testClock = task.Clock()
+        qFount = QueueFount(2, testClock)
+        aFakeDrain = FakeDrain()
+        result = qFount.flowTo(aFakeDrain)
+        qFount.push("something")
+        qFount.stopFlow()
+        testClock.advance(0)
+        self.assertTrue(qFount.flowIsStopped)
+        self.assertEqual(len(list(qFount._deque)), 0)

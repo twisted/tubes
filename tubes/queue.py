@@ -10,9 +10,10 @@ from collections import deque
 
 from zope.interface import implementer
 from twisted.internet import defer, task
+from twisted.python.failure import Failure
 
 from .kit import Pauser, beginFlowingTo
-from .itube import IFount
+from .itube import IFount, StopFlowCalled
 
 
 class NotABigTruckError(Exception):
@@ -74,7 +75,7 @@ class QueueFount(object):
         """
         self.flowIsStopped = True
         self._deque.clear()
-        self.drain.flowStopped()
+        self.drain.flowStopped(Failure(StopFlowCalled()))
 
     def _actuallyPause(self):
         """

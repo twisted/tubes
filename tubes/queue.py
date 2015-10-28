@@ -17,10 +17,13 @@ from .itube import IFount, StopFlowCalled
 
 
 class NotABigTruckError(Exception):
-    """A series of tubes is not just a big truck you
+    """
+    A series of tubes is not just a big truck you
     can dump stuff onto...
     """
     pass
+
+
 
 @implementer(IFount)
 class QueueFount(object):
@@ -42,11 +45,12 @@ class QueueFount(object):
         self._maxlen = maxlen
         self._clock = clock
         self._deque = deque(maxlen=self._maxlen)
-        self._deque_len = 0
+        self._dequeLen = 0
         self._pauser = Pauser(self._actuallyPause, self._actuallyResume)
-        self._turn_delay = 0
+        self._turnDelay = 0
         self._lazy_tail = defer.succeed(None)
-        
+
+
     def flowTo(self, drain):
         """
         Start flowing to the given C{drain}.
@@ -60,6 +64,7 @@ class QueueFount(object):
         self._turnDeque()
         return result
 
+
     def pauseFlow(self):
         """
         Pause the flow.
@@ -69,20 +74,23 @@ class QueueFount(object):
         """
         return self._pauser.pause()
 
+
     def stopFlow(self):
         """
         End the flow and clear the deque.
         """
         self.flowIsStopped = True
-        self._deque_len = 0
+        self._dequeLen = 0
         self._deque.clear()
         self.drain.flowStopped(Failure(StopFlowCalled()))
+
 
     def _actuallyPause(self):
         """
         Pause the flow (incrementing flowIsPaused).
         """
         self.flowIsPaused += 1
+
 
     def _actuallyResume(self):
         """
@@ -92,17 +100,19 @@ class QueueFount(object):
         if self.flowIsPaused == 0:
             self._turnDeque()
 
+
     def push(self, item):
         """
         Enqueue an item to be sent out our fount or
         raise an exception with our queue is full.
         """
-        self._deque_len += 1
+        self._dequeLen += 1
         self._deque.append(item)
         if self.flowIsStarted and self.flowIsPaused == 0:
             self._clock.callLater(0, self._turnDeque)
-        if self._deque_len > self._maxlen:
+        if self._dequeLen > self._maxlen:
             raise NotABigTruckError("QueueFount max queue length reached.")
+
 
     def _turnDeque(self):
         """Lazily process all the items in the queue
@@ -115,6 +125,7 @@ class QueueFount(object):
         except IndexError:
             self._lazy_tail.addCallback(lambda ign: defer.succeed(None))
         else:
-            self._deque_len -= 1
+            self._dequeLen -= 1
             self._lazy_tail.addCallback(lambda ign: self.drain.receive(item))
-            self._lazy_tail.addCallback(lambda ign: task.deferLater(self._clock, self._turn_delay, self._turnDeque))
+            self._lazy_tail.addCallback(lambda ign: task.deferLater(self._clock,
+                                                                    self._turnDelay, self._turnDeque))

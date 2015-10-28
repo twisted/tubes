@@ -115,7 +115,8 @@ class QueueFount(object):
 
 
     def _turnDeque(self):
-        """Lazily process all the items in the queue
+        """
+        Lazily process all the items in the queue
         unless we are paused or stopped.
         """
         if self.flowIsPaused > 0 or self.flowIsStopped:

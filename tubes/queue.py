@@ -41,7 +41,6 @@ class QueueFount(object):
 
         @return: the fount downstream of C{drain}.
         """
-        print "flowTo %r" % (drain,)
         result = beginFlowingTo(self, drain)
         self.flowIsStarted = True
         self._turn_deque()
@@ -54,14 +53,12 @@ class QueueFount(object):
         @return: a pause
         @rtype: L{IPause}
         """
-        print "pauseFlow"
         return self._pauser.pause()
 
     def stopFlow(self):
         """
         End the flow and clear the deque.
         """
-        print "stopFlow"
         self.flowIsStopped = True
         self._deque.clear()
         self.drain.flowStopped()
@@ -70,14 +67,12 @@ class QueueFount(object):
         """
         Pause the flow (incrementing flowIsPaused).
         """
-        print "_actuallyPause"
         self.flowIsPaused += 1
 
     def _actuallyResume(self):
         """
         Resume the flow (decrementing flowIsPaused).
         """
-        print "_actuallyResume"
         self.flowIsPaused -= 1
         if self.flowIsPaused == 0:
             self._turn_deque()
@@ -86,13 +81,11 @@ class QueueFount(object):
         """
         Enqueue an item to be sent out our fount.
         """
-        print "push %r" % (item,)
         self._deque.append(item)
         if self.flowIsStarted and self.flowIsPaused == 0:
             self._clock.callLater(0, self._turn_deque)
 
     def _turn_deque(self):
-        print "_turn_deque"
         if self.flowIsPaused > 0 or self.flowIsStopped:
             return
         try:

@@ -66,6 +66,7 @@ class QueueFountTests(SynchronousTestCase):
         testClock.advance(0)
         self.assertEquals(aFakeDrain.received, ["something", "something"])
 
+
     def test_push_while_paused(self):
         """
         Test that we can push to the queue while it's flow
@@ -88,6 +89,7 @@ class QueueFountTests(SynchronousTestCase):
         testClock.advance(0)
         self.assertEqual(aFakeDrain.received, ["something"])
 
+
     def test_stop_before_sent(self):
         """
         Test that if we stop before the queue
@@ -105,6 +107,7 @@ class QueueFountTests(SynchronousTestCase):
         self.assertEqual(len(list(qFount._deque)), 0)
         self.assertEqual(qFount._dequeLen, 0)
         self.assertEqual(aFakeDrain.received, [])
+
 
     def test_stop_after_sent(self):
         """

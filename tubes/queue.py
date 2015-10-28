@@ -104,7 +104,9 @@ class QueueFount(object):
     def push(self, item):
         """
         Enqueue an item to be sent out our fount or
-        raise an exception with our queue is full.
+        raise an exception if our queue is full.
+
+        @param item: any object
         """
         self._dequeLen += 1
         self._deque.append(item)
@@ -128,5 +130,6 @@ class QueueFount(object):
         else:
             self._dequeLen -= 1
             self._lazyTail.addCallback(lambda ign: self.drain.receive(item))
-            self._lazyTail.addCallback(lambda ign: task.deferLater(self._clock,
-                                                                    self._turnDelay, self._turnDeque))
+            self._lazyTail.addCallback(
+                lambda ign: task.deferLater(self._clock,
+                                            self._turnDelay, self._turnDeque))

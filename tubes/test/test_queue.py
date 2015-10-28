@@ -1,3 +1,10 @@
+# -*- test-case-name: tubes.test.test_queue -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
+
+"""
+Tests for L{tubes.queue}.
+"""
 
 from twisted.trial.unittest import SynchronousTestCase
 from twisted.internet import reactor, task, defer

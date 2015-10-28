@@ -48,7 +48,7 @@ class QueueFount(object):
         self._dequeLen = 0
         self._pauser = Pauser(self._actuallyPause, self._actuallyResume)
         self._turnDelay = 0
-        self._lazy_tail = defer.succeed(None)
+        self._lazyTail = defer.succeed(None)
 
 
     def flowTo(self, drain):
@@ -123,9 +123,9 @@ class QueueFount(object):
         try:
             item = self._deque.pop()
         except IndexError:
-            self._lazy_tail.addCallback(lambda ign: defer.succeed(None))
+            self._lazyTail.addCallback(lambda ign: defer.succeed(None))
         else:
             self._dequeLen -= 1
-            self._lazy_tail.addCallback(lambda ign: self.drain.receive(item))
-            self._lazy_tail.addCallback(lambda ign: task.deferLater(self._clock,
+            self._lazyTail.addCallback(lambda ign: self.drain.receive(item))
+            self._lazyTail.addCallback(lambda ign: task.deferLater(self._clock,
                                                                     self._turnDelay, self._turnDeque))

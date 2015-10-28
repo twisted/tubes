@@ -36,7 +36,7 @@ class QueueFount(object):
     flowIsPaused = False
     flowIsStopped = False
     flowIsStarted = False
-    outputType = None # XXX needed?
+    outputType = None
 
     def __init__(self, maxlen, clock):
         """
@@ -45,7 +45,6 @@ class QueueFount(object):
         self._maxlen = maxlen
         self._clock = clock
         self._deque = deque(maxlen=self._maxlen)
-        self._dequeLen = 0
         self._pauser = Pauser(self._actuallyPause, self._actuallyResume)
         self._turnDelay = 0
         self._lazyTail = defer.succeed(None)
@@ -80,7 +79,6 @@ class QueueFount(object):
         End the flow and clear the deque.
         """
         self.flowIsStopped = True
-        self._dequeLen = 0
         self._deque.clear()
         self.drain.flowStopped(Failure(StopFlowCalled()))
 
@@ -107,11 +105,10 @@ class QueueFount(object):
 
         @param item: any object
         """
-        self._dequeLen += 1
         self._deque.append(item)
         if self.flowIsStarted and not self.flowIsPaused:
             self._clock.callLater(0, self._turnDeque)
-        if self._dequeLen > self._maxlen:
+        if len(self._deque) == self._maxlen:
             raise NotABigTruckError("QueueFount max queue length reached.")
 
 
@@ -127,7 +124,6 @@ class QueueFount(object):
         except IndexError:
             self._lazyTail.addCallback(lambda ign: defer.succeed(None))
         else:
-            self._dequeLen -= 1
             self._lazyTail.addCallback(lambda ign: self.drain.receive(item))
             self._lazyTail.addCallback(
                 lambda ign: task.deferLater(self._clock,

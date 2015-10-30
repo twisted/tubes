@@ -1,3 +1,10 @@
+# -*- test-case-name: tubes.test.test_listening -*-
+# Copyright (c) Twisted Matrix Laboratories.
+# See LICENSE for details.
+
+"""
+Tests for L{tubes.listening}.
+"""
 
 from unittest import TestCase
 
@@ -11,27 +18,29 @@ from tubes.itube import IDrain
 @implementer(IDrain)
 class Collector(object):
     """
-    
+    A drain that collects all its inputs.
     """
     inputType = None
 
     fount = None
 
     def __init__(self):
-        """
-        
-        """
         self.collected = []
+
 
     def flowingFrom(self, fount):
         """
-        
+        Start receiving input from the given fount
+
+        @param fount: a fount
         """
 
 
     def receive(self, item):
         """
-        
+        Receive the given item.
+
+        @param item: an input
         """
         self.collected.append(item)
 
@@ -39,12 +48,13 @@ class Collector(object):
     def flowStopped(self, reason):
         """
         flow stopped!
+
+        @param reason: the reason
         """
-        
 
 
 
-class ListeningTest(TestCase):
+class ListeningTests(TestCase):
     """
     Test cases for listening.
     """

@@ -106,9 +106,6 @@ def mathFlow(fount):
 
 @inlineCallbacks
 def main():
-    """
-    
-    """
     serverEndpoint = serverFromString(reactor, "tcp:1234")
     flowFount = yield flowFountFromEndpoint(serverEndpoint)
     flowFount.flowTo(Listener(mathFlow))

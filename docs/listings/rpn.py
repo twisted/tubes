@@ -1,4 +1,3 @@
-
 from tubes.protocol import factoryFromFlow
 from tubes.itube import IFrame, ISegment
 from tubes.tube import tube, receiver
@@ -56,9 +55,9 @@ class Prompter(object):
         yield "> "
 
 def promptingCalculatorSeries():
-    from twisted.tubes.fan import Thru
-    from twisted.tubes.tube import series
-    from twisted.tubes.framing import bytesToLines, linesToBytes
+    from tubes.fan import Thru
+    from tubes.tube import series
+    from tubes.framing import bytesToLines, linesToBytes
 
     full = series(bytesToLines(),
                   Thru([series(linesToNumbersOrOperators,
@@ -69,8 +68,8 @@ def promptingCalculatorSeries():
     return full
 
 def calculatorSeries():
-    from twisted.tubes.tube import series
-    from twisted.tubes.framing import bytesToLines, linesToBytes
+    from tubes.tube import series
+    from tubes.framing import bytesToLines, linesToBytes
 
     return series(
         bytesToLines(),
@@ -90,6 +89,7 @@ def main(reactor, port="stdio:"):
     endpoint.listen(factoryFromFlow(mathFlow))
     return Deferred()
 
-from twisted.internet.task import react
-from sys import argv
-react(main, argv[1:])
+if __name__ == '__main__':
+    from twisted.internet.task import react
+    from sys import argv
+    react(main, argv[1:])

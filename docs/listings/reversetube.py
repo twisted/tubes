@@ -1,7 +1,7 @@
-from twisted.tubes.protocol import factoryFromFlow
+from tubes.protocol import factoryFromFlow
 from twisted.internet.endpoints import serverFromString
 from twisted.internet.defer import Deferred
-from twisted.tubes.tube import tube, series
+from tubes.tube import tube, series
 
 @tube
 class Reverser(object):
@@ -9,7 +9,7 @@ class Reverser(object):
         yield b"".join(reversed(item))
 
 def reverseFlow(fount, drain):
-    from twisted.tubes.framing import bytesToLines, linesToBytes
+    from tubes.framing import bytesToLines, linesToBytes
     lineReverser = series(bytesToLines(), Reverser(), linesToBytes())
     fount.flowTo(lineReverser).flowTo(drain)
 
@@ -18,7 +18,7 @@ def main(reactor, listenOn="stdio:"):
     endpoint.listen(factoryFromFlow(reverseFlow))
     return Deferred()
 
-from twisted.internet.task import react
-
-from sys import argv
-react(main, argv[1:])
+if __name__ == '__main__':
+    from twisted.internet.task import react
+    from sys import argv
+    react(main, argv[1:])

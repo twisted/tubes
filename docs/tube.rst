@@ -135,7 +135,7 @@ The next element in the series, ``Reverser``, reverses its inputs, which, being 
 Managing State with a Tube: A Networked Calculator
 --------------------------------------------------
 
-To demonstrate both receiving and processing data, let's write a `reverse polish notation <https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_ calculator for addition and multiplication.
+To demonstrate both receiving and processing data, let's write a `reverse Polish notation <https://en.wikipedia.org/wiki/Reverse_Polish_notation>`_ calculator for addition and multiplication.
 
 Interacting with it should look like this:
 
@@ -165,22 +165,22 @@ Now let's look at the full flow which will pass inputs to a ``Calculator`` and r
 .. literalinclude:: listings/rpn.py
    :pyobject: calculatorSeries
 
-The first tube in this series, provided by the `framing` module built in to `tubes`, transforms a stream of bytes into lines.
-Then, ``LinesToNumbersOrOperators`` - which you'll write in a moment - should transform lines into a combination of numbers and operators (functions that perform the work of the ``"+"`` and ``"*"`` commands), then from numbers and operators into more numbers - sums and products - from those integers into lines, and finally from those lines into newline-terminated segments of data that are sent back out.
+The first tube in this series, provided by the :api:`tubes.framing` module, transforms a stream of bytes into lines.
+Then, ``linesToNumbersOrOperators`` - which you'll write in a moment - should transform lines into a combination of numbers and operators (functions that perform the work of the ``"+"`` and ``"*"`` commands), then from numbers and operators into more numbers - sums and products - from those integers into lines, and finally from those lines into newline-terminated segments of data that are sent back out.
 A ``CalculatingTube`` should pass those numbers and operators to a ``Calculator``, and produce numbers as output.
-`NumbersToLines` should convert the output numbers into byte strings, and `linesToBytes` performs the inverse of `bytesToLines` by appending newlines to those outputs.
+``numbersToLines`` should convert the output numbers into byte strings, and `linesToBytes` performs the inverse of `bytesToLines` by appending newlines to those outputs.
 
-Let's look at `LinesToNumbersOrOperators`.
+Let's look at ``linesToNumbersOrOperators``.
 
 .. literalinclude:: listings/rpn.py
    :prepend: @tube
    :pyobject: linesToNumbersOrOperators
 
-`ITube.received` takes an input and produces an iterable of outputs.
+:api:`ITube.received` takes an input and produces an iterable of outputs.
 A tube's input is the output of the tube preceding it in the series.
-In this case, `LinesToNumbersOrOperators` receives the output of `bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
+In this case, ``linesToNumbersOrOperators`` receives the output of :api:`bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
 Given the specification for the RPN calculator's input above, those lines may contain ASCII integers (like ``b"123"``) or ASCII characters representing arithmetic operations (``b"+"`` or ``b"*"``).
-`LinesToNumbersOrOperators` output falls into two categories: each line containing decimal numbers results in an integer output, and each operator character is represented by a python function object that can perform that operation.
+``linesToNumbersOrOperators`` output falls into two categories: each line containing decimal numbers results in an integer output, and each operator character is represented by a python function object that can perform that operation.
 
 Now that you've parsed those inputs into meaningful values, you can send them on to the ``Calculator`` for processing.
 
@@ -188,29 +188,29 @@ Now that you've parsed those inputs into meaningful values, you can send them on
    :prepend: @tube
    :pyobject: CalculatingTube
 
-`CalculatingTube` takes a `Calculator` to its constructor, and provides a `received` method which takes, as input, the outputs produced by `LinesToNumbersOrOperators`.
+``CalculatingTube`` takes a ``Calculator`` to its constructor, and provides a `received` method which takes, as input, the outputs produced by `LinesToNumbersOrOperators`.
 It needs to distinguish between the two types it might be handling --- integers, or operators --- and it does so with `isinstance`.
 When it is handling an integer, it pushes that value onto its calculator's stack, and, importantly, does not produce any output.
 When it is handling an operator, it applies that operator with its calculator's `do` method, and outputs the result (which will be an integer).
 
-Unlike `LinesToNumbersOrOperators`, `CalculatingTube` is *stateful*.
+Unlike ``linesToNumbersOrOperators``, ``CalculatingTube`` is *stateful*.
 It does not produce an output for every input.
 It only produces output when it encounters an operator.
 
 Finally we need to move this output along so that the user can see it.
 
-To do this, we use the very simple `NumbersToLines` which takes integer inputs and transforms them into ASCII bytes.
+To do this, we use the very simple ``numbersToLines`` which takes integer inputs and transforms them into ASCII bytes.
 
 .. literalinclude:: listings/rpn.py
    :prepend: @tube
    :pyobject: numbersToLines
 
-Like `LinesToNumbersOrOperators`, `NumbersToLines` is stateless, and produces one output for every input.
+Like ``linesToNumbersOrOperators``, ``numbersToLines`` is stateless, and produces one output for every input.
 
 Before sending the output back to the user, you need to add a newline to each number so it is legible to the user.
 Otherwise the distinct numbers "3", "4", and "5" would show up as "345".
 
-For this, we use the aforementioned `bytesToLines` tube, which appends newlines to its inputs.
+For this, we use the aforementioned ``bytesToLines`` tube, which appends newlines to its inputs.
 
 Tubes Versus Protocols
 ======================

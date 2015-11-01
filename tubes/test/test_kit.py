@@ -13,7 +13,7 @@ from twisted.trial.unittest import SynchronousTestCase as TestCase
 from ..itube import IPause, AlreadyUnpaused
 from ..kit import Pauser
 
-class PauserTest(TestCase):
+class PauserTests(TestCase):
     """
     Tests for L{Pauser}, helper for someone who wants to implement a thing
     that pauses.

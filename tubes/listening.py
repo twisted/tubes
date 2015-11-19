@@ -17,8 +17,10 @@ class Flow(object):
     bi-directional communication channel such as a TCP connection.
 
     @ivar fount: A fount.
+    @type fount: L{IFount}
 
     @ivar drain: A drain.
+    @type drain: L{IDrain}
     """
 
     def __init__(self, fount, drain):

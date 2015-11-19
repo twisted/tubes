@@ -307,15 +307,15 @@ class _FountImpl(object):
     outputType = implementedBy(Flow)
 
     def __init__(self, portObject, aFlowFunction):
-        # .reactor is definitely not part of the public API of
-        # IListeningPort, but most IListeningPort really *ought* to be
-        # an IProducer so that it has pauseProducing and you can tell
-        # it to back off.
+        """
+        Create a fount implementation from a provider of L{IPushProducer} and a
+        function that takes a fount and a drain.
+        """
         self.drain = None
         def pause():
-            portObject.reactor.removeReader(portObject)
+            portObject.pauseProducing()
         def unpause():
-            portObject.reactor.addReader(portObject)
+            portObject.resumeProducing()
         self._pauser = Pauser(pause, unpause)
         self._preListen = []
         self._aFlowFunction = aFlowFunction

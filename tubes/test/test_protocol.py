@@ -400,7 +400,8 @@ class FlowListenerTests(TestCase):
 
     def test_oneConnectionAccepted(self):
         """
-        
+        When a connection comes in to a listening L{flowFountFromEndpoint}, the
+        L{Listener} that it's flowing to's callback is called.
         """
         endpoint = FakeEndpoint()
         deferred = flowFountFromEndpoint(endpoint)
@@ -409,7 +410,7 @@ class FlowListenerTests(TestCase):
         result = self.successResultOf(deferred)
         connected = []
         result.flowTo(Listener(connected.append))
-        protocol = endpoint._factories[0].buildProtocol(None)
+        protocol = endpoint._ports[0].factory.buildProtocol(None)
         self.assertEqual(len(connected), 0)
         protocol.makeConnection(StringTransport())
         self.assertEqual(len(connected), 1)

@@ -5,7 +5,7 @@
 Listening.
 """
 
-from zope.interface import implementer
+from zope.interface import implementer, implementedBy
 
 from .itube import IDrain
 from .kit import beginFlowingFrom, NoPause
@@ -42,7 +42,7 @@ class Listener(object):
     A L{Listener} is a drain that accepts L{Flow}s and sets them up.
     """
 
-    inputType = Flow
+    inputType = implementedBy(Flow)
 
     def __init__(self, flowConnector, maxConnections=100):
         """

@@ -395,7 +395,7 @@ class FlowListenerTests(TestCase):
         deferred.callback(None)
         result = self.successResultOf(deferred)
         self.assertTrue(IFount.providedBy(result))
-        self.assertEqual(result.outputType, Flow)
+        self.assertEqual(result.outputType.implementedBy(Flow), True)
 
 
     def test_oneConnectionAccepted(self):

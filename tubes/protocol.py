@@ -13,7 +13,7 @@ __all__ = [
     'flowFromEndpoint',
 ]
 
-from zope.interface import implementer
+from zope.interface import implementer, implementedBy
 
 from .kit import Pauser, beginFlowingFrom, beginFlowingTo
 from .itube import IDrain, IFount, ISegment
@@ -304,7 +304,7 @@ class _FountImpl(object):
     Implementation of fount for listening port.
     """
 
-    outputType = Flow
+    outputType = implementedBy(Flow)
 
     def __init__(self, portObject, aFlowFunction):
         # .reactor is definitely not part of the public API of

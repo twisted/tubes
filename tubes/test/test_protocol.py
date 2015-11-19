@@ -13,13 +13,14 @@ from twisted.trial.unittest import SynchronousTestCase as TestCase
 from twisted.python.failure import Failure
 from twisted.internet.interfaces import IStreamServerEndpoint, IListeningPort
 from twisted.internet.defer import Deferred
+from twisted.test.proto_helpers import StringTransport
 
 from ..protocol import flowFountFromEndpoint, flowFromEndpoint
 from ..tube import tube, series
-from ..listening import Flow
+from ..listening import Flow, Listener
 from ..itube import IFount
 
-from ..test.util import StringEndpoint, FakeDrain, FakeFount
+from .util import StringEndpoint, FakeDrain, FakeFount
 
 @tube
 class RememberingTube(object):
@@ -395,4 +396,23 @@ class FlowListenerTests(TestCase):
         result = self.successResultOf(deferred)
         self.assertTrue(IFount.providedBy(result))
         self.assertEqual(result.outputType, Flow)
+
+
+    def test_oneConnectionAccepted(self):
+        """
+        
+        """
+        endpoint = FakeEndpoint()
+        deferred = flowFountFromEndpoint(endpoint)
+        self.assertNoResult(deferred)
+        deferred.callback(None)
+        result = self.successResultOf(deferred)
+        connected = []
+        result.flowTo(Listener(connected.append))
+        protocol = endpoint._factories[0].buildProtocol(None)
+        self.assertEqual(len(connected), 0)
+        protocol.makeConnection(StringTransport())
+        self.assertEqual(len(connected), 1)
+
+
 

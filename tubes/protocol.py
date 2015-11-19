@@ -16,12 +16,13 @@ __all__ = [
 from zope.interface import implementer, implementedBy
 
 from .kit import Pauser, beginFlowingFrom, beginFlowingTo
+from tubes.itube import StopFlowCalled
 from .itube import IDrain, IFount, ISegment
 from .listening import Flow
 
+from twisted.python.failure import Failure
 from twisted.internet.interfaces import IPushProducer
 from twisted.internet.protocol import Protocol as _Protocol
-from twisted.internet.defer import maybeDeferred
 
 if 0:
     # Workaround for inability of pydoctor to resolve references.
@@ -319,6 +320,7 @@ class _FountImpl(object):
         self._pauser = Pauser(pause, unpause)
         self._preListen = []
         self._aFlowFunction = aFlowFunction
+        self._portObject = portObject
 
 
     def flowTo(self, drain):
@@ -348,10 +350,9 @@ class _FountImpl(object):
         """
         Stop flow.
         """
+        self.drain.flowStopped(Failure(StopFlowCalled()))
         self.drain = None
-        maybeDeferred(self.flow.stopListening).addBoth(
-            lambda whatever: self.drain.flowStopped(Failure())
-        )
+        self._portObject.stopListening()
 
 
 

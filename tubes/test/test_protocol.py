@@ -318,6 +318,8 @@ class FakeListeningPortWithExtras(object):
         factory.
         """
         self.factory = factory
+        self.stopper = Deferred()
+        self.listenStopping = False
 
 
     def pauseProducing(self):
@@ -342,15 +344,19 @@ class FakeListeningPortWithExtras(object):
             a TCP port and it cannot bind to the required port number).
         """
 
+
     def stopListening(self):
         """
-        Stop listening on this port.
+        Stop listening on this fake port.
 
-        If it does not complete immediately, will return Deferred that fires
-        upon completion.
+        @return: a L{Deferred} that should be fired when the test wants to
+            complete stopping listening.
         """
+        self.listenStopping = True
+        return self.stopper
 
-    def getHost():
+
+    def getHost(self):
         """
         Get the host that this port is listening for.
 
@@ -365,11 +371,13 @@ class FakeEndpoint(object):
     A fake implementation of L{IStreamServerEndpoint} with a L{Deferred} that
     fires controllably.
 
-    @ivar listening: deferreds that will fire with stuff.
-    @type listening: L{list} of L{Deferred}
+    @ivar _listening: deferreds that will fire with listening ports when their
+        C{.callback} is invoked (input to C{.callback} ignored); added to when
+        C{listen} is called.
+    @type _listening: L{list} of L{Deferred}
 
-    @ivar ports: list of ports that have already started listening
-    @type ports: L{list} of L{IListeningPort}
+    @ivar _ports: list of ports that have already started listening
+    @type _ports: L{list} of L{IListeningPort}
     """
     def __init__(self):
         """
@@ -381,7 +389,9 @@ class FakeEndpoint(object):
 
     def listen(self, factory):
         """
-        Liste with the given factory.
+        Listen with the given factory.
+
+        @param factory: The factory to use for future connections.
 
         @return: a L{Deferred} that fires with a new listening port.
         """
@@ -446,3 +456,19 @@ class FlowListenerTests(TestCase):
         self.assertEqual(endpoint._ports[0].currentlyProducing, False)
         pause.unpause()
         self.assertEqual(endpoint._ports[0].currentlyProducing, True)
+
+
+    def test_stopping(self):
+        """
+        The L{IFount} returned by L{flowFountFromEndpoint} will stop listening
+        on the endpoint
+        """
+        endpoint = FakeEndpoint()
+        deferred = flowFountFromEndpoint(endpoint)
+        deferred.callback(None)
+        fount = self.successResultOf(deferred)
+        fd = FakeDrain()
+        fount.flowTo(fd)
+        fount.stopFlow()
+        self.assertEqual(endpoint._ports[0].listenStopping, True)
+        self.assertEqual(len(fd.stopped), 1)

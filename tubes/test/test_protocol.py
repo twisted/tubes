@@ -320,6 +320,20 @@ class FakeListeningPortWithExtras(object):
         self.factory = factory
 
 
+    def pauseProducing(self):
+        """
+        Pause producing new connections.
+        """
+        self.currentlyProducing = False
+
+
+    def resumeProducing(self):
+        """
+        Resume producing new connections.
+        """
+        self.currentlyProducing = True
+
+
     def startListening(self):
         """
         Start listening on this port.
@@ -342,6 +356,7 @@ class FakeListeningPortWithExtras(object):
 
         @return: An L{IAddress} provider.
         """
+
 
 
 @implementer(IStreamServerEndpoint)
@@ -416,4 +431,18 @@ class FlowListenerTests(TestCase):
         self.assertEqual(len(connected), 1)
 
 
-
+    def test_backpressure(self):
+        """
+        When the L{IFount} returned by L{flowFountFromEndpoint} is paused, it
+        removes its listening port from the reactor.  When resumed, it re-adds
+        it.
+        """
+        endpoint = FakeEndpoint()
+        deferred = flowFountFromEndpoint(endpoint)
+        deferred.callback(None)
+        fount = self.successResultOf(deferred)
+        fount.flowTo(FakeDrain())
+        pause = fount.pauseFlow()
+        self.assertEqual(endpoint._ports[0].currentlyProducing, False)
+        pause.unpause()
+        self.assertEqual(endpoint._ports[0].currentlyProducing, True)

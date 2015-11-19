@@ -303,9 +303,10 @@ class _FountImpl(object):
     """
     Implementation of fount for listening port.
     """
-    inputType = None
-    outputType = None
-    def __init__(self, portObject):
+
+    outputType = Flow
+
+    def __init__(self, portObject, aFlowFunction):
         # .reactor is definitely not part of the public API of
         # IListeningPort, but most IListeningPort really *ought* to be
         # an IProducer so that it has pauseProducing and you can tell
@@ -317,6 +318,7 @@ class _FountImpl(object):
             portObject.reactor.addReader(portObject)
         self._pauser = Pauser(pause, unpause)
         self._preListen = []
+        self._aFlowFunction = aFlowFunction
 
 
     def flowTo(self, drain):

@@ -6,12 +6,18 @@
 Tests for L{tubes.protocol}.
 """
 
+from zope.interface import implementer
+
 from twisted.trial.unittest import SynchronousTestCase as TestCase
 
 from twisted.python.failure import Failure
+from twisted.internet.interfaces import IStreamServerEndpoint, IListeningPort
+from twisted.internet.defer import Deferred
 
 from ..protocol import flowFountFromEndpoint, flowFromEndpoint
 from ..tube import tube, series
+from ..listening import Flow
+from ..itube import IFount
 
 from ..test.util import StringEndpoint, FakeDrain, FakeFount
 
@@ -50,10 +56,10 @@ class RememberingTube(object):
 
 
 
-class FlowingAdapterTests(TestCase):
+class FlowConnectorTests(TestCase):
     """
-    Tests for L{flowFountFromEndpoint} and L{flowFromEndpoint} and the
-    drain/fount/factory adapters they construct.
+    Tests for L{flowFromEndpoint} and the drain/fount/factory adapters it
+    constructs.
     """
 
     def setUp(self):
@@ -294,3 +300,99 @@ class FlowingAdapterTests(TestCase):
                 return another
         anotherOther = self.adaptedFount.flowTo(ReflowingFakeDrain())
         self.assertIdentical(another, anotherOther)
+
+
+
+@implementer(IListeningPort)
+class FakeListeningPortWithExtras(object):
+    """
+    This is a fake L{IListeningPort}, with the extra
+    not-part-of-a-formal-interface,
+    but-nevertheless-part-of-every-implementation bits that
+    L{flowFountFromEndpoint} needs to make backpressure work.
+    """
+    def __init__(self, factory):
+        """
+        Create a L{FakeListeningPortWithExtras} with the given protocol
+        factory.
+        """
+        self.factory = factory
+
+
+    def startListening(self):
+        """
+        Start listening on this port.
+
+        @raise CannotListenError: If it cannot listen on this port (e.g., it is
+            a TCP port and it cannot bind to the required port number).
+        """
+
+    def stopListening(self):
+        """
+        Stop listening on this port.
+
+        If it does not complete immediately, will return Deferred that fires
+        upon completion.
+        """
+
+    def getHost():
+        """
+        Get the host that this port is listening for.
+
+        @return: An L{IAddress} provider.
+        """
+
+
+@implementer(IStreamServerEndpoint)
+class FakeEndpoint(object):
+    """
+    A fake implementation of L{IStreamServerEndpoint} with a L{Deferred} that
+    fires controllably.
+
+    @ivar listening: deferreds that will fire with stuff.
+    @type listening: L{list} of L{Deferred}
+
+    @ivar ports: list of ports that have already started listening
+    @type ports: L{list} of L{IListeningPort}
+    """
+    def __init__(self):
+        """
+        Create a L{FakeEndpoint}.
+        """
+        self._listening = []
+        self._ports = []
+
+
+    def listen(self, factory):
+        """
+        Liste with the given factory.
+
+        @return: a L{Deferred} that fires with a new listening port.
+        """
+        self._listening.append(Deferred())
+        def newListener(ignored):
+            result = FakeListeningPortWithExtras(factory)
+            self._ports.append(result)
+            return result
+        return self._listening[-1].addCallback(newListener)
+
+
+
+class FlowListenerTests(TestCase):
+    """
+    Tests for L{flowFountFromEndpoint} and the fount adapter it constructs.
+    """
+
+    def test_fromEndpoint(self):
+        """
+        L{flowFountFromEndpoint} returns a L{Deferred} that fires when the
+        listening port is ready.
+        """
+        endpoint = FakeEndpoint()
+        deferred = flowFountFromEndpoint(endpoint)
+        self.assertNoResult(deferred)
+        deferred.callback(None)
+        result = self.successResultOf(deferred)
+        self.assertTrue(IFount.providedBy(result))
+        self.assertEqual(result.outputType, Flow)
+

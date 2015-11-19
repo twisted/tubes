@@ -364,18 +364,15 @@ def flowFountFromEndpoint(endpoint):
     @return: a L{twisted.internet.defer.Deferred} that fires with a L{IFount}
         whose C{outputType} is L{Flow}.
     """
+    def listening(portObject):
+        listening.impl = _FountImpl(portObject, aFlowFunction)
+        return listening.impl
+    listening.impl = None
     def aFlowFunction(fount, drain):
         if listening.impl is not None:
             listening.impl.drain.receive(Flow(fount, drain))
         else:
             listening.impl._preListen.append((fount, drain))
-
-
-    def listening(portObject):
-        listening.impl = _FountImpl(portObject, aFlowFunction)
-        return listening.impl
-    listening.impl = None
-
     aFactory = _factoryFromFlow(aFlowFunction)
     return endpoint.listen(aFactory).addCallback(listening)
 

@@ -459,8 +459,9 @@ class FlowListenerTests(TestCase):
         deferred.callback(None)
         fount = self.successResultOf(deferred)
         connected = []
-        fount.flowTo(Listener(connected.append))
         self.assertEqual(endpoint._ports[0].currentlyProducing, False)
+        fount.flowTo(Listener(connected.append))
+        self.assertEqual(endpoint._ports[0].currentlyProducing, True)
         self.assertEqual(len(connected), 1)
 
 

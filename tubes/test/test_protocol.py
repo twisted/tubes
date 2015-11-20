@@ -320,6 +320,7 @@ class FakeListeningPortWithExtras(object):
         self.factory = factory
         self.stopper = Deferred()
         self.listenStopping = False
+        self.currentlyProducing = True
 
 
     def pauseProducing(self):
@@ -453,12 +454,13 @@ class FlowListenerTests(TestCase):
                 protocol = factory.buildProtocol(None)
                 protocol.makeConnection(immediateTransport)
                 return super(ImmediateFakeEndpoint, self).listen(factory)
-        deferred = flowFountFromEndpoint(ImmediateFakeEndpoint())
+        endpoint = ImmediateFakeEndpoint()
+        deferred = flowFountFromEndpoint(endpoint)
         deferred.callback(None)
         fount = self.successResultOf(deferred)
-        # self.assertEqual(immediateTransport.producerState, "paused")
         connected = []
         fount.flowTo(Listener(connected.append))
+        self.assertEqual(endpoint._ports[0].currentlyProducing, False)
         self.assertEqual(len(connected), 1)
 
 

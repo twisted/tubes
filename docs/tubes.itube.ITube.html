@@ -21,24 +21,28 @@
       </div>
     </nav>
 
+    <div id="showPrivate">
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+    </div>
+
     <div class="container">
 
       <div class="page-header">
         <h1 class="interface"><code>tubes.itube.ITube(<span title="zope.interface.Interface">Interface</span>)</code> <small>interface documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes.itube.html">itube</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.itube.html" class="code" data-type="Module">itube</a></code>
           
           <a href="classIndex.html#tubes.itube.ITube">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Known subclasses: <a class="code" href="tubes.itube.IDivertable.html">tubes.itube.IDivertable</a></p><p>Known implementations: <a class="code" href="tubes.tube._Tubule.html">tubes.tube._Tubule</a></p>
+        <p>Known subclasses: <a href="tubes.itube.IDivertable.html" class="code" data-type="Interface">tubes.itube.IDivertable</a></p><p>Known implementations: <a href="tubes.tube._Tubule.html" class="code" data-type="Class">tubes.tube._Tubule</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p>A tube translates input to output.</p>
+        <div><p>A tube transforms input into output.</p>
 <p>Look at this awesome ASCII art:</p>
 <pre class="literalblock">
                     a fount
@@ -66,35 +70,35 @@ together.</td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table id="id30" class="children sortable">
+        <table class="children sortable" id="id37">
   
   <tr class="attribute">
     
     <td>Attribute</td>
-    <td><a class="code" href="tubes.itube.ITube.html#inputType">inputType</a></td>
+    <td><a href="tubes.itube.ITube.html#inputType" class="code" data-type="Attribute">inputType</a></td>
     <td><span>The type expected to be received as input to received.</span></td>
   </tr><tr class="attribute">
     
     <td>Attribute</td>
-    <td><a class="code" href="tubes.itube.ITube.html#outputType">outputType</a></td>
+    <td><a href="tubes.itube.ITube.html#outputType" class="code" data-type="Attribute">outputType</a></td>
     <td><span>The type expected to be sent as output to <code>tube.deliver</code>.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.itube.ITube.html#started">started</a></td>
+    <td><a href="tubes.itube.ITube.html#started" class="code" data-type="Method">started</a></td>
     <td><span>The flow of items has started.  <code>received</code> may be called at 
 any point after this.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.itube.ITube.html#received">received</a></td>
+    <td><a href="tubes.itube.ITube.html#received" class="code" data-type="Method">received</a></td>
     <td><span>An item was received from 'upstream', i.e. the framework, or the 
 lower-level data source that this <a href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
 with.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.itube.ITube.html#stopped">stopped</a></td>
+    <td><a href="tubes.itube.ITube.html#stopped" class="code" data-type="Method">stopped</a></td>
     <td><span>The flow of data from this <a href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
 this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.</span></td>
   </tr>
@@ -106,7 +110,8 @@ this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.f
 
       <div id="childList">
 
-        <div class="function">
+        <div class="baseattribute">
+  
   <a name="tubes.itube.ITube.inputType">
     
   </a>
@@ -119,7 +124,8 @@ this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.f
   <div class="functionBody">
     <div><p>The type expected to be received as input to received.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="baseattribute">
+  
   <a name="tubes.itube.ITube.outputType">
     
   </a>
@@ -132,7 +138,8 @@ this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.f
   <div class="functionBody">
     <div><p>The type expected to be sent as output to <code>tube.deliver</code>.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.itube.ITube.started">
     
   </a>
@@ -150,7 +157,8 @@ this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.f
     <div><p>The flow of items has started.  <code>received</code> may be called at 
 any point after this.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.itube.ITube.received">
     
   </a>
@@ -170,7 +178,8 @@ lower-level data source that this <a href="tubes.itube.ITube.html"><code>ITube</
 with.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">An iterable of values to propagate to the downstream drain attached to this
 <a href="tubes.itube.ITube.html"><code>ITube</code></a>. (type: iterable of <a href="tubes.itube.ITube.html#outputType"><code>ITube.outputType</code></a>)</td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.itube.ITube.stopped">
     
   </a>
@@ -198,9 +207,12 @@ processed by <i>its</i> fount, there's no useful work it can do.</td></tr></tabl
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-07-09 00:06:35.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
       </address>
 
     </div>
+
+    <script type="text/javascript" src="pydoctor.js"></script>
+
   </body>
 </html>

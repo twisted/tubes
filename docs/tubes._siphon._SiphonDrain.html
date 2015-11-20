@@ -21,20 +21,24 @@
       </div>
     </nav>
 
+    <div id="showPrivate">
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+    </div>
+
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class private"><code>tubes._siphon._SiphonDrain(<a class="code" href="tubes._siphon._SiphonPiece.html">_SiphonPiece</a>)</code> <small>class documentation</small></h1>
+        <h1 class="class private"><code>tubes._siphon._SiphonDrain(<a href="tubes._siphon._SiphonPiece.html" class="code" data-type="Class">_SiphonPiece</a>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes._siphon.html">_siphon</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes._siphon.html" class="code" data-type="Module">_siphon</a></code>
           
           <a href="classIndex.html#tubes._siphon._SiphonDrain">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Implements interfaces: <a class="code" href="tubes.itube.IDrain.html">tubes.itube.IDrain</a></p>
+        <p>Implements interfaces: <a href="tubes.itube.IDrain.html" class="code" data-type="Interface">tubes.itube.IDrain</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -42,50 +46,50 @@
       </div>
 
       <div id="splitTables">
-        <table id="id53" class="children sortable">
+        <table class="children sortable" id="id59">
   
   <tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes._siphon._SiphonDrain.html#__repr__">__repr__</a></td>
+    <td><a href="tubes._siphon._SiphonDrain.html#__repr__" class="code" data-type="Method">__repr__</a></td>
     <td><span>Nice string representation.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes._siphon._SiphonDrain.html#inputType">inputType</a></td>
+    <td><a href="tubes._siphon._SiphonDrain.html#inputType" class="code" data-type="Method">inputType</a></td>
     <td><span>Relay the tube's declared inputType.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes._siphon._SiphonDrain.html#flowingFrom">flowingFrom</a></td>
+    <td><a href="tubes._siphon._SiphonDrain.html#flowingFrom" class="code" data-type="Method">flowingFrom</a></td>
     <td><span>This siphon will now have 'receive' called on it by the given fount.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes._siphon._SiphonDrain.html#receive">receive</a></td>
+    <td><a href="tubes._siphon._SiphonDrain.html#receive" class="code" data-type="Method">receive</a></td>
     <td><span>An item was received.  Pass it on to the tube for processing.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes._siphon._SiphonDrain.html#flowStopped">flowStopped</a></td>
+    <td><a href="tubes._siphon._SiphonDrain.html#flowStopped" class="code" data-type="Method">flowStopped</a></td>
     <td><span class="undocumented">No summary</span></td>
   </tr>
 </table>
         
           <p class="inheritedFrom">
-            Inherited from <a class="code" href="tubes._siphon._SiphonPiece.html">_SiphonPiece</a>:
+            Inherited from <a href="tubes._siphon._SiphonPiece.html" class="code" data-type="Class">_SiphonPiece</a>:
           </p>
-          <table id="id54" class="children sortable">
+          <table class="children sortable" id="id60">
   
   <tr class="basemethod">
     
     <td>Method</td>
-    <td><a class="code" href="tubes._siphon._SiphonPiece.html#__init__">__init__</a></td>
+    <td><a href="tubes._siphon._SiphonPiece.html#__init__" class="code" data-type="Method">__init__</a></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="basemethod private">
     
     <td>Method</td>
-    <td><a class="code" href="tubes._siphon._SiphonPiece.html#_tube">_tube</a></td>
+    <td><a href="tubes._siphon._SiphonPiece.html#_tube" class="code" data-type="Method">_tube</a></td>
     <td><span>Expose the siphon's <code>_tube</code> directly since many things will 
 want to manipulate it.</span></td>
   </tr>
@@ -97,7 +101,8 @@ want to manipulate it.</span></td>
 
       <div id="childList">
 
-        <div class="function">
+        <div class="basemethod">
+  
   <a name="tubes._siphon._SiphonDrain.__repr__">
     
   </a>
@@ -114,7 +119,8 @@ want to manipulate it.</span></td>
     
     <div><p>Nice string representation.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes._siphon._SiphonDrain.inputType">
     
   </a>
@@ -128,10 +134,11 @@ want to manipulate it.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IDrain.html#inputType">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#inputType" class="code" data-type="Attribute">tubes.itube.IDrain</a></div>
     <div><p>Relay the tube's declared inputType.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">see <a href="tubes.itube.IDrain.html#inputType"><code>IDrain.inputType</code></a></td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes._siphon._SiphonDrain.flowingFrom">
     
   </a>
@@ -145,10 +152,11 @@ want to manipulate it.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IDrain.html#flowingFrom">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowingFrom" class="code" data-type="Method">tubes.itube.IDrain</a></div>
     <div><p>This siphon will now have 'receive' called on it by the given fount.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>see <a href="tubes.itube.IDrain.html#flowingFrom"><code>IDrain.flowingFrom</code></a></td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">see <a href="tubes.itube.IDrain.html#flowingFrom"><code>IDrain.flowingFrom</code></a></td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes._siphon._SiphonDrain.receive">
     
   </a>
@@ -162,10 +170,11 @@ want to manipulate it.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IDrain.html#receive">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#receive" class="code" data-type="Method">tubes.itube.IDrain</a></div>
     <div><p>An item was received.  Pass it on to the tube for processing.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>an item to deliver to the tube.</td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes._siphon._SiphonDrain.flowStopped">
     
   </a>
@@ -179,7 +188,7 @@ want to manipulate it.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a class="code" href="tubes.itube.IDrain.html#flowStopped">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowStopped" class="code" data-type="Method">tubes.itube.IDrain</a></div>
     <div><p>This siphon's fount has communicated the end of the flow to this siphon.
 This siphon should finish yielding its current buffer, then yield the 
 result of it's <code>_tube</code>'s <code>stopped</code> method, then 
@@ -189,9 +198,12 @@ communicate the end of flow to its downstream drain.</p><table class="fieldTable
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-07-09 00:06:35.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
       </address>
 
     </div>
+
+    <script type="text/javascript" src="pydoctor.js"></script>
+
   </body>
 </html>

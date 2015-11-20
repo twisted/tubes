@@ -21,13 +21,17 @@
       </div>
     </nav>
 
+    <div id="showPrivate">
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+    </div>
+
     <div class="container">
 
       <div class="page-header">
         <h1 class="class private"><code>tubes.protocol._FountProducer(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes.protocol.html">protocol</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.protocol.html" class="code" data-type="Module">protocol</a></code>
           
           <a href="classIndex.html#tubes.protocol._FountProducer">(View In Hierarchy)</a>
         </span>
@@ -44,37 +48,37 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
       </div>
 
       <div id="splitTables">
-        <table id="id13" class="children sortable">
+        <table class="children sortable" id="id13">
   
   <tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.protocol._FountProducer.html#__init__">__init__</a></td>
+    <td><a href="tubes.protocol._FountProducer.html#__init__" class="code" data-type="Method">__init__</a></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.protocol._FountProducer.html#pauseProducing">pauseProducing</a></td>
+    <td><a href="tubes.protocol._FountProducer.html#pauseProducing" class="code" data-type="Method">pauseProducing</a></td>
     <td><span>The producer has been paused.  Ensure that the fount is paused.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.protocol._FountProducer.html#resumeProducing">resumeProducing</a></td>
+    <td><a href="tubes.protocol._FountProducer.html#resumeProducing" class="code" data-type="Method">resumeProducing</a></td>
     <td><span>The producer has been resumed.  Ensure that the fount is unpaused.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.protocol._FountProducer.html#stopProducing">stopProducing</a></td>
+    <td><a href="tubes.protocol._FountProducer.html#stopProducing" class="code" data-type="Method">stopProducing</a></td>
     <td><span>Stop producing data.</span></td>
   </tr><tr class="instancevariable private">
     
     <td>Instance Variable</td>
-    <td><a class="code" href="tubes.protocol._FountProducer.html#_fount">_fount</a></td>
+    <td><a href="tubes.protocol._FountProducer.html#_fount" class="code" data-type="Instance Variable">_fount</a></td>
     <td>An <a href="tubes.itube.IFount.html"><code>IFount</code></a>. (type: <a href="tubes.itube.IFount.html"><code>IFount</code></a>.)</td>
   </tr><tr class="instancevariable private">
     
     <td>Instance Variable</td>
-    <td><a class="code" href="tubes.protocol._FountProducer.html#_pause">_pause</a></td>
+    <td><a href="tubes.protocol._FountProducer.html#_pause" class="code" data-type="Instance Variable">_pause</a></td>
     <td>A pause if the fount has been paused by <code>pauseProducing</code> (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a> or <a href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)</td>
   </tr>
 </table>
@@ -85,7 +89,8 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
 
       <div id="childList">
 
-        <div class="function">
+        <div class="baseinstancevariable private">
+  
   <a name="tubes.protocol._FountProducer._fount">
     
   </a>
@@ -98,7 +103,8 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
   <div class="functionBody">
     An <a href="tubes.itube.IFount.html"><code>IFount</code></a>. (type: <a href="tubes.itube.IFount.html"><code>IFount</code></a>.)
   </div>
-</div><div class="function">
+</div><div class="baseinstancevariable private">
+  
   <a name="tubes.protocol._FountProducer._pause">
     
   </a>
@@ -111,7 +117,8 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
   <div class="functionBody">
     A pause if the fount has been paused by <code>pauseProducing</code> (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a> or <a href="http://docs.python.org/library/types.html#types.NoneType"><code>types.NoneType</code></a>)
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.protocol._FountProducer.__init__">
     
   </a>
@@ -128,7 +135,8 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
     
     <div class="undocumented">Undocumented</div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.protocol._FountProducer.pauseProducing">
     
   </a>
@@ -145,7 +153,8 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
     
     <div><p>The producer has been paused.  Ensure that the fount is paused.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.protocol._FountProducer.resumeProducing">
     
   </a>
@@ -162,7 +171,8 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
     
     <div><p>The producer has been resumed.  Ensure that the fount is unpaused.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.protocol._FountProducer.stopProducing">
     
   </a>
@@ -183,9 +193,12 @@ for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</p><table clas
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-07-09 00:06:35.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
       </address>
 
     </div>
+
+    <script type="text/javascript" src="pydoctor.js"></script>
+
   </body>
 </html>

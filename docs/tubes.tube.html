@@ -21,13 +21,17 @@
       </div>
     </nav>
 
+    <div id="showPrivate">
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+    </div>
+
     <div class="container">
 
       <div class="page-header">
         <h1 class="module"><code>tubes.tube</code> <small>module documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" href="tubes.html">tubes</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a></code>
           
           
         </span>
@@ -42,45 +46,45 @@
       </div>
 
       <div id="splitTables">
-        <table id="id3" class="children sortable">
+        <table class="children sortable" id="id3">
   
   <tr class="function">
     
     <td>Function</td>
-    <td><a class="code" href="tubes.tube.html#skip">skip</a></td>
+    <td><a href="tubes.tube.html#skip" class="code" data-type="Function">skip</a></td>
     <td><span>A token value yielded by a tube meaning that its <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> should not 
 deliver this value on, so that tubes may engage in flow control.</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><a class="code" href="tubes.tube.html#tube">tube</a></td>
+    <td><a href="tubes.tube.html#tube" class="code" data-type="Function">tube</a></td>
     <td><span class="undocumented">No summary</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><a class="code" href="tubes.tube.html#receiver">receiver</a></td>
+    <td><a href="tubes.tube.html#receiver" class="code" data-type="Function">receiver</a></td>
     <td><span>Decorator for a stateless function which receives inputs.</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><a class="code" href="tubes.tube.html#series">series</a></td>
+    <td><a href="tubes.tube.html#series" class="code" data-type="Function">series</a></td>
     <td><span class="undocumented">No summary</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.tube.Diverter.html">Diverter</a></td>
+    <td><a href="tubes.tube.Diverter.html" class="code" data-type="Class">Diverter</a></td>
     <td><span>A <a href="tubes.tube.Diverter.html"><code>Diverter</code></a> is a <a href="tubes.itube.IDrain.html"><code>drain</code></a> which maintains a 
 buffer of items not yet received by its <a href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> 
 down-stream drain.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.tube._Tubule.html">_Tubule</a></td>
+    <td><a href="tubes.tube._Tubule.html" class="code" data-type="Class">_Tubule</a></td>
     <td><span>A tube created for the <code>@tube</code> decorator.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.tube._DrainingTube.html">_DrainingTube</a></td>
+    <td><a href="tubes.tube._DrainingTube.html" class="code" data-type="Class">_DrainingTube</a></td>
     <td><span>A <a href="tubes.tube._DrainingTube.html"><code>_DrainingTube</code></a>
 is an <a href="tubes.itube.ITube.html"><code>ITube</code></a> that 
 unbuffers a list of items.  It is an implementation detail of the way that 
@@ -88,7 +92,7 @@ unbuffers a list of items.  It is an implementation detail of the way that
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.tube._NullFount.html">_NullFount</a></td>
+    <td><a href="tubes.tube._NullFount.html" class="code" data-type="Class">_NullFount</a></td>
     <td><span>An <i>almost</i> no-op implementation of fount which does nothing but 
 update its <code>drain</code> to point at itself.</span></td>
   </tr>
@@ -100,7 +104,8 @@ update its <code>drain</code> to point at itself.</span></td>
 
       <div id="childList">
 
-        <div class="function">
+        <div class="basefunction">
+  
   <a name="tubes.tube.skip">
     
   </a>
@@ -118,7 +123,8 @@ update its <code>drain</code> to point at itself.</span></td>
     <div><p>A token value yielded by a tube meaning that its <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> should not 
 deliver this value on, so that tubes may engage in flow control.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="basefunction">
+  
   <a name="tubes.tube.tube">
     
   </a>
@@ -140,7 +146,8 @@ null-implementation methods (those which return None) and None
 attributes.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">cls</td><td>A class with some or all of the attributes or methods described by <a href="tubes.itube.ITube.html"><code>ITube</code></a>. (type: <a href="http://docs.python.org/library/stdtypes.html#type"><code>type</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><code>cls</code> (type: <a href="http://docs.python.org/library/stdtypes.html#type"><code>type</code></a>
 which implements <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basefunction">
+  
   <a name="tubes.tube.receiver">
     
   </a>
@@ -164,7 +171,8 @@ which implements <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></
 </pre><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">inputType</td><td>The <code>inputType</code> attribute of the resulting <a href="tubes.itube.ITube.html"><code>ITube</code></a>.</td></tr><tr><td></td><td class="fieldArg">outputType</td><td>The <code>outputType</code> attribute of the resulting <a href="tubes.itube.ITube.html"><code>ITube</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a stateless tube with the decorated method as its <code>received</code> 
 method. (type: <a href="tubes.itube.ITube.html"><code>ITube</code></a>)</td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basefunction">
+  
   <a name="tubes.tube.series">
     
   </a>
@@ -208,9 +216,12 @@ adaptable to <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</td></tr
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-07-09 00:06:35.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
       </address>
 
     </div>
+
+    <script type="text/javascript" src="pydoctor.js"></script>
+
   </body>
 </html>

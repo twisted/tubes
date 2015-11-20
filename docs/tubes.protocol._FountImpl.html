@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>tubes.protocol._FountImpl : API documentation</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="index.html">
+            tubes API Documentation
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div id="showPrivate">
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+    </div>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class private"><code>tubes.protocol._FountImpl(<span title="object">object</span>)</code> <small>class documentation</small></h1>
+
+        <span id="partOf">
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.protocol.html" class="code" data-type="Module">protocol</a></code>
+          
+          <a href="classIndex.html#tubes.protocol._FountImpl">(View In Hierarchy)</a>
+        </span>
+      </div>
+
+      <div class="extrasDocstring">
+        <p>Implements interfaces: <a href="tubes.itube.IFount.html" class="code" data-type="Interface">tubes.itube.IFount</a></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p>Implementation of fount for listening port.</p><table class="fieldTable"></table></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id19">
+  
+  <tr class="method">
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountImpl.html#__init__" class="code" data-type="Method">__init__</a></td>
+    <td><span>Create a fount implementation from a provider of <a href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>
+and a function that takes a fount and a drain.</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountImpl.html#flowTo" class="code" data-type="Method">flowTo</a></td>
+    <td><span>Start flowing to the given drain.</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountImpl.html#pauseFlow" class="code" data-type="Method">pauseFlow</a></td>
+    <td><span>Allow backpressure to build up in the listening socket; ask Twisted to 
+stop calling <code>accept</code>.</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><a href="tubes.protocol._FountImpl.html#stopFlow" class="code" data-type="Method">stopFlow</a></td>
+    <td><span>Stop the delivery of <a href="tubes.listening.Flow.html"><code>Flow</code></a> objects to this <a href="tubes.protocol._FountImpl.html"><code>_FountImpl</code></a>'s drain, 
+and stop listening on the port represented by this fount.</span></td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="basemethod">
+  
+  <a name="tubes.protocol._FountImpl.__init__">
+    
+  </a>
+  <a name="__init__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __init__(self, portObject, aFlowFunction, preListen):
+    
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Create a fount implementation from a provider of <a href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>
+and a function that takes a fount and a drain.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">portObject</td><td>the result of the <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
+from <a href="https://twistedmatrix.com/twisted.internet.interfaces.IStreamServerEndpoint.html#listen"><code>IStreamServerEndpoint.listen</code></a> (type: <a href="https://twistedmatrix.com/twisted.internet.interfaces.IListeningPort.html"><code>IListeningPort</code></a>
+and <a href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>
+provider (probably; workarounds are in place for other cases))</td></tr><tr><td></td><td class="fieldArg">aFlowFunction</td><td>a 2-argument callable, invoked when a connection arrives, with a fount and 
+drain. (type: <a href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)</td></tr><tr><td></td><td class="fieldArg">preListen</td><td>the founts and drains accepted before the <code>listen</code> <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
+has fired.  Because these might be arriving before this <a href="tubes.protocol._FountImpl.html"><code>_FountImpl</code></a> even 
+<i>exists</i>, this needs to be passed in.  That is OK because <a href="tubes.protocol._FountImpl.html"><code>_FountImpl</code></a> is very 
+tightly coupled to <a href="tubes.protocol.html#flowFountFromEndpoint"><code>flowFountFromEndpoint</code></a>,
+which is the only thing that constructs it. (type: <a href="http://docs.python.org/library/stdtypes.html#list"><code>list</code></a>
+of 2-<a href="http://docs.python.org/library/stdtypes.html#tuple"><code>tuple</code></a>s
+of <code>(fount, drain)</code>)</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="tubes.protocol._FountImpl.flowTo">
+    
+  </a>
+  <a name="flowTo">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    flowTo(self, drain):
+    
+  </div>
+  <div class="docstring functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo" class="code" data-type="Method">tubes.itube.IFount</a></div>
+    <div><p>Start flowing to the given drain.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>The drain to send flows to.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the next fount in the chain.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="tubes.protocol._FountImpl.pauseFlow">
+    
+  </a>
+  <a name="pauseFlow">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    pauseFlow(self):
+    
+  </div>
+  <div class="docstring functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow" class="code" data-type="Method">tubes.itube.IFount</a></div>
+    <div><p>Allow backpressure to build up in the listening socket; ask Twisted to 
+stop calling <code>accept</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">An <a href="tubes.itube.IPause.html"><code>IPause</code></a>.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="tubes.protocol._FountImpl.stopFlow">
+    
+  </a>
+  <a name="stopFlow">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    stopFlow(self):
+    
+  </div>
+  <div class="docstring functionBody">
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow" class="code" data-type="Method">tubes.itube.IFount</a></div>
+    <div><p>Stop the delivery of <a href="tubes.listening.Flow.html"><code>Flow</code></a> objects to this <a href="tubes.protocol._FountImpl.html"><code>_FountImpl</code></a>'s drain, 
+and stop listening on the port represented by this fount.</p><table class="fieldTable"></table></div>
+  </div>
+</div>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
+      </address>
+
+    </div>
+
+    <script type="text/javascript" src="pydoctor.js"></script>
+
+  </body>
+</html>

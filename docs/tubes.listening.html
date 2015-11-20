@@ -3,7 +3,7 @@
           "DTD/xhtml1-strict.dtd">
 <html>
   <head>
-    <title>tubes.itube.ISegment : API documentation</title>
+    <title>tubes.listening : API documentation</title>
 
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
@@ -28,12 +28,12 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="interface"><code>tubes.itube.ISegment(<span title="zope.interface.Interface">Interface</span>)</code> <small>interface documentation</small></h1>
+        <h1 class="module"><code>tubes.listening</code> <small>module documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.itube.html" class="code" data-type="Module">itube</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a></code>
           
-          <a href="classIndex.html#tubes.itube.ISegment">(View In Hierarchy)</a>
+          
         </span>
       </div>
 
@@ -42,13 +42,33 @@
       </div>
 
       <div class="moduleDocstring">
-        <div><p>This is a marker interface for a <a href="http://docs.python.org/library/stdtypes.html#bytes"><code>bytes</code></a>
-which represents the arbitrarily-sized segments of data that a 
-stream-oriented protocol may deliver; contrast with <a href="tubes.itube.IFrame.html"><code>IFrame</code></a>.</p><table class="fieldTable"></table></div>
+        <div><p>Listening.</p><table class="fieldTable"></table></div>
       </div>
 
       <div id="splitTables">
-        
+        <table class="children sortable" id="id24">
+  
+  <tr class="class">
+    
+    <td>Class</td>
+    <td><a href="tubes.listening.Flow.html" class="code" data-type="Class">Flow</a></td>
+    <td><span>A <a href="tubes.listening.Flow.html"><code>Flow</code></a> is a 
+combination of a Fount and a Drain, representing a bi-directional 
+communication channel such as a TCP connection.</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><a href="tubes.listening.Listener.html" class="code" data-type="Class">Listener</a></td>
+    <td><span>A <a href="tubes.listening.Listener.html"><code>Listener</code></a> is a
+drain that accepts <a href="tubes.listening.Flow.html"><code>Flow</code></a>s and sets them 
+up.</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><a href="tubes.listening._OnStop.html" class="code" data-type="Class">_OnStop</a></td>
+    <td><span>Call a callback when the flow stops.</span></td>
+  </tr>
+</table>
         
 
           

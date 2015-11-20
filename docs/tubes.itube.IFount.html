@@ -21,20 +21,24 @@
       </div>
     </nav>
 
+    <div id="showPrivate">
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+    </div>
+
     <div class="container">
 
       <div class="page-header">
         <h1 class="interface"><code>tubes.itube.IFount(<span title="zope.interface.Interface">Interface</span>)</code> <small>interface documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" href="tubes.html">tubes</a>.<a class="code" href="tubes.itube.html">itube</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.itube.html" class="code" data-type="Module">itube</a></code>
           
           <a href="classIndex.html#tubes.itube.IFount">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Known implementations: <a class="code" href="tubes._siphon._SiphonFount.html">tubes._siphon._SiphonFount</a>, <a class="code" href="tubes.fan._InFount.html">tubes.fan._InFount</a>, <a class="code" href="tubes.fan._OutFount.html">tubes.fan._OutFount</a>, <a class="code" href="tubes.protocol._TransportFount.html">tubes.protocol._TransportFount</a>, <a class="code" href="tubes.tube._NullFount.html">tubes.tube._NullFount</a></p>
+        <p>Known implementations: <a href="tubes._siphon._SiphonFount.html" class="code" data-type="Class">tubes._siphon._SiphonFount</a>, <a href="tubes.fan._InFount.html" class="code" data-type="Class">tubes.fan._InFount</a>, <a href="tubes.fan._OutFount.html" class="code" data-type="Class">tubes.fan._OutFount</a>, <a href="tubes.protocol._FountImpl.html" class="code" data-type="Class">tubes.protocol._FountImpl</a>, <a href="tubes.protocol._TransportFount.html" class="code" data-type="Class">tubes.protocol._TransportFount</a>, <a href="tubes.tube._NullFount.html" class="code" data-type="Class">tubes.tube._NullFount</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -42,17 +46,17 @@
       </div>
 
       <div id="splitTables">
-        <table id="id28" class="children sortable">
+        <table class="children sortable" id="id35">
   
   <tr class="attribute">
     
     <td>Attribute</td>
-    <td><a class="code" href="tubes.itube.IFount.html#outputType">outputType</a></td>
+    <td><a href="tubes.itube.IFount.html#outputType" class="code" data-type="Attribute">outputType</a></td>
     <td><span>The type of output produced by this Fount.</span></td>
   </tr><tr class="attribute">
     
     <td>Attribute</td>
-    <td><a class="code" href="tubes.itube.IFount.html#drain">drain</a></td>
+    <td><a href="tubes.itube.IFount.html#drain" class="code" data-type="Attribute">drain</a></td>
     <td><span>The <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> currently 
 accepting input from this <a href="tubes.itube.IFount.html"><code>IFount</code></a>. (Read-only; should 
 raise <a href="http://docs.python.org/library/exceptions.html#exceptions.AttributeError"><code>AttributeError</code></a>
@@ -60,18 +64,18 @@ if set.)</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.itube.IFount.html#flowTo">flowTo</a></td>
+    <td><a href="tubes.itube.IFount.html#flowTo" class="code" data-type="Method">flowTo</a></td>
     <td><span>Add a drain to this fount to consume its output.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.itube.IFount.html#pauseFlow">pauseFlow</a></td>
+    <td><a href="tubes.itube.IFount.html#pauseFlow" class="code" data-type="Method">pauseFlow</a></td>
     <td><span>Temporarily refrain from delivery of items to this <a href="tubes.itube.IFount.html"><code>IFount</code></a>'s <code>drain</code>
 attribute.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" href="tubes.itube.IFount.html#stopFlow">stopFlow</a></td>
+    <td><a href="tubes.itube.IFount.html#stopFlow" class="code" data-type="Method">stopFlow</a></td>
     <td><span class="undocumented">No summary</span></td>
   </tr>
 </table>
@@ -82,7 +86,8 @@ attribute.</span></td>
 
       <div id="childList">
 
-        <div class="function">
+        <div class="baseattribute">
+  
   <a name="tubes.itube.IFount.outputType">
     
   </a>
@@ -94,10 +99,11 @@ attribute.</span></td>
   </div>
   <div class="functionBody">
     <div><p>The type of output produced by this Fount.</p>
-<p>This may be an <a href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>
+<p>This may be an <a href="https://zope.org/zope.interface.interfaces.ISpecification.html"><code>ISpecification</code></a>
 provider.</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="baseattribute">
+  
   <a name="tubes.itube.IFount.drain">
     
   </a>
@@ -113,7 +119,8 @@ accepting input from this <a href="tubes.itube.IFount.html"><code>IFount</code><
 raise <a href="http://docs.python.org/library/exceptions.html#exceptions.AttributeError"><code>AttributeError</code></a>
 if set.)</p><table class="fieldTable"></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.itube.IFount.flowTo">
     
   </a>
@@ -145,7 +152,8 @@ or <code>None</code>.  By convention, this will return the value of
 <code>outputType</code> (however, other transformations are allowed).</td></tr><tr class="fieldStart"><td class="fieldName">Raises</td><td class="fieldArg">AlreadyDraining</td><td>if there is already a drain (i.e.  <code>flowTo</code> has already been 
 called on this <a href="tubes.itube.IFount.html"><code>IFount</code></a>.)</td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.itube.IFount.pauseFlow">
     
   </a>
@@ -166,7 +174,8 @@ be used to remove the impediment to this <a href="tubes.itube.IFount.html"><code
 by this call to <code>pauseFlow</code>.  Multiple calls will result in 
 multiple tokens, all of which must be unpaused for the flow to resume. (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a>)</td></tr></table></div>
   </div>
-</div><div class="function">
+</div><div class="basemethod">
+  
   <a name="tubes.itube.IFount.stopFlow">
     
   </a>
@@ -192,9 +201,12 @@ have been released.</p><table class="fieldTable"></table></div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-07-09 00:06:35.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
       </address>
 
     </div>
+
+    <script type="text/javascript" src="pydoctor.js"></script>
+
   </body>
 </html>

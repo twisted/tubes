@@ -21,13 +21,17 @@
       </div>
     </nav>
 
+    <div id="showPrivate">
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+    </div>
+
     <div class="container">
 
       <div class="page-header">
         <h1 class="module"><code>tubes.protocol</code> <small>module documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" href="tubes.html">tubes</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a></code>
           
           
         </span>
@@ -39,28 +43,36 @@
 
       <div class="moduleDocstring">
         <div><p>Objects to connect <a href="https://twistedmatrix.com/twisted.internet.protocol.Protocol.html"><code>real
-data</code></a> to <a href="tubes.html"><code>tubes</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2"><a href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a></td></tr></table></div>
+data</code></a> to <a href="tubes.html"><code>tubes</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">See Also</td><td colspan="2"><a href="tubes.protocol.html#flowFountFromEndpoint"><code>flowFountFromEndpoint</code></a></td></tr></table></div>
       </div>
 
       <div id="splitTables">
-        <table id="id12" class="children sortable">
+        <table class="children sortable" id="id12">
   
   <tr class="function">
     
     <td>Function</td>
-    <td><a class="code" href="tubes.protocol.html#factoryFromFlow">factoryFromFlow</a></td>
-    <td><span>Convert a flow function into an <a href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>.</span></td>
+    <td><a href="tubes.protocol.html#flowFountFromEndpoint" class="code" data-type="Function">flowFountFromEndpoint</a></td>
+    <td><span>Listen on the given endpoint, and thereby create a <a href="tubes.itube.IFount.html"><code>fount</code></a> which outputs a new 
+<a href="tubes.listening.Flow.html"><code>Flow</code></a> for each 
+connection.</span></td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><a href="tubes.protocol.html#flowFromEndpoint" class="code" data-type="Function">flowFromEndpoint</a></td>
+    <td><span>Convert a client endpoint into a <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
+that fires with a <a href="tubes.listening.Flow.html"><code>Flow</code></a>.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.protocol._FountProducer.html">_FountProducer</a></td>
+    <td><a href="tubes.protocol._FountProducer.html" class="code" data-type="Class">_FountProducer</a></td>
     <td><span>A <a href="tubes.protocol._FountProducer.html"><code>_FountProducer</code></a> 
 is an adapter to <a href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>
 for an <a href="tubes.itube.IFount.html"><code>IFount</code></a>.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.protocol._TransportDrain.html">_TransportDrain</a></td>
+    <td><a href="tubes.protocol._TransportDrain.html" class="code" data-type="Class">_TransportDrain</a></td>
     <td><span>A <a href="tubes.protocol._TransportDrain.html"><code>_TransportDrain</code></a>
 is an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> that wraps 
 around an object that provides <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
@@ -70,7 +82,7 @@ the consumer.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.protocol._TransportFount.html">_TransportFount</a></td>
+    <td><a href="tubes.protocol._TransportFount.html" class="code" data-type="Class">_TransportFount</a></td>
     <td><span>An <a href="tubes.itube.IFount.html"><code>IFount</code></a> that wraps 
 around an <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>,
 and, with the help of a <a href="tubes.protocol._ProtocolPlumbing.html"><code>_ProtocolPlumbing</code></a>,
@@ -79,9 +91,19 @@ to an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a>.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes.protocol._ProtocolPlumbing.html">_ProtocolPlumbing</a></td>
+    <td><a href="tubes.protocol._ProtocolPlumbing.html" class="code" data-type="Class">_ProtocolPlumbing</a></td>
     <td><span>An adapter between an <a href="https://twistedmatrix.com/twisted.internet.interfaces.ITransport.html"><code>ITransport</code></a>
 and <a href="tubes.itube.IFount.html"><code>IFount</code></a> / <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> interfaces.</span></td>
+  </tr><tr class="function private">
+    
+    <td>Function</td>
+    <td><a href="tubes.protocol.html#_factoryFromFlow" class="code" data-type="Function">_factoryFromFlow</a></td>
+    <td><span>Convert a flow function into an <a href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>.</span></td>
+  </tr><tr class="class private">
+    
+    <td>Class</td>
+    <td><a href="tubes.protocol._FountImpl.html" class="code" data-type="Class">_FountImpl</a></td>
+    <td><span>Implementation of fount for listening port.</span></td>
   </tr>
 </table>
         
@@ -91,35 +113,93 @@ and <a href="tubes.itube.IFount.html"><code>IFount</code></a> / <a href="tubes.i
 
       <div id="childList">
 
-        <div class="function">
-  <a name="tubes.protocol.factoryFromFlow">
+        <div class="basefunction private">
+  
+  <a name="tubes.protocol._factoryFromFlow">
     
   </a>
-  <a name="factoryFromFlow">
+  <a name="_factoryFromFlow">
     
   </a>
   <div class="functionHeader">
     
     def
-    factoryFromFlow(flow):
+    _factoryFromFlow(flow):
     
   </div>
   <div class="docstring functionBody">
     
     <div><p>Convert a flow function into an <a href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>.</p>
 <p>A "flow function" is a function which takes a <a href="tubes.itube.IFount.html"><code>fount</code></a> and an <a href="tubes.itube.IDrain.html"><code>drain</code></a>.</p>
-<p><a href="tubes.protocol.html#factoryFromFlow"><code>factoryFromFlow</code></a>
+<p><a href="tubes.protocol.html#_factoryFromFlow"><code>_factoryFromFlow</code></a>
 takes such a function and creates an <a href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>
 which, upon each new connection, provides the flow function with an <a href="tubes.itube.IFount.html"><code>IFount</code></a> and an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> representing the 
 read end and the write end of the incoming connection, respectively.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">flow</td><td>a 2-argument callable, taking (fount, drain). (type: <a href="http://docs.python.org/library/functions.html#callable"><code>callable</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a protocol factory. (type: <a href="https://twistedmatrix.com/twisted.internet.interfaces.IProtocolFactory.html"><code>IProtocolFactory</code></a>)</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="tubes.protocol.flowFountFromEndpoint">
+    
+  </a>
+  <a name="flowFountFromEndpoint">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    flowFountFromEndpoint(endpoint):
+    
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Listen on the given endpoint, and thereby create a <a href="tubes.itube.IFount.html"><code>fount</code></a> which outputs a new 
+<a href="tubes.listening.Flow.html"><code>Flow</code></a> for each 
+connection.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">endpoint</td><td>a server endpoint. (type: <a href="https://twistedmatrix.com/twisted.internet.interfaces.IStreamServerEndpoint.html"><code>IStreamServerEndpoint</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>twisted.internet.defer.Deferred</code></a>
+that fires with a <a href="tubes.itube.IFount.html"><code>IFount</code></a>
+whose <code>outputType</code> is <a href="tubes.listening.Flow.html"><code>Flow</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Note</td><td colspan="2"><a href="https://twistedmatrix.com/twisted.internet.interfaces.IStreamServerEndpoint.html"><code>IStreamServerEndpoint</code></a>
+formally specifies that its <code>connect</code> method returns a <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
+that fires with an <a href="https://twistedmatrix.com/twisted.internet.interfaces.IListeningPort.html"><code>IListeningPort</code></a>.
+However, <a href="https://twistedmatrix.com/twisted.internet.interfaces.IListeningPort.html"><code>IListeningPort</code></a>
+is insufficient to express the requisite flow-control to implement a fount;
+so the <code>endpoint</code> parameter must be an extended endpoint whose 
+<code>listen</code> <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
+fires with a provider of both <a href="https://twistedmatrix.com/twisted.internet.interfaces.IListeningPort.html"><code>IListeningPort</code></a>
+and <a href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>.
+Luckily, the real-world implementations of <a href="https://twistedmatrix.com/twisted.internet.interfaces.IListeningPort.html"><code>IListeningPort</code></a>
+within Twisted are all <a href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>s
+as well, so practically speaking you will not notice this, but for testing 
+it is important to know this is necessary.</td></tr></table></div>
+  </div>
+</div><div class="basefunction">
+  
+  <a name="tubes.protocol.flowFromEndpoint">
+    
+  </a>
+  <a name="flowFromEndpoint">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    flowFromEndpoint(endpoint):
+    
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Convert a client endpoint into a <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
+that fires with a <a href="tubes.listening.Flow.html"><code>Flow</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">endpoint</td><td>a client endpoint that will be connected to, once.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a <a href="https://twistedmatrix.com/twisted.internet.defer.Deferred.html"><code>Deferred</code></a>
+that fires with a <a href="tubes.listening.Flow.html"><code>Flow</code></a>.</td></tr></table></div>
   </div>
 </div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-07-09 00:06:35.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
       </address>
 
     </div>
+
+    <script type="text/javascript" src="pydoctor.js"></script>
+
   </body>
 </html>

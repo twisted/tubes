@@ -11,7 +11,7 @@ def main(reactor, listen="tcp:4321", connect="tcp:localhost:6543"):
 
     def incoming(listening):
         def outgoing(connecting):
-            listening.fount.flowTo(connecting)
+            listening.fount.flowTo(connecting.drain)
             connecting.fount.flowTo(listening.drain)
         flowFromEndpoint(clientEndpoint).addCallback(outgoing)
     flowFount = yield flowFountFromEndpoint(serverEndpoint)

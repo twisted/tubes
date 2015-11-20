@@ -350,7 +350,8 @@ class _FountImpl(object):
         """
         self.drain.flowStopped(Failure(StopFlowCalled()))
         self.drain = None
-        self._portObject.stopListening()
+        if IListeningPort.providedBy(self._portObject):
+            self._portObject.stopListening()
 
 
 

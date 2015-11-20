@@ -364,7 +364,7 @@ class _FountImpl(object):
 
     def stopFlow(self):
         """
-        Stop the delivery of L{Flow} objects to this L{_FlowImpl}'s drain, and
+        Stop the delivery of L{Flow} objects to this L{_FountImpl}'s drain, and
         stop listening on the port represented by this fount.
         """
         self.drain.flowStopped(Failure(StopFlowCalled()))

@@ -309,6 +309,15 @@ class _FountImpl(object):
         """
         Create a fount implementation from a provider of L{IPushProducer} and a
         function that takes a fount and a drain.
+
+        @param portObject: the result of the L{Deferred} from
+            L{IStreamServerEndpoint.listen}
+        @type portObject: L{IListeningPort} and L{IPushProducer} provider
+            (probably; workarounds are in place for other cases)
+
+        @param aFlowFunction: a 2-argument callable, invoked when a connection
+            arrives, with a fount and drain.
+        @type aFlowFunction: L{callable}
         """
         self.drain = None
         def pause():

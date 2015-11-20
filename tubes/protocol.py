@@ -32,8 +32,6 @@ if 0:
     )
     (IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
      IStreamServerEndpoint)
-    from twisted.python.failure import Failure
-    Failure
     from twisted.internet.defer import Deferred
     Deferred
 

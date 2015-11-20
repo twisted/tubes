@@ -320,12 +320,9 @@ class _FountImpl(object):
         @type aFlowFunction: L{callable}
         """
         self.drain = None
-        def pause():
-            portObject.pauseProducing()
-        def unpause():
-            portObject.resumeProducing()
-        self._pauser = Pauser(pause, unpause)
         self._preListen = preListen
+        self._pauser = Pauser(portObject.pauseProducing,
+                              portObject.resumeProducing)
         self._aFlowFunction = aFlowFunction
         self._portObject = portObject
 

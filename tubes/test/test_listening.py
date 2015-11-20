@@ -10,10 +10,10 @@ from unittest import TestCase
 
 from zope.interface import implementer
 
-from tubes.listening import Flow
-from tubes.listening import Listener
-from tubes.memory import iteratorFount
-from tubes.itube import IDrain
+from ..listening import Flow
+from ..listening import Listener
+from ..memory import iteratorFount
+from ..itube import IDrain
 
 @implementer(IDrain)
 class Collector(object):

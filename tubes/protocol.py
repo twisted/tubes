@@ -361,6 +361,16 @@ def flowFountFromEndpoint(endpoint):
     Listen on the given endpoint, and thereby create a L{fount <IFount>} which
     outputs a new L{Flow} for each connection.
 
+    @note: L{IStreamServerEndpoint} formally specifies that its C{connect}
+        method returns a L{Deferred} that fires with an L{IListeningPort}.
+        However, L{IListeningPort} is insufficient to express the requisite
+        flow-control to implement a fount; so the C{endpoint} parameter must be
+        an extended endpoint whose C{listen} L{Deferred} fires with a provider
+        of both L{IListeningPort} and L{IPushProducer}.  Luckily, the
+        real-world implementations of L{IListeningPort} within Twisted are all
+        L{IPushProducer}s as well, so practically speaking you will not notice
+        this, but for testing it is important to know this is necessary.
+
     @param endpoint: a server endpoint.
     @type endpoint: L{IStreamServerEndpoint}
 

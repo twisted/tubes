@@ -354,7 +354,8 @@ class _FountImpl(object):
 
     def pauseFlow(self):
         """
-        Pause.
+        Allow backpressure to build up in the listening socket; ask Twisted to
+        stop calling C{accept}.
 
         @return: An L{IPause}.
         """
@@ -363,7 +364,8 @@ class _FountImpl(object):
 
     def stopFlow(self):
         """
-        Stop flow.
+        Stop the delivery of L{Flow} objects to this L{_FlowImpl}'s drain, and
+        stop listening on the port represented by this fount.
         """
         self.drain.flowStopped(Failure(StopFlowCalled()))
         self.drain = None

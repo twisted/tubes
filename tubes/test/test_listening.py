@@ -8,8 +8,7 @@ Tests for L{tubes.listening}.
 
 from unittest import TestCase
 
-from ..listening import Flow
-from ..listening import Listener
+from ..listening import Flow, Listener
 from ..memory import iteratorFount
 
 from .util import FakeDrain

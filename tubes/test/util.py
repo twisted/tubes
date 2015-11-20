@@ -364,6 +364,13 @@ class FakeListeningProducerPort(object):
         return self.stopper
 
 
+    def stopProducing(self):
+        """
+        Stop producing more data.
+        """
+        self.stopListening()
+
+
     def getHost(self):
         """
         Get the host that this port is listening for.
@@ -371,6 +378,8 @@ class FakeListeningProducerPort(object):
         @return: An L{IAddress} provider.
         """
 
+verifyClass(IListeningPort, FakeListeningProducerPort)
+verifyClass(IPushProducer, FakeListeningProducerPort)
 
 
 @implementer(IStreamServerEndpoint)
@@ -409,3 +418,5 @@ class FakeEndpoint(object):
             self._ports.append(result)
             return result
         return self._listening[-1].addCallback(newListener)
+
+verifyClass(IStreamServerEndpoint, FakeEndpoint)

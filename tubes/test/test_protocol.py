@@ -6,17 +6,20 @@
 Tests for L{tubes.protocol}.
 """
 
+from zope.interface import implementer
+
 from twisted.trial.unittest import SynchronousTestCase as TestCase
 
 from twisted.python.failure import Failure
 from twisted.test.proto_helpers import StringTransport
+from twisted.internet.interfaces import IStreamServerEndpoint
 
 from ..protocol import flowFountFromEndpoint, flowFromEndpoint
 from ..tube import tube, series
 from ..listening import Flow, Listener
 from ..itube import IFount
 
-from .util import StringEndpoint, FakeDrain, FakeFount, FakeEndpoint
+from .util import StringEndpoint, FakeDrain, FakeFount, fakeEndpointWithPorts
 
 @tube
 class RememberingTube(object):
@@ -312,7 +315,7 @@ class FlowListenerTests(TestCase):
         L{flowFountFromEndpoint} returns a L{Deferred} that fires when the
         listening port is ready.
         """
-        endpoint = FakeEndpoint()
+        endpoint, ports = fakeEndpointWithPorts()
         deferred = flowFountFromEndpoint(endpoint)
         self.assertNoResult(deferred)
         deferred.callback(None)
@@ -326,14 +329,14 @@ class FlowListenerTests(TestCase):
         When a connection comes in to a listening L{flowFountFromEndpoint}, the
         L{Listener} that it's flowing to's callback is called.
         """
-        endpoint = FakeEndpoint()
+        endpoint, ports = fakeEndpointWithPorts()
         deferred = flowFountFromEndpoint(endpoint)
         self.assertNoResult(deferred)
         deferred.callback(None)
         result = self.successResultOf(deferred)
         connected = []
         result.flowTo(Listener(connected.append))
-        protocol = endpoint._ports[0].factory.buildProtocol(None)
+        protocol = ports[0].factory.buildProtocol(None)
         self.assertEqual(len(connected), 0)
         protocol.makeConnection(StringTransport())
         self.assertEqual(len(connected), 1)
@@ -346,19 +349,21 @@ class FlowListenerTests(TestCase):
         connection will be buffered until said L{Deferred} fires.
         """
         immediateTransport = StringTransport()
-        class ImmediateFakeEndpoint(FakeEndpoint):
+        subEndpoint, ports = fakeEndpointWithPorts()
+        @implementer(IStreamServerEndpoint)
+        class ImmediateFakeEndpoint(object):
             def listen(self, factory):
                 protocol = factory.buildProtocol(None)
                 protocol.makeConnection(immediateTransport)
-                return super(ImmediateFakeEndpoint, self).listen(factory)
+                return subEndpoint.listen(factory)
         endpoint = ImmediateFakeEndpoint()
         deferred = flowFountFromEndpoint(endpoint)
         deferred.callback(None)
         fount = self.successResultOf(deferred)
         connected = []
-        self.assertEqual(endpoint._ports[0].currentlyProducing, False)
+        self.assertEqual(ports[0].currentlyProducing, False)
         fount.flowTo(Listener(connected.append))
-        self.assertEqual(endpoint._ports[0].currentlyProducing, True)
+        self.assertEqual(ports[0].currentlyProducing, True)
         self.assertEqual(len(connected), 1)
 
 
@@ -368,15 +373,15 @@ class FlowListenerTests(TestCase):
         removes its listening port from the reactor.  When resumed, it re-adds
         it.
         """
-        endpoint = FakeEndpoint()
+        endpoint, ports = fakeEndpointWithPorts()
         deferred = flowFountFromEndpoint(endpoint)
         deferred.callback(None)
         fount = self.successResultOf(deferred)
         fount.flowTo(FakeDrain())
         pause = fount.pauseFlow()
-        self.assertEqual(endpoint._ports[0].currentlyProducing, False)
+        self.assertEqual(ports[0].currentlyProducing, False)
         pause.unpause()
-        self.assertEqual(endpoint._ports[0].currentlyProducing, True)
+        self.assertEqual(ports[0].currentlyProducing, True)
 
 
     def test_stopping(self):
@@ -384,12 +389,12 @@ class FlowListenerTests(TestCase):
         The L{IFount} returned by L{flowFountFromEndpoint} will stop listening
         on the endpoint
         """
-        endpoint = FakeEndpoint()
+        endpoint, ports = fakeEndpointWithPorts()
         deferred = flowFountFromEndpoint(endpoint)
         deferred.callback(None)
         fount = self.successResultOf(deferred)
         fd = FakeDrain()
         fount.flowTo(fd)
         fount.stopFlow()
-        self.assertEqual(endpoint._ports[0].listenStopping, True)
+        self.assertEqual(ports[0].listenStopping, True)
         self.assertEqual(len(fd.stopped), 1)

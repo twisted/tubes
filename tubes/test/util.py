@@ -419,4 +419,16 @@ class FakeEndpoint(object):
             return result
         return self._listening[-1].addCallback(newListener)
 
+
+def fakeEndpointWithPorts():
+    """
+    Create a L{FakeEndpoint} and expose the list of ports that it uses.
+
+    @return: a fake endpoint and a list of the ports it has listened on
+    @rtype: a 2-tuple of C{(endpoint, ports)}, where C{ports} is a L{list} of
+        L{IListeningPort}.
+    """
+    self = FakeEndpoint()
+    return self, self._ports
+
 verifyClass(IStreamServerEndpoint, FakeEndpoint)

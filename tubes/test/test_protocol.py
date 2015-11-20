@@ -441,6 +441,27 @@ class FlowListenerTests(TestCase):
         self.assertEqual(len(connected), 1)
 
 
+    def test_acceptBeforeActuallyListening(self):
+        """
+        Sometimes a connection is established reentrantly by C{listen}, without
+        waiting for the L{Deferred} returned to fire.  In this case the
+        connection will be buffered until said L{Deferred} fires.
+        """
+        immediateTransport = StringTransport()
+        class ImmediateFakeEndpoint(FakeEndpoint):
+            def listen(self, factory):
+                protocol = factory.buildProtocol(None)
+                protocol.makeConnection(immediateTransport)
+                return super(ImmediateFakeEndpoint, self).listen(factory)
+        deferred = flowFountFromEndpoint(ImmediateFakeEndpoint())
+        deferred.callback(None)
+        fount = self.successResultOf(deferred)
+        # self.assertEqual(immediateTransport.producerState, "paused")
+        connected = []
+        fount.flowTo(Listener(connected.append))
+        self.assertEqual(len(connected), 1)
+
+
     def test_backpressure(self):
         """
         When the L{IFount} returned by L{flowFountFromEndpoint} is paused, it

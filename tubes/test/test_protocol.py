@@ -11,7 +11,9 @@ from zope.interface import implementer
 from twisted.trial.unittest import SynchronousTestCase as TestCase
 
 from twisted.python.failure import Failure
-from twisted.internet.interfaces import IStreamServerEndpoint, IListeningPort
+from twisted.internet.interfaces import (
+    IStreamServerEndpoint, IListeningPort, IPushProducer
+)
 from twisted.internet.defer import Deferred
 from twisted.test.proto_helpers import StringTransport
 
@@ -306,7 +308,7 @@ class FlowConnectorTests(TestCase):
 
 
 
-@implementer(IListeningPort)
+@implementer(IListeningPort, IPushProducer)
 class FakeListeningPortWithExtras(object):
     """
     This is a fake L{IListeningPort}, with the extra

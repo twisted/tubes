@@ -62,9 +62,15 @@ class Listener(object):
 
     def flowingFrom(self, fount):
         """
-        FIXME: DOCS
+        The flow has begun from the given L{fount} of L{Flow}s.
 
-        @param fount: DOCS
+        @param fount: A fount of flows.  One example of such a suitable fount
+            would be the return value of
+            L{tubes.protocol.flowFountFromEndpoint}.
+
+        @return: L{None}, since this is a "terminal" drain, where founts of
+            L{Flow} must end up in order for more new connections to be
+            established.
         """
         beginFlowingFrom(self, fount)
 

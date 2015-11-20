@@ -317,6 +317,14 @@ class _FountImpl(object):
         @param aFlowFunction: a 2-argument callable, invoked when a connection
             arrives, with a fount and drain.
         @type aFlowFunction: L{callable}
+
+        @param preListen: the founts and drains accepted before the C{listen}
+            L{Deferred} has fired.  Because these might be arriving before this
+            L{_FountImpl} even I{exists}, this needs to be passed in.  That is
+            OK because L{_FountImpl} is very tightly coupled to
+            L{flowFountFromEndpoint}, which is the only thing that constructs
+            it.
+        @type preListen: L{list} of 2-L{tuple}s of C{(fount, drain)}
         """
         self.drain = None
         self._preListen = preListen

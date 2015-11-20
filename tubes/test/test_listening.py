@@ -8,51 +8,11 @@ Tests for L{tubes.listening}.
 
 from unittest import TestCase
 
-from zope.interface import implementer
-
 from ..listening import Flow
 from ..listening import Listener
 from ..memory import iteratorFount
-from ..itube import IDrain
 
-@implementer(IDrain)
-class Collector(object):
-    """
-    A drain that collects all its inputs.
-    """
-    inputType = None
-
-    fount = None
-
-    def __init__(self):
-        self.collected = []
-
-
-    def flowingFrom(self, fount):
-        """
-        Start receiving input from the given fount
-
-        @param fount: a fount
-        """
-
-
-    def receive(self, item):
-        """
-        Receive the given item.
-
-        @param item: an input
-        """
-        self.collected.append(item)
-
-
-    def flowStopped(self, reason):
-        """
-        flow stopped!
-
-        @param reason: the reason
-        """
-
-
+from .util import FakeDrain
 
 class ListeningTests(TestCase):
     """
@@ -64,7 +24,7 @@ class ListeningTests(TestCase):
         A L{Listener} is a drain which calls the function given to it to
         connect a flow
         """
-        drained = Collector()
+        drained = FakeDrain()
         flow = Flow(iteratorFount([1, 2, 3]),
                     drained)
         flows = []
@@ -72,14 +32,14 @@ class ListeningTests(TestCase):
         listener = Listener(flows.append)
         fi.flowTo(listener)
         self.assertEqual(len(flows), 1)
-        results = Collector()
+        results = FakeDrain()
         flows[0].fount.flowTo(results)
         # The listener might need to (and in fact does) interpose a different
         # value for 'fount' and 'drain' to add hooks to them.  We assert about
         # the values passed through them.
-        self.assertEqual(results.collected, [1, 2, 3])
+        self.assertEqual(results.received, [1, 2, 3])
         iteratorFount([4, 5, 6]).flowTo(flows[0].drain)
-        self.assertEqual(drained.collected, [4, 5, 6])
+        self.assertEqual(drained.received, [4, 5, 6])
 
 
     def test_listenerLimitsConcurrentConnections(self):
@@ -90,7 +50,7 @@ class ListeningTests(TestCase):
         connectorCalled = []
         listener = Listener(connectorCalled.append, maxConnections=3)
         tenFlows = iteratorFount([Flow(iteratorFount([1, 2, 3]),
-                                       Collector())
+                                       FakeDrain())
                                   for each in range(10)])
         tenFlows.flowTo(listener)
         self.assertEqual(len(connectorCalled), 3)

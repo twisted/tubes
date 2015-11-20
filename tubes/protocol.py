@@ -21,17 +21,17 @@ from .itube import IDrain, IFount, ISegment
 from .listening import Flow
 
 from twisted.python.failure import Failure
-from twisted.internet.interfaces import IPushProducer
+from twisted.internet.interfaces import IPushProducer, IListeningPort
 from twisted.internet.protocol import Protocol as _Protocol
 
 if 0:
     # Workaround for inability of pydoctor to resolve references.
     from twisted.internet.interfaces import (
         IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
-        IStreamServerEndpoint, IListeningPort
+        IStreamServerEndpoint
     )
     (IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
-     IStreamServerEndpoint, IListeningPort)
+     IStreamServerEndpoint)
     from twisted.internet.defer import Deferred
     Deferred
 
@@ -305,7 +305,7 @@ class _FountImpl(object):
 
     outputType = implementedBy(Flow)
 
-    def __init__(self, portObject, aFlowFunction):
+    def __init__(self, portObject, aFlowFunction, preListen):
         """
         Create a fount implementation from a provider of L{IPushProducer} and a
         function that takes a fount and a drain.
@@ -316,7 +316,7 @@ class _FountImpl(object):
         def unpause():
             portObject.resumeProducing()
         self._pauser = Pauser(pause, unpause)
-        self._preListen = []
+        self._preListen = preListen
         self._aFlowFunction = aFlowFunction
         self._portObject = portObject
 
@@ -375,15 +375,16 @@ def flowFountFromEndpoint(endpoint):
     @return: a L{twisted.internet.defer.Deferred} that fires with a L{IFount}
         whose C{outputType} is L{Flow}.
     """
+    preListen = []
     def listening(portObject):
-        listening.impl = _FountImpl(portObject, aFlowFunction)
+        listening.impl = _FountImpl(portObject, aFlowFunction, preListen)
         return listening.impl
     listening.impl = None
     def aFlowFunction(fount, drain):
-        if listening.impl is not None:
+        if listening.impl is not None and listening.impl.drain is not None:
             listening.impl.drain.receive(Flow(fount, drain))
         else:
-            listening.impl._preListen.append((fount, drain))
+            preListen.append((fount, drain))
     aFactory = _factoryFromFlow(aFlowFunction)
     return endpoint.listen(aFactory).addCallback(listening)
 

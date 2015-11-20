@@ -144,3 +144,33 @@ class NoPause(object):
         """
         No-op.
         """
+
+
+class OncePause(object):
+    """
+    Pause a pauser once, unpause it if necessary.
+    """
+    def __init__(self, pauser):
+        """
+        Create a L{OncePause} with the given L{Pauser}.
+        """
+        self._pauser = pauser
+        self._currentlyPaused = False
+
+
+    def pauseOnce(self):
+        """
+        If this L{OncePause} is not currently paused, pause its pauser.
+        """
+        if not self._currentlyPaused:
+            self._currentlyPaused = True
+            self._pause = self._pauser.pause()
+
+
+    def maybeUnpause(self):
+        """
+        If this L{OncePause} is currently paused, unpause it.
+        """
+        if self._currentlyPaused:
+            self._currentlyPaused = False
+            self._pause.unpause()

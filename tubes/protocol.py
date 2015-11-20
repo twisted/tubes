@@ -15,9 +15,8 @@ __all__ = [
 
 from zope.interface import implementer, implementedBy
 
-from .kit import Pauser, beginFlowingFrom, beginFlowingTo
-from tubes.itube import StopFlowCalled
-from .itube import IDrain, IFount, ISegment
+from .kit import Pauser, beginFlowingFrom, beginFlowingTo, OncePause
+from .itube import StopFlowCalled, IDrain, IFount, ISegment
 from .listening import Flow
 
 from twisted.python.failure import Failure
@@ -323,8 +322,11 @@ class _FountImpl(object):
         self._preListen = preListen
         self._pauser = Pauser(portObject.pauseProducing,
                               portObject.resumeProducing)
+        self._noDrainPause = OncePause(self._pauser)
         self._aFlowFunction = aFlowFunction
         self._portObject = portObject
+        if preListen:
+            self._noDrainPause.pauseOnce()
 
 
     def flowTo(self, drain):
@@ -336,6 +338,7 @@ class _FountImpl(object):
         @return: the next fount in the chain.
         """
         result = beginFlowingTo(self, drain)
+        self._noDrainPause.maybeUnpause()
         for f, d in self._preListen:
             self._aFlowFunction(f, d)
         return result
@@ -388,10 +391,12 @@ def flowFountFromEndpoint(endpoint):
         return listening.impl
     listening.impl = None
     def aFlowFunction(fount, drain):
-        if listening.impl is not None and listening.impl.drain is not None:
-            listening.impl.drain.receive(Flow(fount, drain))
-        else:
+        if listening.impl is None or listening.impl.drain is None:
             preListen.append((fount, drain))
+            if listening.impl is not None:
+                listening.impl._pauseForNoDrain()
+        else:
+            listening.impl.drain.receive(Flow(fount, drain))
     aFactory = _factoryFromFlow(aFlowFunction)
     return endpoint.listen(aFactory).addCallback(listening)
 

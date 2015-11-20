@@ -28,10 +28,10 @@ if 0:
     # Workaround for inability of pydoctor to resolve references.
     from twisted.internet.interfaces import (
         IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
-        IStreamServerEndpoint,
+        IStreamServerEndpoint, IListeningPort
     )
     (IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
-     IStreamServerEndpoint)
+     IStreamServerEndpoint, IListeningPort)
     from twisted.internet.defer import Deferred
     Deferred
 

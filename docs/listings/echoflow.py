@@ -1,15 +1,18 @@
-from tubes.protocol import factoryFromFlow
+from tubes.protocol import flowFountFromEndpoint
+from tubes.listening import Listener
 
 from twisted.internet.endpoints import serverFromString
-from twisted.internet.defer import Deferred
+from twisted.internet.defer import Deferred, inlineCallbacks
 
-def echoFlow(fount, drain):
-    fount.flowTo(drain)
+def echoFlow(flow):
+    flow.fount.flowTo(flow.drain)
 
+@inlineCallbacks
 def main(reactor, listenOn="stdio:"):
     endpoint = serverFromString(reactor, listenOn)
-    endpoint.listen(factoryFromFlow(echoFlow))
-    return Deferred()
+    flowFount = yield flowFountFromEndpoint(endpoint)
+    flowFount.flowTo(Listener(echoFlow))
+    yield Deferred()
 
 if __name__ == '__main__':
     from twisted.internet.task import react

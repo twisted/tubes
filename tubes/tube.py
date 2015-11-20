@@ -15,8 +15,9 @@ from twisted.python.components import proxyForInterface
 from twisted.python.failure import Failure
 
 from .itube import IDrain, ITube, IDivertable, IFount, StopFlowCalled
-from ._siphon import _tubeRegistry, _Siphon, _PlaceholderPause, skip
+from ._siphon import _tubeRegistry, _Siphon, skip
 from ._components import _registryActive
+from .kit import NoPause as _PlaceholderPause
 
 __all__ = [
     "Diverter",

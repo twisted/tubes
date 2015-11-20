@@ -5,28 +5,34 @@
 """
 Objects to connect L{real data <_Protocol>} to L{tubes}.
 
-@see: L{factoryFromFlow}
+@see: L{flowFountFromEndpoint}
 """
 
 __all__ = [
-    'factoryFromFlow',
+    'flowFountFromEndpoint',
+    'flowFromEndpoint',
 ]
 
-from zope.interface import implementer
+from zope.interface import implementer, implementedBy
 
-from .kit import Pauser, beginFlowingFrom, beginFlowingTo
-from .itube import IDrain, IFount, ISegment
+from .kit import Pauser, beginFlowingFrom, beginFlowingTo, OncePause
+from .itube import StopFlowCalled, IDrain, IFount, ISegment
+from .listening import Flow
 
-from twisted.internet.interfaces import IPushProducer
+from twisted.python.failure import Failure
+from twisted.internet.interfaces import IPushProducer, IListeningPort
 from twisted.internet.protocol import Protocol as _Protocol
 
 if 0:
     # Workaround for inability of pydoctor to resolve references.
     from twisted.internet.interfaces import (
-        IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer)
-    IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer
-    from twisted.python.failure import Failure
-    Failure
+        IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
+        IStreamServerEndpoint
+    )
+    (IProtocol, ITransport, IConsumer, IProtocolFactory, IProducer,
+     IStreamServerEndpoint)
+    from twisted.internet.defer import Deferred
+    Deferred
 
 
 
@@ -205,7 +211,7 @@ class _ProtocolPlumbing(_Protocol):
     A L{_ProtocolPlumbing} implements L{IProtocol} to deliver all incoming data
     to the drain associated with its L{fount <IFount>}.
 
-    @ivar _flow: A flow function, as described in L{factoryFromFlow}.
+    @ivar _flow: A flow function, as described in L{_factoryFromFlow}.
     @type _flow: L{callable}
 
     @ivar _drain: The drain that is passed on to the application, created after
@@ -267,17 +273,17 @@ class _ProtocolPlumbing(_Protocol):
 
 
 
-def factoryFromFlow(flow):
+def _factoryFromFlow(flow):
     """
     Convert a flow function into an L{IProtocolFactory}.
 
     A "flow function" is a function which takes a L{fount <IFount>} and an
     L{drain <IDrain>}.
 
-    L{factoryFromFlow} takes such a function and creates an L{IProtocolFactory}
-    which, upon each new connection, provides the flow function with an
-    L{IFount} and an L{IDrain} representing the read end and the write end of
-    the incoming connection, respectively.
+    L{_factoryFromFlow} takes such a function and creates an
+    L{IProtocolFactory} which, upon each new connection, provides the flow
+    function with an L{IFount} and an L{IDrain} representing the read end and
+    the write end of the incoming connection, respectively.
 
     @param flow: a 2-argument callable, taking (fount, drain).
     @type flow: L{callable}
@@ -287,3 +293,134 @@ def factoryFromFlow(flow):
     """
     from twisted.internet.protocol import Factory
     return Factory.forProtocol(lambda: _ProtocolPlumbing(flow))
+
+
+
+@implementer(IFount)
+class _FountImpl(object):
+    """
+    Implementation of fount for listening port.
+    """
+
+    outputType = implementedBy(Flow)
+
+    def __init__(self, portObject, aFlowFunction, preListen):
+        """
+        Create a fount implementation from a provider of L{IPushProducer} and a
+        function that takes a fount and a drain.
+
+        @param portObject: the result of the L{Deferred} from
+            L{IStreamServerEndpoint.listen}
+        @type portObject: L{IListeningPort} and L{IPushProducer} provider
+            (probably; workarounds are in place for other cases)
+
+        @param aFlowFunction: a 2-argument callable, invoked when a connection
+            arrives, with a fount and drain.
+        @type aFlowFunction: L{callable}
+
+        @param preListen: the founts and drains accepted before the C{listen}
+            L{Deferred} has fired.  Because these might be arriving before this
+            L{_FountImpl} even I{exists}, this needs to be passed in.  That is
+            OK because L{_FountImpl} is very tightly coupled to
+            L{flowFountFromEndpoint}, which is the only thing that constructs
+            it.
+        @type preListen: L{list} of 2-L{tuple}s of C{(fount, drain)}
+        """
+        self.drain = None
+        self._preListen = preListen
+        self._pauser = Pauser(portObject.pauseProducing,
+                              portObject.resumeProducing)
+        self._noDrainPause = OncePause(self._pauser)
+        self._aFlowFunction = aFlowFunction
+        self._portObject = portObject
+        if preListen:
+            self._noDrainPause.pauseOnce()
+
+
+    def flowTo(self, drain):
+        """
+        Start flowing to the given drain.
+
+        @param drain: The drain to send flows to.
+
+        @return: the next fount in the chain.
+        """
+        result = beginFlowingTo(self, drain)
+        self._noDrainPause.maybeUnpause()
+        for f, d in self._preListen:
+            self._aFlowFunction(f, d)
+        return result
+
+
+    def pauseFlow(self):
+        """
+        Allow backpressure to build up in the listening socket; ask Twisted to
+        stop calling C{accept}.
+
+        @return: An L{IPause}.
+        """
+        return self._pauser.pause()
+
+
+    def stopFlow(self):
+        """
+        Stop the delivery of L{Flow} objects to this L{_FountImpl}'s drain, and
+        stop listening on the port represented by this fount.
+        """
+        self.drain.flowStopped(Failure(StopFlowCalled()))
+        self.drain = None
+        if IListeningPort.providedBy(self._portObject):
+            self._portObject.stopListening()
+
+
+
+def flowFountFromEndpoint(endpoint):
+    """
+    Listen on the given endpoint, and thereby create a L{fount <IFount>} which
+    outputs a new L{Flow} for each connection.
+
+    @note: L{IStreamServerEndpoint} formally specifies that its C{connect}
+        method returns a L{Deferred} that fires with an L{IListeningPort}.
+        However, L{IListeningPort} is insufficient to express the requisite
+        flow-control to implement a fount; so the C{endpoint} parameter must be
+        an extended endpoint whose C{listen} L{Deferred} fires with a provider
+        of both L{IListeningPort} and L{IPushProducer}.  Luckily, the
+        real-world implementations of L{IListeningPort} within Twisted are all
+        L{IPushProducer}s as well, so practically speaking you will not notice
+        this, but for testing it is important to know this is necessary.
+
+    @param endpoint: a server endpoint.
+    @type endpoint: L{IStreamServerEndpoint}
+
+    @return: a L{twisted.internet.defer.Deferred} that fires with a L{IFount}
+        whose C{outputType} is L{Flow}.
+    """
+    preListen = []
+    def listening(portObject):
+        listening.impl = _FountImpl(portObject, aFlowFunction, preListen)
+        return listening.impl
+    listening.impl = None
+    def aFlowFunction(fount, drain):
+        if listening.impl is None or listening.impl.drain is None:
+            preListen.append((fount, drain))
+            if listening.impl is not None:
+                listening.impl._pauseForNoDrain()
+        else:
+            listening.impl.drain.receive(Flow(fount, drain))
+    aFactory = _factoryFromFlow(aFlowFunction)
+    return endpoint.listen(aFactory).addCallback(listening)
+
+
+
+def flowFromEndpoint(endpoint):
+    """
+    Convert a client endpoint into a L{Deferred} that fires with a L{Flow}.
+
+    @param endpoint: a client endpoint that will be connected to, once.
+
+    @return: a L{Deferred} that fires with a L{Flow}.
+    """
+    def cb(fount, drain):
+        cb.result = Flow(fount, drain)
+    return (endpoint.connect(_factoryFromFlow(cb))
+            .addCallback(lambda whatever: cb.result))

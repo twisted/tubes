@@ -11,12 +11,15 @@ from zope.interface.verify import verifyClass
 
 from twisted.test.proto_helpers import StringTransport
 from twisted.internet.defer import succeed
-from twisted.internet.interfaces import IStreamClientEndpoint
+from twisted.internet.interfaces import (
+    IStreamClientEndpoint, IStreamServerEndpoint, IListeningPort, IPushProducer
+)
 
 from ..itube import IDrain, IFount, IDivertable
 from ..tube import tube
 from ..kit import Pauser, beginFlowingFrom, beginFlowingTo
 
+from twisted.internet.defer import Deferred
 
 @implementer(IStreamClientEndpoint)
 class StringEndpoint(object):
@@ -311,3 +314,123 @@ class NullTube(object):
 
 
 
+@implementer(IListeningPort, IPushProducer)
+class FakeListeningProducerPort(object):
+    """
+    This is a fake L{IListeningPort}, also implementing L{IPushProducer}, which
+    L{flowFountFromEndpoint} needs to make backpressure work.
+    """
+    def __init__(self, factory):
+        """
+        Create a L{FakeListeningProducerPort} with the given protocol
+        factory.
+        """
+        self.factory = factory
+        self.stopper = Deferred()
+        self.listenStopping = False
+        self.currentlyProducing = True
+
+
+    def pauseProducing(self):
+        """
+        Pause producing new connections.
+        """
+        self.currentlyProducing = False
+
+
+    def resumeProducing(self):
+        """
+        Resume producing new connections.
+        """
+        self.currentlyProducing = True
+
+
+    def startListening(self):
+        """
+        Start listening on this port.
+
+        @raise CannotListenError: If it cannot listen on this port (e.g., it is
+            a TCP port and it cannot bind to the required port number).
+        """
+
+
+    def stopListening(self):
+        """
+        Stop listening on this fake port.
+
+        @return: a L{Deferred} that should be fired when the test wants to
+            complete stopping listening.
+        """
+        self.listenStopping = True
+        return self.stopper
+
+
+    def stopProducing(self):
+        """
+        Stop producing more data.
+        """
+        self.stopListening()
+
+
+    def getHost(self):
+        """
+        Get the host that this port is listening for.
+
+        @return: An L{IAddress} provider.
+        """
+
+verifyClass(IListeningPort, FakeListeningProducerPort)
+verifyClass(IPushProducer, FakeListeningProducerPort)
+
+
+@implementer(IStreamServerEndpoint)
+class FakeEndpoint(object):
+    """
+    A fake implementation of L{IStreamServerEndpoint} with a L{Deferred} that
+    fires controllably.
+
+    @ivar _listening: deferreds that will fire with listening ports when their
+        C{.callback} is invoked (input to C{.callback} ignored); added to when
+        C{listen} is called.
+    @type _listening: L{list} of L{Deferred}
+
+    @ivar _ports: list of ports that have already started listening
+    @type _ports: L{list} of L{IListeningPort}
+    """
+    def __init__(self):
+        """
+        Create a L{FakeEndpoint}.
+        """
+        self._listening = []
+        self._ports = []
+
+
+    def listen(self, factory):
+        """
+        Listen with the given factory.
+
+        @param factory: The factory to use for future connections.
+
+        @return: a L{Deferred} that fires with a new listening port.
+        """
+        self._listening.append(Deferred())
+        def newListener(ignored):
+            result = FakeListeningProducerPort(factory)
+            self._ports.append(result)
+            return result
+        return self._listening[-1].addCallback(newListener)
+
+
+
+def fakeEndpointWithPorts():
+    """
+    Create a L{FakeEndpoint} and expose the list of ports that it uses.
+
+    @return: a fake endpoint and a list of the ports it has listened on
+    @rtype: a 2-tuple of C{(endpoint, ports)}, where C{ports} is a L{list} of
+        L{IListeningPort}.
+    """
+    self = FakeEndpoint()
+    return self, self._ports
+
+verifyClass(IStreamServerEndpoint, FakeEndpoint)

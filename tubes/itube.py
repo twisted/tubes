@@ -9,8 +9,8 @@ Interfaces related to data flows.
 from zope.interface import Interface, Attribute
 
 if 0:
-    from zope.interface.interfaces import IInterface
-    IInterface
+    from zope.interface.interfaces import ISpecification
+    ISpecification
     from twisted.python.failure import Failure
     Failure
 
@@ -60,7 +60,7 @@ class IFount(Interface):
         """
         The type of output produced by this Fount.
 
-        This may be an L{IInterface} provider.
+        This may be an L{ISpecification} provider.
         """)
 
     drain = Attribute(
@@ -126,6 +126,8 @@ class IDrain(Interface):
     inputType = Attribute(
         """
         Similar to L{IFount.outputType}.
+
+        This is an L{ISpecification} provider.
         """)
 
     fount = Attribute(
@@ -175,7 +177,7 @@ class IDrain(Interface):
 
 class ITube(Interface):
     """
-    A tube translates input to output.
+    A tube transforms input into output.
 
     Look at this awesome ASCII art::
 

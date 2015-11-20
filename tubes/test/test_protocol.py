@@ -77,10 +77,12 @@ class FlowConnectorTests(TestCase):
 
     def adaptedProtocol(self):
         """
-        Find the adapted protocol by looking at what the endpoint was connected
-        with.
+        Retrieve a protocol for testing with.
 
-        @return: an L{IProtocol}
+        @return: the first protocol instance to have been created by making the
+            virtual outbound connection associated with the call to
+            L{flowFromEndpoint} performed in L{FlowConnectorTests.setUp}.
+        @rtype: L{IProtocol}
         """
         return self.endpoint.transports[0].protocol
 

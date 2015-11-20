@@ -313,6 +313,7 @@ class NullTube(object):
     """
 
 
+
 @implementer(IListeningPort, IPushProducer)
 class FakeListeningProducerPort(object):
     """
@@ -418,6 +419,7 @@ class FakeEndpoint(object):
             self._ports.append(result)
             return result
         return self._listening[-1].addCallback(newListener)
+
 
 
 def fakeEndpointWithPorts():

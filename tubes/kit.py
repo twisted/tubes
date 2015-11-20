@@ -146,6 +146,7 @@ class NoPause(object):
         """
 
 
+
 class OncePause(object):
     """
     Pause a pauser once, unpause it if necessary.

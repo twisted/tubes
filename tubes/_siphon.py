@@ -245,19 +245,6 @@ class _SiphonFount(_SiphonPiece):
 
 
 
-@implementer(IPause)
-class _PlaceholderPause(object):
-    """
-    L{IPause} provider that does nothing.
-    """
-
-    def unpause(self):
-        """
-        No-op.
-        """
-
-
-
 @implementer(IDrain)
 class _SiphonDrain(_SiphonPiece):
     """
@@ -295,7 +282,7 @@ class _SiphonDrain(_SiphonPiece):
             pbpc = self._siphon._pauseBecausePauseCalled
             self._siphon._pauseBecausePauseCalled = None
             if fount is None:
-                pauseFlow = _PlaceholderPause
+                pauseFlow = NoPause
             else:
                 pauseFlow = fount.pauseFlow
             self._siphon._pauseBecausePauseCalled = pauseFlow()

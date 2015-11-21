@@ -57,43 +57,44 @@ __all__ = [
 
 class Routed(object):
     """
-    A L{Routed} is an interface describing another interface that has been
-    wrapped in a C{to}.  As such, it is an incomplete implementation of
+    A L{Routed} is a specification describing another specification that has
+    been wrapped in a C{to}.  As such, it is an incomplete implementation of
     L{ISpecification}.
     """
 
-    def __init__(self, interface=None):
+    def __init__(self, specification=None):
         """
-        Derive a L{Routed} version of C{interface}.
+        Derive a L{Routed} version of C{specification}.
 
-        @param interface: the interface that will be provided by the C{what}
-            attribute of providers of this interface.
-        @type interface: L{IInterface}
+        @param specification: the specification that will be provided by the
+            C{what} attribute of providers of this specification.
+        @type specification: L{ISpecification}
         """
-        self.interface = interface
+        self.specification = specification
 
 
     def isOrExtends(self, other):
         """
         Is this L{Routed} substitutable for the given specification?
 
-        @param other: Another L{Routed} or interface.
-        @type other: L{IInterface}
+        @param other: Another L{Routed} or specification.
+        @type other: L{ISpecification}
 
         @return: L{True} if so, L{False} if not.
         """
         if not isinstance(other, Routed):
             return False
-        if self.interface is None or other.interface is None:
+        if self.specification is None or other.specification is None:
             return True
-        return self.interface.isOrExtends(other.interface)
+        return self.specification.isOrExtends(other.specification)
 
 
     def providedBy(self, instance):
         """
         Is this L{Routed} provided by a particular value?
 
-        @param instance: an object which may or may not provide this interface.
+        @param instance: an object which may or may not provide this
+            specification.
         @type instance: L{object}
 
         @return: L{True} if so, L{False} if not.
@@ -101,9 +102,9 @@ class Routed(object):
         """
         if not isinstance(instance, _To):
             return False
-        if self.interface is None:
+        if self.specification is None:
             return True
-        return self.interface.providedBy(instance._what)
+        return self.specification.providedBy(instance._what)
 
 
 

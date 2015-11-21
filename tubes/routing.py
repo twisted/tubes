@@ -1,4 +1,4 @@
-# -*- test-case-name: tubes.test.test_fan -*-
+# -*- test-case-name: tubes.test.test_routing -*-
 # Copyright (c) Twisted Matrix Laboratories.
 # See LICENSE for details.
 
@@ -24,7 +24,7 @@ Use like so::
             else:
                 yield to(odds, item)
 
-    numbers.flowTo(aRouter)
+    numbers.flowTo(aRouter.drain)
 
 This creates a fount in evenFount and oddFount, which each have an outputType
 of "int".
@@ -41,13 +41,18 @@ that by calling the C{receive} method directly since any one of those methods
 might reentrantly pause you.
 """
 
-from .tube import tube, receiver
+from .tube import receiver, series
 from .fan import Out
 
 if 0:
     from zope.interface.interfaces import ISpecification
     ISpecification
 
+__all__ = [
+    "Router",
+    "Routed",
+    "to",
+]
 
 
 class Routed(object):
@@ -119,6 +124,13 @@ class _To(object):
         self._what = what
 
 
+    def __repr__(self):
+        """
+        @return: an explanatory string.
+        """
+        return "to({!r}, {!r})".format(self._where, self._what)
+
+
 
 def to(where, what):
     """
@@ -138,7 +150,6 @@ def to(where, what):
 
 
 
-@tube
 class Router(object):
     """
     A drain with multiple founts that consumes L{Routed}C{(IX)} from its input
@@ -157,7 +168,7 @@ class Router(object):
         self.drain = self._out.drain
 
 
-    def newRoute(self):
+    def newRoute(self, name=None):
         """
         Create a new route.
 
@@ -168,13 +179,18 @@ class Router(object):
         to L{Router.drain} should be a L{to} constructed with a value returned
         from this method as the "where" parameter.
 
+        @param name: Give the route a name for debugging purposes.
+        @type name: native L{str}
+
         @return: L{IFount}
         """
         @receiver(inputType=Routed(self._outputType),
-                  outputType=self._outputType)
+                  outputType=self._outputType,
+                  name=name)
         def received(item):
-            if isinstance(item, to):
-                if item._where is fount:
-                    yield item._what
-        fount = self._out.newFount().flowTo(received)
+            if not isinstance(item, _To):
+                raise TypeError()
+            if item._where is fount:
+                yield item._what
+        fount = self._out.newFount().flowTo(series(received))
         return fount

@@ -45,8 +45,8 @@ from .tube import tube, receiver
 from .fan import Out
 
 if 0:
-    from zope.interface.interfaces import IInterface
-    IInterface
+    from zope.interface.interfaces import ISpecification
+    ISpecification
 
 
 
@@ -54,7 +54,7 @@ class Routed(object):
     """
     A L{Routed} is an interface describing another interface that has been
     wrapped in a C{to}.  As such, it is an incomplete implementation of
-    L{IInterface}.
+    L{ISpecification}.
     """
 
     def __init__(self, interface=None):

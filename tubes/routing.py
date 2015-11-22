@@ -111,9 +111,9 @@ class _To(object):
         """
         Create a L{_To} to a particular route with a given value.
 
-        @param _where: see L{to}
+        @param where: see L{to}
 
-        @param _what: see L{to}
+        @param what: see L{to}
         """
         self._where = where
         self._what = what

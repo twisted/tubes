@@ -41,8 +41,12 @@ that by calling the C{receive} method directly since any one of those methods
 might reentrantly pause you.
 """
 
+from zope.interface import implementer
+
 from .tube import receiver, series
+from .itube import IDrain
 from .fan import Out
+from .kit import beginFlowingFrom
 
 if 0:
     from zope.interface.interfaces import ISpecification
@@ -107,6 +111,15 @@ class Routed(object):
         return self.specification.providedBy(instance._what)
 
 
+    def __eq__(self, other):
+        """
+        
+        """
+        if not isinstance(other, Routed):
+            return NotImplemented
+        return self.specification == other.specification
+
+
 
 class _To(object):
     """
@@ -166,6 +179,17 @@ class Router(object):
     def __init__(self, outputType=None):
         self._out = Out()
         self._outputType = outputType
+        @implementer(IDrain)
+        class NullDrain(object):
+            inputType = outputType
+            fount = None
+            def flowingFrom(self, fount):
+                beginFlowingFrom(self, fount)
+            def receive(self, item):
+                pass
+            def flowStopped(self, reason):
+                pass
+        self.newRoute().flowTo(NullDrain())
         self.drain = self._out.drain
 
 

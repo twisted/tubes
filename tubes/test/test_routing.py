@@ -8,9 +8,9 @@ Tests for L{tubes.routing}.
 
 from unittest import TestCase
 
-from ..routing import Router, to
+from ..routing import Router, to, Routed
 from ..tube import series, receiver
-from .util import FakeFount, FakeDrain
+from .util import FakeFount, FakeDrain, IFakeOutput, IFakeInput
 
 if 0:
     # Names used by PyDoctor.
@@ -36,10 +36,10 @@ class RoutingTests(TestCase):
             else:
                 yield to(even, item)
         router = Router()
-        even = router.newRoute()
+        even = router.newRoute("even")
         evens = FakeDrain()
         even.flowTo(evens)
-        odd = router.newRoute()
+        odd = router.newRoute("odd")
         odds = FakeDrain()
         odd.flowTo(odds)
         ff = FakeFount()
@@ -60,3 +60,33 @@ class RoutingTests(TestCase):
         route = router.newRoute("hello")
         self.assertIn("hello", repr(route))
 
+
+    def test_defaultTypeChecking(self):
+        """
+        L{Router}'s drain accepts only L{Routed} objects; if no other type is
+        specified, L{Routed}C{(None)}.
+        """
+        router = Router()
+        ff = FakeFount(IFakeOutput)
+        self.assertEqual(router.drain.inputType, Routed(None))
+        self.assertRaises(TypeError, ff.flowTo, router.drain)
+        self.assertEqual(router.newRoute().outputType, None)
+
+
+    def test_specifiedTypeChecking(self):
+        """
+        The C{outputType} argument to L{Router}'s constructor specifies the
+        type of output that its routes will provide, and also the routed type
+        required as an input.
+        """
+        router = Router(IFakeInput)
+        incorrect = FakeDrain(IFakeOutput)
+        correct = FakeDrain(IFakeInput)
+        self.assertEqual(router.drain.inputType, Routed(IFakeInput))
+        self.assertEqual(router.newRoute().outputType, IFakeInput)
+        self.assertRaises(TypeError, router.newRoute().flowTo, incorrect)
+        self.assertEqual(router.newRoute().flowTo(correct), None)
+        correctFount = FakeFount(Routed(IFakeInput))
+        incorrectFount = FakeFount(Routed(IFakeOutput))
+        self.assertRaises(TypeError, incorrectFount.flowTo, router.drain)
+        self.assertEquals(None, correctFount.flowTo(router.drain))

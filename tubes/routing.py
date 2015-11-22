@@ -113,7 +113,7 @@ class Routed(object):
 
     def __eq__(self, other):
         """
-        
+        Routed(X) compares equal to Routed(X).
         """
         if not isinstance(other, Routed):
             return NotImplemented

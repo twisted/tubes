@@ -8,37 +8,37 @@ an appropriate output, stripping the addressing information off.
 
 Use like so::
 
-    from tubes.routing import Router, Routed, to
+    from tubes.tube import receiver, series
+    from tubes.routing import Router, to
 
-    aRouter = Router(int)
+    aRouter = Router()
+    evens = aRouter.newRoute()
+    odds = aRouter.newRoute()
 
-    evens, evenFount = aRouter.newRoute()
-    odds, oddFount = aRouter.newRoute()
+    @receiver()
+    def evenOdd(item):
+        if (item % 2) == 0:
+            yield to(evens, item)
+        else:
+            yield to(odds, item)
 
-    @tube
-    class EvenOdd(object):
-        outputType = Routed(int)
-        def received(self, item):
-            if (item % 2) == 0:
-                yield to(evens, item)
-            else:
-                yield to(odds, item)
+    numbers.flowTo(series(evenOdd, aRouter.drain))
 
-    numbers.flowTo(aRouter.drain)
+Assuming C{numbers} is a fount of counting integers, this creates two founts:
+C{evens} and C{odds}, whose outputs are even and odd integers, respectively.
+Note that C{evenOdd} also uses C{evens} and C{odds} as I{addresses}; the first
+argument to L{to} says I{where} the value will go.
 
-This creates a fount in evenFount and oddFount, which each have an outputType
-of "int".
-
-Why do this rather than just having C{EvenOdd} just call methods directly based
+Why do this rather than just having C{evenOdd} just call methods directly based
 on whether a number is even or odd?
 
 By using a L{Router}, flow control relationships are automatically preserved by
-the same mechanism that tubes usually use.  The distinct drains of evenFount
-and oddFount can both be independently paused, and the pause state will be
+the same mechanism that tubes usually use.  The distinct drains of C{evens} and
+C{odds} can both independently pause their founts, and the pause state will be
 propagated to the "numbers" fount.  If you want to send on outputs to multiple
 drains which may have complex flow-control interrelationships, you can't do
 that by calling the C{receive} method directly since any one of those methods
-might reentrantly pause you.
+might reentrantly pause its fount.
 """
 
 from zope.interface import implementer
@@ -214,7 +214,7 @@ class Router(object):
                   name=name)
         def received(item):
             if not isinstance(item, _To):
-                raise TypeError()
+                raise TypeError("{0} is not routed".format(item))
             if item._where is fount:
                 yield item._what
         fount = self._out.newFount().flowTo(series(received))

@@ -46,6 +46,12 @@ class Participant(object):
         self.name = name
         yield to(self.client, dict(named=name))
 
+    def do_joined(self, sender, channel):
+        """
+        Someone joined a channel I'm participating in.
+        """
+        yield to(self.client, dict(type="joined"))
+
     def do_join(self, channel):
         fountFromChannel, drainToChannel = (
             self._hub.channelNamed(channel).participate(self)

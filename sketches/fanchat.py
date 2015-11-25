@@ -2,7 +2,7 @@
 from collections import defaultdict
 from json import loads, dumps
 
-from zope.interface.common import IMapping
+from zope.interface.common.mapping import IMapping
 
 from twisted.internet.endpoints import serverFromString
 from twisted.internet.defer import Deferred, inlineCallbacks

@@ -6,15 +6,15 @@
     <title>tubes._siphon : API documentation</title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="apidocs.css" />
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="apidocs.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
+          <a href="index.html" class="navbar-brand">
             tubes API Documentation
           </a>
         </div>
@@ -22,7 +22,7 @@
     </nav>
 
     <div id="showPrivate">
-      <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
     </div>
 
     <div class="container">
@@ -31,7 +31,7 @@
         <h1 class="module private"><code>tubes._siphon</code> <small>module documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" href="tubes.html" data-type="Package">tubes</a></code>
+          Part of <code><a data-type="Package" href="tubes.html" class="code">tubes</a></code>
           
           
         </span>
@@ -46,45 +46,45 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id54">
+        <table class="children sortable" id="id28">
   
   <tr class="function">
     
     <td>Function</td>
-    <td><a class="code" href="tubes._siphon.html#suspended" data-type="Function">suspended</a></td>
+    <td><a data-type="Function" href="tubes._siphon.html#suspended" class="code">suspended</a></td>
     <td><span>A token value meaning that <a href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
 was suspended.</span></td>
   </tr><tr class="function">
     
     <td>Function</td>
-    <td><a class="code" href="tubes._siphon.html#finished" data-type="Function">finished</a></td>
+    <td><a data-type="Function" href="tubes._siphon.html#finished" class="code">finished</a></td>
     <td><span>A token value meaning that <a href="tubes._siphon.SiphonPendingValues.html"><code>SiphonPendingValues</code></a>
 has no more values in its queue.</span></td>
   </tr><tr class="class">
     
     <td>Class</td>
-    <td><a class="code" href="tubes._siphon.SiphonPendingValues.html" data-type="Class">SiphonPendingValues</a></td>
+    <td><a data-type="Class" href="tubes._siphon.SiphonPendingValues.html" class="code">SiphonPendingValues</a></td>
     <td><span>A queue of pending values which can be suspended and resumed, for 
 representing values pending delivery for a <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes._siphon._SiphonPiece.html" data-type="Class">_SiphonPiece</a></td>
+    <td><a data-type="Class" href="tubes._siphon._SiphonPiece.html" class="code">_SiphonPiece</a></td>
     <td><span>Shared functionality between <a href="tubes._siphon._SiphonFount.html"><code>_SiphonFount</code></a> and <a href="tubes._siphon._SiphonDrain.html"><code>_SiphonDrain</code></a></span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes._siphon._SiphonFount.html" data-type="Class">_SiphonFount</a></td>
+    <td><a data-type="Class" href="tubes._siphon._SiphonFount.html" class="code">_SiphonFount</a></td>
     <td><span>Implementation of <a href="tubes.itube.IFount.html"><code>IFount</code></a> for <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes._siphon._SiphonDrain.html" data-type="Class">_SiphonDrain</a></td>
+    <td><a data-type="Class" href="tubes._siphon._SiphonDrain.html" class="code">_SiphonDrain</a></td>
     <td><span>Implementation of <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> for <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr><tr class="class private">
     
     <td>Class</td>
-    <td><a class="code" href="tubes._siphon._Siphon.html" data-type="Class">_Siphon</a></td>
+    <td><a data-type="Class" href="tubes._siphon._Siphon.html" class="code">_Siphon</a></td>
     <td><span>A <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a> is an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> and possibly also an
 <a href="tubes.itube.IFount.html"><code>IFount</code></a>, and provides 
 lots of conveniences to make it easy to implement something that does fancy
@@ -92,7 +92,7 @@ flow control with just a few methods.</span></td>
   </tr><tr class="function private">
     
     <td>Function</td>
-    <td><a class="code" href="tubes._siphon.html#_tube2drain" data-type="Function">_tube2drain</a></td>
+    <td><a data-type="Function" href="tubes._siphon.html#_tube2drain" class="code">_tube2drain</a></td>
     <td><span>An adapter that can convert an <a href="tubes.itube.ITube.html"><code>ITube</code></a> to an <a href="tubes.itube.IDrain.html"><code>IDrain</code></a> by wrapping it in a 
 <a href="tubes._siphon._Siphon.html"><code>_Siphon</code></a>.</span></td>
   </tr>
@@ -165,12 +165,12 @@ has no more values in its queue.</p><table class="fieldTable"></table></div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-25 07:31:57.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-25 07:44:43.
       </address>
 
     </div>
 
-    <script type="text/javascript" src="pydoctor.js"></script>
+    <script src="pydoctor.js" type="text/javascript"></script>
 
   </body>
 </html>

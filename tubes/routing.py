@@ -120,6 +120,14 @@ class Routed(object):
         return self.specification == other.specification
 
 
+    def __ne__(self, other):
+        """
+        Routed(X) compares unequal to Routed(Y).
+        """
+        if not isinstance(other, Routed):
+            return NotImplemented
+        return self.specification != other.specification
+
 
 class _To(object):
     """

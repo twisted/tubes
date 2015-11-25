@@ -19,9 +19,9 @@ if 0:
 
 
 
-class RoutingTests(TestCase):
+class RouterTests(TestCase):
     """
-    Tests for routing.
+    Tests for L{Router}.
     """
 
     def test_twoRoutes(self):
@@ -90,3 +90,28 @@ class RoutingTests(TestCase):
         incorrectFount = FakeFount(Routed(IFakeOutput))
         self.assertRaises(TypeError, incorrectFount.flowTo, router.drain)
         self.assertEquals(None, correctFount.flowTo(router.drain))
+
+
+
+class RoutedTests(TestCase):
+    """
+    Tests for L{Routed}.
+    """
+
+    def test_eq(self):
+        """
+        C{==} on L{Routed} is L{True} for equivalent ones, L{False} otherwise.
+        """
+        self.assertEqual(True, Routed(IFakeInput) == Routed(IFakeInput))
+        self.assertEqual(False, Routed(IFakeInput) == Routed(IFakeOutput))
+        self.assertEqual(False, Routed() == 7)
+
+
+    def test_ne(self):
+        """
+        C{==} on L{Routed} is L{False} for equivalent ones, L{True} otherwise.
+        """
+        self.assertEqual(False, Routed(IFakeInput) != Routed(IFakeInput))
+        self.assertEqual(True, Routed(IFakeInput) != Routed(IFakeOutput))
+        self.assertEqual(True, Routed() != 7)
+

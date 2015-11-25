@@ -5,7 +5,6 @@ env:
     - secure: "CvFj8Df5OiDRrW7EsTGhkltdmNlYerx9hH/tSKxiNFVDBUUFaTN7rUr7kWcOKchzerGwk7zjZ4SRXyoSCs+Srht6GZxWHkNROwKpp5Xvf5clbLXbp7GO1X/L5rLgrXpGwtkhgNuHx0X2IUCDHUQAUSumPgZcNFu3emgVxEqabN0="
   matrix:
     - TOX_ENV=lint
-    - TOX_ENV=py26
     - TOX_ENV=py27
     - TOX_ENV=pypy
     - TOX_ENV=docs

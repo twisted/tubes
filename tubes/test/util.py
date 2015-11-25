@@ -77,13 +77,12 @@ class FakeDrain(object):
     @type stopped: L{list}
     """
 
-    inputType = None
-
     fount = None
 
-    def __init__(self):
+    def __init__(self, inputType=None):
         self.received = []
         self.stopped = []
+        self.inputType = inputType
 
 
     def flowingFrom(self, fount):

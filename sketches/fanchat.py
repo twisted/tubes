@@ -38,7 +38,6 @@ class Participant(object):
         self.client.flowTo(responsesDrain)
 
     def received(self, item):
-        return getattr(self, "do_" + item.pop("type"))(**item)
         kwargs = item.copy()
         return getattr(self, "do_" + kwargs.pop("type"))(**kwargs)
 

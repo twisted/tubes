@@ -39,6 +39,8 @@ class Participant(object):
 
     def received(self, item):
         return getattr(self, "do_" + item.pop("type"))(**item)
+        kwargs = item.copy()
+        return getattr(self, "do_" + kwargs.pop("type"))(**kwargs)
 
     def do_name(self, name):
         self.name = name

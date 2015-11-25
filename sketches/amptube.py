@@ -1,18 +1,19 @@
-
-
 from zope.interface import implementer
 
 from ampserver import Math
 
-from twisted.tubes.protocol import factoryFromFlow
 from twisted.internet.endpoints import serverFromString
 
+from twisted.internet.defer import Deferred, inlineCallbacks
 from twisted.internet import reactor
 
 from twisted.protocols.amp import AmpBox, IBoxSender
-from twisted.tubes.itube import ISegment
-from twisted.tubes.tube import Pump, series
-from twisted.tubes.framing import packedPrefixToStrings
+
+from tubes.protocol import flowFountFromEndpoint
+from tubes.listening import Listener
+from tubes.itube import ISegment
+from tubes.tube import Pump, series
+from tubes.framing import packedPrefixToStrings
 
 class StringsToBoxes(Pump):
 
@@ -96,14 +97,22 @@ class BoxConsumer(Pump):
 
 
 
-def mathFlow(fount, drain):
+def mathFlow(fount):
     fount.flowTo(series(packedPrefixToStrings(16), StringsToBoxes(),
-                        BoxConsumer(Math()), BoxesToData(), drain))
+                        BoxConsumer(Math()), BoxesToData(), fount.drain))
 
 
 
-serverEndpoint = serverFromString(reactor, "tcp:1234")
-serverEndpoint.listen(factoryFromFlow(mathFlow))
-from twisted.internet import reactor
-reactor.run()
+
+@inlineCallbacks
+def main():
+    serverEndpoint = serverFromString(reactor, "tcp:1234")
+    flowFount = yield flowFountFromEndpoint(serverEndpoint)
+    flowFount.flowTo(Listener(mathFlow))
+    yield Deferred()
+
+
+from twisted.interne.task import react
+from sys import argv
+react(main, argv[1:])
 

@@ -5,14 +5,15 @@ from json import loads, dumps
 from zope.interface.common import IMapping
 
 from twisted.internet.endpoints import serverFromString
-from twisted.internet.defer import Deferred
+from twisted.internet.defer import Deferred, inlineCallbacks
 
-from twisted.tubes.routing import Router, Routed, to
-from twisted.tubes.protocol import factoryFromFlow
-from twisted.tubes.itube import IFrame
-from twisted.tubes.tube import series, tube, receiver
-from twisted.tubes.framing import bytesToLines, linesToBytes
-from twisted.tubes.fan import Out, In
+from tubes.routing import Router, Routed, to
+from tubes.itube import IFrame
+from tubes.tube import series, tube, receiver
+from tubes.framing import bytesToLines, linesToBytes
+from tubes.fan import Out, In
+from tubes.listening import Listener
+from tubes.protocol import flowFountFromEndpoint
 
 
 
@@ -130,12 +131,12 @@ class Hub(object):
         self.participants = []
         self.channels = defaultdict(Channel)
 
-    def newParticipantFlow(self, fount, drain):
-        commandFount = fount.flowTo(
+    def newParticipantFlow(self, flow):
+        commandFount = flow.fount.flowTo(
             series(OnStop(lambda: self.participants.remove(participant)),
                    bytesToLines(), linesToCommands)
         )
-        commandDrain = series(commandsToLines, linesToBytes(), drain)
+        commandDrain = series(commandsToLines, linesToBytes(), flow.drain)
         participant = Participant(self, commandFount, commandDrain)
         self.participants.append(participant)
 
@@ -144,10 +145,12 @@ class Hub(object):
 
 
 
+@inlineCallbacks
 def main(reactor, port="stdio:"):
     endpoint = serverFromString(reactor, port)
-    endpoint.listen(factoryFromFlow(Hub().newParticipantFlow))
-    return Deferred()
+    flowFount = yield flowFountFromEndpoint(endpoint)
+    flowFount.flowTo(Listener(Hub().newParticipantFlow))
+    yield Deferred()
 
 
 

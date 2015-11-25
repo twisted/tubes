@@ -10,8 +10,8 @@ from collections import deque
 
 from zope.interface import implementer
 
-from .itube import IPause, IDrain, IFount, ITube
-from .kit import Pauser, beginFlowingFrom, beginFlowingTo
+from .itube import IDrain, IFount, ITube
+from .kit import Pauser, beginFlowingFrom, beginFlowingTo, NoPause, OncePause
 from ._components import _registryAdapting
 
 from twisted.python.failure import Failure
@@ -214,10 +214,7 @@ class _SiphonFount(_SiphonPiece):
             siphon's tube.
         """
         result = beginFlowingTo(self, drain)
-        if self._siphon._pauseBecauseNoDrain:
-            pbnd = self._siphon._pauseBecauseNoDrain
-            self._siphon._pauseBecauseNoDrain = None
-            pbnd.unpause()
+        self._siphon._pauseBecauseNoDrain.maybeUnpause()
         self._siphon._unbufferIterator()
         return result
 
@@ -242,19 +239,6 @@ class _SiphonFount(_SiphonPiece):
         if fount is None:
             return
         fount.stopFlow()
-
-
-
-@implementer(IPause)
-class _PlaceholderPause(object):
-    """
-    L{IPause} provider that does nothing.
-    """
-
-    def unpause(self):
-        """
-        No-op.
-        """
 
 
 
@@ -295,7 +279,7 @@ class _SiphonDrain(_SiphonPiece):
             pbpc = self._siphon._pauseBecausePauseCalled
             self._siphon._pauseBecausePauseCalled = None
             if fount is None:
-                pauseFlow = _PlaceholderPause
+                pauseFlow = NoPause
             else:
                 pauseFlow = fount.pauseFlow
             self._siphon._pauseBecausePauseCalled = pauseFlow()
@@ -382,9 +366,9 @@ class _Siphon(object):
         self._everStarted = False
         self._unbuffering = False
         self._flowStoppingReason = None
-        self._pauseBecauseNoDrain = None
 
         self._tfount = _SiphonFount(self)
+        self._pauseBecauseNoDrain = OncePause(self._tfount._pauser)
         self._tdrain = _SiphonDrain(self)
         self._tube = tube
         self._pending = SiphonPendingValues()
@@ -433,9 +417,7 @@ class _Siphon(object):
             return
         self._pending.append(iter(iterableOrNot))
         if self._tfount.drain is None:
-            if self._pauseBecauseNoDrain is None:
-                self._pauseBecauseNoDrain = self._tfount.pauseFlow()
-
+            self._pauseBecauseNoDrain.pauseOnce()
         self._unbufferIterator()
 
 

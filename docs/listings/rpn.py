@@ -1,9 +1,10 @@
-from tubes.protocol import factoryFromFlow
 from tubes.itube import IFrame, ISegment
 from tubes.tube import tube, receiver
+from tubes.listening import Listener
 
 from twisted.internet.endpoints import serverFromString
-from twisted.internet.defer import Deferred
+from twisted.internet.defer import Deferred, inlineCallbacks
+from tubes.protocol import flowFountFromEndpoint
 
 class Calculator(object):
     def __init__(self):
@@ -79,15 +80,17 @@ def calculatorSeries():
         linesToBytes()
     )
 
-def mathFlow(fount, drain):
+def mathFlow(flow):
     processor = calculatorSeries()
-    nextDrain = fount.flowTo(processor)
-    nextDrain.flowTo(drain)
+    nextDrain = flow.fount.flowTo(processor)
+    nextDrain.flowTo(flow.drain)
 
+@inlineCallbacks
 def main(reactor, port="stdio:"):
     endpoint = serverFromString(reactor, port)
-    endpoint.listen(factoryFromFlow(mathFlow))
-    return Deferred()
+    flowFount = yield flowFountFromEndpoint(endpoint)
+    flowFount.flowTo(Listener(mathFlow))
+    yield Deferred()
 
 if __name__ == '__main__':
     from twisted.internet.task import react

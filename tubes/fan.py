@@ -355,7 +355,7 @@ class _OutDrain(object):
                 self._pause = None
             if p is not None:
                 p.unpause()
-        self.fount = fount
+        beginFlowingFrom(self, fount)
 
 
     def receive(self, item):

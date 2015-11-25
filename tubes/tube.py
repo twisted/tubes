@@ -15,8 +15,9 @@ from twisted.python.components import proxyForInterface
 from twisted.python.failure import Failure
 
 from .itube import IDrain, ITube, IDivertable, IFount, StopFlowCalled
-from ._siphon import _tubeRegistry, _Siphon, _PlaceholderPause, skip
+from ._siphon import _tubeRegistry, _Siphon, skip
 from ._components import _registryActive
+from .kit import NoPause as _PlaceholderPause
 
 __all__ = [
     "Diverter",
@@ -122,17 +123,20 @@ class _Tubule(object):
     """
     A tube created for the C{@tube} decorator.
     """
-    def __init__(self, inputType, outputType, received):
+    def __init__(self, inputType, outputType, received, name):
         """
         @param inputType: An interface for the input type.
 
         @param outputType: an interface for the output type.
 
         @param received: a callable to implement C{received}.
+
+        @param name: a string describing this L{_Tubule}.
         """
         self.inputType = inputType
         self.outputType = outputType
         self.received = received
+        self._name = name
 
 
     def started(self):
@@ -155,8 +159,15 @@ class _Tubule(object):
         return ()
 
 
+    def __repr__(self):
+        """
+        @return: this L{_Tubule}'s name.
+        """
+        return self._name
 
-def receiver(inputType=None, outputType=None):
+
+
+def receiver(inputType=None, outputType=None, name=None):
     """
     Decorator for a stateless function which receives inputs.
 
@@ -170,12 +181,16 @@ def receiver(inputType=None, outputType=None):
 
     @param outputType: The C{outputType} attribute of the resulting L{ITube}.
 
+    @param name: a name describing the tubule for it to show as in a C{repr}.
+    @type name: native L{str}
+
     @return: a stateless tube with the decorated method as its C{received}
         method.
     @rtype: L{ITube}
     """
     def decorator(decoratee):
-        return _Tubule(inputType, outputType, decoratee)
+        return _Tubule(inputType, outputType, decoratee,
+                       name if name is not None else decoratee.__name__)
     return decorator
 
 

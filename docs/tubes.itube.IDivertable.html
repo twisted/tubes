@@ -6,15 +6,15 @@
     <title>tubes.itube.IDivertable : API documentation</title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link type="text/css" href="bootstrap.min.css" rel="stylesheet" />
-    <link type="text/css" href="apidocs.css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="apidocs.css" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.html" class="navbar-brand">
+          <a class="navbar-brand" href="index.html">
             tubes API Documentation
           </a>
         </div>
@@ -22,23 +22,23 @@
     </nav>
 
     <div id="showPrivate">
-      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+      <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
     </div>
 
     <div class="container">
 
       <div class="page-header">
-        <h1 class="interface"><code>tubes.itube.IDivertable(<a data-type="Interface" href="tubes.itube.ITube.html" class="code">ITube</a>)</code> <small>interface documentation</small></h1>
+        <h1 class="interface"><code>tubes.itube.IDivertable(<a class="code" href="tubes.itube.ITube.html" data-type="Interface">ITube</a>)</code> <small>interface documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a data-type="Package" href="tubes.html" class="code">tubes</a>.<a data-type="Module" href="tubes.itube.html" class="code">itube</a></code>
+          Part of <code><a class="code" href="tubes.html" data-type="Package">tubes</a>.<a class="code" href="tubes.itube.html" data-type="Module">itube</a></code>
           
           <a href="classIndex.html#tubes.itube.IDivertable">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Known implementations: <a data-type="Class" href="tubes.framing._SegmentsToFrames.html" class="code">tubes.framing._SegmentsToFrames</a></p>
+        <p>Known implementations: <a class="code" href="tubes.framing._SegmentsToFrames.html" data-type="Class">tubes.framing._SegmentsToFrames</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -53,7 +53,7 @@ have its input diverted away from it.</p><table class="fieldTable"></table></div
   <tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.itube.IDivertable.html#reassemble" class="code">reassemble</a></td>
+    <td><a class="code" href="tubes.itube.IDivertable.html#reassemble" data-type="Method">reassemble</a></td>
     <td><span>Reverse the transformation done by calling <a href="tubes.itube.ITube.html#received"><code>received</code></a>, so as to 
 provide any buffered output as input to the drain where this <a href="tubes.itube.IDivertable.html"><code>IDivertable</code></a> is being 
 diverted.</span></td>
@@ -61,37 +61,37 @@ diverted.</span></td>
 </table>
         
           <p class="inheritedFrom">
-            Inherited from <a data-type="Interface" href="tubes.itube.ITube.html" class="code">ITube</a>:
+            Inherited from <a class="code" href="tubes.itube.ITube.html" data-type="Interface">ITube</a>:
           </p>
           <table class="children sortable" id="id39">
   
   <tr class="baseattribute">
     
     <td>Attribute</td>
-    <td><a data-type="Attribute" href="tubes.itube.ITube.html#inputType" class="code">inputType</a></td>
+    <td><a class="code" href="tubes.itube.ITube.html#inputType" data-type="Attribute">inputType</a></td>
     <td><span>The type expected to be received as input to received.</span></td>
   </tr><tr class="baseattribute">
     
     <td>Attribute</td>
-    <td><a data-type="Attribute" href="tubes.itube.ITube.html#outputType" class="code">outputType</a></td>
+    <td><a class="code" href="tubes.itube.ITube.html#outputType" data-type="Attribute">outputType</a></td>
     <td><span>The type expected to be sent as output to <code>tube.deliver</code>.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.itube.ITube.html#started" class="code">started</a></td>
+    <td><a class="code" href="tubes.itube.ITube.html#started" data-type="Method">started</a></td>
     <td><span>The flow of items has started.  <code>received</code> may be called at 
 any point after this.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.itube.ITube.html#received" class="code">received</a></td>
+    <td><a class="code" href="tubes.itube.ITube.html#received" data-type="Method">received</a></td>
     <td><span>An item was received from 'upstream', i.e. the framework, or the 
 lower-level data source that this <a href="tubes.itube.ITube.html"><code>ITube</code></a> is interacting 
 with.</span></td>
   </tr><tr class="basemethod">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.itube.ITube.html#stopped" class="code">stopped</a></td>
+    <td><a class="code" href="tubes.itube.ITube.html#stopped" data-type="Method">stopped</a></td>
     <td><span>The flow of data from this <a href="tubes.itube.ITube.html"><code>ITube</code></a>'s input has ceased; 
 this corresponds to <a href="tubes.itube.IDrain.html#flowStopped"><code>IDrain.flowStopped</code></a>.</span></td>
   </tr>
@@ -135,12 +135,12 @@ as well. (type: <a href="http://docs.python.org/library/stdtypes.html#list"><cod
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-25 07:14:53.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-25 07:31:57.
       </address>
 
     </div>
 
-    <script src="pydoctor.js" type="text/javascript"></script>
+    <script type="text/javascript" src="pydoctor.js"></script>
 
   </body>
 </html>

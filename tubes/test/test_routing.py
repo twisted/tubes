@@ -58,7 +58,7 @@ class RoutingTests(TestCase):
         """
         router = Router()
         route = router.newRoute("hello")
-        self.assertIn("hello", repr(route))
+        self.assertTrue("hello" in repr(route))
 
 
     def test_defaultTypeChecking(self):

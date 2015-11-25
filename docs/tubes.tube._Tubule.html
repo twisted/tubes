@@ -5,16 +5,16 @@
   <head>
     <title>tubes.tube._Tubule : API documentation</title>
 
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="apidocs.css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" href="bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="apidocs.css" rel="stylesheet" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
+          <a href="index.html" class="navbar-brand">
             tubes API Documentation
           </a>
         </div>
@@ -31,14 +31,14 @@
         <h1 class="class private"><code>tubes.tube._Tubule(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.tube.html" class="code" data-type="Module">tube</a></code>
+          Part of <code><a data-type="Package" href="tubes.html" class="code">tubes</a>.<a data-type="Module" href="tubes.tube.html" class="code">tube</a></code>
           
           <a href="classIndex.html#tubes.tube._Tubule">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Implements interfaces: <a href="tubes.itube.ITube.html" class="code" data-type="Interface">tubes.itube.ITube</a></p>
+        <p>Implements interfaces: <a data-type="Interface" href="tubes.itube.ITube.html" class="code">tubes.itube.ITube</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -51,18 +51,23 @@
   <tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.tube._Tubule.html#__init__" class="code" data-type="Method">__init__</a></td>
+    <td><a data-type="Method" href="tubes.tube._Tubule.html#__init__" class="code">__init__</a></td>
     <td></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.tube._Tubule.html#started" class="code" data-type="Method">started</a></td>
+    <td><a data-type="Method" href="tubes.tube._Tubule.html#started" class="code">started</a></td>
     <td><span>Tubules cannot produce a greeting.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.tube._Tubule.html#stopped" class="code" data-type="Method">stopped</a></td>
+    <td><a data-type="Method" href="tubes.tube._Tubule.html#stopped" class="code">stopped</a></td>
     <td><span>Tubules cannot produce a farewell.</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><a data-type="Method" href="tubes.tube._Tubule.html#__repr__" class="code">__repr__</a></td>
+    <td></td>
   </tr>
 </table>
         
@@ -83,12 +88,12 @@
   <div class="functionHeader">
     
     def
-    __init__(self, inputType, outputType, received):
+    __init__(self, inputType, outputType, received, name):
     
   </div>
   <div class="docstring functionBody">
     
-    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">inputType</td><td>An interface for the input type.</td></tr><tr><td></td><td class="fieldArg">outputType</td><td>an interface for the output type.</td></tr><tr><td></td><td class="fieldArg">received</td><td>a callable to implement <code>received</code>.</td></tr></table></div>
+    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">inputType</td><td>An interface for the input type.</td></tr><tr><td></td><td class="fieldArg">outputType</td><td>an interface for the output type.</td></tr><tr><td></td><td class="fieldArg">received</td><td>a callable to implement <code>received</code>.</td></tr><tr><td></td><td class="fieldArg">name</td><td>a string describing this <a href="tubes.tube._Tubule.html"><code>_Tubule</code></a>.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -105,7 +110,7 @@
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.ITube.html#started" class="code" data-type="Method">tubes.itube.ITube</a></div>
+    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.ITube.html#started" class="code">tubes.itube.ITube</a></div>
     <div><p>Tubules cannot produce a greeting.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an empty iterable.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
@@ -123,19 +128,37 @@
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.ITube.html#stopped" class="code" data-type="Method">tubes.itube.ITube</a></div>
+    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.ITube.html#stopped" class="code">tubes.itube.ITube</a></div>
     <div><p>Tubules cannot produce a farewell.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason the flow stopped.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an empty iterable.</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="tubes.tube._Tubule.__repr__">
+    
+  </a>
+  <a name="__repr__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __repr__(self):
+    
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">this <a href="tubes.tube._Tubule.html"><code>_Tubule</code></a>'s name.</td></tr></table></div>
   </div>
 </div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-25 07:14:53.
       </address>
 
     </div>
 
-    <script type="text/javascript" src="pydoctor.js"></script>
+    <script src="pydoctor.js" type="text/javascript"></script>
 
   </body>
 </html>

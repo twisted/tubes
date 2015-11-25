@@ -5,16 +5,16 @@
   <head>
     <title>tubes.routing.Routed : API documentation</title>
 
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="apidocs.css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" href="bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="apidocs.css" rel="stylesheet" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
+          <a href="index.html" class="navbar-brand">
             tubes API Documentation
           </a>
         </div>
@@ -31,7 +31,7 @@
         <h1 class="class"><code>tubes.routing.Routed(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.routing.html" class="code" data-type="Module">routing</a></code>
+          Part of <code><a data-type="Package" href="tubes.html" class="code">tubes</a>.<a data-type="Module" href="tubes.routing.html" class="code">routing</a></code>
           
           <a href="classIndex.html#tubes.routing.Routed">(View In Hierarchy)</a>
         </span>
@@ -42,9 +42,9 @@
       </div>
 
       <div class="moduleDocstring">
-        <div><p>A <a href="tubes.routing.Routed.html"><code>Routed</code></a> is an 
-interface describing another interface that has been wrapped in a 
-<code>to</code>.  As such, it is an incomplete implementation of <a href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>.</p><table class="fieldTable"></table></div>
+        <div><p>A <a href="tubes.routing.Routed.html"><code>Routed</code></a> is a 
+specification describing another specification that has been wrapped in a 
+<code>to</code>.  As such, it is an incomplete implementation of <a href="https://zope.org/zope.interface.interfaces.ISpecification.html"><code>ISpecification</code></a>.</p><table class="fieldTable"></table></div>
       </div>
 
       <div id="splitTables">
@@ -53,21 +53,31 @@ interface describing another interface that has been wrapped in a
   <tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.routing.Routed.html#__init__" class="code" data-type="Method">__init__</a></td>
+    <td><a data-type="Method" href="tubes.routing.Routed.html#__init__" class="code">__init__</a></td>
     <td><span>Derive a <a href="tubes.routing.Routed.html"><code>Routed</code></a> 
-version of <code>interface</code>.</span></td>
+version of <code>specification</code>.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.routing.Routed.html#isOrExtends" class="code" data-type="Method">isOrExtends</a></td>
+    <td><a data-type="Method" href="tubes.routing.Routed.html#isOrExtends" class="code">isOrExtends</a></td>
     <td><span>Is this <a href="tubes.routing.Routed.html"><code>Routed</code></a> 
 substitutable for the given specification?</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.routing.Routed.html#providedBy" class="code" data-type="Method">providedBy</a></td>
+    <td><a data-type="Method" href="tubes.routing.Routed.html#providedBy" class="code">providedBy</a></td>
     <td><span>Is this <a href="tubes.routing.Routed.html"><code>Routed</code></a> 
 provided by a particular value?</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><a data-type="Method" href="tubes.routing.Routed.html#__eq__" class="code">__eq__</a></td>
+    <td><span>Routed(X) compares equal to Routed(X).</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><a data-type="Method" href="tubes.routing.Routed.html#__ne__" class="code">__ne__</a></td>
+    <td><span>Routed(X) compares unequal to Routed(Y).</span></td>
   </tr>
 </table>
         
@@ -88,14 +98,14 @@ provided by a particular value?</span></td>
   <div class="functionHeader">
     
     def
-    __init__(self, interface=None):
+    __init__(self, specification=None):
     
   </div>
   <div class="docstring functionBody">
     
     <div><p>Derive a <a href="tubes.routing.Routed.html"><code>Routed</code></a> 
-version of <code>interface</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">interface</td><td>the interface that will be provided by the <code>what</code> attribute of 
-providers of this interface. (type: <a href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>)</td></tr></table></div>
+version of <code>specification</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">specification</td><td>the specification that will be provided by the <code>what</code> attribute 
+of providers of this specification. (type: <a href="https://zope.org/zope.interface.interfaces.ISpecification.html"><code>ISpecification</code></a>)</td></tr></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -115,7 +125,7 @@ providers of this interface. (type: <a href="https://zope.org/zope.interface.int
     
     <div><p>Is this <a href="tubes.routing.Routed.html"><code>Routed</code></a> 
 substitutable for the given specification?</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">other</td><td>Another <a href="tubes.routing.Routed.html"><code>Routed</code></a> or 
-interface. (type: <a href="https://zope.org/zope.interface.interfaces.IInterface.html"><code>IInterface</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="http://docs.python.org/library/constants.html#True"><code>True</code></a>
+specification. (type: <a href="https://zope.org/zope.interface.interfaces.ISpecification.html"><code>ISpecification</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="http://docs.python.org/library/constants.html#True"><code>True</code></a>
 if so, <a href="http://docs.python.org/library/constants.html#False"><code>False</code></a>
 if not.</td></tr></table></div>
   </div>
@@ -136,20 +146,56 @@ if not.</td></tr></table></div>
   <div class="docstring functionBody">
     
     <div><p>Is this <a href="tubes.routing.Routed.html"><code>Routed</code></a> 
-provided by a particular value?</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">instance</td><td>an object which may or may not provide this interface. (type: <a href="http://docs.python.org/library/stdtypes.html#object"><code>object</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="http://docs.python.org/library/constants.html#True"><code>True</code></a>
+provided by a particular value?</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">instance</td><td>an object which may or may not provide this specification. (type: <a href="http://docs.python.org/library/stdtypes.html#object"><code>object</code></a>)</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="http://docs.python.org/library/constants.html#True"><code>True</code></a>
 if so, <a href="http://docs.python.org/library/constants.html#False"><code>False</code></a>
 if not. (type: <a href="http://docs.python.org/library/stdtypes.html#bool"><code>bool</code></a>)</td></tr></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="tubes.routing.Routed.__eq__">
+    
+  </a>
+  <a name="__eq__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __eq__(self, other):
+    
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Routed(X) compares equal to Routed(X).</p><table class="fieldTable"></table></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="tubes.routing.Routed.__ne__">
+    
+  </a>
+  <a name="__ne__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    def
+    __ne__(self, other):
+    
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Routed(X) compares unequal to Routed(Y).</p><table class="fieldTable"></table></div>
   </div>
 </div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-20 13:14:06.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-25 07:14:53.
       </address>
 
     </div>
 
-    <script type="text/javascript" src="pydoctor.js"></script>
+    <script src="pydoctor.js" type="text/javascript"></script>
 
   </body>
 </html>

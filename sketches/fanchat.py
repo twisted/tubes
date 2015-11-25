@@ -60,15 +60,12 @@ class Participant(object):
         fountToChannel.flowTo(drainToChannel)
 
         self._participating[channel] = fountToChannel
-        yield to(self.client,
-                 dict(type="joined", channel="channel"))
         yield to(self._participating[channel],
                  dict(type="joined"))
 
     def do_speak(self, channel, message, id):
         yield to(self._participating[channel],
                  dict(type="spoke", message=message, id=id))
-        yield to(self.client, dict(type="spoke", id=id))
 
     def do_shout(self, message, id):
         for channel in self._participating.values():

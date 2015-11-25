@@ -83,9 +83,11 @@ class Participant(object):
     def do_told(self, sender, message):
         yield to(self.client, message)
 
-    def do_spoke(self, channel, sender, message):
-        yield to(self.client, dict(type="spoke", channel=channel,
-                                   sender=sender.name, message=message))
+    def do_spoke(self, channel, sender, message, id):
+        yield to(self.client,
+                 dict(type="spoke", channel=channel,
+                      sender=sender.name, message=message,
+                      id=id))
 
 
 

@@ -134,9 +134,12 @@ class _InFount(object):
         @return: A pause which pauses all upstream founts.
         """
         subPauses = []
+        print("Aggregating pauses for fan-in:")
         for drain in self._in._drains:
             # XXX wrong because drains could be added and removed
+            print("pausing", drain)
             subPauses.append(drain.fount.pauseFlow())
+        print("done.")
         return _AggregatePause(subPauses)
 
 
@@ -227,14 +230,17 @@ class _OutFount(object):
         self._receivedWhilePaused = []
         self._myPause = None
         self._stopper = stopper
+        self._stopped = False
 
         def actuallyPause():
+            assert self._myPause is None
             self._myPause = upstreamPauser.pause()
 
         def actuallyUnpause():
             aPause = self._myPause
             self._myPause = None
             if self._receivedWhilePaused:
+                # TODO: handle errors here.
                 self.drain.receive(self._receivedWhilePaused.pop(0))
             aPause.unpause()
 
@@ -260,6 +266,7 @@ class _OutFount(object):
         @return: a pause
         @rtype: L{IPause}
         """
+        print("OutFount getting paused by", self.drain)
         return self._pauser.pause()
 
 
@@ -267,7 +274,12 @@ class _OutFount(object):
         """
         Invoke the callback supplied to C{__init__} for stopping.
         """
-        self._stopper(self)
+        if not self._stopped:
+            if self._myPause is not None:
+                self._myPause.unpause()
+            self._stopped = True
+            print("OF STOP:", self)
+            self._stopper(self)
 
 
     def _deliverOne(self, item):

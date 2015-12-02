@@ -33,12 +33,23 @@ class _Pause(object):
         callback from its L{Pauser}.
         """
         if self._alive:
+            self._alive = False
             self._friendPauser._pauses -= 1
             if self._friendPauser._pauses == 0:
                 self._friendPauser._actuallyResume()
-            self._alive = False
         else:
             raise AlreadyUnpaused()
+
+
+    def __del__(self):
+        """
+        
+        """
+        if self._alive:
+            print("GC ON PAUSE WHILE PAUSED")
+        else:
+            print("PAUSE GC: OK!")
+
 
 
 
@@ -76,9 +87,9 @@ class Pauser(object):
             it's the last one to be unpaused.
         @rtype: L{IPause}
         """
-        if not self._pauses:
-            self._actuallyPause()
         self._pauses += 1
+        if self._pauses == 1:
+            self._actuallyPause()
         return _Pause(self)
 
 

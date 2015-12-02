@@ -38,6 +38,7 @@ class Participant(object):
         self.client.flowTo(responsesDrain)
 
     def received(self, item):
+        print("received", item)
         kwargs = item.copy()
         return getattr(self, "do_" + kwargs.pop("type"))(**kwargs)
 
@@ -93,12 +94,15 @@ class Participant(object):
 
 @receiver(IFrame, IMapping)
 def linesToCommands(line):
-    yield loads(line)
+    parsed = loads(line)
+    print("parsed:", line)
+    yield parsed
 
 
 
 @receiver(IMapping, IFrame)
 def commandsToLines(message):
+    print("dumped:", message)
     yield dumps(message)
 
 
@@ -154,7 +158,7 @@ class Hub(object):
 
 
 @inlineCallbacks
-def main(reactor, port="stdio:"):
+def main(reactor, port="tcp:4321"):
     endpoint = serverFromString(reactor, port)
     flowFount = yield flowFountFromEndpoint(endpoint)
     flowFount.flowTo(Listener(Hub().newParticipantFlow))

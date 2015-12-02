@@ -221,10 +221,10 @@ class Router(object):
         @receiver(inputType=Routed(self._outputType),
                   outputType=self._outputType,
                   name=name)
-        def received(item):
+        def routeReceived(item):
             if not isinstance(item, _To):
                 raise TypeError("{0} is not routed".format(item))
             if item._where is fount:
                 yield item._what
-        fount = self._out.newFount().flowTo(series(received))
+        fount = self._out.newFount().flowTo(series(routeReceived))
         return fount

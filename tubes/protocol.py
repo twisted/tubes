@@ -58,6 +58,9 @@ class _FountProducer(object):
         """
         # TODO: this implementation is (obviously) incorrect; we could lose
         # track of pauses.  Write some tests.
+        print("transport actually backing up", self)
+        assert self._pause is None, \
+            "should only pause when flow is flowing"
         self._pause = self._fount.pauseFlow()
 
 
@@ -65,7 +68,11 @@ class _FountProducer(object):
         """
         The producer has been resumed.  Ensure that the fount is unpaused.
         """
-        self._pause.unpause()
+        print("transport un-backing up", self)
+        assert self._pause is not None, \
+            "should only resume when flow is not flowing"
+        p, self._pause = self._pause, None
+        p.unpause()
 
 
     def stopProducing(self):
@@ -102,6 +109,8 @@ class _TransportDrain(object):
         @param fount: the fount producing data - L{ISegment}s - for this
             transport.
         """
+        if self.fount is not None:
+            self._transport.unregisterProducer()
         beginFlowingFrom(self, fount)
         self._transport.registerProducer(_FountProducer(fount), True)
 
@@ -157,8 +166,13 @@ class _TransportFount(object):
 
     def __init__(self, transport):
         self._transport = transport
-        self._pauser = Pauser(self._transport.pauseProducing,
-                              self._transport.resumeProducing)
+        def pp():
+            print("actually pausing transport", transport)
+            transport.pauseProducing()
+        def rp():
+            print("actually resuming transport", transport)
+            transport.resumeProducing()
+        self._pauser = Pauser(pp, rp)
         self._preReceivePause = None
         self._preReceiveBuffer = None
 
@@ -187,6 +201,7 @@ class _TransportFount(object):
 
         @return: a L{pause token <IPause>}.
         """
+        print("transport paused", self)
         return self._pauser.pause()
 
 
@@ -359,6 +374,7 @@ class _FountImpl(object):
 
         @return: An L{IPause}.
         """
+        print("backpressure for listener")
         return self._pauser.pause()
 
 

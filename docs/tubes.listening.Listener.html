@@ -14,7 +14,7 @@
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.html" class="navbar-brand">
+          <a class="navbar-brand" href="index.html">
             tubes API Documentation
           </a>
         </div>
@@ -22,7 +22,7 @@
     </nav>
 
     <div id="showPrivate">
-      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+      <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
     </div>
 
     <div class="container">
@@ -31,14 +31,14 @@
         <h1 class="class"><code>tubes.listening.Listener(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a data-type="Package" href="tubes.html" class="code">tubes</a>.<a data-type="Module" href="tubes.listening.html" class="code">listening</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.listening.html" class="code" data-type="Module">listening</a></code>
           
           <a href="classIndex.html#tubes.listening.Listener">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Implements interfaces: <a data-type="Interface" href="tubes.itube.IDrain.html" class="code">tubes.itube.IDrain</a></p>
+        <p>Implements interfaces: <a href="tubes.itube.IDrain.html" class="code" data-type="Interface">tubes.itube.IDrain</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -48,28 +48,28 @@ up.</p><table class="fieldTable"></table></div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id38">
+        <table class="children sortable" id="id17">
   
   <tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.listening.Listener.html#__init__" class="code">__init__</a></td>
+    <td><a href="tubes.listening.Listener.html#__init__" class="code" data-type="Method">__init__</a></td>
     <td></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.listening.Listener.html#flowingFrom" class="code">flowingFrom</a></td>
+    <td><a href="tubes.listening.Listener.html#flowingFrom" class="code" data-type="Method">flowingFrom</a></td>
     <td><span>The flow has begun from the given <a href="tubes.listening.Flow.html#fount"><code>fount</code></a> of <a href="tubes.listening.Flow.html"><code>Flow</code></a>s.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.listening.Listener.html#receive" class="code">receive</a></td>
+    <td><a href="tubes.listening.Listener.html#receive" class="code" data-type="Method">receive</a></td>
     <td><span>Receive the given flow, applying backpressure if too many connections 
 are active.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" href="tubes.listening.Listener.html#flowStopped" class="code">flowStopped</a></td>
+    <td><a href="tubes.listening.Listener.html#flowStopped" class="code" data-type="Method">flowStopped</a></td>
     <td><span>No more <a href="tubes.listening.Flow.html"><code>Flow</code></a>s are 
 incoming; nothing to do.</span></td>
   </tr>
@@ -116,7 +116,7 @@ active at once. (type: <a href="http://docs.python.org/library/stdtypes.html#int
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.IDrain.html#flowingFrom" class="code">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowingFrom" class="code" data-type="Method">tubes.itube.IDrain</a></div>
     <div><p>The flow has begun from the given <a href="tubes.listening.Flow.html#fount"><code>fount</code></a> of <a href="tubes.listening.Flow.html"><code>Flow</code></a>s.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>A fount of flows.  One example of such a suitable fount would be the return
 value of <a href="tubes.protocol.html#flowFountFromEndpoint"><code>tubes.protocol.flowFountFromEndpoint</code></a>.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><a href="http://docs.python.org/library/constants.html#None"><code>None</code></a>,
 since this is a "terminal" drain, where founts of <a href="tubes.listening.Flow.html"><code>Flow</code></a> must end up in order
@@ -137,7 +137,7 @@ for more new connections to be established.</td></tr></table></div>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.IDrain.html#receive" class="code">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#receive" class="code" data-type="Method">tubes.itube.IDrain</a></div>
     <div><p>Receive the given flow, applying backpressure if too many connections 
 are active.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>The inbound <a href="tubes.listening.Flow.html"><code>Flow</code></a>.</td></tr></table></div>
   </div>
@@ -156,7 +156,7 @@ are active.</p><table class="fieldTable"><tr class="fieldStart"><td class="field
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.IDrain.html#flowStopped" class="code">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowStopped" class="code" data-type="Method">tubes.itube.IDrain</a></div>
     <div><p>No more <a href="tubes.listening.Flow.html"><code>Flow</code></a>s are 
 incoming; nothing to do.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason the flow stopped.</td></tr></table></div>
   </div>
@@ -164,7 +164,7 @@ incoming; nothing to do.</p><table class="fieldTable"><tr class="fieldStart"><td
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-11-25 07:44:43.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-05 20:19:55.
       </address>
 
     </div>

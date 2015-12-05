@@ -13,8 +13,8 @@ from zope.interface import implementer
 
 from twisted.python.components import proxyForInterface
 
-from .kit import Pauser, beginFlowingTo, beginFlowingFrom
-from .itube import IDrain, IFount, IPause
+from .kit import Pauser, beginFlowingTo, beginFlowingFrom, OncePause
+from .itube import IDrain, IFount
 
 
 @implementer(IDrain)
@@ -32,7 +32,7 @@ class _InDrain(object):
         Create an L{_InDrain} with an L{In}.
         """
         self._in = fanIn
-        self._pauseBecauseNoDrain = None
+        self._presentPause = None
 
 
     def flowingFrom(self, fount):
@@ -45,29 +45,9 @@ class _InDrain(object):
             drain.
         """
         beginFlowingFrom(self, fount)
-        # Except the fount is having similar thoughts about us as a drain, and
-        # this can only happen in one order or the other. right now siphon
-        # takes care of it.
-        self._checkNoDrainPause()
+        if self._in.fount._isPaused:
+            self._presentPause = fount.pauseFlow()
         return None
-
-
-    def _checkNoDrainPause(self):
-        """
-        This L{_InDrain} just switched founts or may have acquired a
-        down-stream drain; make sure that any pause state for a fount no longer
-        associated with me is unpaused.
-        """
-        pbnd = self._pauseBecauseNoDrain
-        self._pauseBecauseNoDrain = None
-        # Do this _before_ unpausing the old one; if it's a new fount, the
-        # order doesn't matter, but if it's the old fount, then doing it in
-        # this order ensures it never actually unpauses, we just hand off one
-        # pause for the other.
-        if self.fount is not None and self._in.fount.drain is None:
-            self._pauseBecauseNoDrain = self.fount.pauseFlow()
-        if pbnd is not None:
-            pbnd.unpause()
 
 
     def receive(self, item):
@@ -110,6 +90,18 @@ class _InFount(object):
         Create an L{_InFount} with an L{In}.
         """
         self._in = fanIn
+        self._isPaused = False
+        def doPause():
+            self._isPaused = True
+            for drain in self._in._drains:
+                drain._presentPause = drain.fount.pauseFlow()
+        def doResume():
+            self._isPaused = False
+            for drain in self._in._drains:
+                drain._presentPause.unpause()
+        self._pauser = Pauser(doPause, doResume)
+        self._pauseBecauseNoDrain = OncePause(self._pauser)
+        self._pauseBecauseNoDrain.pauseOnce()
 
 
     def flowTo(self, drain):
@@ -122,8 +114,8 @@ class _InFount(object):
         @return: the fount downstream of C{drain}.
         """
         result = beginFlowingTo(self, drain)
-        for drain in self._in._drains:
-            drain._checkNoDrainPause()
+        # TODO: if drain is not None
+        self._pauseBecauseNoDrain.maybeUnpause()
         return result
 
 
@@ -133,11 +125,7 @@ class _InFount(object):
 
         @return: A pause which pauses all upstream founts.
         """
-        subPauses = []
-        for drain in self._in._drains:
-            # XXX wrong because drains could be added and removed
-            subPauses.append(drain.fount.pauseFlow())
-        return _AggregatePause(subPauses)
+        return self._pauser.pause()
 
 
     def stopFlow(self):
@@ -146,31 +134,6 @@ class _InFount(object):
         """
         for drain in self._in._drains:
             drain.fount.stopFlow()
-
-
-
-@implementer(IPause)
-class _AggregatePause(object):
-    """
-    A pause which aggregates several other pauses.
-    """
-
-    def __init__(self, subPauses):
-        """
-        Createe an L{_AggregatePause} for other pauses.
-        """
-        self._subPauses = subPauses
-
-
-    def unpause(self):
-        """
-        Un-pause all pauses composed within this L{_AggregatePause}.
-        """
-        # XXX FIXME: I should remember whether this pause has been unpaused so
-        # I can report exceptions independently of any sub-pauses (there should
-        # be 0 sub-pauses).
-        for subPause in self._subPauses:
-            subPause.unpause()
 
 
 
@@ -189,9 +152,8 @@ class In(object):
     @type fount: L{IFount}
     """
     def __init__(self):
-        self.fount = _InFount(self)
         self._drains = []
-        self._subdrain = None
+        self.fount = _InFount(self)
 
 
     def newDrain(self):
@@ -309,8 +271,6 @@ class _OutDrain(object):
         self._founts = founts
 
         def _actuallyPause():
-            if self._paused:
-                raise NotImplementedError()
             self._paused = True
             if self.fount is not None:
                 self._pause = self.fount.pauseFlow()

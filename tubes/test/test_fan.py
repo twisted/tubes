@@ -13,7 +13,7 @@ from twisted.trial.unittest import SynchronousTestCase
 from ..itube import IFount, IDrain
 
 from ..test.util import FakeFount, FakeDrain
-from ..fan import Out
+from ..fan import Out, In
 
 
 class FakeIntermediateDrain(FakeDrain):
@@ -230,3 +230,60 @@ class FanOutTests(SynchronousTestCase):
         self.assertEqual(fakeDrain.received, ["something", "something else"])
 
         self.assertFalse(ff.flowIsStopped)
+
+
+
+class FanInTests(SynchronousTestCase):
+    """
+    Tests for L{tubes.fan.In}.
+    """
+
+    def test_oneDrainReceives(self):
+        """
+        When one drain created by L{In.newDrain} recives a value, the drain
+        that L{In.fount} is flowing to receives that value.
+        """
+        fd = FakeDrain()
+        fanIn = In()
+        fanIn.fount.flowTo(fd)
+        ff = FakeFount()
+        ff.flowTo(fanIn.newDrain())
+        ff.drain.receive("testing")
+        self.assertEqual(fd.received, ["testing"])
+
+
+    def test_pauseWhenNoDrain(self):
+        """
+        When a drain created by L{In.newDrain} is hooked up to a new fount, but
+        that L{In.fount} isn't flowing to anything yet, the new fount will be
+        paused immediately; when the L{In.fount} receives a drain, it is
+        unpaused.
+        """
+        ff = FakeFount()
+        fanIn = In()
+        ff.flowTo(fanIn.newDrain())
+        self.assertEqual(ff.flowIsPaused, True)
+        fanIn.fount.flowTo(FakeDrain())
+        self.assertEqual(ff.flowIsPaused, False)
+
+
+    def test_pauseNewFountWhenPaused(self):
+        """
+        When a drain created by L{In.newDrain} receives a new fount, if
+        L{In.fount} is already paused, the fount flowed to the new drain will
+        also be paused.
+        """
+        fanIn = In()
+        fd = FakeDrain()
+        fanIn.fount.flowTo(fd)
+        f1 = FakeFount()
+        f1.flowTo(fanIn.newDrain())
+        self.assertEqual(f1.flowIsPaused, False)
+        anPause = fd.fount.pauseFlow()
+        self.assertEqual(f1.flowIsPaused, True)
+        f2 = FakeFount()
+        self.assertEqual(f2.flowIsPaused, False)
+        f2.flowTo(fanIn.newDrain())
+        self.assertEqual(f2.flowIsPaused, True)
+        anPause.unpause()
+        self.assertEqual(f2.flowIsPaused, False)

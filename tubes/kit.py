@@ -76,9 +76,9 @@ class Pauser(object):
             it's the last one to be unpaused.
         @rtype: L{IPause}
         """
-        if not self._pauses:
-            self._actuallyPause()
         self._pauses += 1
+        if self._pauses == 1:
+            self._actuallyPause()
         return _Pause(self)
 
 

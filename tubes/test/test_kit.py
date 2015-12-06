@@ -92,4 +92,19 @@ class PauserTests(TestCase):
         self.assertEqual(resume.d, 1)
 
 
-
+    def test_reentrantPause(self):
+        """
+        A L{Pauser} that pauses re-entrantly will only result in one call to
+        the specified C{pause} callable.
+        """
+        def pause():
+            pause.d += 1
+            pauser.pause()
+        pause.d = 0
+        def resume():
+            resume.d += 1
+        resume.d = 0
+        pauser = Pauser(pause, resume)
+        pauser.pause()
+        self.assertEqual(pause.d, 1)
+        self.assertEqual(resume.d, 0)

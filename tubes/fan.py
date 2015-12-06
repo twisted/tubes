@@ -115,7 +115,8 @@ class _InFount(object):
         """
         result = beginFlowingTo(self, drain)
         # TODO: if drain is not None
-        self._pauseBecauseNoDrain.maybeUnpause()
+        if self.drain is not None:
+            self._pauseBecauseNoDrain.maybeUnpause()
         return result
 
 

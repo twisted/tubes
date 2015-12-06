@@ -287,3 +287,16 @@ class FanInTests(SynchronousTestCase):
         self.assertEqual(f2.flowIsPaused, True)
         anPause.unpause()
         self.assertEqual(f2.flowIsPaused, False)
+
+
+    def test_dontUnpauseWhenNoDrain(self):
+        """
+        L{In.fount}C{.flowTo(None)} won't unpause L{In}'s upstream founts.
+        """
+        fanIn = In()
+        ff = FakeFount()
+        ff.flowTo(fanIn.newDrain())
+        self.assertEqual(ff.flowIsPaused, True)
+        fanIn.fount.flowTo(None)
+        self.assertEqual(ff.flowIsPaused, True)
+

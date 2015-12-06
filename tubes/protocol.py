@@ -102,6 +102,8 @@ class _TransportDrain(object):
         @param fount: the fount producing data - L{ISegment}s - for this
             transport.
         """
+        if self.fount is not None:
+            self._transport.unregisterProducer()
         beginFlowingFrom(self, fount)
         self._transport.registerProducer(_FountProducer(fount), True)
 

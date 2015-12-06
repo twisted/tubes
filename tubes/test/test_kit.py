@@ -108,3 +108,24 @@ class PauserTests(TestCase):
         pauser.pause()
         self.assertEqual(pause.d, 1)
         self.assertEqual(resume.d, 0)
+
+
+    def test_reentrantResume(self):
+        """
+        A L{Pauser} that resumes re-entrantly will raise L{AlreadyUnpaused}.
+        """
+        def pause():
+            pause.d += 1
+        pause.d = 0
+        def resume():
+            resume.d += 1
+            self.assertRaises(AlreadyUnpaused, anPause.unpause)
+        resume.d = 0
+        pauser = Pauser(pause, resume)
+        anPause = pauser.pause()
+        anPause.unpause()
+        anotherPause = pauser.pause()
+        self.assertEqual(resume.d, 1)
+        self.assertEqual(pause.d, 2)
+        anotherPause.unpause()
+        self.assertEqual(resume.d, 2)

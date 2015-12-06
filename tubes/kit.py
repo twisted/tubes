@@ -33,10 +33,10 @@ class _Pause(object):
         callback from its L{Pauser}.
         """
         if self._alive:
+            self._alive = False
             self._friendPauser._pauses -= 1
             if self._friendPauser._pauses == 0:
                 self._friendPauser._actuallyResume()
-            self._alive = False
         else:
             raise AlreadyUnpaused()
 

@@ -59,8 +59,6 @@ class Participant(object):
         fountToChannel.flowTo(drainToChannel)
 
         self._participating[channel] = fountToChannel
-        yield to(self.client,
-                 dict(type="joined", channel="channel"))
         yield to(self._participating[channel],
                  dict(type="joined"))
 

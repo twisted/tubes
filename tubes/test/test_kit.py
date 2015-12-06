@@ -13,6 +13,18 @@ from twisted.trial.unittest import SynchronousTestCase as TestCase
 from ..itube import IPause, AlreadyUnpaused
 from ..kit import Pauser
 
+def countingCallable():
+    """
+    Generate a callable for testing.
+
+    @return: a callable with a C{d} attribute that indicates the number of
+        times it's been called.
+    """
+    def callee():
+        callee.d += 1
+    callee.d = 0
+    return callee
+
 class PauserTests(TestCase):
     """
     Tests for L{Pauser}, helper for someone who wants to implement a thing
@@ -23,9 +35,7 @@ class PauserTests(TestCase):
         """
         One call to L{_Pauser.pause} will call the actuallyPause callable.
         """
-        def pause():
-            pause.d += 1
-        pause.d = 0
+        pause = countingCallable()
         pauser = Pauser(pause, None)
         result = pauser.pause()
         self.assertTrue(verifyObject(IPause, result))
@@ -37,12 +47,8 @@ class PauserTests(TestCase):
         A call to L{_Pauser.pause} followed by a call to the result's
         C{unpause} will call the C{actuallyResume} callable.
         """
-        def pause():
-            pause.d += 1
-        pause.d = 0
-        def resume():
-            resume.d += 1
-        resume.d = 0
+        pause = countingCallable()
+        resume = countingCallable()
         pauser = Pauser(pause, resume)
         pauser.pause().unpause()
         self.assertEqual(pause.d, 1)
@@ -54,11 +60,8 @@ class PauserTests(TestCase):
         The second of two consectuive calls to L{IPause.unpause} results in an
         L{AlreadyUnpaused} exception.
         """
-        def pause():
-            pass
-        def resume():
-            resume.d += 1
-        resume.d = 0
+        pause = countingCallable()
+        resume = countingCallable()
         pauser = Pauser(pause, resume)
         aPause = pauser.pause()
         aPause.unpause()
@@ -71,12 +74,8 @@ class PauserTests(TestCase):
         Multiple calls to L{_Pauser.pause} where not all of the pausers are
         unpaused do not result in any calls to C{actuallyResume}.
         """
-        def pause():
-            pause.d += 1
-        pause.d = 0
-        def resume():
-            resume.d += 1
-        resume.d = 0
+        pause = countingCallable()
+        resume = countingCallable()
         pauser = Pauser(pause, resume)
         one = pauser.pause()
         two = pauser.pause()
@@ -101,9 +100,7 @@ class PauserTests(TestCase):
             pause.d += 1
             pauser.pause()
         pause.d = 0
-        def resume():
-            resume.d += 1
-        resume.d = 0
+        resume = countingCallable()
         pauser = Pauser(pause, resume)
         pauser.pause()
         self.assertEqual(pause.d, 1)
@@ -114,9 +111,7 @@ class PauserTests(TestCase):
         """
         A L{Pauser} that resumes re-entrantly will raise L{AlreadyUnpaused}.
         """
-        def pause():
-            pause.d += 1
-        pause.d = 0
+        pause = countingCallable()
         def resume():
             resume.d += 1
             self.assertRaises(AlreadyUnpaused, anPause.unpause)

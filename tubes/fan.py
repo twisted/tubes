@@ -64,14 +64,11 @@ class _InDrain(object):
 
     def flowStopped(self, reason):
         """
-        Pass along any stop notification to the drain that the L{In}'s fount is
-        flowing to.
+        Remove this drain from its attached L{In}.
 
         @param reason: the reason the flow stopped.
-
-        @return: passed through from the active drain.
         """
-        return self._in.fount.drain.flowStopped(reason)
+        self._in._drains.remove(self)
 
 
 

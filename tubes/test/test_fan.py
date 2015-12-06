@@ -317,3 +317,57 @@ class FanInTests(SynchronousTestCase):
         self.assertEqual(upstream1.flowIsPaused, True)
         self.assertEqual(upstream2.flowIsPaused, True)
 
+
+    def test_flowStopped(self):
+        """
+        When the flow stops to one of the drains returned by L{In.newDrain}, it
+        removes the associated fount from the list of founts to be paused.
+        """
+        fanIn = In()
+        downstream = FakeDrain()
+        fanIn.fount.flowTo(downstream)
+        upstream1 = FakeFount()
+        upstream2 = FakeFount()
+        upstream1.flowTo(fanIn.newDrain())
+        upstream2.flowTo(fanIn.newDrain())
+
+        upstream1.drain.flowStopped(None)
+
+        # Sanity check.
+        self.assertEqual(upstream1.flowIsPaused, False)
+        self.assertEqual(upstream2.flowIsPaused, False)
+
+        pause = downstream.fount.pauseFlow()
+
+        self.assertEqual(upstream1.flowIsPaused, False)
+        self.assertEqual(upstream2.flowIsPaused, True)
+
+        pause.unpause()
+
+        self.assertEqual(upstream1.flowIsPaused, False)
+        self.assertEqual(upstream2.flowIsPaused, False)
+
+
+    def test_stopFlow(self):
+        """
+        When the drain of L{In.fount} stops its upstream flow, that stops the
+        flow of every attached fount.
+        """
+        fanIn = In()
+        downstream = FakeDrain()
+        fanIn.fount.flowTo(downstream)
+
+        upstream1 = FakeFount()
+        upstream2 = FakeFount()
+
+        upstream1.flowTo(fanIn.newDrain())
+        upstream2.flowTo(fanIn.newDrain())
+
+        # Sanity check
+        self.assertEqual(upstream1.flowIsStopped, False)
+        self.assertEqual(upstream2.flowIsStopped, False)
+
+        downstream.fount.stopFlow()
+
+        self.assertEqual(upstream1.flowIsStopped, True)
+        self.assertEqual(upstream2.flowIsStopped, True)

@@ -300,3 +300,20 @@ class FanInTests(SynchronousTestCase):
         fanIn.fount.flowTo(None)
         self.assertEqual(ff.flowIsPaused, True)
 
+
+    def test_pauseWhenSwitchedToNoDrain(self):
+        """
+        L{In.fount}C{.flowTo(None)} after L{In.fount} already has a drain will
+        pause all the upstream founts.
+        """
+        fanIn = In()
+        downstream = FakeDrain()
+        fanIn.fount.flowTo(downstream)
+        upstream1 = FakeFount()
+        upstream2 = FakeFount()
+        upstream1.flowTo(fanIn.newDrain())
+        upstream2.flowTo(fanIn.newDrain())
+        fanIn.fount.flowTo(None)
+        self.assertEqual(upstream1.flowIsPaused, True)
+        self.assertEqual(upstream2.flowIsPaused, True)
+

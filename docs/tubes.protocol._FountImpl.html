@@ -5,16 +5,16 @@
   <head>
     <title>tubes.protocol._FountImpl : API documentation</title>
 
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+    <link type="text/css" href="bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="apidocs.css" rel="stylesheet" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
+          <a href="index.html" class="navbar-brand">
             tubes API Documentation
           </a>
         </div>
@@ -31,14 +31,14 @@
         <h1 class="class private"><code>tubes.protocol._FountImpl(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a class="code" data-type="Package" href="tubes.html">tubes</a>.<a class="code" data-type="Module" href="tubes.protocol.html">protocol</a></code>
+          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.protocol.html" class="code" data-type="Module">protocol</a></code>
           
           <a href="classIndex.html#tubes.protocol._FountImpl">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Implements interfaces: <a class="code" data-type="Interface" href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
+        <p>Implements interfaces: <a href="tubes.itube.IFount.html" class="code" data-type="Interface">tubes.itube.IFount</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -51,24 +51,24 @@
   <tr class="method">
     
     <td>Method</td>
-    <td><a class="code" data-type="Method" href="tubes.protocol._FountImpl.html#__init__">__init__</a></td>
+    <td><a href="tubes.protocol._FountImpl.html#__init__" class="code" data-type="Method">__init__</a></td>
     <td><span>Create a fount implementation from a provider of <a href="https://twistedmatrix.com/twisted.internet.interfaces.IPushProducer.html"><code>IPushProducer</code></a>
 and a function that takes a fount and a drain.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" data-type="Method" href="tubes.protocol._FountImpl.html#flowTo">flowTo</a></td>
+    <td><a href="tubes.protocol._FountImpl.html#flowTo" class="code" data-type="Method">flowTo</a></td>
     <td><span>Start flowing to the given drain.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" data-type="Method" href="tubes.protocol._FountImpl.html#pauseFlow">pauseFlow</a></td>
+    <td><a href="tubes.protocol._FountImpl.html#pauseFlow" class="code" data-type="Method">pauseFlow</a></td>
     <td><span>Allow backpressure to build up in the listening socket; ask Twisted to 
 stop calling <code>accept</code>.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a class="code" data-type="Method" href="tubes.protocol._FountImpl.html#stopFlow">stopFlow</a></td>
+    <td><a href="tubes.protocol._FountImpl.html#stopFlow" class="code" data-type="Method">stopFlow</a></td>
     <td><span>Stop the delivery of <a href="tubes.listening.Flow.html"><code>Flow</code></a> objects to this <a href="tubes.protocol._FountImpl.html"><code>_FountImpl</code></a>'s drain, 
 and stop listening on the port represented by this fount.</span></td>
   </tr>
@@ -124,7 +124,7 @@ of <code>(fount, drain)</code>)</td></tr></table></div>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a class="code" data-type="Method" href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo" class="code" data-type="Method">tubes.itube.IFount</a></div>
     <div><p>Start flowing to the given drain.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>The drain to send flows to.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the next fount in the chain.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
@@ -142,7 +142,7 @@ of <code>(fount, drain)</code>)</td></tr></table></div>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a class="code" data-type="Method" href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow" class="code" data-type="Method">tubes.itube.IFount</a></div>
     <div><p>Allow backpressure to build up in the listening socket; ask Twisted to 
 stop calling <code>accept</code>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">An <a href="tubes.itube.IPause.html"><code>IPause</code></a>.</td></tr></table></div>
   </div>
@@ -161,7 +161,7 @@ stop calling <code>accept</code>.</p><table class="fieldTable"><tr class="fieldS
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a class="code" data-type="Method" href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow" class="code" data-type="Method">tubes.itube.IFount</a></div>
     <div><p>Stop the delivery of <a href="tubes.listening.Flow.html"><code>Flow</code></a> objects to this <a href="tubes.protocol._FountImpl.html"><code>_FountImpl</code></a>'s drain, 
 and stop listening on the port represented by this fount.</p><table class="fieldTable"></table></div>
   </div>
@@ -169,7 +169,7 @@ and stop listening on the port represented by this fount.</p><table class="field
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-06 04:28:45.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-06 05:35:40.
       </address>
 
     </div>

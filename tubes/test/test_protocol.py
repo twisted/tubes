@@ -321,6 +321,7 @@ class FlowConnectorTests(TestCase):
                          upstream2)
 
 
+
 class FlowListenerTests(TestCase):
     """
     Tests for L{flowFountFromEndpoint} and the fount adapter it constructs.

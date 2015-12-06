@@ -306,6 +306,20 @@ class FlowConnectorTests(TestCase):
         self.assertIdentical(another, anotherOther)
 
 
+    def test_flowingFromTwice(self):
+        """
+        L{_TransportDrain.flowingFrom} switches the producer registered with
+        the underlying transport.
+        """
+        upstream1 = FakeFount()
+        upstream2 = FakeFount()
+
+        upstream1.flowTo(self.adaptedDrain)
+        upstream2.flowTo(self.adaptedDrain)
+
+        self.assertEqual(self.adaptedDrain._transport.producer._fount,
+                         upstream2)
+
 
 class FlowListenerTests(TestCase):
     """

@@ -135,7 +135,7 @@ class OnStop(object):
 class Hub(object):
     def __init__(self):
         self.participants = []
-        self.channels = defaultdict(Channel)
+        self.channels = {}
 
     def newParticipantFlow(self, flow):
         commandFount = flow.fount.flowTo(
@@ -147,6 +147,8 @@ class Hub(object):
         self.participants.append(participant)
 
     def channelNamed(self, name):
+        if name not in self.channels:
+            self.channels[name] = Channel(name)
         return self.channels[name]
 
 

@@ -38,7 +38,8 @@ class Participant(object):
         self.client.flowTo(responsesDrain)
 
     def received(self, item):
-        return getattr(self, "do_" + item.pop("type"))(**item)
+        kwargs = item.copy()
+        return getattr(self, "do_" + kwargs.pop("type"))(**kwargs)
 
     def do_name(self, name):
         self.name = name
@@ -65,7 +66,6 @@ class Participant(object):
     def do_speak(self, channel, message, id):
         yield to(self._participating[channel],
                  dict(type="spoke", message=message, id=id))
-        yield to(self.client, dict(type="spoke", id=id))
 
     def do_shout(self, message, id):
         for channel in self._participating.values():

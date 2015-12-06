@@ -25,6 +25,8 @@ def countingCallable():
     callee.d = 0
     return callee
 
+
+
 class PauserTests(TestCase):
     """
     Tests for L{Pauser}, helper for someone who wants to implement a thing

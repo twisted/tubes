@@ -6,15 +6,15 @@
     <title>tubes.fan._InDrain : API documentation</title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="apidocs.css" rel="stylesheet" type="text/css" />
+    <link type="text/css" href="bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="apidocs.css" rel="stylesheet" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
+          <a href="index.html" class="navbar-brand">
             tubes API Documentation
           </a>
         </div>
@@ -22,7 +22,7 @@
     </nav>
 
     <div id="showPrivate">
-      <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
     </div>
 
     <div class="container">
@@ -31,14 +31,14 @@
         <h1 class="class private"><code>tubes.fan._InDrain(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.fan.html" class="code" data-type="Module">fan</a></code>
+          Part of <code><a data-type="Package" href="tubes.html" class="code">tubes</a>.<a data-type="Module" href="tubes.fan.html" class="code">fan</a></code>
           
           <a href="classIndex.html#tubes.fan._InDrain">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Implements interfaces: <a href="tubes.itube.IDrain.html" class="code" data-type="Interface">tubes.itube.IDrain</a></p>
+        <p>Implements interfaces: <a data-type="Interface" href="tubes.itube.IDrain.html" class="code">tubes.itube.IDrain</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -51,32 +51,25 @@
   <tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._InDrain.html#__init__" class="code" data-type="Method">__init__</a></td>
+    <td><a data-type="Method" href="tubes.fan._InDrain.html#__init__" class="code">__init__</a></td>
     <td><span>Create an <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a> 
 with an <a href="tubes.fan.In.html"><code>In</code></a>.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._InDrain.html#flowingFrom" class="code" data-type="Method">flowingFrom</a></td>
+    <td><a data-type="Method" href="tubes.fan._InDrain.html#flowingFrom" class="code">flowingFrom</a></td>
     <td><span>The attached <a href="tubes.fan.In.html"><code>In</code></a> is now 
 receiving inputs from the given fount.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._InDrain.html#receive" class="code" data-type="Method">receive</a></td>
+    <td><a data-type="Method" href="tubes.fan._InDrain.html#receive" class="code">receive</a></td>
     <td><span>Pass along any received item to the drain that the <a href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._InDrain.html#flowStopped" class="code" data-type="Method">flowStopped</a></td>
-    <td><span>Pass along any stop notification to the drain that the <a href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.</span></td>
-  </tr><tr class="method private">
-    
-    <td>Method</td>
-    <td><a href="tubes.fan._InDrain.html#_checkNoDrainPause" class="code" data-type="Method">_checkNoDrainPause</a></td>
-    <td><span>This <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a> just 
-switched founts or may have acquired a down-stream drain; make sure that 
-any pause state for a fount no longer associated with me is unpaused.</span></td>
+    <td><a data-type="Method" href="tubes.fan._InDrain.html#flowStopped" class="code">flowStopped</a></td>
+    <td><span>Remove this drain from its attached <a href="tubes.fan.In.html"><code>In</code></a>.</span></td>
   </tr>
 </table>
         
@@ -120,30 +113,10 @@ with an <a href="tubes.fan.In.html"><code>In</code></a>.</p><table class="fieldT
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowingFrom" class="code" data-type="Method">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.IDrain.html#flowingFrom" class="code">tubes.itube.IDrain</a></div>
     <div><p>The attached <a href="tubes.fan.In.html"><code>In</code></a> is now 
 receiving inputs from the given fount.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">fount</td><td>Any fount.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2"><code>None</code>; this is a terminal drain and not a data-processing 
 drain.</td></tr></table></div>
-  </div>
-</div><div class="basemethod private">
-  
-  <a name="tubes.fan._InDrain._checkNoDrainPause">
-    
-  </a>
-  <a name="_checkNoDrainPause">
-    
-  </a>
-  <div class="functionHeader">
-    
-    def
-    _checkNoDrainPause(self):
-    
-  </div>
-  <div class="docstring functionBody">
-    
-    <div><p>This <a href="tubes.fan._InDrain.html"><code>_InDrain</code></a> just 
-switched founts or may have acquired a down-stream drain; make sure that 
-any pause state for a fount no longer associated with me is unpaused.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="basemethod">
   
@@ -160,7 +133,7 @@ any pause state for a fount no longer associated with me is unpaused.</p><table 
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#receive" class="code" data-type="Method">tubes.itube.IDrain</a></div>
+    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.IDrain.html#receive" class="code">tubes.itube.IDrain</a></div>
     <div><p>Pass along any received item to the drain that the <a href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">item</td><td>any object</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">passed through from the active drain.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
@@ -178,14 +151,14 @@ any pause state for a fount no longer associated with me is unpaused.</p><table 
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IDrain.html#flowStopped" class="code" data-type="Method">tubes.itube.IDrain</a></div>
-    <div><p>Pass along any stop notification to the drain that the <a href="tubes.fan.In.html"><code>In</code></a>'s fount is flowing to.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason the flow stopped.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">passed through from the active drain.</td></tr></table></div>
+    <div class="interfaceinfo">from <a data-type="Method" href="tubes.itube.IDrain.html#flowStopped" class="code">tubes.itube.IDrain</a></div>
+    <div><p>Remove this drain from its attached <a href="tubes.fan.In.html"><code>In</code></a>.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">reason</td><td>the reason the flow stopped.</td></tr></table></div>
   </div>
 </div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-05 20:19:55.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-06 03:58:25.
       </address>
 
     </div>

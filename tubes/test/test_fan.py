@@ -232,6 +232,37 @@ class FanOutTests(SynchronousTestCase):
         self.assertFalse(ff.flowIsStopped)
 
 
+    def test_switchFlowToNone(self):
+        """
+        When L{out.drain} removes its upstream fount, it unpauses it.
+        """
+        out = Out()
+        upstream1 = FakeFount()
+        upstream1.flowTo(out.drain)
+        out.newFount().pauseFlow()
+        out.drain.flowingFrom(None)
+        self.assertEqual(upstream1.flowIsPaused, False)
+
+
+    def test_flowStopped(self):
+        """
+        When the flow stops to L{out.drain}, it stops to all downstream drains
+        as well, with the same reason.
+        """
+        out = Out()
+        upstream1 = FakeFount()
+        upstream1.flowTo(out.drain)
+        fount1 = out.newFount()
+        fount2 = out.newFount()
+        downstream1 = FakeDrain()
+        downstream2 = FakeDrain()
+        fount1.flowTo(downstream1)
+        fount2.flowTo(downstream2)
+        out.drain.flowStopped(4321)
+        self.assertEqual(downstream1.stopped, [4321])
+        self.assertEqual(downstream2.stopped, [4321])
+
+
 
 class FanInTests(SynchronousTestCase):
     """

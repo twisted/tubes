@@ -6,15 +6,15 @@
     <title>tubes.fan._OutFount : API documentation</title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link type="text/css" href="bootstrap.min.css" rel="stylesheet" />
-    <link type="text/css" href="apidocs.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a href="index.html" class="navbar-brand">
+          <a class="navbar-brand" href="index.html">
             tubes API Documentation
           </a>
         </div>
@@ -22,7 +22,7 @@
     </nav>
 
     <div id="showPrivate">
-      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
+      <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
     </div>
 
     <div class="container">
@@ -31,14 +31,14 @@
         <h1 class="class private"><code>tubes.fan._OutFount(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a href="tubes.html" class="code" data-type="Package">tubes</a>.<a href="tubes.fan.html" class="code" data-type="Module">fan</a></code>
+          Part of <code><a data-type="Package" class="code" href="tubes.html">tubes</a>.<a data-type="Module" class="code" href="tubes.fan.html">fan</a></code>
           
           <a href="classIndex.html#tubes.fan._OutFount">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Implements interfaces: <a href="tubes.itube.IFount.html" class="code" data-type="Interface">tubes.itube.IFount</a></p>
+        <p>Implements interfaces: <a data-type="Interface" class="code" href="tubes.itube.IFount.html">tubes.itube.IFount</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -51,28 +51,28 @@
   <tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#__init__" class="code" data-type="Method">__init__</a></td>
+    <td><a data-type="Method" class="code" href="tubes.fan._OutFount.html#__init__">__init__</a></td>
     <td></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#flowTo" class="code" data-type="Method">flowTo</a></td>
+    <td><a data-type="Method" class="code" href="tubes.fan._OutFount.html#flowTo">flowTo</a></td>
     <td><span>Flow to the given drain.  Don't do anything special; just set up the 
 drain attribute and return the appropriate value.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#pauseFlow" class="code" data-type="Method">pauseFlow</a></td>
+    <td><a data-type="Method" class="code" href="tubes.fan._OutFount.html#pauseFlow">pauseFlow</a></td>
     <td><span>Pause the flow.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#stopFlow" class="code" data-type="Method">stopFlow</a></td>
+    <td><a data-type="Method" class="code" href="tubes.fan._OutFount.html#stopFlow">stopFlow</a></td>
     <td><span>Invoke the callback supplied to <code>__init__</code> for stopping.</span></td>
   </tr><tr class="method private">
     
     <td>Method</td>
-    <td><a href="tubes.fan._OutFount.html#_deliverOne" class="code" data-type="Method">_deliverOne</a></td>
+    <td><a data-type="Method" class="code" href="tubes.fan._OutFount.html#_deliverOne">_deliverOne</a></td>
     <td><span>Deliver one item to this fount's drain.</span></td>
   </tr>
 </table>
@@ -117,7 +117,7 @@ the upstream fount flowing into our <a href="tubes.fan.Out.html"><code>Out</code
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#flowTo" class="code" data-type="Method">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a data-type="Method" class="code" href="tubes.itube.IFount.html#flowTo">tubes.itube.IFount</a></div>
     <div><p>Flow to the given drain.  Don't do anything special; just set up the 
 drain attribute and return the appropriate value.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">drain</td><td>A drain to fan out values to.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">the result of <code>drain.flowingFrom</code></td></tr></table></div>
   </div>
@@ -136,7 +136,7 @@ drain attribute and return the appropriate value.</p><table class="fieldTable"><
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#pauseFlow" class="code" data-type="Method">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a data-type="Method" class="code" href="tubes.itube.IFount.html#pauseFlow">tubes.itube.IFount</a></div>
     <div><p>Pause the flow.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">a pause (type: <a href="tubes.itube.IPause.html"><code>IPause</code></a>)</td></tr></table></div>
   </div>
 </div><div class="basemethod">
@@ -154,7 +154,7 @@ drain attribute and return the appropriate value.</p><table class="fieldTable"><
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a href="tubes.itube.IFount.html#stopFlow" class="code" data-type="Method">tubes.itube.IFount</a></div>
+    <div class="interfaceinfo">from <a data-type="Method" class="code" href="tubes.itube.IFount.html#stopFlow">tubes.itube.IFount</a></div>
     <div><p>Invoke the callback supplied to <code>__init__</code> for stopping.</p><table class="fieldTable"></table></div>
   </div>
 </div><div class="basemethod private">
@@ -180,7 +180,7 @@ drain attribute and return the appropriate value.</p><table class="fieldTable"><
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-06 05:35:40.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-07 07:46:54.
       </address>
 
     </div>

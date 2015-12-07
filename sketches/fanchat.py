@@ -2,7 +2,7 @@
 from collections import defaultdict
 from json import loads, dumps
 
-from zope.interface.common import IMapping
+from zope.interface.common.mapping import IMapping
 
 from twisted.internet.endpoints import serverFromString
 from twisted.internet.defer import Deferred, inlineCallbacks
@@ -38,11 +38,18 @@ class Participant(object):
         self.client.flowTo(responsesDrain)
 
     def received(self, item):
-        return getattr(self, "do_" + item.pop("type"))(**item)
+        kwargs = item.copy()
+        return getattr(self, "do_" + kwargs.pop("type"))(**kwargs)
 
     def do_name(self, name):
         self.name = name
         yield to(self.client, dict(named=name))
+
+    def do_joined(self, sender, channel):
+        """
+        Someone joined a channel I'm participating in.
+        """
+        yield to(self.client, dict(type="joined"))
 
     def do_join(self, channel):
         fountFromChannel, drainToChannel = (
@@ -53,15 +60,12 @@ class Participant(object):
         fountToChannel.flowTo(drainToChannel)
 
         self._participating[channel] = fountToChannel
-        yield to(self.client,
-                 dict(type="joined", channel="channel"))
         yield to(self._participating[channel],
                  dict(type="joined"))
 
     def do_speak(self, channel, message, id):
         yield to(self._participating[channel],
                  dict(type="spoke", message=message, id=id))
-        yield to(self.client, dict(type="spoke", id=id))
 
     def do_shout(self, message, id):
         for channel in self._participating.values():
@@ -79,9 +83,11 @@ class Participant(object):
     def do_told(self, sender, message):
         yield to(self.client, message)
 
-    def do_spoke(self, channel, sender, message):
-        yield to(self.client, dict(type="spoke", channel=channel,
-                                   sender=sender.name, message=message))
+    def do_spoke(self, channel, sender, message, id):
+        yield to(self.client,
+                 dict(type="spoke", channel=channel,
+                      sender=sender.name, message=message,
+                      id=id))
 
 
 
@@ -129,7 +135,7 @@ class OnStop(object):
 class Hub(object):
     def __init__(self):
         self.participants = []
-        self.channels = defaultdict(Channel)
+        self.channels = {}
 
     def newParticipantFlow(self, flow):
         commandFount = flow.fount.flowTo(
@@ -141,6 +147,8 @@ class Hub(object):
         self.participants.append(participant)
 
     def channelNamed(self, name):
+        if name not in self.channels:
+            self.channels[name] = Channel(name)
         return self.channels[name]
 
 

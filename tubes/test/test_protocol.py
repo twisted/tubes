@@ -88,8 +88,8 @@ class FlowConnectorTests(TestCase):
 
     def test_flowToSetsDrain(self):
         """
-        L{_ProtocolFount.flowTo} will set the C{drain} attribute of the
-        L{_ProtocolFount}.
+        L{_TransportFount.flowTo} will set the C{drain} attribute of the
+        L{_TransportFount}.
         """
         self.adaptedFount.flowTo(self.drain)
         self.assertIdentical(self.adaptedFount.drain, self.drain)
@@ -97,8 +97,8 @@ class FlowConnectorTests(TestCase):
 
     def test_flowToDeliversData(self):
         """
-        L{_ProtocolFount.flowTo} will cause subsequent calls to
-        L{_ProtocolFount.dataReceived} to invoke L{receive} on its drain.
+        L{_TransportFount.flowTo} will cause subsequent calls to
+        L{_ProtocolPlumbing.dataReceived} to invoke L{receive} on its drain.
         """
         self.adaptedFount.flowTo(self.drain)
         self.adaptedProtocol().dataReceived("some data")
@@ -107,7 +107,7 @@ class FlowConnectorTests(TestCase):
 
     def test_drainReceivingWritesToTransport(self):
         """
-        Calling L{receive} on a L{_ProtocolDrain} will send the data to the
+        Calling L{receive} on a L{_TransportDrain} will send the data to the
         wrapped transport.
         """
         hello = b"hello world!"
@@ -117,7 +117,7 @@ class FlowConnectorTests(TestCase):
 
     def test_stopFlowStopsConnection(self):
         """
-        L{_ProtocolFount.stopFlow} will close the underlying connection by
+        L{_TransportFount.stopFlow} will close the underlying connection by
         calling C{loseConnection} on it.
         """
         self.adaptedFount.flowTo(self.drain)
@@ -130,7 +130,7 @@ class FlowConnectorTests(TestCase):
 
     def test_flowStoppedStopsConnection(self):
         """
-        L{_ProtocolDrain.flowStopped} will close the underlying connection by
+        L{_TransportDrain.flowStopped} will close the underlying connection by
         calling C{loseConnection} on it.
         """
         self.adaptedFount.flowTo(self.drain)
@@ -143,7 +143,7 @@ class FlowConnectorTests(TestCase):
         """
         When C{connectionLost} is called on a L{_ProtocolPlumbing} and it has
         an L{IFount} flowing to it (in other words, flowing to its
-        L{_ProtocolDrain}), but no drain flowing I{from} it, the L{IFount}
+        L{_TransportDrain}), but no drain flowing I{from} it, the L{IFount}
         should have C{stopFlow} invoked on it so that it will no longer deliver
         to the now-dead transport.
         """
@@ -171,8 +171,9 @@ class FlowConnectorTests(TestCase):
     def test_dataReceivedBeforeFlowing(self):
         """
         If L{_ProtocolPlumbing.dataReceived} is called before its
-        L{_ProtocolFount} is flowing to anything, then it will pause the
-        transport but only until the L{_ProtocolFount} is flowing to something.
+        L{_TransportFount} is flowing to anything, then it will pause the
+        transport but only until the L{_TransportFount} is flowing to
+        something.
         """
         self.adaptedProtocol().dataReceived("hello, ")
         self.assertEqual(self.adaptedProtocol().transport.producerState,
@@ -202,7 +203,8 @@ class FlowConnectorTests(TestCase):
     def test_dataReceivedWhenFlowingToNone(self):
         """
         Initially flowing to L{None} is the same as flowTo never having been
-        called, so L{_ProtocolFount.dataReceived} should have the same effect.
+        called, so L{_ProtocolPlumbing.dataReceived} should have the same
+        effect.
         """
         self.adaptedFount.flowTo(None)
         self.test_dataReceivedBeforeFlowing()
@@ -224,7 +226,7 @@ class FlowConnectorTests(TestCase):
 
     def test_flowingFromAttribute(self):
         """
-        L{ProtocolAdapter.flowingFrom} will establish the appropriate L{IFount}
+        L{_TransportDrain.flowingFrom} will establish the appropriate L{IFount}
         to deliver L{pauseFlow} notifications to.
         """
         ff = FakeFount()
@@ -234,10 +236,10 @@ class FlowConnectorTests(TestCase):
 
     def test_pauseUnpauseFromTransport(self):
         """
-        When an L{IFount} produces too much data for a L{_ProtocolDrain} to
+        When an L{IFount} produces too much data for a L{_TransportDrain} to
         process, the L{push producer
         <twisted.internet.interfaces.IPushProducer>} associated with the
-        L{_ProtocolDrain}'s transport will relay the L{pauseProducing}
+        L{_TransportDrain}'s transport will relay the L{pauseProducing}
         notification to that L{IFount}'s C{pauseFlow} method.
         """
         ff = FakeFount()
@@ -254,9 +256,9 @@ class FlowConnectorTests(TestCase):
 
     def test_pauseUnpauseFromOtherDrain(self):
         """
-        When a L{_ProtocolFount} produces too much data for a L{drain <IDrain>}
-        to process, and it calls L{_ProtocolFount.pauseFlow}, the underlying
-        transport will be paused.
+        When a L{_TransportFount} produces too much data for a L{drain
+        <IDrain>} to process, and it calls L{_TransportFount.pauseFlow}, the
+        underlying transport will be paused.
         """
         fd = FakeDrain()
         # StringTransport is an OK API.  But it is not the _best_ API.
@@ -281,7 +283,7 @@ class FlowConnectorTests(TestCase):
         """
         When C{stopProducing} is called on the L{push producer
         <twisted.internet.interfaces.IPushProducer>} associated with the
-        L{_ProtocolDrain}'s transport, the L{_ProtocolDrain}'s C{fount}'s
+        L{_TransportDrain}'s transport, the L{_TransportDrain}'s C{fount}'s
         C{stopFlow} method will be invoked.
         """
         ff = FakeFount()
@@ -292,7 +294,7 @@ class FlowConnectorTests(TestCase):
 
     def test_flowingFrom(self):
         """
-        L{_ProtocolFount.flowTo} returns the result of its argument's
+        L{_TransportFount.flowTo} returns the result of its argument's
         C{flowingFrom}.
         """
         another = FakeFount()
@@ -302,6 +304,21 @@ class FlowConnectorTests(TestCase):
                 return another
         anotherOther = self.adaptedFount.flowTo(ReflowingFakeDrain())
         self.assertIdentical(another, anotherOther)
+
+
+    def test_flowingFromTwice(self):
+        """
+        L{_TransportDrain.flowingFrom} switches the producer registered with
+        the underlying transport.
+        """
+        upstream1 = FakeFount()
+        upstream2 = FakeFount()
+
+        upstream1.flowTo(self.adaptedDrain)
+        upstream2.flowTo(self.adaptedDrain)
+
+        self.assertEqual(self.adaptedDrain._transport.producer._fount,
+                         upstream2)
 
 
 

@@ -204,7 +204,7 @@ class Hub(object):
 
 
 
-class ChatTest(TestCase):
+class ChatTests(TestCase):
     """
     Integration test cases for putting together fan.In and fan.Out in a useful
     configuration for pubsub or multi-user chat.

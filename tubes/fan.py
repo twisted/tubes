@@ -44,8 +44,12 @@ class _InDrain(object):
         @return: C{None}; this is a terminal drain and not a data-processing
             drain.
         """
+        wasPresentPause, self._presentPause = self._presentPause, None
         beginFlowingFrom(self, fount)
+        if wasPresentPause:
+            wasPresentPause.unpause()
         if self._in.fount._isPaused:
+            assert self._presentPause is None
             self._presentPause = fount.pauseFlow()
         return None
 
@@ -90,12 +94,14 @@ class _InFount(object):
         self._isPaused = False
         def doPause():
             self._isPaused = True
-            for drain in self._in._drains:
+            for drain in self._in._drains[:]:
+                assert drain._presentPause is None
                 drain._presentPause = drain.fount.pauseFlow()
         def doResume():
             self._isPaused = False
-            for drain in self._in._drains:
-                drain._presentPause.unpause()
+            for drain in self._in._drains[:]:
+                pp, drain._presentPause = drain._presentPause, None
+                pp.unpause()
         self._pauser = Pauser(doPause, doResume)
         self._pauseBecauseNoDrain = OncePause(self._pauser)
         self._pauseBecauseNoDrain.pauseOnce()
@@ -132,7 +138,7 @@ class _InFount(object):
         """
         Stop the flow of all founts flowing into L{_InDrain}s for this L{In}.
         """
-        for drain in self._in._drains:
+        for drain in self._in._drains[:]:
             drain.fount.stopFlow()
 
 
@@ -273,6 +279,7 @@ class _OutDrain(object):
         def _actuallyPause():
             self._paused = True
             if self.fount is not None:
+                assert self._pause is None
                 self._pause = self.fount.pauseFlow()
 
         def _actuallyResume():
@@ -292,7 +299,7 @@ class _OutDrain(object):
         the drains.
         """
         # TODO: prevent drains from different inputTypes from being added
-        for fount in self._founts:
+        for fount in self._founts[:]:
             if fount.drain is not None:
                 return fount.drain.inputType
 
@@ -310,6 +317,7 @@ class _OutDrain(object):
         if self._paused:
             p = self._pause
             if fount is not None:
+                assert self._pause is None
                 self._pause = fount.pauseFlow()
             else:
                 self._pause = None

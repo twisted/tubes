@@ -28,16 +28,17 @@ class Participant(object):
         """
         self._hub = hub
         self._in = In()
+        self._in.fount.flowTo(responsesDrain)
+
         self._router = Router()
         self._participating = {}
 
         # `self._in' is both commands from our own client and also messages
         # from other clients.
-        requestsFount.flowTo(self._in.newDrain())
-        self._in.fount.flowTo(series(self, self._router.drain))
+        requestsFount.flowTo(series(self, self._router.drain))
 
         self.client = self._router.newRoute("client")
-        self.client.flowTo(responsesDrain)
+        self.client.flowTo(self._in.newDrain())
 
 
     def received(self, item):
@@ -94,37 +95,6 @@ class Participant(object):
         """
         yield to(self._participating[channel],
                  dict(type="spoke", message=message, id=id))
-
-
-    def do_joined(self, sender, channel):
-        """
-        From Channels; say something on the given channel.
-
-        @param sender: the name of the person joining
-
-        @param channel: the name of the channel they joined
-        """
-        yield to(self.client, dict(type="joined",
-                                   sender=sender, channel=channel))
-
-
-    def do_spoke(self, channel, sender, message, id):
-        """
-        From Channels; a participant (possibly ourselves) spoke on the given
-        channel.
-
-        @param channel: the name of the channel where the message was received
-
-        @param sender: the name of the sender of the message
-
-        @param message: the text of the message
-
-        @param id: a unique ID for the message.
-        """
-        yield to(self.client,
-                 dict(type="spoke", channel=channel,
-                      sender=sender.name, message=message,
-                      id=id))
 
 
 

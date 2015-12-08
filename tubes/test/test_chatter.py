@@ -36,7 +36,7 @@ class Participant(object):
         requestsFount.flowTo(self._in.newDrain())
         self._in.fount.flowTo(series(self, self._router.drain))
 
-        self.client = self._router.newRoute()
+        self.client = self._router.newRoute("client")
         self.client.flowTo(responsesDrain)
 
 
@@ -74,7 +74,7 @@ class Participant(object):
             self._hub.channelNamed(channel).participate(self)
         )
         fountFromChannel.flowTo(self._in.newDrain())
-        fountToChannel = self._router.newRoute()
+        fountToChannel = self._router.newRoute("->{}".format(channel))
         fountToChannel.flowTo(drainToChannel)
 
         self._participating[channel] = fountToChannel
@@ -104,7 +104,8 @@ class Participant(object):
 
         @param channel: the name of the channel they joined
         """
-        yield to(self.client, dict(type="joined"))
+        yield to(self.client, dict(type="joined",
+                                   sender=sender, channel=channel))
 
 
     def do_spoke(self, channel, sender, message, id):
@@ -147,9 +148,11 @@ class Channel(object):
 
         @return: a 2-tuple of (new fount, new drain)
         """
-        @receiver(IMapping, IMapping)
+        @receiver(IMapping, IMapping,
+                  name="->addSender({}, {})".format(participant.name,
+                                                    self._name))
         def addSender(item):
-            yield dict(item, sender=participant, channel=self._name)
+            yield dict(item, sender=participant.name, channel=self._name)
 
         return (self._out.newFount(),
                 series(addSender, self._in.newDrain()))
@@ -250,5 +253,6 @@ class ChatTest(TestCase):
         ff.drain.receive({"type": "name", "name": "bob"})
         self.assertEqual(fd.received.pop(0), {"named": "bob"})
         ff.drain.receive({"type": "join", "channel": "bobs"})
-        self.assertEqual(fd.received.pop(0), {"type": "joined",
-                                              "channel": "bobs"})
+        self.assertEqual(fd.received, [{"type": "joined",
+                                        "sender": "bob",
+                                        "channel": "bobs"}])

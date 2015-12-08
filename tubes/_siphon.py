@@ -181,10 +181,7 @@ class _SiphonFount(_SiphonPiece):
             self._siphon._pending.resume()
             self._siphon._unbufferIterator()
 
-            # TODO: validate that the siphon's fount is always set consistently
-            # with _pauseBecausePauseCalled.
-            if fp is not None:
-                fp.unpause()
+            fp.unpause()
 
         self._pauser = Pauser(_actuallyPause, _actuallyResume)
 

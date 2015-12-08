@@ -1,5 +1,4 @@
 
-from collections import defaultdict
 from json import loads, dumps
 
 from zope.interface.common.mapping import IMapping
@@ -24,7 +23,6 @@ class Participant(object):
 
     def __init__(self, hub, requestsFount, responsesDrain):
         self._hub = hub
-        self._participation = {}
         self._in = In()
         self._router = Router()
         self._participating = {}

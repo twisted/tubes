@@ -168,7 +168,7 @@ class _SiphonFount(_SiphonPiece):
         def _actuallyPause():
             fount = self._siphon._tdrain.fount
             self._siphon._pending.suspend()
-            if fount is None:
+            if fount is not None:
                 pbpc = fount.pauseFlow()
             else:
                 pbpc = NoPause()

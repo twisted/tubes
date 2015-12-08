@@ -104,10 +104,16 @@ class _TransportDrain(object):
         @param fount: the fount producing data - L{ISegment}s - for this
             transport.
         """
+        foPro = _FountProducer(fount)
+        oldFoPro = None
         if self.fount is not None:
+            oldFoPro = self._foPro
             self._transport.unregisterProducer()
         beginFlowingFrom(self, fount)
-        self._transport.registerProducer(_FountProducer(fount), True)
+        self._foPro = foPro
+        self._transport.registerProducer(foPro, True)
+        if oldFoPro is not None:
+            oldFoPro.resumeProducing()
 
 
     def receive(self, item):

@@ -58,6 +58,7 @@ class _FountProducer(object):
         """
         # TODO: this implementation is (obviously) incorrect; we could lose
         # track of pauses.  Write some tests.
+        assert self._pause is None
         self._pause = self._fount.pauseFlow()
 
 
@@ -65,7 +66,8 @@ class _FountProducer(object):
         """
         The producer has been resumed.  Ensure that the fount is unpaused.
         """
-        self._pause.unpause()
+        if self._pause is not None:
+            self._pause.unpause()
 
 
     def stopProducing(self):

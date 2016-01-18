@@ -13,7 +13,8 @@ from twisted.trial.unittest import SynchronousTestCase
 from ..itube import IFount, IDrain
 
 from ..test.util import FakeFount, FakeDrain
-from ..fan import Out, In
+from ..tube import receiver, series
+from ..fan import Out, In, Thru
 
 
 class FakeIntermediateDrain(FakeDrain):
@@ -402,3 +403,34 @@ class FanInTests(SynchronousTestCase):
 
         self.assertEqual(upstream1.flowIsStopped, True)
         self.assertEqual(upstream2.flowIsStopped, True)
+
+
+
+class FanThruTests(SynchronousTestCase):
+    """
+    Tests for L{Thru}.
+    """
+
+    def test_thru(self):
+        """
+        Each input provided to L{Thru} will be sent to each of its drains, and
+        the outputs of those then sent on to its downstream drain in order.
+        """
+        @receiver()
+        def timesTwo(input):
+            yield input * 2
+        @receiver()
+        def timesThree(input):
+            yield input * 3
+
+        ff = FakeFount()
+        fd = FakeDrain()
+
+        ff.flowTo(Thru([series(timesTwo),
+                        series(timesThree)])).flowTo(fd)
+        ff.drain.receive(1)
+        ff.drain.receive(2)
+        ff.drain.receive(3)
+        self.assertEqual(fd.received,
+                         [1*2, 1*3, 2*2, 2*3, 3*2, 3*3])
+

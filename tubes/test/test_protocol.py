@@ -384,6 +384,27 @@ class FlowListenerTests(TestCase):
         self.assertEqual(len(connected), 1)
 
 
+    def test_acceptAfterDeferredButBeforeFlowTo(self):
+        """
+        If the L{Deferred} returned by L{flowFountFromEndpoint} fires, but the
+        callback doesn't immediately call C{flowTo} on the result, the
+        listening port will be paused.
+        """
+        endpoint, ports = fakeEndpointWithPorts()
+        fffed = flowFountFromEndpoint(endpoint)
+        fffed.callback(None)
+        flowFount = self.successResultOf(fffed)
+        self.assertEqual(ports[0].currentlyProducing, True)
+        protocol = ports[0].factory.buildProtocol(None)
+        aTransport = StringTransport()
+        protocol.makeConnection(aTransport)
+        self.assertEqual(ports[0].currentlyProducing, False)
+        fd = FakeDrain()
+        flowFount.flowTo(fd)
+        self.assertEqual(ports[0].currentlyProducing, True)
+
+
+
     def test_backpressure(self):
         """
         When the L{IFount} returned by L{flowFountFromEndpoint} is paused, it

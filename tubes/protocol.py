@@ -406,7 +406,7 @@ def flowFountFromEndpoint(endpoint):
         if listening.impl is None or listening.impl.drain is None:
             preListen.append((fount, drain))
             if listening.impl is not None:
-                listening.impl._pauseForNoDrain()
+                listening.impl._noDrainPause.pauseOnce()
         else:
             listening.impl.drain.receive(Flow(fount, drain))
     aFactory = _factoryFromFlow(aFlowFunction)

@@ -10,7 +10,7 @@ from unittest import TestCase
 
 from ..routing import Router, to, Routed
 from ..tube import series, receiver
-from .util import FakeFount, FakeDrain, IFakeOutput, IFakeInput
+from .util import FakeFount, FakeDrain, IFakeOutput, IFakeInput, FakeInput
 
 if 0:
     # Names used by PyDoctor.
@@ -114,4 +114,31 @@ class RoutedTests(TestCase):
         self.assertEqual(False, Routed(IFakeInput) != Routed(IFakeInput))
         self.assertEqual(True, Routed(IFakeInput) != Routed(IFakeOutput))
         self.assertEqual(True, Routed() != 7)
+
+
+    def test_providedBy(self):
+        """
+        L{Routed.providedBy} ensures that the given object is a L{to} and that
+        its payload provides the proper specification.
+        """
+        router = Router()
+        route = router.newRoute()
+        self.assertEqual(False,
+                         Routed(IFakeInput).providedBy(FakeInput()))
+        self.assertEqual(False,
+                         Routed(IFakeInput).providedBy(to(route, object())))
+        self.assertEqual(True,
+                         Routed(IFakeInput).providedBy(to(route, FakeInput())))
+
+
+    def test_providedByNone(self):
+        """
+        L{Routed.providedBy} ensures that the given object is L{to} but makes
+        no assertions about its payload if given L{Routed} is given no
+        sub-specification.
+        """
+        router = Router()
+        route = router.newRoute()
+        self.assertEqual(False, Routed().providedBy(object()))
+        self.assertEqual(True, Routed().providedBy(to(route, object())))
 

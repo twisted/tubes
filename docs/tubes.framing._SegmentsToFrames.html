@@ -6,15 +6,15 @@
     <title>tubes.framing._SegmentsToFrames : API documentation</title>
 
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+    <link href="bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="apidocs.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
 
     <nav class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">
+          <a href="index.html" class="navbar-brand">
             tubes API Documentation
           </a>
         </div>
@@ -22,7 +22,7 @@
     </nav>
 
     <div id="showPrivate">
-      <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+      <button onclick="togglePrivate()" class="btn btn-link">Toggle Private API</button>
     </div>
 
     <div class="container">
@@ -31,14 +31,14 @@
         <h1 class="class private"><code>tubes.framing._SegmentsToFrames(<span title="object">object</span>)</code> <small>class documentation</small></h1>
 
         <span id="partOf">
-          Part of <code><a data-type="Package" class="code" href="tubes.html">tubes</a>.<a data-type="Module" class="code" href="tubes.framing.html">framing</a></code>
+          Part of <code><a href="tubes.html" data-type="Package" class="code">tubes</a>.<a href="tubes.framing.html" data-type="Module" class="code">framing</a></code>
           
           <a href="classIndex.html#tubes.framing._SegmentsToFrames">(View In Hierarchy)</a>
         </span>
       </div>
 
       <div class="extrasDocstring">
-        <p>Implements interfaces: <a data-type="Interface" class="code" href="tubes.itube.IDivertable.html">tubes.itube.IDivertable</a></p>
+        <p>Implements interfaces: <a href="tubes.itube.IDivertable.html" data-type="Interface" class="code">tubes.itube.IDivertable</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -51,17 +51,17 @@
   <tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" class="code" href="tubes.framing._SegmentsToFrames.html#__init__">__init__</a></td>
+    <td><a href="tubes.framing._SegmentsToFrames.html#__init__" data-type="Method" class="code">__init__</a></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" class="code" href="tubes.framing._SegmentsToFrames.html#received">received</a></td>
+    <td><a href="tubes.framing._SegmentsToFrames.html#received" data-type="Method" class="code">received</a></td>
     <td><span>Some data was received on the wire.</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><a data-type="Method" class="code" href="tubes.framing._SegmentsToFrames.html#reassemble">reassemble</a></td>
+    <td><a href="tubes.framing._SegmentsToFrames.html#reassemble" data-type="Method" class="code">reassemble</a></td>
     <td><span>Take the given sequence of frames, previously emitted by this <a href="tubes.framing._SegmentsToFrames.html"><code>_SegmentsToFrames</code></a>,
 combine it with any un-parsed data still in the input buffer, and return a 
 list of segments.</span></td>
@@ -107,7 +107,7 @@ list of segments.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a data-type="Method" class="code" href="tubes.itube.ITube.html#received">tubes.itube.ITube</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.ITube.html#received" data-type="Method" class="code">tubes.itube.ITube</a></div>
     <div><p>Some data was received on the wire.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">string</td><td>a segment, to be parsed into frames.</td></tr><tr class="fieldStart"><td class="fieldName">Returns</td><td colspan="2">an iterable of frames.</td></tr></table></div>
   </div>
 </div><div class="basemethod">
@@ -125,7 +125,7 @@ list of segments.</span></td>
     
   </div>
   <div class="docstring functionBody">
-    <div class="interfaceinfo">from <a data-type="Method" class="code" href="tubes.itube.IDivertable.html#reassemble">tubes.itube.IDivertable</a></div>
+    <div class="interfaceinfo">from <a href="tubes.itube.IDivertable.html#reassemble" data-type="Method" class="code">tubes.itube.IDivertable</a></div>
     <div><p>Take the given sequence of frames, previously emitted by this <a href="tubes.framing._SegmentsToFrames.html"><code>_SegmentsToFrames</code></a>,
 combine it with any un-parsed data still in the input buffer, and return a 
 list of segments.</p><table class="fieldTable"><tr class="fieldStart"><td class="fieldName">Parameters</td><td class="fieldArg">datas</td><td><a href="http://docs.python.org/library/stdtypes.html#list"><code>list</code></a>
@@ -138,7 +138,7 @@ representing segments.</td></tr></table></div>
 
       </div>
       <address>
-        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2015-12-07 07:46:54.
+        <a href="index.html">API Documentation</a> for tubes, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> at 2016-01-18 03:57:58.
       </address>
 
     </div>

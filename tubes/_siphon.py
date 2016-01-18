@@ -168,9 +168,11 @@ class _SiphonFount(_SiphonPiece):
         def _actuallyPause():
             fount = self._siphon._tdrain.fount
             self._siphon._pending.suspend()
-            if fount is None:
-                return
-            self._siphon._pauseBecausePauseCalled = fount.pauseFlow()
+            if fount is not None:
+                pbpc = fount.pauseFlow()
+            else:
+                pbpc = NoPause()
+            self._siphon._pauseBecausePauseCalled = pbpc
 
         def _actuallyResume():
             fp = self._siphon._pauseBecausePauseCalled
@@ -179,10 +181,7 @@ class _SiphonFount(_SiphonPiece):
             self._siphon._pending.resume()
             self._siphon._unbufferIterator()
 
-            # TODO: validate that the siphon's fount is always set consistently
-            # with _pauseBecausePauseCalled.
-            if fp is not None:
-                fp.unpause()
+            fp.unpause()
 
         self._pauser = Pauser(_actuallyPause, _actuallyResume)
 

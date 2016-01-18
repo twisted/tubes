@@ -201,7 +201,7 @@ class SeriesTests(TestCase):
         srs = series(PassthruTube(), aStarter,
                      PassthruTube())
         nextFount = self.ff.flowTo(srs)
-        self.assertEqual(self.ff.flowIsPaused, 0)
+        self.assertEqual(self.ff.flowIsPaused, 1)
         nextFount.flowTo(self.fd)
         self.assertEqual(self.ff.flowIsPaused, 0)
         self.assertEqual(self.fd.received, ["greeting"])

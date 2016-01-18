@@ -198,7 +198,7 @@ class Router(object):
                 pass
             def flowStopped(self, reason):
                 pass
-        self.newRoute().flowTo(NullDrain())
+        self.newRoute("NULL").flowTo(NullDrain())
         self.drain = self._out.drain
 
 

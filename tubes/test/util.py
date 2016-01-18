@@ -65,6 +65,14 @@ class IFakeInput(Interface):
 
 
 
+@implementer(IFakeInput)
+class FakeInput(object):
+    """
+    An implementation of a sample interface.
+    """
+
+
+
 @implementer(IDrain)
 class FakeDrain(object):
     """

@@ -404,7 +404,6 @@ class FlowListenerTests(TestCase):
         self.assertEqual(ports[0].currentlyProducing, True)
 
 
-
     def test_backpressure(self):
         """
         When the L{IFount} returned by L{flowFountFromEndpoint} is paused, it

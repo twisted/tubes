@@ -1,7 +1,7 @@
 Tubes
 =====
 
-.. image:: https://pypip.in/version/Tubes/badge.svg
+.. image:: https://img.shields.io/pypi/v/Tubes.svg
     :target: https://pypi.python.org/pypi/Tubes/
     :alt: Latest Version
 

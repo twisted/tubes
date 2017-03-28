@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='Tubes',
-    version='0.0.0',
+    version='0.1.0',
     description="""
     Flow control and backpressure for event-driven applications.
     """,

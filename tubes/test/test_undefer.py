@@ -11,7 +11,7 @@ from twisted.internet.defer import succeed
 from twisted.internet.defer import Deferred
 from twisted.python.failure import Failure
 
-from tubes.undefer import deferredToResult
+from tubes.undefer import deferredToResult, fountToDeferred
 from tubes.test.util import FakeDrain
 from tubes.test.util import FakeFount
 from tubes.tube import tube, series
@@ -156,4 +156,17 @@ class DeferredIntegrationTests(SynchronousTestCase):
         self.assertEqual(self.fd.stopped, [stopReason])
 
 
-
+    def test_fountToDeferred(self):
+        """
+        L{fountToDeferred} returns a L{Deferred} that fires with an iterable of
+        all the objects that the fount passed to it emits.
+        """
+        self.assertIsNone(self.ff.drain)
+        d = fountToDeferred(self.ff)
+        self.assertIsNotNone(self.ff.drain)
+        self.assertNoResult(d)
+        self.ff.drain.receive(1)
+        self.assertNoResult(d)
+        self.ff.drain.receive(2)
+        self.ff.drain.flowStopped(Failure(ZeroDivisionError()))
+        self.assertEqual(list(self.successResultOf(d)), [1, 2])

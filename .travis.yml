@@ -11,7 +11,7 @@ env:
     - TOX_ENV=apidocs
     - TOX_ENV=docs-spellcheck
     - TOX_ENV=docs-linkcheck
-    - PUSH_DOCS=true
+    # - PUSH_DOCS=true
 
 matrix:
   allow_failures:

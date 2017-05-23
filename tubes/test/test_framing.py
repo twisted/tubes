@@ -26,10 +26,11 @@ class NetstringTests(TestCase):
         ff = FakeFount()
         fd = FakeDrain()
         ff.flowTo(series(bytesToNetstrings())).flowTo(fd)
-        ff.drain.receive("hello")
-        self.assertEquals(fd.received, ["{len:d}:{data:s},".format(
-            len=len("hello"), data="hello"
-        )])
+        ff.drain.receive(b"hello")
+        self.assertEquals(
+            fd.received, [b"%(len)d:%(data)s," %
+                          {b"len": len(b"hello"), b"data": b"hello"}]
+        )
 
 
     def test_bytesToNetstrings(self):
@@ -39,14 +40,14 @@ class NetstringTests(TestCase):
         ff = FakeFount()
         fd = FakeDrain()
         ff.flowTo(series(bytesToNetstrings())).flowTo(fd)
-        ff.drain.receive("hello")
-        ff.drain.receive("world")
+        ff.drain.receive(b"hello")
+        ff.drain.receive(b"world")
         self.assertEquals(
             b"".join(fd.received),
-            "{len:d}:{data:s},{len2:d}:{data2:s},".format(
-                len=len("hello"), data="hello",
-                len2=len("world"), data2="world",
-            )
+            b"%(len)d:%(data)s,%(len2)d:%(data2)s," % {
+                b"len": len(b"hello"), b"data": b"hello",
+                b"len2": len(b"world"), b"data2": b"world",
+            }
         )
 
 
@@ -57,8 +58,8 @@ class NetstringTests(TestCase):
         ff = FakeFount()
         fd = FakeDrain()
         ff.flowTo(series(netstringsToBytes())).flowTo(fd)
-        ff.drain.receive("1:x,2:yz,3:")
-        self.assertEquals(fd.received, ["x", "yz"])
+        ff.drain.receive(b"1:x,2:yz,3:")
+        self.assertEquals(fd.received, [b"x", b"yz"])
 
 
 
@@ -75,7 +76,7 @@ class LineTests(TestCase):
             ff = FakeFount()
             fd = FakeDrain()
             ff.flowTo(series(bytesToLines())).flowTo(fd)
-            ff.drain.receive(newline.join([b"alpha", "beta", "gamma"]))
+            ff.drain.receive(newline.join([b"alpha", b"beta", b"gamma"]))
             self.assertEquals(fd.received, [b"alpha", b"beta"])
         splitALine(b"\n")
         splitALine(b"\r\n")
@@ -107,7 +108,7 @@ class LineTests(TestCase):
         class Switcher(object):
             def received(self, line):
                 splitted = line.split(b" ", 1)
-                if splitted[0] == 'switch':
+                if splitted[0] == b'switch':
                     length = int(splitted[1])
                     lines.divert(series(Switchee(length), fd))
 
@@ -139,16 +140,16 @@ class LineTests(TestCase):
         @tube
         class Switcher(object):
             def received(self, line):
-                if 'switch' in line:
+                if b'switch' in line:
                     lines.divert(series(netstringsToBytes(), fd2))
                 else:
                     yield line
 
         cc = series(lines, Switcher())
         ff.flowTo(cc).flowTo(fd1)
-        ff.drain.receive('something\r\nswitch\r\n7:hello\r\n,5:world,')
-        self.assertEquals(fd1.received, ["something"])
-        self.assertEquals(fd2.received, ['hello\r\n', 'world'])
+        ff.drain.receive(b'something\r\nswitch\r\n7:hello\r\n,5:world,')
+        self.assertEquals(fd1.received, [b"something"])
+        self.assertEquals(fd2.received, [b'hello\r\n', b'world'])
 
 
 
@@ -166,7 +167,7 @@ class PackedPrefixTests(TestCase):
         fd = FakeDrain()
         ff.flowTo(series(packed)).flowTo(fd)
         ff.drain.receive(b"\x0812345678\x02")
-        self.assertEquals(fd.received, ["12345678"])
+        self.assertEquals(fd.received, [b"12345678"])
 
 
     def test_prefixOut(self):
@@ -177,7 +178,7 @@ class PackedPrefixTests(TestCase):
         ff = FakeFount()
         fd = FakeDrain()
         ff.flowTo(series(packed, fd))
-        ff.drain.receive('a')
-        ff.drain.receive('bc')
-        ff.drain.receive('def')
-        self.assertEquals(fd.received, ['\x01a', '\x02bc', '\x03def'])
+        ff.drain.receive(b'a')
+        ff.drain.receive(b'bc')
+        ff.drain.receive(b'def')
+        self.assertEquals(fd.received, [b'\x01a', b'\x02bc', b'\x03def'])

@@ -270,7 +270,7 @@ def bytesToLines():
 
     @return: a new L{IDrain} that does the given conversion.
     """
-    return series(Diverter(bytesDelimitedBy("\n")), _CarriageReturnRemover())
+    return series(Diverter(bytesDelimitedBy(b"\n")), _CarriageReturnRemover())
 
 
 

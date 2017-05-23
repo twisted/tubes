@@ -164,7 +164,7 @@ class FlowConnectorTests(TestCase):
         ff = FakeFount()
         ff.flowTo(self.adaptedDrain)
         self.assertEqual(ff.flowIsStopped, False)
-        self.adaptedProtocol().connectionLost(Failure(ZeroDivisionError))
+        self.adaptedProtocol().connectionLost(Failure(ZeroDivisionError()))
         self.assertEqual(ff.flowIsStopped, True)
 
 

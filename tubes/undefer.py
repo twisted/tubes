@@ -93,7 +93,7 @@ def fountToDeferred(fount):
     all the results of said C{fount}.
 
     @param fount: A fount which, at this point, should have no drain.
-    @type fount: L{tubes.ifount.IFount}
+    @type fount: L{tubes.itube.IFount}
 
     @return: a L{Deferred} that fires with an iterable
     @rtype: L{Deferred} firing iterable of C{fount.outputType}

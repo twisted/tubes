@@ -106,7 +106,7 @@ class LineTests(TestCase):
         @tube
         class Switcher(object):
             def received(self, line):
-                splitted = line.split(" ", 1)
+                splitted = line.split(b" ", 1)
                 if splitted[0] == 'switch':
                     length = int(splitted[1])
                     lines.divert(series(Switchee(length), fd))
@@ -121,10 +121,10 @@ class LineTests(TestCase):
 
         cc = series(lines, Switcher())
         ff.flowTo(cc).flowTo(fd)
-        ff.drain.receive("hello\r\nworld\r\nswitch 10\r\nabcde\r\nfgh"
+        ff.drain.receive(b"hello\r\nworld\r\nswitch 10\r\nabcde\r\nfgh"
                          # + '\r\nagain\r\n'
                          )
-        self.assertEquals("".join(Switchee.datums), "abcde\r\nfgh")
+        self.assertEquals(b"".join(Switchee.datums), b"abcde\r\nfgh")
 
 
     def test_switchingWithMoreDataToDeliver(self):

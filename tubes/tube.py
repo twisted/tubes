@@ -232,7 +232,7 @@ def series(start, *tubes):
     with _registryActive(_tubeRegistry):
         result = IDrain(start)
         currentFount = result.flowingFrom(None)
-        drains = map(IDrain, tubes)
+        drains = [IDrain(tube) for tube in tubes]
     for drain in drains:
         currentFount = currentFount.flowTo(drain)
     return result

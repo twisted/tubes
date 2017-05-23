@@ -3,19 +3,23 @@ language: python
 env:
   global:
     - secure: "CvFj8Df5OiDRrW7EsTGhkltdmNlYerx9hH/tSKxiNFVDBUUFaTN7rUr7kWcOKchzerGwk7zjZ4SRXyoSCs+Srht6GZxWHkNROwKpp5Xvf5clbLXbp7GO1X/L5rLgrXpGwtkhgNuHx0X2IUCDHUQAUSumPgZcNFu3emgVxEqabN0="
-  matrix:
-    - TOX_ENV=lint
-    - TOX_ENV=py27
-    - TOX_ENV=pypy
-    - TOX_ENV=docs
-    - TOX_ENV=apidocs
-    - TOX_ENV=docs-spellcheck
-    - TOX_ENV=docs-linkcheck
-    # - PUSH_DOCS=true
 
 matrix:
   allow_failures:
     - env: "TOX_ENV=docs-linkcheck"
+  include:
+    - env: TOX_ENV=lint
+      python: 2.7
+    - env: TOX_ENV=py27
+      python: 2.7
+    - env: TOX_ENV=py36
+      python: 3.6
+    - env: TOX_ENV=pypy
+    - env: TOX_ENV=docs
+    - env: TOX_ENV=apidocs
+    - env: TOX_ENV=docs-spellcheck
+    - env: TOX_ENV=docs-linkcheck
+    # - PUSH_DOCS=true
 
 install:
   - ./.travis/install.sh

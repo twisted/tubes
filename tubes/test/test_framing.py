@@ -77,8 +77,8 @@ class LineTests(TestCase):
             ff.flowTo(series(bytesToLines())).flowTo(fd)
             ff.drain.receive(newline.join([b"alpha", "beta", "gamma"]))
             self.assertEquals(fd.received, [b"alpha", b"beta"])
-        splitALine("\n")
-        splitALine("\r\n")
+        splitALine(b"\n")
+        splitALine(b"\r\n")
 
 
     def test_linesToBytes(self):

@@ -44,21 +44,44 @@ def deferredToResult():
 
 @implementer(IDrain)
 class _DeferredAggregatingDrain(object):
+    """
+    A L{_DeferredAggregatingDrain} aggregates a fount's results into a
+    Deferred.
+    """
     inputType = None
     fount = None
 
     def __init__(self, deferred):
+        """
+        Create a L{_DeferredAggregatingDrain} from a L{Deferred}.
+        """
         self._values = []
         self._deferred = deferred
 
+
     def flowingFrom(self, fount):
-        pass
+        """
+        The flow has begun; do nothing.
+
+        @param fount: The fount.
+        """
+
 
     def receive(self, item):
+        """
+        An item was received.  Remember it.
+
+        @param item: The item.
+        """
         self._values.append(item)
 
 
     def flowStopped(self, reason):
+        """
+        The flow was stopped.  Fire the L{Deferred}.
+
+        @param reason: The reason; ignored.
+        """
         values, self._values = self._values, None
         self._deferred.callback(values)
 

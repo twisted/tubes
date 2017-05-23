@@ -3,7 +3,10 @@ language: python
 env:
   global:
     - secure: "CvFj8Df5OiDRrW7EsTGhkltdmNlYerx9hH/tSKxiNFVDBUUFaTN7rUr7kWcOKchzerGwk7zjZ4SRXyoSCs+Srht6GZxWHkNROwKpp5Xvf5clbLXbp7GO1X/L5rLgrXpGwtkhgNuHx0X2IUCDHUQAUSumPgZcNFu3emgVxEqabN0="
+
 matrix:
+  allow_failures:
+    - env: "TOX_ENV=docs-linkcheck"
   include:
     - env: TOX_ENV=lint
       python: 2.7
@@ -17,10 +20,6 @@ matrix:
     - env: TOX_ENV=docs-spellcheck
     - env: TOX_ENV=docs-linkcheck
     # - PUSH_DOCS=true
-
-matrix:
-  allow_failures:
-    - env: "TOX_ENV=docs-linkcheck"
 
 install:
   - ./.travis/install.sh

@@ -294,6 +294,7 @@ class _ProtocolPlumbing(_Protocol):
         self._drain.fount = None
 
 
+
 def _factoryFromFlow(flow):
     """
     Convert a flow function into an L{IProtocolFactory}.

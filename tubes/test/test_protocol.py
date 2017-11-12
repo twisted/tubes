@@ -474,7 +474,6 @@ class FlowListenerTests(TestCase):
         self.assertEqual(dataSender.flowIsStopped, 1)
 
 
-
     def test_backpressure(self):
         """
         When the L{IFount} returned by L{flowFountFromEndpoint} is paused, it

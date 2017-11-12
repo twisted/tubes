@@ -16,6 +16,7 @@ from twisted.test.proto_helpers import StringTransport
 from twisted.internet.interfaces import (
     IStreamServerEndpoint, IHalfCloseableProtocol
 )
+from twisted.internet.error import ConnectionDone
 
 from ..protocol import flowFountFromEndpoint, flowFromEndpoint
 from ..tube import tube, series
@@ -407,7 +408,7 @@ class FlowListenerTests(TestCase):
         self.assertEqual(ports[0].currentlyProducing, True)
 
 
-    def test_halfClose(self):
+    def test_readConnectionLost(self):
         """
         The protocol created by L{flowFountFromEndpoint} provides half-close
         support, and when it receives an EOF (i.e.: C{readConnectionLost}) it
@@ -433,7 +434,45 @@ class FlowListenerTests(TestCase):
         self.assertEqual(dataSender.flowIsStopped, False)
         protocol.readConnectionLost()
         self.assertEqual(len(receivedData.stopped), 1)
+        self.assertIsInstance(receivedData.stopped[0], Failure)
+        receivedData.stopped[0].trap(ConnectionDone)
         self.assertEqual(dataSender.flowIsStopped, False)
+        protocol.connectionLost(ConnectionDone())
+        self.assertEqual(len(receivedData.stopped), 1)
+        self.assertEqual(dataSender.flowIsStopped, True)
+
+
+    def test_writeConnectionLost(self):
+        """
+        The protocol created by L{flowFountFromEndpoint} provides half-close
+        support, and when it receives an EOF (i.e.: C{writeConnectionLost}) it
+        will signal the end of the flow to its drain's fount, but not to its
+        fount's drain.
+        """
+        endpoint, ports = fakeEndpointWithPorts()
+        fffep = flowFountFromEndpoint(endpoint)
+        fffep.callback(None)
+        flowFount = self.successResultOf(fffep)
+        protocol = ports[0].factory.buildProtocol(None)
+        verifyObject(IHalfCloseableProtocol, protocol)
+        aTransport = StringTransport()
+        protocol.makeConnection(aTransport)
+        accepted = FakeDrain()
+        flowFount.flowTo(accepted)
+        [flow] = accepted.received
+        receivedData = FakeDrain()
+        dataSender = FakeFount()
+        flow.fount.flowTo(receivedData)
+        dataSender.flowTo(flow.drain)
+        self.assertEqual(len(receivedData.stopped), 0)
+        self.assertEqual(dataSender.flowIsStopped, False)
+        protocol.writeConnectionLost()
+        self.assertEqual(len(receivedData.stopped), 0)
+        self.assertEqual(dataSender.flowIsStopped, 1)
+        protocol.connectionLost(ConnectionDone())
+        self.assertEqual(len(receivedData.stopped), 1)
+        self.assertEqual(dataSender.flowIsStopped, 1)
+
 
 
     def test_backpressure(self):

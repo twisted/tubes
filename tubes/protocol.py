@@ -24,6 +24,7 @@ from twisted.internet.interfaces import (
     IPushProducer, IListeningPort, IHalfCloseableProtocol
 )
 from twisted.internet.protocol import Protocol as _Protocol
+from twisted.internet.error import ConnectionDone
 
 if 0:
     # Workaround for inability of pydoctor to resolve references.
@@ -281,12 +282,16 @@ class _ProtocolPlumbing(_Protocol):
         """
         An end-of-file was received.
         """
+        self._fount.drain.flowStopped(Failure(ConnectionDone()))
+        self._fount.drain = None
 
 
     def writeConnectionLost(self):
         """
         The write output was closed.
         """
+        self._drain.fount.stopFlow()
+        self._drain.fount = None
 
 
 def _factoryFromFlow(flow):

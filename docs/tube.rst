@@ -104,6 +104,17 @@ You can test it out with ``telnet localhost 4321``.
 
 However, this example still performs no processing of the data that it is receiving.
 
+A Brief Aside About Types
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each fount, and each drain, have a type associated with them: in the fount's case, the type of data it produces, and in the drain's case, the type of data that it accepts.
+You can inspect these using the :api:`tubes.itube.IFount.outputType <outputType>` and :api:`tubes.itube.IDrain.inputType <inputType>` attributes of founts and drains respectively.
+Even in our tiny example, we already have two types of founts: a fount of ``bytes`` — one for each connection — and a fount of :api:`tubes.listening.Flow <flow>`\ s — the listening port).
+We have a drain for ``bytes``, also on each connection, and a drain for :api:`tubes.listening.Flow <flow>`\ s: the :api:`tubes.listening.Listener <listener>` wrapped around ``echo``\ .
+
+Attempting to hook up a fount and a drain of mismatched types will usually result in an immediate ``TypeError``, which is a helpful debugging tool.
+Always make sure you've matched up the expected types of the output of your founts and the input of the drains they're connected to.
+
 Processing A Little Data: Reversing A String
 --------------------------------------------
 

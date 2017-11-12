@@ -14,7 +14,7 @@ Composable data processing refers to processing that can occur in independent un
 For example, the conversion of a continuous stream of bytes into a discrete sequence of messages can be implemented independently from the presentation of or reactions to those messages.
 This allows for similar messages to be relayed in different formats and by different protocols, but be processed by the same code.
 
-In this document, you will learn how to compose founts (places where data comes from), drains (places where data goes to), and tubes (things that modify data by converting inputs to outputs) to create flows.
+In this document, you will learn how to compose founts (places where data comes from), drains (places where data goes to), and tubes (things that modify data by converting inputs to outputs).
 You'll also learn how to create your own tubes to perform your own conversions of input to output.
 By the end, you should be able to put a series of tubes onto the Internet as a server or a client.
 
@@ -134,12 +134,12 @@ Luckily Tubes implements this for us, with the handy :api:`tubes.framing` module
     For example, it works well for documentation :-).
     However, if you're designing your own network protocol, please consider using a length-prefixed framing mechanism, such as :api:`tubes.framing.netstringsToStrings <netstrings>`.
 
-Much like in the echo example, we need a flow function which sets up the flow of data from a fount to a drain.
+Much like in the echo example, we need a function which accepts a ``flow`` which sets up the flow of data from a fount to a drain on an individual connection.
 
 .. literalinclude:: listings/reversetube.py
    :pyobject: reverseFlow
 
-In this flow function, we have a new object, a *series of Tubes*, created by the :api:`tubes.tube.series <series>` function.
+In this function, we create a new type of object, a *series of Tubes*, created by the :api:`tubes.tube.series <series>` function.
 You can read the construction of the ``lineReverser`` series as a flow of data from left to right.
 The output from each tube in the series is passed as the input to the tube to its right.
 

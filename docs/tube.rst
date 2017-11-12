@@ -28,18 +28,28 @@ On a network, that means an echo server as described in :rfc:`862`.
 Here's a function which uses interfaces defined by ``tubes`` to send its input straight on to its output:
 
 .. literalinclude:: listings/echoflow.py
-    :pyobject: echoFlow
+    :pyobject: echo
 
-In the above example, ``echoFlow`` takes two things: a :api:`tubes.itube.IFount <fount>`, or a source of data, and a :api:`tubes.itube.IDrain <drain>` , or a place where data eventually goes.
-Such a function is called a "flow", because it establishes a flow of data from one place to another.
-Most often, the arguments to such a function are the input from and the output to the same network connection.
-The fount represents data coming in over the connection, and the drain represents data going back out over that same connection.
+In the above example, ``echo`` requires a :api:`tubes.listening.Flow <flow>` as an argument.
+A ``Flow`` represents the other end of the connection that we just received, both the data we are receiving from that connection and the ability to send data to it.
+As such, it has 2 attributes: ``.fount``, which is a :api:`tubes.itube.IFount <fount>`, or a source of data, and ``.drain``, which is a :api:`tubes.itube.IDrain <drain>` , or a place where data eventually goes.
+This object is called a "flow", because it establishes a flow of data from one place to another.
 
-To *use* ``echoFlow`` as a server, you have to attach it to a listening `endpoint <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_.
+Let's look at the full example that turns ``echo`` into a real server.
 
 :download:`echoflow.py <listings/echoflow.py>`
 
 .. literalinclude:: listings/echoflow.py
+
+To *use* ``echo`` as a server, first we have to tell Tubes that it's a :api:`tubes.itube.IDrain <drain>` that wants :api:`tubes.listening.Flow <flow>`\ s.
+We do this by wrapping it in a :api:`tubes.listening.Listener <Listener>`\ .
+
+Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it.
+
+Next, we need to convert this endpoint into a :api:`tubes.itube.IFount <fount>` of :api:`tubes.listening.Flow <flows>`.
+To do this, we use the aptly named :api:`tubes.protocol.flowFountFromEndpoint <flowFountFromEndpoint>`.
+
+Finally, we connect the listening socket with our application via ``flowFount.flowTo(listening)``\ .
 
 This fully-functioning example (just run it with "``python echoflow.py``") implements an echo server.
 By default, you can test it out by typing into it.

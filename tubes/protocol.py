@@ -20,7 +20,9 @@ from .itube import StopFlowCalled, IDrain, IFount, ISegment
 from .listening import Flow
 
 from twisted.python.failure import Failure
-from twisted.internet.interfaces import IPushProducer, IListeningPort
+from twisted.internet.interfaces import (
+    IPushProducer, IListeningPort, IHalfCloseableProtocol
+)
 from twisted.internet.protocol import Protocol as _Protocol
 
 if 0:
@@ -206,6 +208,7 @@ class _TransportFount(object):
 
 
 
+@implementer(IHalfCloseableProtocol)
 class _ProtocolPlumbing(_Protocol):
     """
     An adapter between an L{ITransport} and L{IFount} / L{IDrain} interfaces.
@@ -273,6 +276,17 @@ class _ProtocolPlumbing(_Protocol):
         if self._drain.fount is not None:
             self._drain.fount.stopFlow()
 
+
+    def readConnectionLost(self):
+        """
+        An end-of-file was received.
+        """
+
+
+    def writeConnectionLost(self):
+        """
+        The write output was closed.
+        """
 
 
 def _factoryFromFlow(flow):

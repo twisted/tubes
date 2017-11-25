@@ -9,10 +9,10 @@ def echo(flow):
 
 @inlineCallbacks
 def main(reactor, listenOn="stdio:"):
-    listening = Listener(echo)
+    listener = Listener(echo)
     endpoint = serverFromString(reactor, listenOn)
     flowFount = yield flowFountFromEndpoint(endpoint)
-    flowFount.flowTo(listening)
+    flowFount.flowTo(listener)
     yield Deferred()
 
 if __name__ == '__main__':

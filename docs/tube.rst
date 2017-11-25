@@ -112,7 +112,8 @@ You can inspect these using the :api:`tubes.itube.IFount.outputType <outputType>
 Even in our tiny example, we already have two types of founts: a fount of ``bytes`` — one for each connection — and a fount of :api:`tubes.listening.Flow <flow>`\ s — the listening port).
 We have a drain for ``bytes``, also on each connection, and a drain for :api:`tubes.listening.Flow <flow>`\ s: the :api:`tubes.listening.Listener <listener>` wrapped around ``echo``\ .
 
-Attempting to hook up a fount and a drain of mismatched types will usually result in an immediate ``TypeError``, which is a helpful debugging tool.
+Attempting to hook up a fount and a drain of mismatched types should result in an immediate ``TypeError``, which is a helpful debugging tool.
+(However, it's the responsibility of the specific fount and drain implementation, and those which have an ``inputType`` or ``outputType`` of ``None`` will not be checked, so you can't rely on this *always* happening.)
 Always make sure you've matched up the expected types of the output of your founts and the input of the drains they're connected to.
 
 Processing A Little Data: Reversing A String

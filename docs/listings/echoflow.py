@@ -4,14 +4,15 @@ from tubes.listening import Listener
 from twisted.internet.endpoints import serverFromString
 from twisted.internet.defer import Deferred, inlineCallbacks
 
-def echoFlow(flow):
+def echo(flow):
     flow.fount.flowTo(flow.drain)
 
 @inlineCallbacks
 def main(reactor, listenOn="stdio:"):
+    listener = Listener(echo)
     endpoint = serverFromString(reactor, listenOn)
     flowFount = yield flowFountFromEndpoint(endpoint)
-    flowFount.flowTo(Listener(echoFlow))
+    flowFount.flowTo(listener)
     yield Deferred()
 
 if __name__ == '__main__':

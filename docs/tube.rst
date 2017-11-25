@@ -14,7 +14,7 @@ Composable data processing refers to processing that can occur in independent un
 For example, the conversion of a continuous stream of bytes into a discrete sequence of messages can be implemented independently from the presentation of or reactions to those messages.
 This allows for similar messages to be relayed in different formats and by different protocols, but be processed by the same code.
 
-In this document, you will learn how to compose founts (places where data comes from), drains (places where data goes to), and tubes (things that modify data by converting inputs to outputs) to create flows.
+In this document, you will learn how to compose founts (places where data comes from), drains (places where data goes to), and tubes (things that modify data by converting inputs to outputs).
 You'll also learn how to create your own tubes to perform your own conversions of input to output.
 By the end, you should be able to put a series of tubes onto the Internet as a server or a client.
 
@@ -28,18 +28,28 @@ On a network, that means an echo server as described in :rfc:`862`.
 Here's a function which uses interfaces defined by ``tubes`` to send its input straight on to its output:
 
 .. literalinclude:: listings/echoflow.py
-    :pyobject: echoFlow
+    :pyobject: echo
 
-In the above example, ``echoFlow`` takes two things: a :api:`tubes.itube.IFount <fount>`, or a source of data, and a :api:`tubes.itube.IDrain <drain>` , or a place where data eventually goes.
-Such a function is called a "flow", because it establishes a flow of data from one place to another.
-Most often, the arguments to such a function are the input from and the output to the same network connection.
-The fount represents data coming in over the connection, and the drain represents data going back out over that same connection.
+In the above example, ``echo`` requires a :api:`tubes.listening.Flow <flow>` as an argument.
+A ``Flow`` represents the connection that we just received: a stream of inbound data, which we call a fount, and a stream of outbound data, which we call a drain.
+As such, it has 2 attributes: ``.fount``, which is a :api:`tubes.itube.IFount <fount>`, or a source of data, and ``.drain``, which is a :api:`tubes.itube.IDrain <drain>` , or a place where data eventually goes.
+This object is called a "flow", because it establishes a flow of data from one place to and from another.
 
-To *use* ``echoFlow`` as a server, you have to attach it to a listening `endpoint <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_.
+Let's look at the full example that turns ``echo`` into a real server.
 
 :download:`echoflow.py <listings/echoflow.py>`
 
 .. literalinclude:: listings/echoflow.py
+
+To *use* ``echo`` as a server, first we have to tell Tubes that it's a :api:`tubes.itube.IDrain <drain>` that wants :api:`tubes.listening.Flow <flow>`\ s.
+We do this by wrapping it in a :api:`tubes.listening.Listener <Listener>`\ .
+
+Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it, and see the results as output.
+
+Next, we need to convert this endpoint into a :api:`tubes.itube.IFount <fount>` with an ``outputType`` of :api:`tubes.listening.Flow <Flow>`.
+To do this, we use the aptly named :api:`tubes.protocol.flowFountFromEndpoint <flowFountFromEndpoint>`.
+
+Finally, we connect the listening socket with our application via ``flowFount.flowTo(listening)``\ .
 
 This fully-functioning example (just run it with "``python echoflow.py``") implements an echo server.
 By default, you can test it out by typing into it.
@@ -94,6 +104,18 @@ You can test it out with ``telnet localhost 4321``.
 
 However, this example still performs no processing of the data that it is receiving.
 
+A Brief Aside About Types
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Each fount, and each drain, have a type associated with them: in the fount's case, the type of data it produces, and in the drain's case, the type of data that it accepts.
+You can inspect these using the :api:`tubes.itube.IFount.outputType <outputType>` and :api:`tubes.itube.IDrain.inputType <inputType>` attributes of founts and drains respectively.
+Even in our tiny example, we already have two types of founts: a fount of ``bytes`` — one for each connection — and a fount of :api:`tubes.listening.Flow <flow>`\ s — the listening port).
+We have a drain for ``bytes``, also on each connection, and a drain for :api:`tubes.listening.Flow <flow>`\ s: the :api:`tubes.listening.Listener <listener>` wrapped around ``echo``\ .
+
+Attempting to hook up a fount and a drain of mismatched types should result in an immediate ``TypeError``, which is a helpful debugging tool.
+(However, it's the responsibility of the specific fount and drain implementation, and those which have an ``inputType`` or ``outputType`` of ``None`` will not be checked, so you can't rely on this *always* happening.)
+Always make sure you've matched up the expected types of the output of your founts and the input of the drains they're connected to.
+
 Processing A Little Data: Reversing A String
 --------------------------------------------
 
@@ -113,12 +135,12 @@ Luckily Tubes implements this for us, with the handy :api:`tubes.framing` module
     For example, it works well for documentation :-).
     However, if you're designing your own network protocol, please consider using a length-prefixed framing mechanism, such as :api:`tubes.framing.netstringsToStrings <netstrings>`.
 
-Much like in the echo example, we need a flow function which sets up the flow of data from a fount to a drain.
+Much like in the echo example, we need a function which accepts a ``flow`` which sets up the flow of data from a fount to a drain on an individual connection.
 
 .. literalinclude:: listings/reversetube.py
    :pyobject: reverseFlow
 
-In this flow function, we have a new object, a *series of Tubes*, created by the :api:`tubes.tube.series <series>` function.
+In this function, we create a new type of object, a *series of Tubes*, created by the :api:`tubes.tube.series <series>` function.
 You can read the construction of the ``lineReverser`` series as a flow of data from left to right.
 The output from each tube in the series is passed as the input to the tube to its right.
 

@@ -46,7 +46,7 @@ We do this by wrapping it in a :api:`tubes.listening.Listener <Listener>`\ .
 
 Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it, and see the results as output.
 
-Next, we need to convert this endpoint into a :api:`tubes.itube.IFount <fount>` of :api:`tubes.listening.Flow <flows>`.
+Next, we need to convert this endpoint into a :api:`tubes.itube.IFount <fount>` with an ``outputType`` of :api:`tubes.listening.Flow <Flow>`.
 To do this, we use the aptly named :api:`tubes.protocol.flowFountFromEndpoint <flowFountFromEndpoint>`.
 
 Finally, we connect the listening socket with our application via ``flowFount.flowTo(listening)``\ .

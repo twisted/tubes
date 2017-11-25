@@ -33,7 +33,7 @@ Here's a function which uses interfaces defined by ``tubes`` to send its input s
 In the above example, ``echo`` requires a :api:`tubes.listening.Flow <flow>` as an argument.
 A ``Flow`` represents the connection that we just received: a stream of inbound data, which we call a fount, and a stream of outbound data, which we call a drain.
 As such, it has 2 attributes: ``.fount``, which is a :api:`tubes.itube.IFount <fount>`, or a source of data, and ``.drain``, which is a :api:`tubes.itube.IDrain <drain>` , or a place where data eventually goes.
-This object is called a "flow", because it establishes a flow of data from one place to another.
+This object is called a "flow", because it establishes a flow of data from one place to and from another.
 
 Let's look at the full example that turns ``echo`` into a real server.
 

@@ -20,8 +20,11 @@ from .itube import StopFlowCalled, IDrain, IFount, ISegment
 from .listening import Flow
 
 from twisted.python.failure import Failure
-from twisted.internet.interfaces import IPushProducer, IListeningPort
+from twisted.internet.interfaces import (
+    IPushProducer, IListeningPort, IHalfCloseableProtocol
+)
 from twisted.internet.protocol import Protocol as _Protocol
+from twisted.internet.error import ConnectionDone
 
 if 0:
     # Workaround for inability of pydoctor to resolve references.
@@ -206,6 +209,7 @@ class _TransportFount(object):
 
 
 
+@implementer(IHalfCloseableProtocol)
 class _ProtocolPlumbing(_Protocol):
     """
     An adapter between an L{ITransport} and L{IFount} / L{IDrain} interfaces.
@@ -272,6 +276,22 @@ class _ProtocolPlumbing(_Protocol):
             self._fount.drain.flowStopped(reason)
         if self._drain.fount is not None:
             self._drain.fount.stopFlow()
+
+
+    def readConnectionLost(self):
+        """
+        An end-of-file was received.
+        """
+        self._fount.drain.flowStopped(Failure(ConnectionDone()))
+        self._fount.drain = None
+
+
+    def writeConnectionLost(self):
+        """
+        The write output was closed.
+        """
+        self._drain.fount.stopFlow()
+        self._drain.fount = None
 
 
 

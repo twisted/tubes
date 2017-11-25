@@ -137,6 +137,7 @@ class FakeFount(object):
 
     flowIsPaused = 0
     flowIsStopped = False
+
     def __init__(self, outputType=None):
         self._pauser = Pauser(self._actuallyPause, self._actuallyResume)
         self.outputType = outputType
@@ -170,9 +171,9 @@ class FakeFount(object):
 
     def stopFlow(self):
         """
-        Record that the flow was stopped by setting C{flowIsStopped}.
+        Record that the flow was stopped by incrementing C{flowIsStopped}.
         """
-        self.flowIsStopped = True
+        self.flowIsStopped += 1
 
 
     def _actuallyPause(self):

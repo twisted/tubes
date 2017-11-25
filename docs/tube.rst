@@ -44,7 +44,7 @@ Let's look at the full example that turns ``echo`` into a real server.
 To *use* ``echo`` as a server, first we have to tell Tubes that it's a :api:`tubes.itube.IDrain <drain>` that wants :api:`tubes.listening.Flow <flow>`\ s.
 We do this by wrapping it in a :api:`tubes.listening.Listener <Listener>`\ .
 
-Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it.
+Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it, and see the results as output.
 
 Next, we need to convert this endpoint into a :api:`tubes.itube.IFount <fount>` of :api:`tubes.listening.Flow <flows>`.
 To do this, we use the aptly named :api:`tubes.protocol.flowFountFromEndpoint <flowFountFromEndpoint>`.

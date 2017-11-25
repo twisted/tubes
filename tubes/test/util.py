@@ -171,7 +171,7 @@ class FakeFount(object):
 
     def stopFlow(self):
         """
-        Record that the flow was stopped by setting C{flowIsStopped}.
+        Record that the flow was stopped by incrementing C{flowIsStopped}.
         """
         self.flowIsStopped += 1
 

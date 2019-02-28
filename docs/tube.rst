@@ -49,7 +49,7 @@ Next, we need to actually listen on a port: we do this with Twisted's `"endpoint
 Next, we need to convert this endpoint into a :api:`tubes.itube.IFount <fount>` with an ``outputType`` of :api:`tubes.listening.Flow <Flow>`.
 To do this, we use the aptly named :api:`tubes.protocol.flowFountFromEndpoint <flowFountFromEndpoint>`.
 
-Finally, we connect the listening socket with our application via ``flowFount.flowTo(listening)``\ .
+Finally, we connect the listening socket with our application via ``flowFount.flowTo(listener)``\ .
 
 This fully-functioning example (just run it with "``python echoflow.py``") implements an echo server.
 By default, you can test it out by typing into it.
@@ -195,7 +195,6 @@ A ``CalculatingTube`` should pass those numbers and operators to a ``Calculator`
 Let's look at ``linesToNumbersOrOperators``.
 
 .. literalinclude:: listings/rpn.py
-   :prepend: @tube
    :pyobject: linesToNumbersOrOperators
 
 :api:`ITube.received` takes an input and produces an iterable of outputs.
@@ -207,7 +206,6 @@ Given the specification for the RPN calculator's input above, those lines may co
 Now that you've parsed those inputs into meaningful values, you can send them on to the ``Calculator`` for processing.
 
 .. literalinclude:: listings/rpn.py
-   :prepend: @tube
    :pyobject: CalculatingTube
 
 ``CalculatingTube`` takes a ``Calculator`` to its constructor, and provides a `received` method which takes, as input, the outputs produced by `LinesToNumbersOrOperators`.
@@ -224,7 +222,6 @@ Finally we need to move this output along so that the user can see it.
 To do this, we use the very simple ``numbersToLines`` which takes integer inputs and transforms them into ASCII bytes.
 
 .. literalinclude:: listings/rpn.py
-   :prepend: @tube
    :pyobject: numbersToLines
 
 Like ``linesToNumbersOrOperators``, ``numbersToLines`` is stateless, and produces one output for every input.

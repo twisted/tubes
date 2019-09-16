@@ -26,9 +26,9 @@ def linesToNumbersOrOperators(line):
     try:
         yield int(line)
     except ValueError:
-        if line == '+':
+        if line == b'+':
             yield add
-        elif line == '*':
+        elif line == b'*':
             yield mul
 
 @tube
@@ -51,9 +51,9 @@ class Prompter(object):
     inputType = ISegment
     outputType = ISegment
     def started(self):
-        yield "> "
+        yield b"> "
     def received(self, item):
-        yield "> "
+        yield b"> "
 
 def promptingCalculatorSeries():
     from tubes.fan import Thru

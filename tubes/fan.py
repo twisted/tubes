@@ -44,7 +44,12 @@ class _InDrain(object):
         @return: C{None}; this is a terminal drain and not a data-processing
             drain.
         """
+        if fount is self.fount:
+            return
         beginFlowingFrom(self, fount)
+        if self._presentPause is not None:
+            p, self._presentPause = self._presentPause, None
+            p.unpause()
         if self._in.fount._isPaused:
             self._presentPause = fount.pauseFlow()
         return None
@@ -95,7 +100,8 @@ class _InFount(object):
         def doResume():
             self._isPaused = False
             for drain in self._in._drains:
-                drain._presentPause.unpause()
+                drain._presentPause, currentPause = None, drain._presentPause
+                currentPause.unpause()
         self._pauser = Pauser(doPause, doResume)
         self._pauseBecauseNoDrain = OncePause(self._pauser)
         self._pauseBecauseNoDrain.pauseOnce()

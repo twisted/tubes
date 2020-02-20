@@ -80,7 +80,7 @@ def calculatorSeries():
     )
 
 def mathFlow(flow):
-    processor = calculatorSeries()
+    processor = promptingCalculatorSeries()
     nextDrain = flow.fount.flowTo(processor)
     nextDrain.flowTo(flow.drain)
 

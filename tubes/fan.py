@@ -138,8 +138,11 @@ class _InFount(object):
         """
         Stop the flow of all founts flowing into L{_InDrain}s for this L{In}.
         """
-        for drain in self._in._drains:
-            drain.fount.stopFlow()
+        while self._in._drains:
+            it = self._in._drains[0]
+            it.fount.stopFlow()
+            if it in self._in._drains:
+                self._in._drains.remove(it)
 
 
 

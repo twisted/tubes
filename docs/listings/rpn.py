@@ -48,7 +48,6 @@ def numbersToLines(value):
 
 @tube
 class Prompter(object):
-    inputType = ISegment
     outputType = ISegment
     def started(self):
         yield b"> "

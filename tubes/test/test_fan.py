@@ -426,8 +426,12 @@ class FanThruTests(SynchronousTestCase):
         ff = FakeFount()
         fd = FakeDrain()
 
-        ff.flowTo(Thru([series(timesTwo),
-                        series(timesThree)])).flowTo(fd)
+        t = Thru([series(timesTwo), series(timesThree)])
+        sct = series(t)
+        nf = ff.flowTo(sct)
+        self.assertEqual(ff.flowIsPaused, True)
+        nf.flowTo(fd)
+        self.assertEqual(ff.flowIsPaused, False)
         ff.drain.receive(1)
         ff.drain.receive(2)
         ff.drain.receive(3)

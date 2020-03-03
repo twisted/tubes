@@ -3,6 +3,7 @@ branch = True
 parallel = True
 include =
    tubes/*
+   */site-packages/tubes/*
 
 [paths]
 source =

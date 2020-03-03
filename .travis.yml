@@ -35,7 +35,7 @@ script:
 
 
 after_success:
-  - if [[ "${TOX_ENV:0:2}" == 'py' ]]; then coverage combine; coveralls; fi
+  - if [[ "${TOX_ENV:0:2}" == 'py' ]]; then tox -e coveralls-push; fi
 
 notifications:
   irc:

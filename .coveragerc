@@ -5,7 +5,7 @@ source = tubes
 
 [paths]
 source=
-   src/tubes
+   tubes
    .tox/*/lib/python*/site-packages/tubes
    .tox/*/Lib/site-packages/tubes
    .tox/pypy*/site-packages/tubes

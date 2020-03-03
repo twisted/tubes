@@ -975,5 +975,3 @@ class TodoTests(TestCase):
         If L{IDivertable.reassemble} raises an exception, then...
         """
         self.fail()
-
-

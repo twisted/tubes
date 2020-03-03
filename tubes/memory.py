@@ -64,6 +64,3 @@ def iteratorFount(iterable):
     @return: a fount which will deliver the given iterable to its drain.
     """
     return _NotQuiteNull().flowTo(series(_IteratorTube(iterable)))
-
-
-

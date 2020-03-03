@@ -164,6 +164,7 @@ class _TransportFount(object):
         return "<TransportFount for {} paused={}>".format(self._transport,
                                                           self._pauser)
 
+
     def __init__(self, transport):
         self._transport = transport
         self._pauser = Pauser(self._transport.pauseProducing,

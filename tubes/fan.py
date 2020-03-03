@@ -471,4 +471,3 @@ class Thru(proxyForInterface(IDrain, "_outDrain")):
         if nextDrain is None:
             return nextFount
         return nextFount.flowTo(nextDrain)
-

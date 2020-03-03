@@ -437,4 +437,3 @@ class FanThruTests(SynchronousTestCase):
         ff.drain.receive(3)
         self.assertEqual(fd.received,
                          [1*2, 1*3, 2*2, 2*3, 3*2, 3*3])
-

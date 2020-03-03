@@ -64,4 +64,3 @@ def _registryAdapting(*fromToAdapterTuples):
     for _from, to, adapter in fromToAdapterTuples:
         result.register([_from], to, '', adapter)
     return result
-

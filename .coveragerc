@@ -1,10 +1,11 @@
 [run]
 branch = True
 parallel = True
-source = tubes
+include =
+   */tubes/*
 
 [paths]
-source=
+source =
    tubes
    .tox/*/lib/python*/site-packages/tubes
    .tox/*/Lib/site-packages/tubes

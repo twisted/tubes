@@ -493,6 +493,3 @@ def _tube2drain(tube):
 _tubeRegistry = _registryAdapting(
     (ITube, IDrain, _tube2drain),
 )
-
-
-

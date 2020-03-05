@@ -82,6 +82,13 @@ class Pauser(object):
         return _Pause(self)
 
 
+    def __repr__(self):
+        return (
+            "<Pauser pauses={!r} actuallyPause={!r} actuallyResume={!r}>"
+            .format(self._pauses, self._actuallyPause, self._actuallyResume)
+        )
+
+
 
 def beginFlowingTo(fount, drain):
     """
@@ -96,8 +103,10 @@ def beginFlowingTo(fount, drain):
     """
     oldDrain = fount.drain
     fount.drain = drain
-    if ( (oldDrain is not None) and (oldDrain is not drain) and
-         (oldDrain.fount is fount) ):
+    if (
+        (oldDrain is not None) and (oldDrain is not drain) and
+        (oldDrain.fount is fount)
+    ):
         oldDrain.flowingFrom(None)
     if drain is None:
         return
@@ -128,8 +137,10 @@ def beginFlowingFrom(drain, fount):
                             fount=fount, drain=drain))
     oldFount = drain.fount
     drain.fount = fount
-    if ( (oldFount is not None) and (oldFount is not fount) and
-         (oldFount.drain is drain) ):
+    if (
+        (oldFount is not None) and (oldFount is not fount) and
+        (oldFount.drain is drain)
+    ):
         oldFount.flowTo(None)
 
 
@@ -157,6 +168,12 @@ class OncePause(object):
         """
         self._pauser = pauser
         self._currentlyPaused = False
+
+
+    def __repr__(self):
+        return "<OncePause pauser={!r} paused={!r}>".format(
+            self._pauser, self._currentlyPaused
+        )
 
 
     def pauseOnce(self):

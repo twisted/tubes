@@ -290,6 +290,10 @@ class FakeFountWithBuffer(FakeFount):
     def flowTo(self, drain):
         """
         Flush buffered items to the given drain as long as we're not paused.
+
+        @param drain: The drain to flush to.
+
+        @return: The result of flowing to the given drain.
         """
         result = super(FakeFountWithBuffer, self).flowTo(drain)
         self._go()

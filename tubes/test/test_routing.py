@@ -141,4 +141,3 @@ class RoutedTests(TestCase):
         route = router.newRoute()
         self.assertEqual(False, Routed().providedBy(object()))
         self.assertEqual(True, Routed().providedBy(to(route, object())))
-

@@ -16,7 +16,6 @@ setup(
     packages=find_packages(exclude=[]),
     package_dir={'tubes': 'tubes'},
     install_requires=[
-        "characteristic",
         "six",
         "Twisted",
     ],

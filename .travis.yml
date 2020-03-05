@@ -9,16 +9,21 @@ matrix:
     - env: "TOX_ENV=docs-linkcheck"
   include:
     - env: TOX_ENV=lint
-      python: 2.7
+      python: 3.6
     - env: TOX_ENV=py27
       python: 2.7
     - env: TOX_ENV=py36
       python: 3.6
     - env: TOX_ENV=pypy
+      python: 3.6
     - env: TOX_ENV=docs
+      python: 3.6
     - env: TOX_ENV=apidocs
+      python: 2.7
     - env: TOX_ENV=docs-spellcheck
+      python: 3.6
     - env: TOX_ENV=docs-linkcheck
+      python: 3.6
     # - PUSH_DOCS=true
 
 install:
@@ -30,7 +35,7 @@ script:
 
 
 after_success:
-  - if [[ "${TOX_ENV:0:2}" == 'py' ]]; then coverage combine; coveralls; fi
+  - if [[ "${TOX_ENV:0:2}" == 'py' ]]; then tox -e coveralls-push; fi
 
 notifications:
   irc:

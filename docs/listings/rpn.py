@@ -14,11 +14,15 @@ class Calculator(object):
         self.stack.append(number)
 
     def do(self, operator):
+        if len(self.stack) < 2:
+            return "UNDERFLOW"
         left = self.stack.pop()
         right = self.stack.pop()
         result = operator(left, right)
         self.push(result)
         return result
+
+err = object()
 
 @receiver(inputType=IFrame)
 def linesToNumbersOrOperators(line):
@@ -26,10 +30,12 @@ def linesToNumbersOrOperators(line):
     try:
         yield int(line)
     except ValueError:
-        if line == '+':
+        if line == b'+':
             yield add
-        elif line == '*':
+        elif line == b'*':
             yield mul
+        else:
+            yield err
 
 @tube
 class CalculatingTube(object):
@@ -39,6 +45,8 @@ class CalculatingTube(object):
     def received(self, value):
         if isinstance(value, int):
             self.calculator.push(value)
+        elif value is err:
+            yield "SYNTAX"
         else:
             yield self.calculator.do(value)
 
@@ -48,12 +56,13 @@ def numbersToLines(value):
 
 @tube
 class Prompter(object):
-    inputType = ISegment
     outputType = ISegment
     def started(self):
-        yield "> "
+        yield b"> "
     def received(self, item):
-        yield "> "
+        yield b"> "
+    def stopped(self, failure):
+        yield b"BYE"
 
 def promptingCalculatorSeries():
     from tubes.fan import Thru
@@ -81,7 +90,7 @@ def calculatorSeries():
     )
 
 def mathFlow(flow):
-    processor = calculatorSeries()
+    processor = promptingCalculatorSeries()
     nextDrain = flow.fount.flowTo(processor)
     nextDrain.flowTo(flow.drain)
 

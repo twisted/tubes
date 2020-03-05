@@ -1,0 +1,17 @@
+[run]
+branch = True
+parallel = True
+include =
+   tubes/*
+   */site-packages/tubes/*
+
+[paths]
+source =
+   tubes
+   .tox/*/lib/python*/site-packages/tubes
+   .tox/*/Lib/site-packages/tubes
+   .tox/pypy*/site-packages/tubes
+
+[report]
+precision = 2
+ignore_errors = True

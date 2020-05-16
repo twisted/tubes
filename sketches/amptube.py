@@ -3,17 +3,17 @@ from zope.interface import implementer
 from twisted.internet.endpoints import serverFromString
 
 from twisted.internet.defer import Deferred, inlineCallbacks
-from twisted.internet import reactor
 
 from twisted.protocols.amp import AmpBox, Command, IBoxSender, BoxDispatcher, Integer
 
 from tubes.protocol import flowFountFromEndpoint
 from tubes.listening import Listener
 from tubes.itube import ISegment
-from tubes.tube import Pump, series
-from tubes.framing import packedPrefixToStrings
+from tubes.tube import tube, series
+from tubes.framing import bytesToIntPrefixed
 
-class StringsToBoxes(Pump):
+@tube
+class StringsToBoxes:
 
     inputType = None            # I... Packet? IString? IDatagram?
     outputType = None           # AmpBox -> TODO, implement classes.
@@ -44,7 +44,8 @@ class StringsToBoxes(Pump):
 
 
 
-class BoxesToData(Pump):
+@tube
+class BoxesToData:
     """
     Shortcut: I want to go from boxes directly to data.
     """
@@ -68,7 +69,8 @@ class BufferingBoxSender(object):
         log.err(failure)
 
 
-class BoxConsumer(Pump):
+@tube
+class BoxConsumer:
 
     inputType = None            # AmpBox
     outputType = None           # AmpBox
@@ -95,9 +97,9 @@ class BoxConsumer(Pump):
 
 
 class Add(Command):
-    arguments = [('a', Integer()),
-                 ('b', Integer())]
-    response = [('result', Integer())]
+    arguments = [(b'a', Integer()),
+                 (b'b', Integer())]
+    response = [(b'result', Integer())]
 
 
 class Math(BoxDispatcher):
@@ -107,20 +109,19 @@ class Math(BoxDispatcher):
 
 
 def mathFlow(fount):
-    fount.flowTo(series(packedPrefixToStrings(16), StringsToBoxes(),
+    fount.flowTo(series(bytesToIntPrefixed(16), StringsToBoxes(),
                         BoxConsumer(Math()), BoxesToData(), fount.drain))
 
 
 
-
 @inlineCallbacks
-def main():
+def main(reactor):
     serverEndpoint = serverFromString(reactor, "tcp:1234")
     flowFount = yield flowFountFromEndpoint(serverEndpoint)
     flowFount.flowTo(Listener(mathFlow))
     yield Deferred()
 
 
-from twisted.interne.task import react
+from twisted.internet.task import react
 from sys import argv
 react(main, argv[1:])

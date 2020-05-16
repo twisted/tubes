@@ -1,13 +1,11 @@
 from zope.interface import implementer
 
-from ampserver import Math
-
 from twisted.internet.endpoints import serverFromString
 
 from twisted.internet.defer import Deferred, inlineCallbacks
 from twisted.internet import reactor
 
-from twisted.protocols.amp import AmpBox, IBoxSender
+from twisted.protocols.amp import AmpBox, Command, IBoxSender, BoxDispatcher, Integer
 
 from tubes.protocol import flowFountFromEndpoint
 from tubes.listening import Listener
@@ -17,8 +15,8 @@ from tubes.framing import packedPrefixToStrings
 
 class StringsToBoxes(Pump):
 
-    inputType = None # I... Packet? IString? IDatagram?
-    outputType = None # AmpBox -> TODO, implement classes.
+    inputType = None            # I... Packet? IString? IDatagram?
+    outputType = None           # AmpBox -> TODO, implement classes.
 
     state = 'new'
 
@@ -50,7 +48,7 @@ class BoxesToData(Pump):
     """
     Shortcut: I want to go from boxes directly to data.
     """
-    inputType = None # AmpBox
+    inputType = None            # AmpBox
     outputType = ISegment
 
     def received(self, item):
@@ -61,10 +59,9 @@ class BoxesToData(Pump):
 class BufferingBoxSender(object):
     def __init__(self):
         self.boxesToSend = []
-        
+
     def sendBox(self, box):
         self.boxesToSend.append(box)
-
 
     def unhandledError(failure):
         from twisted.python import log
@@ -73,8 +70,8 @@ class BufferingBoxSender(object):
 
 class BoxConsumer(Pump):
 
-    inputType = None # AmpBox
-    outputType = None # AmpBox
+    inputType = None            # AmpBox
+    outputType = None           # AmpBox
 
     def __init__(self, boxReceiver):
         self.boxReceiver = boxReceiver
@@ -97,6 +94,18 @@ class BoxConsumer(Pump):
 
 
 
+class Add(Command):
+    arguments = [('a', Integer()),
+                 ('b', Integer())]
+    response = [('result', Integer())]
+
+
+class Math(BoxDispatcher):
+    @Add.responder
+    def add(self, a, b):
+        return dict(result=a + b)
+
+
 def mathFlow(fount):
     fount.flowTo(series(packedPrefixToStrings(16), StringsToBoxes(),
                         BoxConsumer(Math()), BoxesToData(), fount.drain))
@@ -115,4 +124,3 @@ def main():
 from twisted.interne.task import react
 from sys import argv
 react(main, argv[1:])
-

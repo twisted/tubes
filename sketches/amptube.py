@@ -1,24 +1,23 @@
 from zope.interface import implementer
 
-from ampserver import Math
-
-from twisted.internet.endpoints import serverFromString
+from twisted.internet.endpoints import serverFromString, clientFromString
 
 from twisted.internet.defer import Deferred, inlineCallbacks
-from twisted.internet import reactor
 
-from twisted.protocols.amp import AmpBox, IBoxSender
+from twisted.internet.protocol import Factory
+from twisted.protocols.amp import AmpBox, Command, IBoxSender, Integer, AMP, CommandLocator, BoxDispatcher
 
 from tubes.protocol import flowFountFromEndpoint
 from tubes.listening import Listener
 from tubes.itube import ISegment
-from tubes.tube import Pump, series
-from tubes.framing import packedPrefixToStrings
+from tubes.tube import tube, series
+from tubes.framing import bytesToIntPrefixed
 
-class StringsToBoxes(Pump):
+@tube
+class StringsToBoxes:
 
-    inputType = None # I... Packet? IString? IDatagram?
-    outputType = None # AmpBox -> TODO, implement classes.
+    inputType = None            # I... Packet? IString? IDatagram?
+    outputType = None           # AmpBox -> TODO, implement classes.
 
     state = 'new'
 
@@ -46,11 +45,12 @@ class StringsToBoxes(Pump):
 
 
 
-class BoxesToData(Pump):
+@tube
+class BoxesToData:
     """
     Shortcut: I want to go from boxes directly to data.
     """
-    inputType = None # AmpBox
+    inputType = None            # AmpBox
     outputType = ISegment
 
     def received(self, item):
@@ -61,24 +61,24 @@ class BoxesToData(Pump):
 class BufferingBoxSender(object):
     def __init__(self):
         self.boxesToSend = []
-        
+
     def sendBox(self, box):
         self.boxesToSend.append(box)
-
 
     def unhandledError(failure):
         from twisted.python import log
         log.err(failure)
 
 
-class BoxConsumer(Pump):
+@tube
+class BoxConsumer:
 
-    inputType = None # AmpBox
-    outputType = None # AmpBox
+    inputType = None            # AmpBox
+    outputType = None           # AmpBox
 
     def __init__(self, boxReceiver):
         self.boxReceiver = boxReceiver
-        self.bbs = BufferingBoxSender(self)
+        self.bbs = BufferingBoxSender()
 
 
     def started(self):
@@ -97,22 +97,46 @@ class BoxConsumer(Pump):
 
 
 
-def mathFlow(fount):
-    fount.flowTo(series(packedPrefixToStrings(16), StringsToBoxes(),
-                        BoxConsumer(Math()), BoxesToData(), fount.drain))
+class Add(Command):
+    arguments = [(b'a', Integer()),
+                 (b'b', Integer())]
+    response = [(b'result', Integer())]
 
+
+class Math(CommandLocator):
+    @Add.responder
+    def add(self, a, b):
+        return dict(result=a + b)
+
+
+def mathFlow(flow):
+    byteParser = bytesToIntPrefixed(16)
+    messageParser = StringsToBoxes()
+    applicationCode = Math()
+    dispatcher = BoxDispatcher(applicationCode)
+    messageConsumer = BoxConsumer(dispatcher)
+    messageSerializer = BoxesToData()
+    combined = series(
+        byteParser, messageParser, messageConsumer, messageSerializer, flow.drain
+    )
+    flow.fount.flowTo(combined)
 
 
 
 @inlineCallbacks
-def main():
-    serverEndpoint = serverFromString(reactor, "tcp:1234")
-    flowFount = yield flowFountFromEndpoint(serverEndpoint)
-    flowFount.flowTo(Listener(mathFlow))
+def main(reactor, type="server"):
+    if type == "server":
+        serverEndpoint = serverFromString(reactor, "tcp:1234")
+        flowFount = yield flowFountFromEndpoint(serverEndpoint)
+        flowFount.flowTo(Listener(mathFlow))
+    else:
+        clientEndpoint = clientFromString(reactor, "tcp:localhost:1234")
+        amp = yield clientEndpoint.connect(Factory.forProtocol(AMP))
+        for x in range(20):
+            print((yield amp.callRemote(Add, a=1, b=2)))
     yield Deferred()
 
 
-from twisted.interne.task import react
+from twisted.internet.task import react
 from sys import argv
 react(main, argv[1:])
-

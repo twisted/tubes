@@ -1,10 +1,11 @@
 from zope.interface import implementer
 
-from twisted.internet.endpoints import serverFromString
+from twisted.internet.endpoints import serverFromString, clientFromString
 
 from twisted.internet.defer import Deferred, inlineCallbacks
 
-from twisted.protocols.amp import AmpBox, Command, IBoxSender, BoxDispatcher, Integer
+from twisted.internet.protocol import Factory
+from twisted.protocols.amp import AmpBox, Command, IBoxSender, Integer, AMP, CommandLocator, BoxDispatcher
 
 from tubes.protocol import flowFountFromEndpoint
 from tubes.listening import Listener
@@ -77,7 +78,7 @@ class BoxConsumer:
 
     def __init__(self, boxReceiver):
         self.boxReceiver = boxReceiver
-        self.bbs = BufferingBoxSender(self)
+        self.bbs = BufferingBoxSender()
 
 
     def started(self):
@@ -102,23 +103,37 @@ class Add(Command):
     response = [(b'result', Integer())]
 
 
-class Math(BoxDispatcher):
+class Math(CommandLocator):
     @Add.responder
     def add(self, a, b):
         return dict(result=a + b)
 
 
-def mathFlow(fount):
-    fount.flowTo(series(bytesToIntPrefixed(16), StringsToBoxes(),
-                        BoxConsumer(Math()), BoxesToData(), fount.drain))
+def mathFlow(flow):
+    byteParser = bytesToIntPrefixed(16)
+    messageParser = StringsToBoxes()
+    applicationCode = Math()
+    dispatcher = BoxDispatcher(applicationCode)
+    messageConsumer = BoxConsumer(dispatcher)
+    messageSerializer = BoxesToData()
+    combined = series(
+        byteParser, messageParser, messageConsumer, messageSerializer, flow.drain
+    )
+    flow.fount.flowTo(combined)
 
 
 
 @inlineCallbacks
-def main(reactor):
-    serverEndpoint = serverFromString(reactor, "tcp:1234")
-    flowFount = yield flowFountFromEndpoint(serverEndpoint)
-    flowFount.flowTo(Listener(mathFlow))
+def main(reactor, type="server"):
+    if type == "server":
+        serverEndpoint = serverFromString(reactor, "tcp:1234")
+        flowFount = yield flowFountFromEndpoint(serverEndpoint)
+        flowFount.flowTo(Listener(mathFlow))
+    else:
+        clientEndpoint = clientFromString(reactor, "tcp:localhost:1234")
+        amp = yield clientEndpoint.connect(Factory.forProtocol(AMP))
+        for x in range(20):
+            print((yield amp.callRemote(Add, a=1, b=2)))
     yield Deferred()
 
 

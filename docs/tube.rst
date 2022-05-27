@@ -133,7 +133,7 @@ Luckily Tubes implements this for us, with the handy :api:`tubes.framing` module
     For example, a line-delimited message obviously cannot include a newline, and if you try to transmit one that does, you may get a garbled data stream.
     The main advantage of a line-separated protocol is that it works well for interactive examples, since a human being can type lines into a terminal.
     For example, it works well for documentation :-).
-    However, if you're designing your own network protocol, please consider using a length-prefixed framing mechanism, such as :api:`tubes.framing.netstringsToStrings <netstrings>`.
+    However, if you're designing your own network protocol, please consider using a length-prefixed framing mechanism, such as :api:`tubes.framing.netstringsToBytes <netstrings>`.
 
 Much like in the echo example, we need a function which accepts a ``flow`` which sets up the flow of data from a fount to a drain on an individual connection.
 
@@ -172,8 +172,8 @@ Interacting with it should look like this:
     *
     14
 
-In order to implement this program, you will construct a *series* of objects which process the data; specifically, you will create a :api:`tubes.series <series>` of :api:`tubes.Tube <Tube>`\s.
-Each :api:`tubes.Tube` in the :api:`tubes.series` will be responsible for processing part of the data.
+In order to implement this program, you will construct a *series* of objects which process the data; specifically, you will create a :api:`tubes.tube.series <series>` of :api:`tubes.itube.ITube <Tube>`\s.
+Each :api:`tubes.itube.ITube <Tube>` in the :api:`tubes.tube.series` will be responsible for processing part of the data.
 
 Lets get started with just the core component that will actually perform calculations.
 
@@ -190,16 +190,16 @@ Now let's look at the full flow which will pass inputs to a ``Calculator`` and r
 The first tube in this series, provided by the :api:`tubes.framing` module, transforms a stream of bytes into lines.
 Then, ``linesToNumbersOrOperators`` - which you'll write in a moment - should transform lines into a combination of numbers and operators (functions that perform the work of the ``"+"`` and ``"*"`` commands), then from numbers and operators into more numbers - sums and products - from those integers into lines, and finally from those lines into newline-terminated segments of data that are sent back out.
 A ``CalculatingTube`` should pass those numbers and operators to a ``Calculator``, and produce numbers as output.
-``numbersToLines`` should convert the output numbers into byte strings, and `linesToBytes` performs the inverse of `bytesToLines` by appending newlines to those outputs.
+``numbersToLines`` should convert the output numbers into byte strings, and ``linesToBytes`` performs the inverse of ``bytesToLines`` by appending newlines to those outputs.
 
 Let's look at ``linesToNumbersOrOperators``.
 
 .. literalinclude:: listings/rpn.py
    :pyobject: linesToNumbersOrOperators
 
-:api:`ITube.received` takes an input and produces an iterable of outputs.
+:api:`tubes.itube.ITube.received` takes an input and produces an iterable of outputs.
 A tube's input is the output of the tube preceding it in the series.
-In this case, ``linesToNumbersOrOperators`` receives the output of :api:`bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
+In this case, ``linesToNumbersOrOperators`` receives the output of :api:`tubes.framing.bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
 Given the specification for the RPN calculator's input above, those lines may contain ASCII integers (like ``b"123"``) or ASCII characters representing arithmetic operations (``b"+"`` or ``b"*"``).
 ``linesToNumbersOrOperators`` output falls into two categories: each line containing decimal numbers results in an integer output, and each operator character is represented by a python function object that can perform that operation.
 

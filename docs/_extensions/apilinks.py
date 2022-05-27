@@ -10,6 +10,8 @@ for example::
 
 """
 
+from twisted.python.reflect import namedAny
+from types import FunctionType
 
 
 def make_api_link(name, rawtext, text, lineno, inliner,
@@ -30,11 +32,22 @@ def make_api_link(name, rawtext, text, lineno, inliner,
     if full_name.startswith("twisted"):
         base_url = env.config.apilinks_base_url
     else:
-        base_url = "https://twisted.github.io/tubes/docs/"
+        base_url = "https://twisted.org/tubes/docs/"
 
     # not really sufficient, but just testing...
     # ...hmmm, maybe this is good enough after all
-    ref = ''.join((base_url, full_name, '.html'))
+    try:
+        consider = namedAny(full_name)
+    except:
+        consider = None
+    if isinstance(consider, (type(None), FunctionType)):
+        dot_path, fragment = full_name.rsplit(".", 1)
+        if fragment:
+            fragment = "#" + fragment
+    else:
+        dot_path = full_name
+        fragment = ""
+    ref = ''.join((base_url, dot_path, '.html', fragment))
 
     options.update(classes=["api"])
 
@@ -50,6 +63,6 @@ def make_api_link(name, rawtext, text, lineno, inliner,
 
 def setup(app):
     app.add_config_value('apilinks_base_url',
-                         'http://twistedmatrix.com/documents/current/api/',
+                         'https://twistedmatrix.com/documents/current/api/',
                          'env')
     app.add_role('api', make_api_link)

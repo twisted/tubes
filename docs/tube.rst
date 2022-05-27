@@ -197,7 +197,7 @@ Let's look at ``linesToNumbersOrOperators``.
 .. literalinclude:: listings/rpn.py
    :pyobject: linesToNumbersOrOperators
 
-:api:`ITube.received` takes an input and produces an iterable of outputs.
+:api:`tubes.itube.ITube.received` takes an input and produces an iterable of outputs.
 A tube's input is the output of the tube preceding it in the series.
 In this case, ``linesToNumbersOrOperators`` receives the output of :api:`bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
 Given the specification for the RPN calculator's input above, those lines may contain ASCII integers (like ``b"123"``) or ASCII characters representing arithmetic operations (``b"+"`` or ``b"*"``).

@@ -19,24 +19,32 @@ jobs:
       fail-fast: false
       matrix:
         allow_failures:
-        - env: "TOX_ENV=docs-linkcheck"
+          - env: "TOX_ENV=docs-linkcheck"
         include:
-        - env: TOX_ENV=lint
-          python: 3.6
-        - env: TOX_ENV=py27
-          python: 2.7
-        - env: TOX_ENV=py36
-          python: 3.6
-        - env: TOX_ENV=pypy
-          python: 3.6
-        - env: TOX_ENV=docs
-          python: 3.6
-        - env: TOX_ENV=apidocs
-          python: 2.7
-        - env: TOX_ENV=docs-spellcheck
-          python: 3.6
-        - env: TOX_ENV=docs-linkcheck
-          python: 3.6
+          - env:
+              TOX_ENV: lint
+            python: 3.6
+          - env:
+              TOX_ENV: py27
+            python: 2.7
+          - env:
+              TOX_ENV: py36
+            python: 3.6
+          - env:
+              TOX_ENV: pypy
+            python: 3.6
+          - env:
+              TOX_ENV: docs
+            python: 3.6
+          - env:
+              TOX_ENV: apidocs
+            python: 2.7
+          - env:
+              TOX_ENV: docs-spellcheck
+            python: 3.6
+          - env:
+              TOX_ENV: docs-linkcheck
+            python: 3.6
 
     steps:
       - uses: actions/checkout@v3
@@ -44,14 +52,14 @@ jobs:
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python }}
-      - name: Install 
+      - name: Install
         run: source ./.travis/install.sh
 
       - name: script
         run:  |
                 if [[ -n "${TOX_ENV}" ]]; then tox -e $TOX_ENV; fi
                 if [[ "$PUSH_DOCS" == "true" ]]; then ./.travis/build_docs.sh; fi
-        
+
       - name: after_success
         run:  |
                 if [[ "${TOX_ENV:0:2}" == 'py' ]]; then tox -e coveralls-push; fi

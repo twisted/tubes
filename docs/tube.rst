@@ -172,8 +172,8 @@ Interacting with it should look like this:
     *
     14
 
-In order to implement this program, you will construct a *series* of objects which process the data; specifically, you will create a :api:`tubes.series <series>` of :api:`tubes.Tube <Tube>`\s.
-Each :api:`tubes.Tube` in the :api:`tubes.series` will be responsible for processing part of the data.
+In order to implement this program, you will construct a *series* of objects which process the data; specifically, you will create a :api:`tubes.series <series>` of :api:`tubes.itube.ITube <Tube>`\s.
+Each :api:`tubes.itube.ITube <Tube>` in the :api:`tubes.tube.series` will be responsible for processing part of the data.
 
 Lets get started with just the core component that will actually perform calculations.
 

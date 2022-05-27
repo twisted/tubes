@@ -55,10 +55,15 @@ jobs:
       - name: Install
         run: source ./.travis/install.sh
 
-      - name: script
+      - name: Tox Run
         run:  |
-                if [[ -n "${TOX_ENV}" ]]; then tox -e $TOX_ENV; fi
-                if [[ "$PUSH_DOCS" == "true" ]]; then ./.travis/build_docs.sh; fi
+          echo "Starting: ${TOX_ENV} ${PUSH_DOCS}"
+          if [[ -n "${TOX_ENV}" ]]; then
+            tox -e $TOX_ENV;
+          fi
+          if [[ "$PUSH_DOCS" == "true" ]]; then
+            ./.travis/build_docs.sh;
+          fi;
 
       - name: after_success
         run:  |

@@ -18,25 +18,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        allow_failures:
-          - TOX_ENV: "docs-linkcheck"
+        python: ["3.10"]
         include:
-          - TOX_ENV: lint
-            python: 3.6
-          - TOX_ENV: py27
-            python: 2.7
-          - TOX_ENV: py36
-            python: 3.6
-          - TOX_ENV: pypy
-            python: 3.6
+          - TOX_ENV: "lint"
+            python: "3.6"
+          - TOX_ENV: "py27"
+            python: "2.7"
+          - TOX_ENV: "py36"
+            python: "3.6"
           - TOX_ENV: docs
             python: 3.6
           - TOX_ENV: apidocs
-            python: 2.7
           - TOX_ENV: docs-spellcheck
-            python: 3.6
           - TOX_ENV: docs-linkcheck
-            python: 3.6
+        allow_failures:
+          - TOX_ENV: "docs-linkcheck"
 
     steps:
       - uses: actions/checkout@v3

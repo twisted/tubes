@@ -19,31 +19,23 @@ jobs:
       fail-fast: false
       matrix:
         allow_failures:
-          - env: "TOX_ENV=docs-linkcheck"
+          - TOX_ENV: "docs-linkcheck"
         include:
-          - env:
-              TOX_ENV: lint
+          - TOX_ENV: lint
             python: 3.6
-          - env:
-              TOX_ENV: py27
+          - TOX_ENV: py27
             python: 2.7
-          - env:
-              TOX_ENV: py36
+          - TOX_ENV: py36
             python: 3.6
-          - env:
-              TOX_ENV: pypy
+          - TOX_ENV: pypy
             python: 3.6
-          - env:
-              TOX_ENV: docs
+          - TOX_ENV: docs
             python: 3.6
-          - env:
-              TOX_ENV: apidocs
+          - TOX_ENV: apidocs
             python: 2.7
-          - env:
-              TOX_ENV: docs-spellcheck
+          - TOX_ENV: docs-spellcheck
             python: 3.6
-          - env:
-              TOX_ENV: docs-linkcheck
+          - TOX_ENV: docs-linkcheck
             python: 3.6
 
     steps:
@@ -57,9 +49,10 @@ jobs:
 
       - name: Tox Run
         run:  |
+          TOX_ENV="${{ matrix.TOX_ENV }}";
           echo "Starting: ${TOX_ENV} ${PUSH_DOCS}"
           if [[ -n "${TOX_ENV}" ]]; then
-            tox -e $TOX_ENV;
+            tox -e "$TOX_ENV";
           fi
           if [[ "$PUSH_DOCS" == "true" ]]; then
             ./.travis/build_docs.sh;

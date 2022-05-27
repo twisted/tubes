@@ -11,7 +11,7 @@ for example::
 """
 
 from twisted.python.reflect import namedAny
-from types import FunctionType, NoneType
+from types import FunctionType
 
 
 def make_api_link(name, rawtext, text, lineno, inliner,
@@ -40,7 +40,7 @@ def make_api_link(name, rawtext, text, lineno, inliner,
         consider = namedAny(full_name)
     except:
         consider = None
-    if isinstance(consider, (NoneType, FunctionType)):
+    if isinstance(consider, (type(None), FunctionType)):
         dot_path, fragment = full_name.rsplit(".", 1)
         if fragment:
             fragment = "#" + fragment

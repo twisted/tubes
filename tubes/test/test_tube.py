@@ -97,7 +97,7 @@ class SeriesTests(TestCase):
         """
 
         self.ff.flowTo(series(Starter(), self.fd))
-        self.assertEquals(self.fd.received, ["greeting"])
+        self.assertEqual(self.fd.received, ["greeting"])
 
 
     def test_startedFlowingToAnother(self):
@@ -221,14 +221,14 @@ class SeriesTests(TestCase):
                 yield "conclusion"
 
         self.ff.flowTo(series(Ender(), self.fd))
-        self.assertEquals(reasons, [])
-        self.assertEquals(self.fd.received, [])
+        self.assertEqual(reasons, [])
+        self.assertEqual(self.fd.received, [])
 
         stopReason = Failure(ZeroDivisionError())
 
         self.ff.drain.flowStopped(stopReason)
-        self.assertEquals(self.fd.received, ["conclusion"])
-        self.assertEquals(len(reasons), 1)
+        self.assertEqual(self.fd.received, ["conclusion"])
+        self.assertEqual(len(reasons), 1)
         self.assertIdentical(reasons[0].type, ZeroDivisionError)
 
         self.assertEqual(self.fd.stopped, [stopReason])
@@ -264,7 +264,7 @@ class SeriesTests(TestCase):
         self.ff.flowTo(diverter).flowTo(series(Switcher(), fakeDrain))
         self.ff.drain.receive("switch")
         self.ff.drain.receive("to switchee")
-        self.assertEquals(fakeDrain.received, ["switched to switchee"])
+        self.assertEqual(fakeDrain.received, ["switched to switchee"])
 
 
     def test_tubeDivertingReassembly(self):
@@ -467,7 +467,7 @@ class SeriesTests(TestCase):
         any other invocations of L{_SiphonFount.flowTo}.
         """
         siphonFount = self.ff.flowTo(self.siphonDrain)
-        self.assertEquals(siphonFount.drain, None)
+        self.assertEqual(siphonFount.drain, None)
         siphonFount.flowTo(None)
 
 
@@ -505,7 +505,7 @@ class SeriesTests(TestCase):
         ff.bufferUp("after")
         nf = ff.flowTo(firstDrain)
         nf.flowTo(fakeDrain)
-        self.assertEquals(self.fd.received, ["before", "switched after"])
+        self.assertEqual(self.fd.received, ["before", "switched after"])
 
 
     def test_tubeDiverting_LotsOfStuffAtOnce(self):
@@ -548,7 +548,7 @@ class SeriesTests(TestCase):
 
         self.ff.flowTo(firstDrain).flowTo(fakeDrain)
         self.ff.drain.receive(["before", "switch", "after"])
-        self.assertEquals(self.fd.received, ["before", "switched after"])
+        self.assertEqual(self.fd.received, ["before", "switched after"])
 
 
     def test_flowingFromFirst(self):
@@ -610,7 +610,7 @@ class SeriesTests(TestCase):
         """
         self.ff.flowTo(series(PassthruTube())).flowTo(self.fd)
         self.ff.drain.receive(7)
-        self.assertEquals(self.fd.received, [7])
+        self.assertEqual(self.fd.received, [7])
 
 
     def test_receiveCallsTubeReceived(self):
@@ -619,7 +619,7 @@ class SeriesTests(TestCase):
         tube.
         """
         self.siphonDrain.receive("one-item")
-        self.assertEquals(self.tube.allReceivedItems, ["one-item"])
+        self.assertEqual(self.tube.allReceivedItems, ["one-item"])
 
 
     def test_flowToWillNotResumeFlowPausedInFlowingFrom(self):
@@ -742,9 +742,9 @@ class SeriesTests(TestCase):
         fount.
         """
         self.ff.flowTo(series(self.siphonDrain, self.fd))
-        self.assertEquals(self.ff.flowIsStopped, False)
+        self.assertEqual(self.ff.flowIsStopped, False)
         self.fd.fount.stopFlow()
-        self.assertEquals(self.ff.flowIsStopped, True)
+        self.assertEqual(self.ff.flowIsStopped, True)
 
 
     def test_stopFlowInterruptsStarted(self):
@@ -813,7 +813,7 @@ class SeriesTests(TestCase):
         partially = series(self.siphonDrain, self.fd)
         self.fd.fount.stopFlow()
         self.ff.flowTo(partially)
-        self.assertEquals(self.ff.flowIsStopped, True)
+        self.assertEqual(self.ff.flowIsStopped, True)
 
 
     def test_stopFlowWhileStartingFlow(self):
@@ -897,9 +897,9 @@ class ErrorBehaviorTests(TestCase):
         siphonDrain = series(UnstartableTube(), fd)
         ff.flowTo(siphonDrain)
         errors = self.flushLoggedErrors(ZeroDivisionError)
-        self.assertEquals(len(errors), 1)
-        self.assertEquals(ff.flowIsStopped, True)
-        self.assertEquals(fd.stopped[0].type, ZeroDivisionError)
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(ff.flowIsStopped, True)
+        self.assertEqual(fd.stopped[0].type, ZeroDivisionError)
 
 
     def test_startedRaisesNoDrain(self):
@@ -917,8 +917,8 @@ class ErrorBehaviorTests(TestCase):
         siphonDrain = series(UnstartableTube())
         ff.flowTo(siphonDrain)
         errors = self.flushLoggedErrors(ZeroDivisionError)
-        self.assertEquals(len(errors), 1)
-        self.assertEquals(ff.flowIsStopped, True)
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(ff.flowIsStopped, True)
 
 
 

@@ -89,7 +89,7 @@ class RouterTests(TestCase):
         correctFount = FakeFount(Routed(IFakeInput))
         incorrectFount = FakeFount(Routed(IFakeOutput))
         self.assertRaises(TypeError, incorrectFount.flowTo, router.drain)
-        self.assertEquals(None, correctFount.flowTo(router.drain))
+        self.assertEqual(None, correctFount.flowTo(router.drain))
 
 
 

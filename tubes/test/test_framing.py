@@ -27,7 +27,7 @@ class NetstringTests(TestCase):
         fd = FakeDrain()
         ff.flowTo(series(bytesToNetstrings())).flowTo(fd)
         ff.drain.receive(b"hello")
-        self.assertEquals(
+        self.assertEqual(
             fd.received, [b"%(len)d:%(data)s," %
                           {b"len": len(b"hello"), b"data": b"hello"}]
         )
@@ -42,7 +42,7 @@ class NetstringTests(TestCase):
         ff.flowTo(series(bytesToNetstrings())).flowTo(fd)
         ff.drain.receive(b"hello")
         ff.drain.receive(b"world")
-        self.assertEquals(
+        self.assertEqual(
             b"".join(fd.received),
             b"%(len)d:%(data)s,%(len2)d:%(data2)s," % {
                 b"len": len(b"hello"), b"data": b"hello",
@@ -59,7 +59,7 @@ class NetstringTests(TestCase):
         fd = FakeDrain()
         ff.flowTo(series(netstringsToBytes())).flowTo(fd)
         ff.drain.receive(b"1:x,2:yz,3:")
-        self.assertEquals(fd.received, [b"x", b"yz"])
+        self.assertEqual(fd.received, [b"x", b"yz"])
 
 
 
@@ -77,7 +77,7 @@ class LineTests(TestCase):
             fd = FakeDrain()
             ff.flowTo(series(bytesToLines())).flowTo(fd)
             ff.drain.receive(newline.join([b"alpha", b"beta", b"gamma"]))
-            self.assertEquals(fd.received, [b"alpha", b"beta"])
+            self.assertEqual(fd.received, [b"alpha", b"beta"])
         splitALine(b"\n")
         splitALine(b"\r\n")
 
@@ -91,7 +91,7 @@ class LineTests(TestCase):
         ff.flowTo(series(linesToBytes())).flowTo(fd)
         ff.drain.receive(b"hello")
         ff.drain.receive(b"world")
-        self.assertEquals(b"".join(fd.received), b"hello\r\nworld\r\n")
+        self.assertEqual(b"".join(fd.received), b"hello\r\nworld\r\n")
 
 
     def test_rawMode(self):
@@ -125,7 +125,7 @@ class LineTests(TestCase):
         ff.drain.receive(b"hello\r\nworld\r\nswitch 10\r\nabcde\r\nfgh"
                          # + '\r\nagain\r\n'
                          )
-        self.assertEquals(b"".join(Switchee.datums), b"abcde\r\nfgh")
+        self.assertEqual(b"".join(Switchee.datums), b"abcde\r\nfgh")
 
 
     def test_switchingWithMoreDataToDeliver(self):
@@ -148,8 +148,8 @@ class LineTests(TestCase):
         cc = series(lines, Switcher())
         ff.flowTo(cc).flowTo(fd1)
         ff.drain.receive(b'something\r\nswitch\r\n7:hello\r\n,5:world,')
-        self.assertEquals(fd1.received, [b"something"])
-        self.assertEquals(fd2.received, [b'hello\r\n', b'world'])
+        self.assertEqual(fd1.received, [b"something"])
+        self.assertEqual(fd2.received, [b'hello\r\n', b'world'])
 
 
 
@@ -167,7 +167,7 @@ class PackedPrefixTests(TestCase):
         fd = FakeDrain()
         ff.flowTo(series(packed)).flowTo(fd)
         ff.drain.receive(b"\x0812345678\x02")
-        self.assertEquals(fd.received, [b"12345678"])
+        self.assertEqual(fd.received, [b"12345678"])
 
 
     def test_prefixOut(self):
@@ -181,4 +181,4 @@ class PackedPrefixTests(TestCase):
         ff.drain.receive(b'a')
         ff.drain.receive(b'bc')
         ff.drain.receive(b'def')
-        self.assertEquals(fd.received, [b'\x01a', b'\x02bc', b'\x03def'])
+        self.assertEqual(fd.received, [b'\x01a', b'\x02bc', b'\x03def'])

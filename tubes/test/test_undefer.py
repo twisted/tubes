@@ -43,7 +43,7 @@ class DeferredIntegrationTests(SynchronousTestCase):
         self.ff.flowTo(series(SucceedingTube(),
                               deferredToResult())).flowTo(fakeDrain)
         self.ff.drain.receive("hello")
-        self.assertEquals(self.fd.received, ["olleh"])
+        self.assertEqual(self.fd.received, ["olleh"])
 
 
     def test_tubeYieldsUnfiredDeferred(self):
@@ -63,11 +63,11 @@ class DeferredIntegrationTests(SynchronousTestCase):
         self.ff.flowTo(series(WaitingTube(),
                               deferredToResult())).flowTo(fakeDrain)
         self.ff.drain.receive("ignored")
-        self.assertEquals(self.fd.received, [])
+        self.assertEqual(self.fd.received, [])
 
         d.callback("hello")
 
-        self.assertEquals(self.fd.received, ["hello"])
+        self.assertEqual(self.fd.received, ["hello"])
 
 
     def test_tubeYieldsMultipleDeferreds(self):
@@ -90,11 +90,11 @@ class DeferredIntegrationTests(SynchronousTestCase):
         self.ff.flowTo(series(MultiDeferredTube(),
                               deferredToResult())).flowTo(fakeDrain)
         self.ff.drain.receive("ignored")
-        self.assertEquals(self.fd.received, [])
+        self.assertEqual(self.fd.received, [])
 
         d.callback("hello")
 
-        self.assertEquals(self.fd.received, ["hello", "goodbye"])
+        self.assertEqual(self.fd.received, ["hello", "goodbye"])
 
 
     def test_tubeYieldedDeferredFiresWhileFlowIsPaused(self):
@@ -118,10 +118,10 @@ class DeferredIntegrationTests(SynchronousTestCase):
         anPause = self.fd.fount.pauseFlow()
 
         d.callback("hello")
-        self.assertEquals(self.fd.received, [])
+        self.assertEqual(self.fd.received, [])
 
         anPause.unpause()
-        self.assertEquals(self.fd.received, ["hello"])
+        self.assertEqual(self.fd.received, ["hello"])
 
 
     def test_tubeStoppedDeferredly(self):
@@ -139,20 +139,20 @@ class DeferredIntegrationTests(SynchronousTestCase):
                 yield conclusion
 
         self.ff.flowTo(series(SlowEnder(), deferredToResult(), self.fd))
-        self.assertEquals(reasons, [])
-        self.assertEquals(self.fd.received, [])
+        self.assertEqual(reasons, [])
+        self.assertEqual(self.fd.received, [])
 
         stopReason = Failure(ZeroDivisionError())
 
         self.ff.drain.flowStopped(stopReason)
-        self.assertEquals(self.fd.received, [])
-        self.assertEquals(len(reasons), 1)
+        self.assertEqual(self.fd.received, [])
+        self.assertEqual(len(reasons), 1)
         self.assertIdentical(reasons[0].type, ZeroDivisionError)
         self.assertEqual(self.fd.stopped, [])
 
         conclusion.callback("conclusion")
         # Now it's really done.
-        self.assertEquals(self.fd.received, ["conclusion"])
+        self.assertEqual(self.fd.received, ["conclusion"])
         self.assertEqual(self.fd.stopped, [stopReason])
 
 

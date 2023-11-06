@@ -65,7 +65,7 @@ pydoctor_args = [
     # TODO: not sure why I have to specify these all twice.
 
     f"--config={_project_root}/.pydoctor.cfg",
-    f"--html-viewsource-base=https://github.com/glyph/tubes/tree/{_git_reference}",
+    f"--html-viewsource-base=https://github.com/twisted/tubes/tree/{_git_reference}",
     f"--project-base-dir={_source_root}",
     "--html-output={outdir}/api",
     "--privacy=HIDDEN:tubes.test.*",

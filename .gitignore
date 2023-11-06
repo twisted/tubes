@@ -6,3 +6,4 @@ twisted.system
 zope.interface.system
 apidocs/
 *.egg-info
+_trial_temp*

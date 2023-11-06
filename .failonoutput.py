@@ -1,4 +1,4 @@
-#/usr/bin/env python2
+#/usr/bin/env python3
 
 """
 Report output in real time and then fail if there was any.

@@ -31,8 +31,11 @@ jobs:
           - TOX_ENV: docs
             python: "3.11"
           - TOX_ENV: apidocs
+            python: "3.11"
           - TOX_ENV: docs-spellcheck
+            python: "3.11"
           - TOX_ENV: docs-linkcheck
+            python: "3.11"
         allow_failures:
           - TOX_ENV: "docs-linkcheck"
 

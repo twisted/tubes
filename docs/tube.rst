@@ -44,7 +44,7 @@ Let's look at the full example that turns ``echo`` into a real server.
 To *use* ``echo`` as a server, first we have to tell Tubes that it's a :py:func:`drain <tubes.itube.IDrain>` that wants :py:func:`flow <tubes.listening.Flow>`\ s.
 We do this by wrapping it in a :py:func:`Listener <tubes.listening.Listener>`\ .
 
-Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it, and see the results as output.
+Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://docs.twistedmatrix.com/en/stable/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it, and see the results as output.
 
 Next, we need to convert this endpoint into a :py:func:`fount <tubes.itube.IFount>` with an ``outputType`` of :py:func:`Flow <tubes.listening.Flow>`.
 To do this, we use the aptly named :py:func:`flowFountFromEndpoint <tubes.protocol.flowFountFromEndpoint>`.

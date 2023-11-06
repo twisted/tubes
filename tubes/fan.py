@@ -432,7 +432,7 @@ class Thru(proxyForInterface(IDrain, "_outDrain")):
         <tubes.itube.ITube>}, or drains that behave like that, such as L{Thru}
         itself.
 
-        @param drain: an iterable of L{IDrain}
+        @param drains: an iterable of L{IDrain}
         """
         self._in = In()
         self._out = Out()

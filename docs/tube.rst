@@ -5,7 +5,7 @@ An Introduction to Tubes
 What Are Tubes?
 ---------------
 
-The :api:`tubes <tubes>` package provides composable flow-control and data processing.
+The :py:mod:`tubes <tubes>` package provides composable flow-control and data processing.
 
 Flow-control is control over the source, destination, and rate of data being processed.
 Tubes implements this in a type-agnostic way, meaning that a set of rules for controlling the flow of data can control that flow regardless of the type of that data, from raw streams of bytes to application-specific messages and back again.
@@ -30,9 +30,9 @@ Here's a function which uses interfaces defined by ``tubes`` to send its input s
 .. literalinclude:: listings/echoflow.py
     :pyobject: echo
 
-In the above example, ``echo`` requires a :api:`tubes.listening.Flow <flow>` as an argument.
+In the above example, ``echo`` requires a :py:class:`flow <tubes.listening.Flow>` as an argument.
 A ``Flow`` represents the connection that we just received: a stream of inbound data, which we call a fount, and a stream of outbound data, which we call a drain.
-As such, it has 2 attributes: ``.fount``, which is a :api:`tubes.itube.IFount <fount>`, or a source of data, and ``.drain``, which is a :api:`tubes.itube.IDrain <drain>` , or a place where data eventually goes.
+As such, it has 2 attributes: ``.fount``, which is a :py:class:`fount <tubes.itube.IFount>`, or a source of data, and ``.drain``, which is a :py:class:`drain <tubes.itube.IDrain>` , or a place where data eventually goes.
 This object is called a "flow", because it establishes a flow of data from one place to and from another.
 
 Let's look at the full example that turns ``echo`` into a real server.
@@ -41,13 +41,13 @@ Let's look at the full example that turns ``echo`` into a real server.
 
 .. literalinclude:: listings/echoflow.py
 
-To *use* ``echo`` as a server, first we have to tell Tubes that it's a :api:`tubes.itube.IDrain <drain>` that wants :api:`tubes.listening.Flow <flow>`\ s.
-We do this by wrapping it in a :api:`tubes.listening.Listener <Listener>`\ .
+To *use* ``echo`` as a server, first we have to tell Tubes that it's a :py:func:`drain <tubes.itube.IDrain>` that wants :py:func:`flow <tubes.listening.Flow>`\ s.
+We do this by wrapping it in a :py:func:`Listener <tubes.listening.Listener>`\ .
 
-Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://twistedmatrix.com/documents/current/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it, and see the results as output.
+Next, we need to actually listen on a port: we do this with Twisted's `"endpoints" API <https://docs.twistedmatrix.com/en/stable/core/howto/endpoints.html>`_ ; specifically, we use ``serverFromString`` on the string ``"stdio:"`` by default, which treats the console as an incoming connection so we can type directly into it, and see the results as output.
 
-Next, we need to convert this endpoint into a :api:`tubes.itube.IFount <fount>` with an ``outputType`` of :api:`tubes.listening.Flow <Flow>`.
-To do this, we use the aptly named :api:`tubes.protocol.flowFountFromEndpoint <flowFountFromEndpoint>`.
+Next, we need to convert this endpoint into a :py:func:`fount <tubes.itube.IFount>` with an ``outputType`` of :py:func:`Flow <tubes.listening.Flow>`.
+To do this, we use the aptly named :py:func:`flowFountFromEndpoint <tubes.protocol.flowFountFromEndpoint>`.
 
 Finally, we connect the listening socket with our application via ``flowFount.flowTo(listener)``\ .
 
@@ -108,9 +108,9 @@ A Brief Aside About Types
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Each fount, and each drain, have a type associated with them: in the fount's case, the type of data it produces, and in the drain's case, the type of data that it accepts.
-You can inspect these using the :api:`tubes.itube.IFount.outputType <outputType>` and :api:`tubes.itube.IDrain.inputType <inputType>` attributes of founts and drains respectively.
-Even in our tiny example, we already have two types of founts: a fount of ``bytes`` — one for each connection — and a fount of :api:`tubes.listening.Flow <flow>`\ s — the listening port).
-We have a drain for ``bytes``, also on each connection, and a drain for :api:`tubes.listening.Flow <flow>`\ s: the :api:`tubes.listening.Listener <listener>` wrapped around ``echo``\ .
+You can inspect these using the :py:func:`outputType <tubes.itube.IFount.outputType>` and :py:func:`inputType <tubes.itube.IDrain.inputType>` attributes of founts and drains respectively.
+Even in our tiny example, we already have two types of founts: a fount of ``bytes`` — one for each connection — and a fount of :py:func:`flow <tubes.listening.Flow>`\ s — the listening port).
+We have a drain for ``bytes``, also on each connection, and a drain for :py:func:`flow <tubes.listening.Flow>`\ s: the :py:func:`listener <tubes.listening.Listener>` wrapped around ``echo``\ .
 
 Attempting to hook up a fount and a drain of mismatched types should result in an immediate ``TypeError``, which is a helpful debugging tool.
 (However, it's the responsibility of the specific fount and drain implementation, and those which have an ``inputType`` or ``outputType`` of ``None`` will not be checked, so you can't rely on this *always* happening.)
@@ -125,7 +125,7 @@ This immediately raises the question: how do we tell when we have received a who
 The previous echo example didn't care because it would just emit whatever bytes were sent to it, regardless of whether it had received a whole message or not.
 (It just so happens that your terminal only sends the bytes when you hit the "enter" key.)
 We can't just split up the incoming data with ``bytes.split`` because we might receive one line, part of a line, or multiple lines in one network message.
-Luckily Tubes implements this for us, with the handy :api:`tubes.framing` module (so called because it puts "frames" around chunks of bytes, and you can distinguish one chunk from the next).
+Luckily Tubes implements this for us, with the handy :py:func:`tubes.framing` module (so called because it puts "frames" around chunks of bytes, and you can distinguish one chunk from the next).
 
 .. note::
 
@@ -133,20 +133,20 @@ Luckily Tubes implements this for us, with the handy :api:`tubes.framing` module
     For example, a line-delimited message obviously cannot include a newline, and if you try to transmit one that does, you may get a garbled data stream.
     The main advantage of a line-separated protocol is that it works well for interactive examples, since a human being can type lines into a terminal.
     For example, it works well for documentation :-).
-    However, if you're designing your own network protocol, please consider using a length-prefixed framing mechanism, such as :api:`tubes.framing.netstringsToBytes <netstrings>`.
+    However, if you're designing your own network protocol, please consider using a length-prefixed framing mechanism, such as :py:func:`netstrings <tubes.framing.netstringsToBytes>`.
 
 Much like in the echo example, we need a function which accepts a ``flow`` which sets up the flow of data from a fount to a drain on an individual connection.
 
 .. literalinclude:: listings/reversetube.py
    :pyobject: reverseFlow
 
-In this function, we create a new type of object, a *series of Tubes*, created by the :api:`tubes.tube.series <series>` function.
+In this function, we create a new type of object, a *series of Tubes*, created by the :py:func:`series <tubes.tube.series>` function.
 You can read the construction of the ``lineReverser`` series as a flow of data from left to right.
 The output from each tube in the series is passed as the input to the tube to its right.
 
 We are expecting a stream of bytes as our input, because that's the only thing that ever comes in from a network.
-Therefore the first element in the series, :api:`tubes.framing.bytesToLines <bytesToLines>`, as its name implies, converts the stream of bytes into a sequence of lines.
-The next element in the series, ``Reverser``, reverses its inputs, which, being the output of :api:`tubes.framing.bytesToLines <bytesToLines>`, are lines.
+Therefore the first element in the series, :py:func:`bytesToLines <tubes.framing.bytesToLines>`, as its name implies, converts the stream of bytes into a sequence of lines.
+The next element in the series, ``Reverser``, reverses its inputs, which, being the output of :py:func:`bytesToLines <tubes.framing.bytesToLines>`, are lines.
 
 ``Reverser`` is implemented like so:
 
@@ -172,8 +172,8 @@ Interacting with it should look like this:
     *
     14
 
-In order to implement this program, you will construct a *series* of objects which process the data; specifically, you will create a :api:`tubes.tube.series <series>` of :api:`tubes.itube.ITube <Tube>`\s.
-Each :api:`tubes.itube.ITube <Tube>` in the :api:`tubes.tube.series` will be responsible for processing part of the data.
+In order to implement this program, you will construct a *series* of objects which process the data; specifically, you will create a :py:func:`series <tubes.tube.series>` of :py:func:`Tube <tubes.itube.ITube>`\s.
+Each :py:func:`Tube <tubes.itube.ITube>` in the :py:func:`tubes.tube.series` will be responsible for processing part of the data.
 
 Lets get started with just the core component that will actually perform calculations.
 
@@ -187,7 +187,7 @@ Now let's look at the full flow which will pass inputs to a ``Calculator`` and r
 .. literalinclude:: listings/rpn.py
    :pyobject: calculatorSeries
 
-The first tube in this series, provided by the :api:`tubes.framing` module, transforms a stream of bytes into lines.
+The first tube in this series, provided by the :py:func:`tubes.framing` module, transforms a stream of bytes into lines.
 Then, ``linesToNumbersOrOperators`` - which you'll write in a moment - should transform lines into a combination of numbers and operators (functions that perform the work of the ``"+"`` and ``"*"`` commands), then from numbers and operators into more numbers - sums and products - from those integers into lines, and finally from those lines into newline-terminated segments of data that are sent back out.
 A ``CalculatingTube`` should pass those numbers and operators to a ``Calculator``, and produce numbers as output.
 ``numbersToLines`` should convert the output numbers into byte strings, and ``linesToBytes`` performs the inverse of ``bytesToLines`` by appending newlines to those outputs.
@@ -197,9 +197,9 @@ Let's look at ``linesToNumbersOrOperators``.
 .. literalinclude:: listings/rpn.py
    :pyobject: linesToNumbersOrOperators
 
-:api:`tubes.itube.ITube.received` takes an input and produces an iterable of outputs.
+:py:func:`tubes.itube.ITube.received` takes an input and produces an iterable of outputs.
 A tube's input is the output of the tube preceding it in the series.
-In this case, ``linesToNumbersOrOperators`` receives the output of :api:`tubes.framing.bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
+In this case, ``linesToNumbersOrOperators`` receives the output of :py:func:`tubes.framing.bytesToLines`, which outputs sequences of bytes (without a trailing line separator).
 Given the specification for the RPN calculator's input above, those lines may contain ASCII integers (like ``b"123"``) or ASCII characters representing arithmetic operations (``b"+"`` or ``b"*"``).
 ``linesToNumbersOrOperators`` output falls into two categories: each line containing decimal numbers results in an integer output, and each operator character is represented by a python function object that can perform that operation.
 
@@ -234,8 +234,8 @@ For this, we use the aforementioned ``bytesToLines`` tube, which appends newline
 Tubes Versus Protocols
 ======================
 
-If you've used Twisted before, you may notice that half of the line-splitting above is exactly what :api:`twisted.protocols.basic.LineReceiver <LineReceiver>` does, and that there are lots of related classes that can do similar things for other message types.
-The other half is handled by `producers and consumers <https://twistedmatrix.com/documents/current/core/howto/producers.html>`_.
+If you've used Twisted before, you may notice that half of the line-splitting above is exactly what :py:func:`LineReceiver <twisted.protocols.basic.LineReceiver>` does, and that there are lots of related classes that can do similar things for other message types.
+The other half is handled by `producers and consumers <https://docs.twistedmatrix.com/en/stable/core/howto/producers.html>`_.
 ``tubes`` is a *newer*  interface than those things, and you will find it somewhat improved.
 If you're writing new code, you should generally prefer to use ``tubes``.
 

@@ -235,7 +235,7 @@ Tubes Versus Protocols
 ======================
 
 If you've used Twisted before, you may notice that half of the line-splitting above is exactly what :py:func:`LineReceiver <twisted.protocols.basic.LineReceiver>` does, and that there are lots of related classes that can do similar things for other message types.
-The other half is handled by `producers and consumers <https://twistedmatrix.com/documents/current/core/howto/producers.html>`_.
+The other half is handled by `producers and consumers <https://docs.twistedmatrix.com/en/stable/core/howto/producers.html>`_.
 ``tubes`` is a *newer*  interface than those things, and you will find it somewhat improved.
 If you're writing new code, you should generally prefer to use ``tubes``.
 

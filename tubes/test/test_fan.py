@@ -86,8 +86,8 @@ class FanOutTests(SynchronousTestCase):
         fountB.flowTo(fdB)
         ff.drain.receive("foo")
 
-        self.assertEquals(fdA.received, ["foo"])
-        self.assertEquals(fdB.received, ["foo"])
+        self.assertEqual(fdA.received, ["foo"])
+        self.assertEqual(fdB.received, ["foo"])
 
 
     def test_fanReceivesBeforeFountsHaveDrains(self):
@@ -106,7 +106,7 @@ class FanOutTests(SynchronousTestCase):
         ff.drain.receive("foo")
 
         fount.flowTo(fd)
-        self.assertEquals(fd.received, [])
+        self.assertEqual(fd.received, [])
 
 
     def test_pausingOneOutFountPausesUpstreamFount(self):
@@ -121,7 +121,7 @@ class FanOutTests(SynchronousTestCase):
         ff.flowTo(out.drain)
 
         fount.pauseFlow()
-        self.assertEquals(ff.flowIsPaused, 1)
+        self.assertEqual(ff.flowIsPaused, 1)
 
 
     def test_oneFountPausesInReceive(self):

@@ -18,19 +18,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: ["3.11"]
+        python: ["3.8", "3.11", "3.12"]
         include:
           - TOX_ENV: "lint"
             python: "3.11"
           - TOX_ENV: "py38"
             python: "3.8"
           - TOX_ENV: "py312"
+            python: "3.12"
+          - TOX_ENV: "py311"
             python: "3.11"
           - TOX_ENV: docs
             python: "3.11"
           - TOX_ENV: apidocs
+            python: "3.11"
           - TOX_ENV: docs-spellcheck
+            python: "3.11"
           - TOX_ENV: docs-linkcheck
+            python: "3.11"
         allow_failures:
           - TOX_ENV: "docs-linkcheck"
 

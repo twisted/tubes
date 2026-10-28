@@ -21,3 +21,7 @@ Presently based primarily on Twisted, its core data structures are fairly
 framework-agnostic and could be repurposed to work with any event-driven
 container.
 
+AI Policy
+---------
+
+Tubes follows the `Twisted AI Policy <https://docs.twisted.org/en/latest/development/ai-policy.html>`_. This means this project does not allow the inclusion of the outputs of generative AI tools.
